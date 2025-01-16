@@ -256,9 +256,9 @@ tile.nuclearcraft.salt_fission_heater.desc=Когда соленое охлаж�
 tile.nuclearcraft.salt_fission_moderator.name=Корпус модератора реактора на расплавах солей
 tile.nuclearcraft.salt_fission_moderator.desc=Увеличивает эффективность смежных активных сосудов.
 tile.nuclearcraft.salt_fission_distributor.name=Распределитель расплавленного солевого топлива
-tile.nuclearcraft.salt_fission_distributor.desc=Помещенный в стенку реактора - будет распространять топливо на все сосуды.
+tile.nuclearcraft.salt_fission_distributor.desc=Помещённый в стенку реактора - будет распространять топливо на все сосуды.
 tile.nuclearcraft.salt_fission_retriever.name=Извлекатель регенератора топлива из расплавленной соли
-tile.nuclearcraft.salt_fission_retriever.desc=Помещенный в стенку реактора - будет потреблять истощенное топливо со всех сосудов.
+tile.nuclearcraft.salt_fission_retriever.desc=Помещённый в стенку реактора - будет потреблять истощенное топливо со всех сосудов.
 tile.nuclearcraft.salt_fission_redstone_port.name=Редстоуна порт реактора расплавленной соли
 tile.nuclearcraft.salt_fission_redstone_port.desc=Используется для включения и выключения реактора. Уровень тепла реактора можно считать с помощью компаратора из этого блока.
 
@@ -1689,7 +1689,7 @@ item.nuclearcraft.reactor_door_item.name=Дверь реактора
 item.nuclearcraft.lithium_ion_cell.name=Литий-ионная ячейка
 
 item.nuclearcraft.geiger_counter.name=Счётчик Гейгера
-item.nuclearcraft.geiger_counter.desc=Обнаруживает радиацию и информирует игрока о его количестве. Можно будет выключить в горячей панели.
+item.nuclearcraft.geiger_counter.desc=Обнаруживает радиацию и информирует игрока о её количестве. Можно будет выключить в горячей панели.
 item.nuclearcraft.geiger_counter.rads=Радиация:
 
 item.nuclearcraft.rad_shielding.light.name=Легкое радиационное экранирование
@@ -2379,7 +2379,7 @@ advancement.nuclearcraft.electrolyser.desc=Создайте электролиз
 advancement.nuclearcraft.decay_generator.name=Альфа мощность
 advancement.nuclearcraft.decay_generator.desc=Создайте генератор рапсада
 
-advancement.nuclearcraft.bin.name=Г-н Дилкингтон
+advancement.nuclearcraft.bin.name=В никуда
 advancement.nuclearcraft.bin.desc=Создайте универсальную корзину
 
 advancement.nuclearcraft.portable_ender_chest.name=Мэри Поппинс
@@ -2415,7 +2415,7 @@ advancement.nuclearcraft.irradiator.desc=Создайте нейтронный �
 advancement.nuclearcraft.solar_panel_basic.name=Экологичность
 advancement.nuclearcraft.solar_panel_basic.desc=Создайте базовую солнечную панель
 
-advancement.nuclearcraft.rtg_uranium.name=Теплый зеленый свет
+advancement.nuclearcraft.rtg_uranium.name=Тёплый зелёный свет
 advancement.nuclearcraft.rtg_uranium.desc=Создайте урановый РИТЭГ
 
 advancement.nuclearcraft.infuser.name=Впитывание
@@ -2439,6 +2439,9 @@ advancement.nuclearcraft.dissolver.desc=Создайте жидкостный о
 advancement.nuclearcraft.nuclear_furnace.name=Кухонный кошмар
 advancement.nuclearcraft.nuclear_furnace.desc=Создайте ядерную печь
 
+advancement.nuclearcraft.rock_crusher.name=Движение — жизнь
+advancement.nuclearcraft.rock_crusher.desc=Создайте камнедробилку
+
 advancement.nuclearcraft.neptunium.name=Сладкий Нептун
 advancement.nuclearcraft.neptunium.desc=Получите немного нептуния
 
@@ -2454,7 +2457,7 @@ advancement.nuclearcraft.salt_mixer.desc=Создайте солевой мик�
 advancement.nuclearcraft.crystallizer.name=Во все тяжкие
 advancement.nuclearcraft.crystallizer.desc=Создайте кристаллизатор
 
-advancement.nuclearcraft.plutonium.name=Критичность
+advancement.nuclearcraft.plutonium.name=Мирный атом
 advancement.nuclearcraft.plutonium.desc=Получите немного плутония
 
 advancement.nuclearcraft.rtg_americium.name=Радиационная энергия
@@ -2469,47 +2472,47 @@ advancement.nuclearcraft.americium.desc=Получите немного амер
 advancement.nuclearcraft.rtg_californium.name=Конец линии
 advancement.nuclearcraft.rtg_californium.desc=Создайте калифорниевый РИТЭГ
 
-advancement.nuclearcraft.curium.name=Любопытная Мари
+advancement.nuclearcraft.curium.name=Любопытная Мария
 advancement.nuclearcraft.curium.desc=Получите немного кюрия
 
 advancement.nuclearcraft.berkelium.name=Сделано в Аламеде
 advancement.nuclearcraft.berkelium.desc=Получите немного беркелия
 
-advancement.nuclearcraft.californium.name=Калифорния сон
+advancement.nuclearcraft.californium.name=Мечты о Калифорнии
 advancement.nuclearcraft.californium.desc=Получите немного беркелия калифорния
 
-advancement.nuclearcraft.salt_fission_controller.name=Ядерное Оружие Следующего Поколения
-advancement.nuclearcraft.salt_fission_controller.desc=Создание Контроллера Деления Расплавленной Соли
+advancement.nuclearcraft.salt_fission_controller.name=Ядерная энергетика следующего поколения
+advancement.nuclearcraft.salt_fission_controller.desc=Создайте контроллер деления расплавленной соли
 
-advancement.nuclearcraft.heat_exchanger_controller.name=Тепловой Контакт
-advancement.nuclearcraft.heat_exchanger_controller.desc=Создание Контроллера Теплообменника
+advancement.nuclearcraft.heat_exchanger_controller.name=Тепловой контакт
+advancement.nuclearcraft.heat_exchanger_controller.desc=Создайте контроллер теплообменника
 
-advancement.nuclearcraft.turbine_controller.name=Уважая Ренкина
-advancement.nuclearcraft.turbine_controller.desc=Создание Регулятора Паровой Турбины
+advancement.nuclearcraft.turbine_controller.name=Давайте без экспериментов
+advancement.nuclearcraft.turbine_controller.desc=Создайте регулятор паровой турбины
 
 advancement.nuclearcraft.geiger_counter.name=Зов Припяти
 advancement.nuclearcraft.geiger_counter.desc=Создайте счётчик Гейгера
 
-advancement.nuclearcraft.radaway.name=Избавление от Радов
-advancement.nuclearcraft.radaway.desc=Создание некоторого RadAway
+advancement.nuclearcraft.radaway.name=Избавление от радов
+advancement.nuclearcraft.radaway.desc=Создайте RadAway
 
-advancement.nuclearcraft.rad_x.name=Имитационный Иммунитет
-advancement.nuclearcraft.rad_x.desc=Сделать Rad-X
+advancement.nuclearcraft.rad_x.name=Имитационный иммунитет
+advancement.nuclearcraft.rad_x.desc=Сделайте Rad-X
 
 advancement.nuclearcraft.rad_shielding.name=Храбрый Сэр Робин
-advancement.nuclearcraft.rad_shielding.desc=Создайте некоторую Тяжёлую Радиационную Защиту
+advancement.nuclearcraft.rad_shielding.desc=Создайте некоторую тяжёлую радиационную защиту
 
-advancement.nuclearcraft.radiation_scrubber.name=Контроль Загрязнения
-advancement.nuclearcraft.radiation_scrubber.desc=Создание Радиационного Скруббера
+advancement.nuclearcraft.radiation_scrubber.name=Ликвидатор
+advancement.nuclearcraft.radiation_scrubber.desc=Создайте радиационный газопромыватель
 
 advancement.nuclearcraft.marshmallow.name=Маневер Lansdell'а
-advancement.nuclearcraft.marshmallow.desc=Создание Зефира
+advancement.nuclearcraft.marshmallow.desc=Создайте зефира
 
-advancement.nuclearcraft.smore.name=Собраться у Костра
-advancement.nuclearcraft.smore.desc=Создание Большого грэм крекера
+advancement.nuclearcraft.smore.name=Собраться у костра
+advancement.nuclearcraft.smore.desc=Создайте Большого грэм крекера
 
 advancement.nuclearcraft.moresmore.name=Вкусняшка же
-advancement.nuclearcraft.moresmore.desc=Создание Двойного большого грэм крекера
+advancement.nuclearcraft.moresmore.desc=Создайте Двойного большого грэм крекера
 
 block.fusion_run=Запуск термоядерного реактора
 block.accelerator_run=Запуск ускорителя
@@ -2527,11 +2530,11 @@ material.uranium.name=Уран
 material.magnesium.name=Магний
 material.chocolate.name=Шоколад
 
-message.nuclearcraft.rad_x_wore_off=Ваш Рад-X выветрился...
+message.nuclearcraft.rad_x_wore_off=Ваш Rad-X выветрился...
 message.nuclearcraft.scrubber_removal_rate=Скорость удаления радиации:
 
 death.attack.superfluid_freeze=%1$s был конденсирован Бозе-Эйнштейном
-death.attack.plasma_burn=%1$s был испепелен плазмой
+death.attack.plasma_burn=%1$s был испепелён плазмой
 death.attack.steam_burn=%1$s было бы лучше в чайнике
 death.attack.molten_burn=%1$s отправился в ад, но не вернулся
 death.attack.hot_coolant_burn=%1$s охладился в неправильном времени и месте
@@ -2574,17 +2577,17 @@ tile.nuclearcraft.ingot_block.manganese.name=Марганцевый блок
 tile.nuclearcraft.ingot_block.aluminum.name=Алюминиевый блок
 tile.nuclearcraft.ingot_block.silver.name=Серебряный блок
 
-item.nuclearcraft.ingot.manganese.name=Марганцевый Слиток
-item.nuclearcraft.ingot.aluminum.name=Алюминиевый Слиток
-item.nuclearcraft.ingot.silver.name=Серебряный Слиток
-item.nuclearcraft.alloy.hsla_steel.name=HSLA стальной Слиток
+item.nuclearcraft.ingot.manganese.name=Марганцевый слиток
+item.nuclearcraft.ingot.aluminum.name=Алюминиевый слиток
+item.nuclearcraft.ingot.silver.name=Серебряный слиток
+item.nuclearcraft.alloy.hsla_steel.name=HSLA стальной слиток
 
-item.nuclearcraft.dust.manganese.name=Марганцевая Пыль
-item.nuclearcraft.dust.aluminum.name=Алюминиевая Пыль
-item.nuclearcraft.dust.silver.name=Серебряная Пыль
+item.nuclearcraft.dust.manganese.name=Марганцевая пыль
+item.nuclearcraft.dust.aluminum.name=Алюминиевая пыль
+item.nuclearcraft.dust.silver.name=Серебряная пыль
 
-item.nuclearcraft.compound.c_mn_blend.name=Смесь Углерода и Марганца
-item.nuclearcraft.compound.alugentum.name=Пыль Алюгентума
+item.nuclearcraft.compound.c_mn_blend.name=Смесь углерода и марганца
+item.nuclearcraft.compound.alugentum.name=Пыль алюгентума
 
 tile.nuclearcraft.turbine_rotor_shaft.name=Вал ротора турбины
 tile.nuclearcraft.turbine_rotor_blade_steel.name=Стальное лезвие ротора турбины
@@ -2595,7 +2598,7 @@ tile.nuclearcraft.turbine_rotor_blade_expansion.fixd=Коэффицент рас
 tile.nuclearcraft.turbine_rotor_blade.desc=Используется для преобразования энергии потока жидкости в энергию вращения вала турбины. Коэффициент расширения больше единицы, поэтому объем потока жидкости будет увеличиваться каждый раз, когда он проходит через него.
 tile.nuclearcraft.turbine_rotor_stator.name=Статор ротора турбины
 tile.nuclearcraft.turbine_rotor_stator_expansion.fixd=Коэффицент расширения: %s
-tile.nuclearcraft.turbine_rotor_stator.desc=Используется для увеличения плотности потока жидкости, что позволяет повысить эффективность работы турбины за счет противодействия перерасходу, генерируемый лопастями ротора.
+tile.nuclearcraft.turbine_rotor_stator.desc=Используется для увеличения плотности потока жидкости, что позволяет повысить эффективность работы турбины за счёт противодействия перерасходу, генерируемый лопастями ротора.
 tile.nuclearcraft.turbine_rotor_bearing.name=Подшипник ротора турбины
 tile.nuclearcraft.turbine_dynamo_coil.magnesium.name=Магниевая катушка турбины
 tile.nuclearcraft.turbine_dynamo_coil.magnesium.desc=Должна касаться по крайней мере одного блока подшипников ротора.
