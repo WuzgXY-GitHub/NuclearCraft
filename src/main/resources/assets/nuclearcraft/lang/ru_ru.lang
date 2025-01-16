@@ -17,7 +17,7 @@ tile.nuclearcraft.ingot_block.lithium.name=Литиевый блок
 tile.nuclearcraft.ingot_block.magnesium.name=Магниевый блок
 tile.nuclearcraft.ingot_block.graphite.name=Графитовый блок
 tile.nuclearcraft.ingot_block.graphite.desc=Графит считается активным только при касании хотя бы одной ячейки реактора. Активный графит повышает эффективность реактора, но также даёт некоторую дополнительную теплоту. Для каждого графитового блока дополнительная генерируемая мощность равна %s, а дополнительное тепло генерируется равным %s.
-tile.nuclearcraft.ingot_block.beryllium.name=Бериллиевая руда
+tile.nuclearcraft.ingot_block.beryllium.name=Бериллиевый блок
 tile.nuclearcraft.ingot_block.beryllium.desc=Бериллий считается активным только при касании хотя бы одной реакторной клетки. Активный бериллий повышает эффективность реактора, но также даёт некоторую дополнительную теплоту. Для каждого блока бериллий дополнительная генерируемая мощность равна %s, а дополнительное выделяемое тепло равно %s.
 tile.nuclearcraft.ingot_block.zirconium.name=Циркониевый блок
 
