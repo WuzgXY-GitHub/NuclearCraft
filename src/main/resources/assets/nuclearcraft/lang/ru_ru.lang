@@ -2011,13 +2011,13 @@ item.nuclearcraft.depleted_fuel_plutonium.hep_241_ni.name=Таблетка об�
 item.nuclearcraft.depleted_fuel_plutonium.hep_241_za.name=Таблетка обеднённого циркониевого топлива HEP-241
 
 item.nuclearcraft.depleted_fuel_mixed.mix_239_tr.name=Обеднённая топливная галька MTRISO-239
-item.nuclearcraft.depleted_fuel_mixed.mix_239_ox.name=Обеднённая Таблетка смешанного топлива MOX-239
-item.nuclearcraft.depleted_fuel_mixed.mix_239_ni.name=Обеднённая Таблетка смешанного топлива MNI-239
-item.nuclearcraft.depleted_fuel_mixed.mix_239_za.name=Обеднённая Таблетка смешанного топлива MZA-239
+item.nuclearcraft.depleted_fuel_mixed.mix_239_ox.name=Обеднённая таблетка смешанного топлива MOX-239
+item.nuclearcraft.depleted_fuel_mixed.mix_239_ni.name=Обеднённая таблетка смешанного топлива MNI-239
+item.nuclearcraft.depleted_fuel_mixed.mix_239_za.name=Обеднённая таблетка смешанного топлива MZA-239
 item.nuclearcraft.depleted_fuel_mixed.mix_241_tr.name=Обеднённая топливная галька MTRISO-241
-item.nuclearcraft.depleted_fuel_mixed.mix_241_ox.name=Обеднённая Таблетка смешанного топлива MOX-241
-item.nuclearcraft.depleted_fuel_mixed.mix_241_ni.name=Обеднённая Таблетка смешанного топлива MNI-241
-item.nuclearcraft.depleted_fuel_mixed.mix_241_za.name=Обеднённая Таблетка смешанного топлива MZA-241
+item.nuclearcraft.depleted_fuel_mixed.mix_241_ox.name=Обеднённая таблетка смешанного топлива MOX-241
+item.nuclearcraft.depleted_fuel_mixed.mix_241_ni.name=Обеднённая таблетка смешанного топлива MNI-241
+item.nuclearcraft.depleted_fuel_mixed.mix_241_za.name=Обеднённая таблетка смешанного топлива MZA-241
 
 item.nuclearcraft.depleted_fuel_americium.lea_242_tr.name=Обеднённая топливная галька LEA-242
 item.nuclearcraft.depleted_fuel_americium.lea_242_ox.name=Таблетка обеднённого оксидного топлива LEA-242
@@ -2997,8 +2997,8 @@ nc.block.fluid_toggle_opposite=Переключить противоположн
 
 nc.block.salt_heater_fluid_side.default=ПО УМОЛЧАНИЮ
 nc.block.salt_heater_fluid_side.disabled=ОТКЛЮЧЕНО
-nc.block.salt_heater_fluid_side.hot_coolant_out=ВЫХОД ГОРЯЧЕГО ХЛАДОГЕНТА
-nc.block.salt_heater_fluid_side.coolant_spread=РАСПРОСТРАНЕНИЕ ХЛАДОГЕНТА
+nc.block.salt_heater_fluid_side.hot_coolant_out=ВЫХОД ГОРЯЧЕГО ХЛАДАГЕНТА
+nc.block.salt_heater_fluid_side.coolant_spread=РАСПРОСТРАНЕНИЕ ХЛАДАГЕНТА
 
 nc.block.salt_vessel_fluid_side.default=ПО УМОЛЧАНИЮ
 nc.block.salt_vessel_fluid_side.disabled=ОТКЛЮЧЕНО
@@ -3369,7 +3369,7 @@ advancement.nuclearcraft.rad_shielding.desc=Соберите парочку тя
 advancement.nuclearcraft.radiation_scrubber.name=Ликвидатор
 advancement.nuclearcraft.radiation_scrubber.desc=Создайте радиационный газопромыватель
 
-advancement.nuclearcraft.marshmallow.name=Маневр Лэнсделл'а
+advancement.nuclearcraft.marshmallow.name=Манёвр Лэнсделл'а
 advancement.nuclearcraft.marshmallow.desc=Приготовьте зефир
 
 advancement.nuclearcraft.smore.name=Собраться у костра
