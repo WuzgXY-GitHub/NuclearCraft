@@ -10,7 +10,7 @@ import net.minecraft.util.math.BlockPos;
  * A general purpose class to track the state of all 6 faces of a block
  * Example usages: - track which faces are exposed on the outside walls of a complex structure - track which faces is connected to a face of a similar block
  */
-public final class BlockFacing {
+public class BlockFacing {
 	
 	public static final BlockFacing NONE, ALL, DOWN, UP, NORTH, SOUTH, WEST, EAST;
 	

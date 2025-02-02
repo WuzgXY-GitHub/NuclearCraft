@@ -56,8 +56,8 @@ public abstract class GSBasicRecipeRegistry extends VirtualizedRegistry<BasicRec
 	protected void removeRecipeWithInputInternal(Object... inputs) {
 		BasicRecipeHandler recipeHandler = getRecipeHandler();
 		List<Object> inputList = Arrays.asList(inputs);
-		List<IItemIngredient> itemIngredients = StreamHelper.map(inputList.subList(0, recipeHandler.itemInputLastIndex), GSHelper::buildRemovalItemIngredient);
-		List<IFluidIngredient> fluidIngredients = StreamHelper.map(inputList.subList(recipeHandler.itemInputLastIndex, recipeHandler.fluidInputLastIndex), GSHelper::buildRemovalFluidIngredient);
+		List<IItemIngredient> itemIngredients = StreamHelper.map(inputList.subList(0, recipeHandler.itemInputSize), GSHelper::buildRemovalItemIngredient);
+		List<IFluidIngredient> fluidIngredients = StreamHelper.map(inputList.subList(recipeHandler.itemInputSize, recipeHandler.itemInputSize + recipeHandler.fluidInputSize), GSHelper::buildRemovalFluidIngredient);
 		BasicRecipe recipe = recipeHandler.getRecipeFromIngredients(itemIngredients, fluidIngredients);
 		while (recipeHandler.removeRecipe(recipe)) {
 			addBackup(recipe);
@@ -69,8 +69,8 @@ public abstract class GSBasicRecipeRegistry extends VirtualizedRegistry<BasicRec
 	protected void removeRecipeWithOutputInternal(Object... outputs) {
 		BasicRecipeHandler recipeHandler = getRecipeHandler();
 		List<Object> outputList = Arrays.asList(outputs);
-		List<IItemIngredient> itemProducts = StreamHelper.map(outputList.subList(0, recipeHandler.itemOutputLastIndex), GSHelper::buildRemovalItemIngredient);
-		List<IFluidIngredient> fluidProducts = StreamHelper.map(outputList.subList(recipeHandler.itemOutputLastIndex, recipeHandler.fluidOutputLastIndex), GSHelper::buildRemovalFluidIngredient);
+		List<IItemIngredient> itemProducts = StreamHelper.map(outputList.subList(0, recipeHandler.itemOutputSize), GSHelper::buildRemovalItemIngredient);
+		List<IFluidIngredient> fluidProducts = StreamHelper.map(outputList.subList(recipeHandler.itemOutputSize, recipeHandler.itemOutputSize + recipeHandler.fluidOutputSize), GSHelper::buildRemovalFluidIngredient);
 		BasicRecipe recipe = recipeHandler.getRecipeFromProducts(itemProducts, fluidProducts);
 		while (recipeHandler.removeRecipe(recipe)) {
 			addBackup(recipe);

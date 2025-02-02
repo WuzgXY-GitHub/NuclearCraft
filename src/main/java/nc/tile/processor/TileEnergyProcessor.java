@@ -109,6 +109,9 @@ public abstract class TileEnergyProcessor<TILE extends TileEnergyProcessor<TILE,
 	public void update() {
 		if (!world.isRemote) {
 			onTick();
+			if (info.isGenerator) {
+				pushEnergy();
+			}
 		}
 	}
 	
@@ -273,14 +276,14 @@ public abstract class TileEnergyProcessor<TILE extends TileEnergyProcessor<TILE,
 		if (time <= resetTime) {
 			long processEnergy = getProcessEnergy(), maxEnergy = getMaxEnergyModified();
 			if (processEnergy >= maxEnergy) {
-				return getEnergyStored() >= maxEnergy;
+				return getEnergyStoredLong() >= maxEnergy;
 			}
 			else {
-				return getEnergyStored() >= processEnergy;
+				return getEnergyStoredLong() >= processEnergy;
 			}
 		}
 		else {
-			return getEnergyStored() >= getProcessPower();
+			return getEnergyStoredLong() >= getProcessPower();
 		}
 	}
 	
@@ -300,7 +303,7 @@ public abstract class TileEnergyProcessor<TILE extends TileEnergyProcessor<TILE,
 	
 	@Override
 	public int getSourceTier() {
-		return 1;
+		return info.isGenerator ? EnergyHelper.getEUTier(getProcessPower()) : 1;
 	}
 	
 	// ITileInventory
@@ -346,8 +349,8 @@ public abstract class TileEnergyProcessor<TILE extends TileEnergyProcessor<TILE,
 	
 	@Override
 	public boolean onUseMultitool(ItemStack multitool, EntityPlayerMP player, World world, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		NBTTagCompound nbt = NBTHelper.getStackNBT(multitool, "ncMultitool");
-		if (nbt != null) {
+		NBTTagCompound nbt;
+		if (info.machineConfigGuiX >= 0 && info.machineConfigGuiY >= 0 && info.redstoneControlGuiX >= 0 && info.redstoneControlGuiY >= 0 && (nbt = NBTHelper.getStackNBT(multitool, "ncMultitool")) != null) {
 			String displayName = getTileBlockDisplayName();
 			if (player.isSneaking()) {
 				NBTTagCompound config = new NBTTagCompound();
@@ -422,49 +425,49 @@ public abstract class TileEnergyProcessor<TILE extends TileEnergyProcessor<TILE,
 		return getContainerInfo().ocComponentName;
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getIsProcessing(Context context, Arguments args) {
 		return new Object[] {getIsProcessing()};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getCurrentTime(Context context, Arguments args) {
 		return new Object[] {getCurrentTime()};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getBaseProcessTime(Context context, Arguments args) {
 		return new Object[] {getBaseProcessTime()};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getBaseProcessPower(Context context, Arguments args) {
 		return new Object[] {getBaseProcessPower()};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getItemInputs(Context context, Arguments args) {
 		return new Object[] {OCHelper.stackInfoArray(getItemInputs(false))};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getFluidInputs(Context context, Arguments args) {
 		return new Object[] {OCHelper.tankInfoArray(getFluidInputs(false))};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getItemOutputs(Context context, Arguments args) {
 		return new Object[] {OCHelper.stackInfoArray(getItemOutputs())};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getFluidOutputs(Context context, Arguments args) {
 		return new Object[] {OCHelper.tankInfoArray(getFluidOutputs())};

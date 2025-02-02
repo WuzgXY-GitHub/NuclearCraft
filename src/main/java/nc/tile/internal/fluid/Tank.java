@@ -50,7 +50,7 @@ public class Tank extends FluidTank {
 			this.fluid = null;
 			return;
 		}
-		this.fluid = new FluidStack(fluidIn, Math.min(amount, capacity));
+		this.fluid = new FluidStack(fluidIn, Math.min(amount, getCapacity()));
 	}
 	
 	public void changeFluidAmount(int amount) {
@@ -59,7 +59,7 @@ public class Tank extends FluidTank {
 			fluid = null;
 			return;
 		}
-		fluid = new FluidStack(fluid, Math.min(amount, capacity));
+		fluid = new FluidStack(fluid, Math.min(amount, getCapacity()));
 	}
 	
 	public void setFluidStored(FluidStack stack) {
@@ -67,8 +67,8 @@ public class Tank extends FluidTank {
 			fluid = null;
 			return;
 		}
-		if (stack.amount > capacity) {
-			stack.amount = capacity;
+		if (stack.amount > getCapacity()) {
+			stack.amount = getCapacity();
 		}
 		fluid = stack;
 	}
@@ -90,11 +90,20 @@ public class Tank extends FluidTank {
 	 * Ignores fluid amount!
 	 */
 	public void setTankCapacity(int newCapacity) {
-		capacity = Math.max(0, newCapacity);
+		setCapacity(Math.max(0, newCapacity));
+	}
+	
+	public void clampTankAmount() {
+		if (isFull()) {
+			setFluidAmount(getCapacity());
+		}
+		if (getFluidAmount() <= 0) {
+			fluid = null;
+		}
 	}
 	
 	public boolean isFull() {
-		return getFluidAmount() >= capacity;
+		return getFluidAmount() >= getCapacity();
 	}
 	
 	public boolean isEmpty() {
@@ -109,7 +118,7 @@ public class Tank extends FluidTank {
 			return;
 		}
 		setFluidAmount(getFluidAmount() + other.getFluidAmount());
-		setTankCapacity(capacity + other.capacity);
+		setTankCapacity(getCapacity() + other.getCapacity());
 		other.setFluidStored(null);
 	}
 	
@@ -125,11 +134,15 @@ public class Tank extends FluidTank {
 		return fluid == null ? "" : fluid.getLocalizedName();
 	}
 	
+	public double getFluidAmountFraction() {
+		return (double) getFluidAmount() / (double) getCapacity();
+	}
+	
 	// NBT
 	
 	public final NBTTagCompound writeToNBT(NBTTagCompound nbt, String name) {
 		NBTTagCompound tag = new NBTTagCompound();
-		tag.setInteger("capacity", capacity);
+		tag.setInteger("capacity", getCapacity());
 		writeToNBT(tag);
 		nbt.setTag(name, tag);
 		return nbt;

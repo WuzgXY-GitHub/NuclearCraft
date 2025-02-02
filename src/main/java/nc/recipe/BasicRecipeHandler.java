@@ -32,7 +32,7 @@ public abstract class BasicRecipeHandler extends AbstractRecipeHandler<BasicReci
 	
 	public final int itemInputLastIndex, fluidInputLastIndex, itemOutputLastIndex, fluidOutputLastIndex;
 	
-	public List<Set<String>> validFluids = null;
+	public final List<Set<String>> validFluids = new ArrayList<>();
 	
 	public BasicRecipeHandler(@Nonnull String name, int itemInputSize, int fluidInputSize, int itemOutputSize, int fluidOutputSize) {
 		this(name, itemInputSize, fluidInputSize, itemOutputSize, fluidOutputSize, true);
@@ -60,6 +60,29 @@ public abstract class BasicRecipeHandler extends AbstractRecipeHandler<BasicReci
 	
 	public BasicRecipe newRecipe(List<IItemIngredient> itemIngredients, List<IFluidIngredient> fluidIngredients, List<IItemIngredient> itemProducts, List<IFluidIngredient> fluidProducts, List<Object> extras, boolean shapeless) {
 		return new BasicRecipe(itemIngredients, fluidIngredients, itemProducts, fluidProducts, extras, shapeless);
+	}
+	
+	@Override
+	public boolean isValidRecipe(BasicRecipe recipe) {
+		if (itemInputSize + fluidInputSize == 0 || itemOutputSize + fluidOutputSize == 0) {
+			return true;
+		}
+		
+		for (List<? extends IIngredient<?>> ingredientList : Arrays.asList(recipe.getItemIngredients(), recipe.getFluidIngredients(), recipe.getItemProducts(), recipe.getFluidProducts())) {
+			for (IIngredient<?> ingredient : ingredientList) {
+				if (!ingredient.isEmpty()) {
+					return true;
+				}
+			}
+		}
+		
+		for (Object extra : recipe.getExtras()) {
+			if (extra instanceof IIngredient<?> ingredient && !ingredient.isEmpty()) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	public void addGTCERecipes() {
@@ -216,57 +239,63 @@ public abstract class BasicRecipeHandler extends AbstractRecipeHandler<BasicReci
 		return buildRecipe(itemInputs, fluidInputs, itemOutputs, fluidOutputs, extras, isShapeless);
 	}
 	
+	protected static <T, V extends IIngredient<T>> V buildIngredientInternal(Object obj, Predicate<Object> isValidType, Function<Object, V> buildIngredient) {
+		if (obj != null && isValidType.test(obj)) {
+			V ingredient = buildIngredient.apply(obj);
+			if (ingredient != null) {
+				return ingredient;
+			}
+		}
+		return null;
+	}
+	
+	protected static IItemIngredient buildItemInputIngredientInternal(Object obj) {
+		return buildIngredientInternal(obj, AbstractRecipeHandler::isValidItemInputType, RecipeHelper::buildItemIngredient);
+	}
+	
+	protected static IFluidIngredient buildFluidInputIngredientInternal(Object obj) {
+		return buildIngredientInternal(obj, AbstractRecipeHandler::isValidFluidInputType, RecipeHelper::buildFluidIngredient);
+	}
+	
+	protected static IItemIngredient buildItemOutputIngredientInternal(Object obj) {
+		return buildIngredientInternal(obj, AbstractRecipeHandler::isValidItemOutputType, RecipeHelper::buildItemIngredient);
+	}
+	
+	protected static IFluidIngredient buildFluidOutputIngredientInternal(Object obj) {
+		return buildIngredientInternal(obj, AbstractRecipeHandler::isValidFluidOutputType, RecipeHelper::buildFluidIngredient);
+	}
+	
 	@Nullable
 	public BasicRecipe buildRecipe(List<?> itemInputs, List<?> fluidInputs, List<?> itemOutputs, List<?> fluidOutputs, List<Object> extras, boolean shapeless) {
 		List<IItemIngredient> itemIngredients = new ArrayList<>(), itemProducts = new ArrayList<>();
 		List<IFluidIngredient> fluidIngredients = new ArrayList<>(), fluidProducts = new ArrayList<>();
 		for (Object obj : itemInputs) {
-			if (obj != null && isValidItemInputType(obj)) {
-				IItemIngredient input = RecipeHelper.buildItemIngredient(obj);
-				if (input == null) {
-					return null;
-				}
-				itemIngredients.add(input);
-			}
-			else {
+			IItemIngredient input = buildItemInputIngredientInternal(obj);
+			if (input == null) {
 				return null;
 			}
+			itemIngredients.add(input);
 		}
 		for (Object obj : fluidInputs) {
-			if (obj != null && isValidFluidInputType(obj)) {
-				IFluidIngredient input = RecipeHelper.buildFluidIngredient(obj);
-				if (input == null) {
-					return null;
-				}
-				fluidIngredients.add(input);
-			}
-			else {
+			IFluidIngredient input = buildFluidInputIngredientInternal(obj);
+			if (input == null) {
 				return null;
 			}
+			fluidIngredients.add(input);
 		}
 		for (Object obj : itemOutputs) {
-			if (obj != null && isValidItemOutputType(obj)) {
-				IItemIngredient output = RecipeHelper.buildItemIngredient(obj);
-				if (output == null) {
-					return null;
-				}
-				itemProducts.add(output);
-			}
-			else {
+			IItemIngredient output = buildItemOutputIngredientInternal(obj);
+			if (output == null) {
 				return null;
 			}
+			itemProducts.add(output);
 		}
 		for (Object obj : fluidOutputs) {
-			if (obj != null && isValidFluidOutputType(obj)) {
-				IFluidIngredient output = RecipeHelper.buildFluidIngredient(obj);
-				if (output == null) {
-					return null;
-				}
-				fluidProducts.add(output);
-			}
-			else {
+			IFluidIngredient output = buildFluidOutputIngredientInternal(obj);
+			if (output == null) {
 				return null;
 			}
+			fluidProducts.add(output);
 		}
 		if (!isValidRecipe(itemIngredients, fluidIngredients, itemProducts, fluidProducts)) {
 			NCUtil.getLogger().info(name + " - a recipe failed to be registered: " + RecipeHelper.getRecipeString(itemIngredients, fluidIngredients, itemProducts, fluidProducts));
@@ -343,17 +372,19 @@ public abstract class BasicRecipeHandler extends AbstractRecipeHandler<BasicReci
 		CraftTweakerAPI.apply(new CTRemoveAllRecipes(this));
 	}
 	
+	@ZenMethod(value = "resetAllRecipes")
+	@Optional.Method(modid = "crafttweaker")
+	public void ctResetAllRecipes() {
+		CraftTweakerAPI.apply(new CTResetAllRecipes(this));
+	}
+	
 	protected void setValidFluids() {
-		validFluids = RecipeHelper.validFluids(this);
+		validFluids.clear();
+		validFluids.addAll(RecipeHelper.validFluids(this));
 	}
 	
 	public void postInit() {
 		super.postInit();
-		setValidFluids();
-	}
-	
-	public void onReload() {
-		super.onReload();
 		setValidFluids();
 	}
 	

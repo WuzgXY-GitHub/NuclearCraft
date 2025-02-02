@@ -43,7 +43,7 @@ public class ConArmMaterials extends ArmorMaterials {
 	
 	private static void addArmorMaterial(String materialName, double durability, double fullSetProtection, double toughness, double modifier) {
 		Material material = TinkerRegistry.getMaterial(materialName);
-		if (material == Material.UNKNOWN) {
+		if (material.equals(Material.UNKNOWN)) {
 			return;
 		}
 		
@@ -68,7 +68,7 @@ public class ConArmMaterials extends ArmorMaterials {
 	
 	private static void addArmorTraits(String materialName, ITrait[] coreTraits, ITrait[] extraTraits) {
 		Material material = TinkerRegistry.getMaterial(materialName);
-		if (material == Material.UNKNOWN) {
+		if (material.equals(Material.UNKNOWN)) {
 			return;
 		}
 		

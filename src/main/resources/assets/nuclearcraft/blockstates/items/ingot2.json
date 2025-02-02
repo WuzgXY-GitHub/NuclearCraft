@@ -1,0 +1,46 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "builtin/generated",
+		"transform": "forge:default-item"
+	},
+	"variants": {
+		"type": {
+			"zirconia": {
+				"textures": {
+					"layer0": "nuclearcraft:items/ingot/zirconia"
+				}
+			},
+			"palladium": {
+				"textures": {
+					"layer0": "nuclearcraft:items/ingot/palladium"
+				}
+			},
+			"tin_oxide": {
+				"textures": {
+					"layer0": "nuclearcraft:items/ingot/tin_oxide"
+				}
+			},
+			"nickel_oxide": {
+				"textures": {
+					"layer0": "nuclearcraft:items/ingot/nickel_oxide"
+				}
+			},
+			"cobalt_oxide": {
+				"textures": {
+					"layer0": "nuclearcraft:items/ingot/cobalt_oxide"
+				}
+			},
+			"ruthenium_oxide": {
+				"textures": {
+					"layer0": "nuclearcraft:items/ingot/ruthenium_oxide"
+				}
+			},
+			"iridium_oxide": {
+				"textures": {
+					"layer0": "nuclearcraft:items/ingot/iridium_oxide"
+				}
+			}
+		}
+	}
+}

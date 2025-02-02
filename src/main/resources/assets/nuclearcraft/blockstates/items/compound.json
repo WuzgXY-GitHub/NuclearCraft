@@ -65,6 +65,36 @@
 				"textures": {
 					"layer0": "nuclearcraft:items/compound/alugentum"
 				}
+			},
+			"ammonium_sulfate": {
+				"textures": {
+					"layer0": "nuclearcraft:items/compound/ammonium_sulfate"
+				}
+			},
+			"ammonium_bisulfate": {
+				"textures": {
+					"layer0": "nuclearcraft:items/compound/ammonium_bisulfate"
+				}
+			},
+			"ammonium_persulfate": {
+				"textures": {
+					"layer0": "nuclearcraft:items/compound/ammonium_persulfate"
+				}
+			},
+			"hydroquinone": {
+				"textures": {
+					"layer0": "nuclearcraft:items/compound/hydroquinone"
+				}
+			},
+			"sodium_hydroquinone": {
+				"textures": {
+					"layer0": "nuclearcraft:items/compound/sodium_hydroquinone"
+				}
+			},
+			"potassium_hydroquinone": {
+				"textures": {
+					"layer0": "nuclearcraft:items/compound/potassium_hydroquinone"
+				}
 			}
 		}
 	}

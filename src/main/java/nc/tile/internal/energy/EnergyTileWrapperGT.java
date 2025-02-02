@@ -23,10 +23,10 @@ public class EnergyTileWrapperGT implements IEnergyContainer {
 	@Override
 	@Optional.Method(modid = "gregtech")
 	public long acceptEnergyFromNetwork(EnumFacing sideIn, long voltage, long amperage) {
-		if (tile.getEnergyStored() >= tile.getMaxEnergyStored() || !tile.canReceiveEnergy(sideIn)) {
+		if (tile.getEnergyStoredLong() >= tile.getMaxEnergyStoredLong() || !tile.canReceiveEnergy(sideIn)) {
 			return 0L;
 		}
-		long amperesAccepted = Math.min(1L + MathHelper.floor((tile.getMaxEnergyStored() - tile.getEnergyStored()) / (double) rf_per_eu) / voltage, Math.min(amperage, getInputAmperage()));
+		long amperesAccepted = Math.min(1L + MathHelper.floor((tile.getMaxEnergyStoredLong() - tile.getEnergyStoredLong()) / (double) rf_per_eu) / voltage, Math.min(amperage, getInputAmperage()));
 		tile.getEnergyStorage().changeEnergyStored(NCMath.toInt(voltage * amperesAccepted * rf_per_eu));
 		return amperesAccepted;
 	}
@@ -54,25 +54,25 @@ public class EnergyTileWrapperGT implements IEnergyContainer {
 	@Override
 	@Optional.Method(modid = "gregtech")
 	public long getEnergyStored() {
-		return tile.getEnergyStored() / rf_per_eu;
+		return tile.getEnergyStoredLong() / rf_per_eu;
 	}
 	
 	@Override
 	@Optional.Method(modid = "gregtech")
 	public long getEnergyCapacity() {
-		return tile.getMaxEnergyStored() / rf_per_eu;
+		return tile.getMaxEnergyStoredLong() / rf_per_eu;
 	}
 	
 	@Override
 	@Optional.Method(modid = "gregtech")
 	public long getInputAmperage() {
-		return tile.getEnergyStored() < tile.getMaxEnergyStored() ? 1L : 0L;
+		return tile.getEnergyStoredLong() < tile.getMaxEnergyStoredLong() ? 1L : 0L;
 	}
 	
 	@Override
 	@Optional.Method(modid = "gregtech")
 	public long getOutputAmperage() {
-		return tile.getEnergyStored() / rf_per_eu < 1 ? 0L : 1L;
+		return tile.getEnergyStoredLong() / rf_per_eu < 1 ? 0L : 1L;
 	}
 	
 	@Override

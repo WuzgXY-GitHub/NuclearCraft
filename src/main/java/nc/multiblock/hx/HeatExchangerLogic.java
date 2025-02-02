@@ -7,9 +7,12 @@ import nc.network.multiblock.HeatExchangerUpdatePacket;
 import nc.tile.hx.*;
 import nc.tile.multiblock.TilePartAbstract.SyncReason;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static nc.config.NCConfig.*;
 
@@ -26,10 +29,6 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
 	@Override
 	public String getID() {
 		return "heat_exchanger";
-	}
-	
-	protected HeatExchanger getExchanger() {
-		return multiblock;
 	}
 	
 	// Multiblock Size Limits
@@ -57,17 +56,14 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
 	}
 	
 	protected void onExchangerFormed() {
-		getExchanger().setIsHeatExchangerOn();
+		for (IHeatExchangerController<?> contr : getParts(IHeatExchangerController.class)) {
+			multiblock.controller = contr;
+			break;
+		}
 		
 		if (!getWorld().isRemote) {
-			/*for (TileHeatExchangerTube tube : tubes) {
-				tube.updateFlowDir();
-			}
-			for (TileCondenserTube condenserTube : condenserTubes) {
-				condenserTube.updateAdjacentTemperatures();
-			}*/
-			
-			getExchanger().updateHeatExchangerStats();
+			updateHeatExchangerStats();
+			setIsHeatExchangerOn();
 		}
 	}
 	
@@ -82,11 +78,11 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
 	}
 	
 	public void onExchangerBroken() {
-		getExchanger().isHeatExchangerOn = false;
-		if (getExchanger().controller != null) {
-			getExchanger().controller.setActivity(false);
+		multiblock.isHeatExchangerOn = false;
+		if (multiblock.controller != null) {
+			multiblock.controller.setActivity(false);
 		}
-		getExchanger().fractionOfTubesActive = getExchanger().efficiency = getExchanger().maxEfficiency = 0D;
+		multiblock.fractionOfTubesActive = multiblock.efficiency = multiblock.maxEfficiency = 0D;
 	}
 	
 	@Override
@@ -118,7 +114,58 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
 	
 	@Override
 	public boolean onUpdateServer() {
-		return false;
+		boolean flag = true;
+		updateHeatExchangerStats();
+		if (multiblock.controller != null) {
+			multiblock.sendMultiblockUpdatePacketToListeners();
+		}
+		return flag;
+	}
+	
+	public void setIsHeatExchangerOn() {
+		boolean oldIsHeatExchangerOn = multiblock.isHeatExchangerOn;
+		multiblock.isHeatExchangerOn = (isRedstonePowered() || multiblock.computerActivated) && multiblock.isAssembled();
+		if (multiblock.isHeatExchangerOn != oldIsHeatExchangerOn) {
+			if (multiblock.controller != null) {
+				multiblock.controller.setActivity(multiblock.isHeatExchangerOn);
+				multiblock.sendMultiblockUpdatePacketToAll();
+			}
+		}
+	}
+	
+	protected boolean isRedstonePowered() {
+		return Stream.concat(Stream.of(multiblock.controller), getParts(TileHeatExchangerRedstonePort.class).stream()).anyMatch(x -> x != null && x.checkIsRedstonePowered(getWorld(), x.getTilePos()));
+	}
+	
+	protected void updateHeatExchangerStats() {
+		int totalTubeCount = getPartCount(TileHeatExchangerTube.class) + getPartCount(TileCondenserTube.class);
+		if (totalTubeCount < 1) {
+			multiblock.fractionOfTubesActive = multiblock.efficiency = multiblock.maxEfficiency = 0D;
+			return;
+		}
+		int activeCount = 0, efficiencyCount = 0, maxEfficiencyCount = 0;
+		
+		/*for (TileHeatExchangerTube tube : tubes) {
+			int[] eff = tube.checkPosition();
+			if (eff[0] > 0) {
+				++activeCount;
+			}
+			efficiencyCount += eff[0];
+			maxEfficiencyCount += eff[1];
+		}
+		
+		for (TileCondenserTube condenserTube : condenserTubes) {
+			int eff = condenserTube.checkPosition();
+			if (eff > 0) {
+				++activeCount;
+			}
+			efficiencyCount += eff;
+			maxEfficiencyCount += eff;
+		}*/
+		
+		multiblock.fractionOfTubesActive = (double) activeCount / totalTubeCount;
+		multiblock.efficiency = activeCount == 0 ? 0D : (double) efficiencyCount / activeCount;
+		multiblock.maxEfficiency = (double) maxEfficiencyCount / totalTubeCount;
 	}
 	
 	// Client
@@ -130,35 +177,38 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
 	
 	@Override
 	public void writeToLogicTag(NBTTagCompound data, SyncReason syncReason) {
-		// TODO Auto-generated method stub
-		
+	
 	}
 	
 	@Override
 	public void readFromLogicTag(NBTTagCompound data, SyncReason syncReason) {
-		// TODO Auto-generated method stub
-		
+	
 	}
 	
 	// Packets
 	
 	@Override
 	public HeatExchangerUpdatePacket getMultiblockUpdatePacket() {
-		// TODO Auto-generated method stub
-		return null;
+		return new HeatExchangerUpdatePacket(multiblock.controller.getTilePos(), multiblock.isHeatExchangerOn, multiblock.fractionOfTubesActive, multiblock.efficiency, multiblock.maxEfficiency);
 	}
 	
 	@Override
 	public void onMultiblockUpdatePacket(HeatExchangerUpdatePacket message) {
-		// TODO Auto-generated method stub
-		
+		multiblock.isHeatExchangerOn = message.isHeatExchangerOn;
+		multiblock.fractionOfTubesActive = message.fractionOfTubesActive;
+		multiblock.efficiency = message.efficiency;
+		multiblock.maxEfficiency = message.maxEfficiency;
+	}
+	
+	// Multiblock Validators
+	
+	@Override
+	public boolean isBlockGoodForInterior(World world, BlockPos pos) {
+		return true;
 	}
 	
 	// Clear Material
 	
 	@Override
-	public void clearAllMaterial() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void clearAllMaterial() {}
 }

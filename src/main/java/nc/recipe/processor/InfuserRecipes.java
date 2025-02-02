@@ -28,8 +28,15 @@ public class InfuserRecipes extends BasicProcessorRecipeHandler {
 		addOxidizingRecipe("dustManganese", BUCKET_VOLUME);
 		addRecipe("ingotManganeseOxide", fluidStack("oxygen", BUCKET_VOLUME), "ingotManganeseDioxide", 1D, 1D);
 		addRecipe("dustManganeseOxide", fluidStack("oxygen", BUCKET_VOLUME), "dustManganeseDioxide", 1D, 1D);
+		addRecipe("ingotZirconium", fluidStack("oxygen", BUCKET_VOLUME), "ingotZirconia", 1D, 1D);
+		addRecipe("dustZirconium", fluidStack("oxygen", BUCKET_VOLUME), "dustZirconia", 1D, 1D);
+		addOxidizingRecipe("ingotTin", BUCKET_VOLUME);
+		addOxidizingRecipe("ingotNickel", BUCKET_VOLUME);
+		addOxidizingRecipe("ingotCobalt", BUCKET_VOLUME);
+		addOxidizingRecipe("ingotRuthenium", BUCKET_VOLUME);
+		addOxidizingRecipe("ingotIridium", BUCKET_VOLUME);
 		
-		addRecipe(Lists.newArrayList(Blocks.ICE, Blocks.PACKED_ICE), fluidStack("liquid_helium", 50), NCBlocks.supercold_ice, 0.2D, 0.5D);
+		addRecipe(Lists.newArrayList(Blocks.ICE, Blocks.PACKED_ICE), fluidStack("liquid_helium", 50), NCBlocks.supercold_ice, 0.25D, 0.5D);
 		
 		addRecipe(new ItemStack(NCBlocks.fission_heater_port, 1, 0), fluidStack("liquid_nitrogen", BUCKET_VOLUME), new ItemStack(NCBlocks.fission_heater_port2, 1, 12), 1D, 1D);
 		addRecipe(new ItemStack(NCBlocks.fission_heater_port, 1, 0), fluidStack("liquid_helium", BUCKET_VOLUME), new ItemStack(NCBlocks.fission_heater_port2, 1, 13), 1D, 1D);

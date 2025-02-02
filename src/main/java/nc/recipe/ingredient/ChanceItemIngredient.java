@@ -34,6 +34,11 @@ public class ChanceItemIngredient implements IChanceItemIngredient {
 	}
 	
 	@Override
+	public void init() {
+		ingredient.init();
+	}
+	
+	@Override
 	public ItemStack getStack() {
 		return ingredient.getStack();
 	}
@@ -119,6 +124,11 @@ public class ChanceItemIngredient implements IChanceItemIngredient {
 	@Override
 	public boolean isValid() {
 		return ingredient.isValid();
+	}
+	
+	@Override
+	public boolean isEmpty() {
+		return ingredient.isEmpty();
 	}
 	
 	// IChanceItemIngredient

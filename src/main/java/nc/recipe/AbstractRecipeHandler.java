@@ -79,8 +79,10 @@ public abstract class AbstractRecipeHandler<RECIPE extends IRecipe> {
 		return null;
 	}
 	
+	public abstract boolean isValidRecipe(RECIPE recipe);
+	
 	public boolean addRecipe(RECIPE recipe) {
-		return recipe != null && recipeList.add(recipe);
+		return recipe != null && isValidRecipe(recipe) && recipeList.add(recipe);
 	}
 	
 	public boolean removeRecipe(RECIPE recipe) {
@@ -90,6 +92,13 @@ public abstract class AbstractRecipeHandler<RECIPE extends IRecipe> {
 	public void removeAllRecipes() {
 		recipeList.clear();
 		recipeCache.clear();
+	}
+	
+	public void resetAllRecipes() {
+		removeAllRecipes();
+		addRecipes();
+		init();
+		onReload();
 	}
 	
 	protected void initRecipeIngredients() {
@@ -110,7 +119,7 @@ public abstract class AbstractRecipeHandler<RECIPE extends IRecipe> {
 	}
 	
 	public void onReload() {
-		initRecipeIngredients();
+		postInit();
 		refreshCache();
 	}
 	

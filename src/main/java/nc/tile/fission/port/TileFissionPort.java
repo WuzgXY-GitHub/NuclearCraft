@@ -31,17 +31,15 @@ public abstract class TileFissionPort<PORT extends TileFissionPort<PORT, TARGET>
 	}
 	
 	@Override
-	public void onMachineAssembled(FissionReactor controller) {
-		doStandardNullControllerResponse(controller);
-		super.onMachineAssembled(controller);
-		if (!getWorld().isRemote && getPartPosition().getFacing() != null) {
-			getWorld().setBlockState(getPos(), getWorld().getBlockState(getPos()).withProperty(AXIS_ALL, getPartPosition().getFacing().getAxis()), 2);
+	public void onMachineAssembled(FissionReactor multiblock) {
+		doStandardNullControllerResponse(multiblock);
+		super.onMachineAssembled(multiblock);
+		if (!world.isRemote) {
+			EnumFacing posFacing = getPartPosition().getFacing();
+			if (posFacing != null) {
+				world.setBlockState(pos, world.getBlockState(pos).withProperty(AXIS_ALL, posFacing.getAxis()), 2);
+			}
 		}
-	}
-	
-	@Override
-	public void onMachineBroken() {
-		super.onMachineBroken();
 	}
 	
 	@Override
@@ -76,7 +74,8 @@ public abstract class TileFissionPort<PORT extends TileFissionPort<PORT, TARGET>
 	
 	@Override
 	public void refreshMasterPort() {
-		masterPort = getMultiblock() == null ? null : getMultiblock().getPartMap(portClass).get(masterPortPos.toLong());
+		FissionReactor multiblock = getMultiblock();
+		masterPort = multiblock == null ? null : multiblock.getPartMap(portClass).get(masterPortPos.toLong());
 		if (masterPort == null) {
 			masterPortPos = DEFAULT_NON;
 		}

@@ -53,6 +53,11 @@ public class NCPackets {
 		
 		wrapper.registerMessage(EnergyProcessorUpdatePacket.Handler.class, EnergyProcessorUpdatePacket.class, nextID(), Side.CLIENT);
 		
+		wrapper.registerMessage(ElectrolyzerUpdatePacket.Handler.class, ElectrolyzerUpdatePacket.class, nextID(), Side.CLIENT);
+		wrapper.registerMessage(ElectrolyzerRenderPacket.Handler.class, ElectrolyzerRenderPacket.class, nextID(), Side.CLIENT);
+		wrapper.registerMessage(DistillerUpdatePacket.Handler.class, DistillerUpdatePacket.class, nextID(), Side.CLIENT);
+		wrapper.registerMessage(DistillerUpdatePacket.Handler.class, DistillerUpdatePacket.class, nextID(), Side.CLIENT);
+		
 		wrapper.registerMessage(ItemPortUpdatePacket.Handler.class, ItemPortUpdatePacket.class, nextID(), Side.CLIENT);
 		wrapper.registerMessage(FluidPortUpdatePacket.Handler.class, FluidPortUpdatePacket.class, nextID(), Side.CLIENT);
 		
@@ -62,9 +67,12 @@ public class NCPackets {
 		wrapper.registerMessage(SaltFissionUpdatePacket.Handler.class, SaltFissionUpdatePacket.class, nextID(), Side.CLIENT);
 		wrapper.registerMessage(SaltFissionVesselUpdatePacket.Handler.class, SaltFissionVesselUpdatePacket.class, nextID(), Side.CLIENT);
 		wrapper.registerMessage(SaltFissionHeaterUpdatePacket.Handler.class, SaltFissionHeaterUpdatePacket.class, nextID(), Side.CLIENT);
+		
 		wrapper.registerMessage(HeatExchangerUpdatePacket.Handler.class, HeatExchangerUpdatePacket.class, nextID(), Side.CLIENT);
+		
 		wrapper.registerMessage(TurbineUpdatePacket.Handler.class, TurbineUpdatePacket.class, nextID(), Side.CLIENT);
 		wrapper.registerMessage(TurbineRenderPacket.Handler.class, TurbineRenderPacket.class, nextID(), Side.CLIENT);
+		
 		wrapper.registerMessage(QuantumComputerQubitRenderPacket.Handler.class, QuantumComputerQubitRenderPacket.class, nextID(), Side.CLIENT);
 		
 		wrapper.registerMessage(PlayerRadsUpdatePacket.Handler.class, PlayerRadsUpdatePacket.class, nextID(), Side.CLIENT);

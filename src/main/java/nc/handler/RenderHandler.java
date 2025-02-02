@@ -5,6 +5,7 @@ import nc.init.*;
 import nc.render.BlockHighlightHandler;
 import nc.render.entity.RenderFeralGhoul;
 import nc.render.tile.*;
+import nc.tile.machine.TileElectrolyzerController;
 import nc.tile.quantum.TileQuantumComputerQubit;
 import nc.tile.turbine.TileTurbineController;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -24,8 +25,7 @@ public class RenderHandler {
 		NCTools.registerRenders();
 		NCArmor.registerRenders();
 		
-		// MinecraftForge.EVENT_BUS.register(new TextureStitchHandler());
-		
+		ClientRegistry.bindTileEntitySpecialRenderer(TileElectrolyzerController.class, new RenderElectrolyzerReservoir());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineController.class, new RenderTurbineRotor());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileQuantumComputerQubit.class, new RenderQuantumComputerQubit());
 		

@@ -128,7 +128,7 @@ public class BlockBattery extends BlockMultiblockPart implements IDynamicState, 
 		if (tile instanceof TileBattery battery) {
 			NBTTagCompound nbt = NBTHelper.getStackNBT(stack);
 			
-			battery.waitingEnergy += new EnergyStorage(battery.capacity, NCMath.toInt(battery.capacity)).readFromNBT(nbt, "energyStorage").getEnergyStoredLong();
+			battery.waitingEnergy += new EnergyStorage(battery.capacity).readFromNBT(nbt, "energyStorage").getEnergyStoredLong();
 			
 			if (player.isSneaking()) {
 				battery.readEnergyConnections(nbt);

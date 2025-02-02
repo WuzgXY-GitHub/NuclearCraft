@@ -57,14 +57,9 @@ public abstract class TileTurbineDynamoPart extends TileTurbinePart implements I
 	}
 	
 	@Override
-	public void onMachineAssembled(Turbine controller) {
-		doStandardNullControllerResponse(controller);
-		super.onMachineAssembled(controller);
-	}
-	
-	@Override
-	public void onMachineBroken() {
-		super.onMachineBroken();
+	public void onMachineAssembled(Turbine multiblock) {
+		doStandardNullControllerResponse(multiblock);
+		super.onMachineAssembled(multiblock);
 	}
 	
 	public void dynamoSearch(final ObjectSet<TileTurbineDynamoPart> validCache, final ObjectSet<TileTurbineDynamoPart> searchCache, final Long2ObjectMap<TileTurbineDynamoPart> partFailCache, final Long2ObjectMap<TileTurbineDynamoPart> assumedValidCache) {
@@ -181,7 +176,7 @@ public abstract class TileTurbineDynamoPart extends TileTurbinePart implements I
 	
 	@Override
 	public int getSinkTier() {
-		return 1;
+		return 10;
 	}
 	
 	@Override

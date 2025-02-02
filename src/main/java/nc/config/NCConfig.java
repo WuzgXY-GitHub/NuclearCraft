@@ -31,6 +31,7 @@ public class NCConfig {
 	public static final String CATEGORY_PROCESSOR = "processor";
 	public static final String CATEGORY_GENERATOR = "generator";
 	public static final String CATEGORY_ENERGY_STORAGE = "energy_storage";
+	public static final String CATEGORY_MACHINE = "machine";
 	public static final String CATEGORY_FISSION = "fission";
 	public static final String CATEGORY_FUSION = "fusion";
 	public static final String CATEGORY_HEAT_EXCHANGER = "heat_exchanger";
@@ -103,6 +104,22 @@ public class NCConfig {
 	public static int[] battery_item_capacity;
 	public static int[] battery_item_max_transfer;
 	public static int[] battery_item_energy_tier;
+	
+	public static int machine_min_size; // Default: 1
+	public static int machine_max_size; // Default: 24
+	public static double[] machine_diaphragm_efficiency;
+	public static double[] machine_diaphragm_contact_factor;
+	public static double[] machine_sieve_tray_efficiency;
+	
+	public static int machine_electrolyzer_time;
+	public static int machine_electrolyzer_power;
+	public static String[] machine_cathode_efficiency;
+	public static String[] machine_anode_efficiency;
+	public static double machine_electrolyzer_sound_volume;
+	public static double machine_electrolyzer_particles;
+	
+	public static int machine_distiller_time;
+	public static int machine_distiller_power;
 	
 	public static int fission_min_size; // Default: 1
 	public static int fission_max_size; // Default: 24
@@ -451,6 +468,7 @@ public class NCConfig {
 		PROPERTY_ORDER_MAP.put(CATEGORY_PROCESSOR, new ArrayList<>());
 		PROPERTY_ORDER_MAP.put(CATEGORY_GENERATOR, new ArrayList<>());
 		PROPERTY_ORDER_MAP.put(CATEGORY_ENERGY_STORAGE, new ArrayList<>());
+		PROPERTY_ORDER_MAP.put(CATEGORY_MACHINE, new ArrayList<>());
 		PROPERTY_ORDER_MAP.put(CATEGORY_FISSION, new ArrayList<>());
 		PROPERTY_ORDER_MAP.put(CATEGORY_FUSION, new ArrayList<>());
 		PROPERTY_ORDER_MAP.put(CATEGORY_HEAT_EXCHANGER, new ArrayList<>());
@@ -487,10 +505,10 @@ public class NCConfig {
 		processor_power_multiplier = sync(CATEGORY_PROCESSOR, "processor_power_multiplier", 1D, 0D, 255D);
 		processor_time = sync(CATEGORY_PROCESSOR, "processor_time", new int[] {400, 800, 800, 400, 400, 600, 800, 600, 3200, 600, 400, 600, 800, 600, 1600, 600, 2400, 1200, 400, 200}, 1, 128000, ARRAY);
 		processor_power = sync(CATEGORY_PROCESSOR, "processor_power", new int[] {20, 10, 10, 20, 10, 10, 40, 20, 40, 10, 0, 40, 10, 20, 10, 10, 10, 10, 20, 20}, 0, 16000, ARRAY);
-		speed_upgrade_power_laws_fp = sync(CATEGORY_PROCESSOR, "speed_upgrade_power_laws_fp", new double[] {1D, 2D}, 1D, 15D, ARRAY);
-		speed_upgrade_multipliers_fp = sync(CATEGORY_PROCESSOR, "speed_upgrade_multipliers_fp", new double[] {1D, 1D}, 0D, 15D, ARRAY);
-		energy_upgrade_power_laws_fp = sync(CATEGORY_PROCESSOR, "energy_upgrade_power_laws_fp", new double[] {1D}, 1D, 15D, ARRAY);
-		energy_upgrade_multipliers_fp = sync(CATEGORY_PROCESSOR, "energy_upgrade_multipliers_fp", new double[] {1D}, 0D, 15D, ARRAY);
+		speed_upgrade_power_laws_fp = sync(CATEGORY_PROCESSOR, "speed_upgrade_power_laws_fp", new double[] {1D, 2D, 2D, 1D}, 1D, 15D, ARRAY);
+		speed_upgrade_multipliers_fp = sync(CATEGORY_PROCESSOR, "speed_upgrade_multipliers_fp", new double[] {1D, 1D, 1D, 1D}, 0D, 15D, ARRAY);
+		energy_upgrade_power_laws_fp = sync(CATEGORY_PROCESSOR, "energy_upgrade_power_laws_fp", new double[] {1D, 1D}, 1D, 15D, ARRAY);
+		energy_upgrade_multipliers_fp = sync(CATEGORY_PROCESSOR, "energy_upgrade_multipliers_fp", new double[] {1D, 1D}, 0D, 15D, ARRAY);
 		upgrade_stack_sizes = sync(CATEGORY_PROCESSOR, "upgrade_stack_sizes", new int[] {64, 64}, 1, 64, ARRAY);
 		
 		rf_per_eu = sync(CATEGORY_PROCESSOR, "rf_per_eu", 16, 1, 65536);
@@ -526,6 +544,22 @@ public class NCConfig {
 		battery_item_capacity = sync(CATEGORY_ENERGY_STORAGE, "battery_item_capacity", new int[] {8000000}, 1, Integer.MAX_VALUE, ARRAY);
 		battery_item_max_transfer = sync(CATEGORY_ENERGY_STORAGE, "battery_item_max_transfer", new int[] {80000}, 1, Integer.MAX_VALUE, ARRAY);
 		battery_item_energy_tier = sync(CATEGORY_ENERGY_STORAGE, "battery_item_energy_tier", new int[] {3}, 1, 10, ARRAY);
+		
+		machine_min_size = sync(CATEGORY_MACHINE, "machine_min_size", 1, 1, 255);
+		machine_max_size = sync(CATEGORY_MACHINE, "machine_max_size", 24, 3, 255);
+		machine_diaphragm_efficiency = sync(CATEGORY_FISSION, "machine_diaphragm_efficiency", new double[] {0.8D, 0.9D, 1D}, 0D, 255D, ARRAY);
+		machine_diaphragm_contact_factor = sync(CATEGORY_FISSION, "machine_diaphragm_contact_factor", new double[] {1D, 1.5D, 2D}, 0D, 255D, ARRAY);
+		machine_sieve_tray_efficiency = sync(CATEGORY_FISSION, "machine_sieve_tray_efficiency", new double[] {0.8D, 0.9D, 1D}, 0D, 255D, ARRAY);
+		
+		machine_electrolyzer_time = sync(CATEGORY_MACHINE, "machine_electrolyzer_time", 400, 1, 128000);
+		machine_electrolyzer_power = sync(CATEGORY_MACHINE, "machine_electrolyzer_power", 200, 1, 128000);
+		machine_cathode_efficiency = sync(CATEGORY_MACHINE, "machine_cathode_efficiency", new String[] {"Iron@0.6", "Nickel@0.7", "Molybdenum@0.8", "Cobalt@0.9", "Platinum@1.0", "Palladium@1.0"}, LIST);
+		machine_anode_efficiency = sync(CATEGORY_MACHINE, "machine_anode_efficiency", new String[] {"CopperOxide@0.6", "TinOxide@0.6", "NickelOxide@0.7", "CobaltOxide@0.8", "RutheniumOxide@0.9", "IridiumOxide@1.0"}, LIST);
+		machine_electrolyzer_sound_volume = sync(CATEGORY_MACHINE, "machine_electrolyzer_sound_volume", 1D, 0D, 15D);
+		machine_electrolyzer_particles = sync(CATEGORY_MACHINE, "machine_electrolyzer_particles", 0.025D, 0D, 1D);
+		
+		machine_distiller_time = sync(CATEGORY_MACHINE, "machine_distiller_time", 1600, 1, 128000);
+		machine_distiller_power = sync(CATEGORY_MACHINE, "machine_distiller_power", 20, 1, 128000);
 		
 		fission_min_size = sync(CATEGORY_FISSION, "fission_min_size", 1, 1, 255);
 		fission_max_size = sync(CATEGORY_FISSION, "fission_max_size", 24, 3, 255);

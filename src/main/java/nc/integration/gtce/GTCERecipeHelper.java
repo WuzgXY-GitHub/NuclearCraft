@@ -236,7 +236,7 @@ public class GTCERecipeHelper {
 		}
 		
 		if (built && NCConfig.gtce_recipe_logging) {
-			NCUtil.getLogger().info("Injected GTCE " + recipeMap.unlocalizedName + " recipe: " + RecipeHelper.getRecipeString(recipe));
+			NCUtil.getLogger().info("Injected GTCEu " + recipeMap.unlocalizedName + " recipe: " + RecipeHelper.getRecipeString(recipe));
 		}
 	}
 	

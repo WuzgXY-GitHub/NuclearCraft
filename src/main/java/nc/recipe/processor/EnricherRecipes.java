@@ -30,6 +30,12 @@ public class EnricherRecipes extends BasicProcessorRecipeHandler {
 		addRecipe("dustPotassiumHydroxide", fluidStack("water", BUCKET_VOLUME), fluidStack("potassium_hydroxide_solution", GEM_VOLUME), 0.5D, 0.5D);
 		addRecipe("dustBorax", fluidStack("water", BUCKET_VOLUME), fluidStack("borax_solution", GEM_VOLUME), 0.5D, 0.5D);
 		addRecipe("dustIrradiatedBorax", fluidStack("water", BUCKET_VOLUME), fluidStack("irradiated_borax_solution", GEM_VOLUME), 0.5D, 0.5D);
+		addRecipe("dustAmmoniumSulfate", fluidStack("water", BUCKET_VOLUME), fluidStack("ammonium_sulfate_solution", GEM_VOLUME), 1D, 1D);
+		addRecipe("dustAmmoniumBisulfate", fluidStack("water", BUCKET_VOLUME), fluidStack("ammonium_bisulfate_solution", GEM_VOLUME), 1D, 1D);
+		addRecipe("dustAmmoniumPersulfate", fluidStack("water", BUCKET_VOLUME), fluidStack("ammonium_persulfate_solution", GEM_VOLUME), 1D, 1D);
+		addRecipe("dustHydroquinone", fluidStack("water", BUCKET_VOLUME), fluidStack("hydroquinone_solution", GEM_VOLUME), 1D, 1D);
+		addRecipe("dustSodiumHydroquinone", fluidStack("water", BUCKET_VOLUME), fluidStack("sodium_hydroquinone_solution", GEM_VOLUME), 1D, 1D);
+		addRecipe("dustPotassiumHydroquinone", fluidStack("water", BUCKET_VOLUME), fluidStack("potassium_hydroquinone_solution", GEM_VOLUME), 1D, 1D);
 		
 		addRecipe(new ItemStack(NCBlocks.glowing_mushroom, 3), fluidStack("ethanol", BUCKET_VOLUME / 4), fluidStack("radaway", BUCKET_VOLUME / 4), 1D, 0.5D);
 		addRecipe(new ItemStack(NCBlocks.glowing_mushroom, 3), fluidStack("redstone_ethanol", BUCKET_VOLUME / 4), fluidStack("radaway_slow", BUCKET_VOLUME / 4), 1D, 0.5D);

@@ -25,11 +25,8 @@ public class TileTurbineInlet extends TileTurbinePart implements ITileFluid {
 	
 	private @Nonnull FluidConnection[] fluidConnections = ITileFluid.fluidConnectionAll(TankSorption.IN);
 	
-	private @Nonnull
-	final FluidTileWrapper[] fluidSides;
-	
-	private @Nonnull
-	final GasTileWrapper gasWrapper;
+	private @Nonnull final FluidTileWrapper[] fluidSides;
+	private @Nonnull final GasTileWrapper gasWrapper;
 	
 	public TileTurbineInlet() {
 		super(CuboidalPartPositionType.WALL);
@@ -38,17 +35,15 @@ public class TileTurbineInlet extends TileTurbinePart implements ITileFluid {
 	}
 	
 	@Override
-	public void onMachineAssembled(Turbine controller) {
-		doStandardNullControllerResponse(controller);
-		super.onMachineAssembled(controller);
-		if (!getWorld().isRemote && getPartPosition().getFacing() != null) {
-			getWorld().setBlockState(getPos(), getWorld().getBlockState(getPos()).withProperty(AXIS_ALL, getPartPosition().getFacing().getAxis()), 2);
+	public void onMachineAssembled(Turbine multiblock) {
+		doStandardNullControllerResponse(multiblock);
+		super.onMachineAssembled(multiblock);
+		if (!world.isRemote) {
+			EnumFacing posFacing = getPartPosition().getFacing();
+			if (posFacing != null) {
+				world.setBlockState(pos, world.getBlockState(pos).withProperty(AXIS_ALL, posFacing.getAxis()), 2);
+			}
 		}
-	}
-	
-	@Override
-	public void onMachineBroken() {
-		super.onMachineBroken();
 	}
 	
 	// Fluids

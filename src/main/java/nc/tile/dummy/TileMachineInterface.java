@@ -30,10 +30,10 @@ public class TileMachineInterface extends TileDummy<IInterfaceable> {
 	@Override
 	public void findMaster() {
 		for (EnumFacing side : EnumFacing.VALUES) {
-			TileEntity tile = world.getTileEntity(getPos().offset(side));
+			TileEntity tile = world.getTileEntity(pos.offset(side));
 			if (tile != null) {
-				if (isMaster(getPos().offset(side))) {
-					masterPosition = getPos().offset(side);
+				if (isMaster(pos.offset(side))) {
+					masterPosition = pos.offset(side);
 					return;
 				}
 			}

@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import mekanism.api.gas.GasStack;
 import nc.tile.ITile;
 import nc.tile.internal.fluid.*;
+import nc.tile.machine.IMachinePart;
 import nc.tile.multiblock.port.ITilePort;
 import nc.tile.passive.ITilePassive;
 import nc.tile.processor.IProcessor;
@@ -185,46 +186,64 @@ public interface ITileFluid extends ITile {
 	
 	default void onWrapperFill(int fillAmount, boolean doFill) {
 		if (doFill && fillAmount != 0) {
-			if (this instanceof IProcessor) {
-				((IProcessor<?, ?, ?>) this).refreshRecipe();
-				((IProcessor<?, ?, ?>) this).refreshActivity();
+			if (this instanceof IProcessor<?, ?, ?> processor) {
+				processor.refreshRecipe();
+				processor.refreshActivity();
 			}
-			if (this instanceof ITilePort) {
-				((ITilePort<?, ?, ?, ?, ?>) this).setRefreshTargetsFlag(true);
+			else if (this instanceof IMachinePart part) {
+				part.refreshMachineRecipe();
+				part.refreshMachineActivity();
+			}
+			
+			if (this instanceof ITilePort<?, ?, ?, ?, ?> port) {
+				port.setRefreshTargetsFlag(true);
 			}
 		}
 	}
 	
 	default void onWrapperDrain(FluidStack drainStack, boolean doDrain) {
 		if (doDrain && drainStack != null && drainStack.amount != 0) {
-			if (this instanceof IProcessor) {
-				((IProcessor<?, ?, ?>) this).refreshActivity();
+			if (this instanceof IProcessor<?, ?, ?> processor) {
+				processor.refreshActivity();
 			}
-			if (this instanceof ITilePort) {
-				((ITilePort<?, ?, ?, ?, ?>) this).setRefreshTargetsFlag(true);
+			else if (this instanceof IMachinePart part) {
+				part.refreshMachineActivity();
+			}
+			
+			if (this instanceof ITilePort<?, ?, ?, ?, ?> port) {
+				port.setRefreshTargetsFlag(true);
 			}
 		}
 	}
 	
 	default void onWrapperReceiveGas(int receiveAmount, boolean doTransfer) {
 		if (doTransfer && receiveAmount != 0) {
-			if (this instanceof IProcessor) {
-				((IProcessor<?, ?, ?>) this).refreshRecipe();
-				((IProcessor<?, ?, ?>) this).refreshActivity();
+			if (this instanceof IProcessor<?, ?, ?> processor) {
+				processor.refreshRecipe();
+				processor.refreshActivity();
 			}
-			if (this instanceof ITilePort) {
-				((ITilePort<?, ?, ?, ?, ?>) this).setRefreshTargetsFlag(true);
+			else if (this instanceof IMachinePart part) {
+				part.refreshMachineRecipe();
+				part.refreshMachineActivity();
+			}
+			
+			if (this instanceof ITilePort<?, ?, ?, ?, ?> port) {
+				port.setRefreshTargetsFlag(true);
 			}
 		}
 	}
 	
 	default void onWrapperDrawGas(GasStack drawStack, boolean doTransfer) {
 		if (doTransfer && drawStack != null && drawStack.amount != 0) {
-			if (this instanceof IProcessor) {
-				((IProcessor<?, ?, ?>) this).refreshActivity();
+			if (this instanceof IProcessor<?, ?, ?> processor) {
+				processor.refreshActivity();
 			}
-			if (this instanceof ITilePort) {
-				((ITilePort<?, ?, ?, ?, ?>) this).setRefreshTargetsFlag(true);
+			else if (this instanceof IMachinePart part) {
+				part.refreshMachineActivity();
+			}
+			
+			if (this instanceof ITilePort<?, ?, ?, ?, ?> port) {
+				port.setRefreshTargetsFlag(true);
 			}
 		}
 	}
@@ -251,7 +270,7 @@ public interface ITileFluid extends ITile {
 		}
 		
 		TileEntity tile = getTileWorld().getTileEntity(getTilePos().offset(side));
-		if (tile == null || tile instanceof ITilePassive && !((ITilePassive) tile).canPushFluidsTo()) {
+		if (tile == null || (tile instanceof ITilePassive tilePassive && !tilePassive.canPushFluidsTo())) {
 			return;
 		}
 		
@@ -269,11 +288,15 @@ public interface ITileFluid extends ITile {
 		}
 		
 		if (drained) {
-			if (this instanceof IProcessor) {
-				((IProcessor<?, ?, ?>) this).refreshActivity();
+			if (this instanceof IProcessor<?, ?, ?> processor) {
+				processor.refreshActivity();
 			}
-			if (this instanceof ITilePort) {
-				((ITilePort<?, ?, ?, ?, ?>) this).setRefreshTargetsFlag(true);
+			else if (this instanceof IMachinePart part) {
+				part.refreshMachineActivity();
+			}
+			
+			if (this instanceof ITilePort<?, ?, ?, ?, ?> port) {
+				port.setRefreshTargetsFlag(true);
 			}
 		}
 	}

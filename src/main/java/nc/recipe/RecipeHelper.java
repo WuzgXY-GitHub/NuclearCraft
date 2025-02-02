@@ -9,6 +9,7 @@ import nc.recipe.ingredient.*;
 import nc.tile.internal.fluid.Tank;
 import nc.util.*;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.RecipeItemHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.*;
@@ -141,11 +142,11 @@ public class RecipeHelper {
 		List<ItemStack> stacks = new ArrayList<>();
 		for (IItemIngredient itemIngredient : itemIngredientList) {
 			if (itemIngredient == null) {
-				return Arrays.asList();
+				return Collections.emptyList();
 			}
 			ItemStack stack = itemIngredient.getStack();
 			if (stack == null) {
-				return Arrays.asList();
+				return Collections.emptyList();
 			}
 			stacks.add(stack);
 		}
@@ -157,11 +158,11 @@ public class RecipeHelper {
 		List<FluidStack> stacks = new ArrayList<>();
 		for (IFluidIngredient fluidIngredient : fluidIngredientList) {
 			if (fluidIngredient == null) {
-				return Arrays.asList();
+				return Collections.emptyList();
 			}
 			FluidStack stack = fluidIngredient.getStack();
 			if (stack == null) {
-				return Arrays.asList();
+				return Collections.emptyList();
 			}
 			stacks.add(stack);
 		}
@@ -481,7 +482,7 @@ public class RecipeHelper {
 	}
 	
 	public static List<Set<String>> validFluids(BasicRecipeHandler recipeHandler) {
-		return validFluids(recipeHandler, new ObjectOpenHashSet<>());
+		return validFluids(recipeHandler, Collections.emptySet());
 	}
 	
 	public static List<Set<String>> validFluids(BasicRecipeHandler recipeHandler, Set<String> exceptions) {
@@ -539,7 +540,11 @@ public class RecipeHelper {
 	}
 	
 	public static BasicRecipe blockRecipe(BasicRecipeHandler recipeHandler, World world, BlockPos pos) {
-		RecipeInfo<BasicRecipe> recipeInfo = recipeHandler.getRecipeInfoFromInputs(Lists.newArrayList(StackHelper.blockStateToStack(world.getBlockState(pos))), new ArrayList<>());
+		return blockRecipe(recipeHandler, world.getBlockState(pos));
+	}
+	
+	public static BasicRecipe blockRecipe(BasicRecipeHandler recipeHandler, IBlockState blockState) {
+		RecipeInfo<BasicRecipe> recipeInfo = recipeHandler.getRecipeInfoFromInputs(Lists.newArrayList(StackHelper.blockStateToStack(blockState)), Collections.emptyList());
 		return recipeInfo == null ? null : recipeInfo.recipe;
 	}
 	

@@ -8,12 +8,13 @@ import nc.util.StreamHelper;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class FluidArrayIngredient implements IFluidIngredient {
 	
 	public final List<IFluidIngredient> ingredientList;
-	public final List<FluidStack> cachedStackList;
+	public final @Nullable FluidStack cachedStack;
 	
 	public FluidArrayIngredient(IFluidIngredient... ingredients) {
 		this(Lists.newArrayList(ingredients));
@@ -21,12 +22,17 @@ public class FluidArrayIngredient implements IFluidIngredient {
 	
 	public FluidArrayIngredient(List<IFluidIngredient> ingredientList) {
 		this.ingredientList = ingredientList;
-		cachedStackList = StreamHelper.map(ingredientList, IFluidIngredient::getStack);
+		cachedStack = ingredientList.stream().map(IFluidIngredient::getStack).filter(Objects::nonNull).findFirst().orElse(null);
+	}
+	
+	@Override
+	public void init() {
+		ingredientList.forEach(IIngredient::init);
 	}
 	
 	@Override
 	public FluidStack getStack() {
-		return isValid() ? cachedStackList.get(0).copy() : null;
+		return isValid() ? cachedStack.copy() : null;
 	}
 	
 	@Override
@@ -49,14 +55,11 @@ public class FluidArrayIngredient implements IFluidIngredient {
 		for (IFluidIngredient ingredient : ingredientList) {
 			ingredient.setMaxStackSize(stackSize);
 		}
-		for (FluidStack stack : cachedStackList) {
-			stack.amount = stackSize;
-		}
+		cachedStack.amount = stackSize;
 	}
 	
 	@Override
 	public String getIngredientName() {
-		// return ingredientList.get(0).getIngredientName();
 		return getIngredientNamesConcat();
 	}
 	
@@ -121,7 +124,12 @@ public class FluidArrayIngredient implements IFluidIngredient {
 	
 	@Override
 	public boolean isValid() {
-		return cachedStackList != null && !cachedStackList.isEmpty();
+		return cachedStack != null;
+	}
+	
+	@Override
+	public boolean isEmpty() {
+		return ingredientList.stream().allMatch(IIngredient::isEmpty);
 	}
 	
 	// CraftTweaker

@@ -27,5 +27,11 @@ public class CrystallizerRecipes extends BasicProcessorRecipeHandler {
 		addRecipe(fluidStack("potassium_hydroxide_solution", GEM_VOLUME), "dustPotassiumHydroxide", 0.5D, 0.5D);
 		addRecipe(fluidStack("borax_solution", GEM_VOLUME), "dustBorax", 0.5D, 0.5D);
 		addRecipe(fluidStack("irradiated_borax_solution", GEM_VOLUME), "dustBorax", 0.5D, 0.5D, RadSources.CAESIUM_137 / 4D);
+		addRecipe(fluidStack("ammonium_sulfate_solution", GEM_VOLUME), "dustAmmoniumSulfate", 1D, 1D);
+		addRecipe(fluidStack("ammonium_bisulfate_solution", GEM_VOLUME), "dustAmmoniumBisulfate", 1D, 1D);
+		addRecipe(fluidStack("ammonium_persulfate_solution", GEM_VOLUME), "dustAmmoniumPersulfate", 1D, 1D);
+		addRecipe(fluidStack("hydroquinone_solution", GEM_VOLUME), "dustHydroquinone", 1D, 1D);
+		addRecipe(fluidStack("sodium_hydroquinone_solution", GEM_VOLUME), "dustSodiumHydroquinone", 1D, 1D);
+		addRecipe(fluidStack("potassium_hydroquinone_solution", GEM_VOLUME), "dustPotassiumHydroquinone", 1D, 1D);
 	}
 }

@@ -7,8 +7,9 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class NCSounds {
 	
-	public static final ObjectSet<String> TICKABLE_SOUNDS = new ObjectOpenHashSet<>();
+	public static final ObjectSet<String> TRACKABLE_SOUNDS = new ObjectOpenHashSet<>();
 	
+	public static SoundEvent electrolyzer_run;
 	public static SoundEvent fusion_run;
 	public static SoundEvent turbine_run;
 	
@@ -31,36 +32,33 @@ public class NCSounds {
 	public static SoundEvent hyperspace;
 	
 	public static void init() {
+		electrolyzer_run = register(Global.MOD_ID, "block.nc.electrolyzer_run", true);
 		fusion_run = register(Global.MOD_ID, "block.nc.fusion_run", true);
 		turbine_run = register(Global.MOD_ID, "block.nc.turbine_run", true);
 		
-		geiger_tick = register(Global.MOD_ID, "player.nc.geiger_tick");
-		radaway = register(Global.MOD_ID, "player.nc.radaway");
-		rad_x = register(Global.MOD_ID, "player.nc.rad_x");
-		chems_wear_off = register(Global.MOD_ID, "player.nc.chems_wear_off");
-		rad_poisoning = register(Global.MOD_ID, "player.nc.rad_poisoning");
+		geiger_tick = register(Global.MOD_ID, "player.nc.geiger_tick", false);
+		radaway = register(Global.MOD_ID, "player.nc.radaway", false);
+		rad_x = register(Global.MOD_ID, "player.nc.rad_x", false);
+		chems_wear_off = register(Global.MOD_ID, "player.nc.chems_wear_off", false);
+		rad_poisoning = register(Global.MOD_ID, "player.nc.rad_poisoning", false);
 		
-		// feral_ghoul_ambient = register(Global.MOD_ID, "entity.nc.feral_ghoul_ambient");
-		// feral_ghoul_hurt = register(Global.MOD_ID, "entity.nc.feral_ghoul_hurt");
-		feral_ghoul_death = register(Global.MOD_ID, "entity.nc.feral_ghoul_death");
-		// feral_ghoul_step = register(Global.MOD_ID, "entity.nc.feral_ghoul_step");
-		// feral_ghoul_fall = register(Global.MOD_ID, "entity.nc.feral_ghoul_fall");
-		feral_ghoul_charge = register(Global.MOD_ID, "entity.nc.feral_ghoul_charge");
+		// feral_ghoul_ambient = register(Global.MOD_ID, "entity.nc.feral_ghoul_ambient", false);
+		// feral_ghoul_hurt = register(Global.MOD_ID, "entity.nc.feral_ghoul_hurt", false);
+		feral_ghoul_death = register(Global.MOD_ID, "entity.nc.feral_ghoul_death", false);
+		// feral_ghoul_step = register(Global.MOD_ID, "entity.nc.feral_ghoul_step", false);
+		// feral_ghoul_fall = register(Global.MOD_ID, "entity.nc.feral_ghoul_fall", false);
+		feral_ghoul_charge = register(Global.MOD_ID, "entity.nc.feral_ghoul_charge", false);
 		
-		wanderer = register(Global.MOD_ID, "music.nc.wanderer");
-		end_of_the_world = register(Global.MOD_ID, "music.nc.end_of_the_world");
-		money_for_nothing = register(Global.MOD_ID, "music.nc.money_for_nothing");
-		hyperspace = register(Global.MOD_ID, "music.nc.hyperspace");
+		wanderer = register(Global.MOD_ID, "music.nc.wanderer", false);
+		end_of_the_world = register(Global.MOD_ID, "music.nc.end_of_the_world", false);
+		money_for_nothing = register(Global.MOD_ID, "music.nc.money_for_nothing", false);
+		hyperspace = register(Global.MOD_ID, "music.nc.hyperspace", false);
 	}
 	
-	private static SoundEvent register(String modId, String name) {
-		return register(modId, name, false);
-	}
-	
-	private static SoundEvent register(String modId, String name, boolean tickable) {
+	private static SoundEvent register(String modId, String name, boolean trackable) {
 		ResourceLocation location = new ResourceLocation(modId, name);
-		if (tickable) {
-			TICKABLE_SOUNDS.add(location.toString());
+		if (trackable) {
+			TRACKABLE_SOUNDS.add(location.toString());
 		}
 		SoundEvent event = new SoundEvent(location);
 		

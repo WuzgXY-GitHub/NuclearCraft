@@ -92,6 +92,11 @@ public class ItemIngredient implements IItemIngredient {
 		return stack != null;
 	}
 	
+	@Override
+	public boolean isEmpty() {
+		return stack != null && stack.getCount() > 0;
+	}
+	
 	// CraftTweaker
 	
 	@Override

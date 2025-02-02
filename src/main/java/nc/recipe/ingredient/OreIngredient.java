@@ -52,7 +52,7 @@ public class OreIngredient implements IItemIngredient {
 	@Override
 	public List<ItemStack> getOutputStackList() {
 		if (cachedStackList == null || cachedStackList.isEmpty()) {
-			return new ArrayList<>();
+			return Collections.emptyList();
 		}
 		return Lists.newArrayList(getStack());
 	}
@@ -127,6 +127,11 @@ public class OreIngredient implements IItemIngredient {
 	@Override
 	public boolean isValid() {
 		return cachedStackList != null && !cachedStackList.isEmpty() && cachedStackList.get(0) != null;
+	}
+	
+	@Override
+	public boolean isEmpty() {
+		return stackSize > 0;
 	}
 	
 	// CraftTweaker

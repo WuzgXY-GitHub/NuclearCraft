@@ -8,6 +8,7 @@ import nc.multiblock.fission.FissionPlacement;
 import nc.multiblock.turbine.TurbinePlacement;
 import nc.radiation.*;
 import nc.recipe.*;
+import nc.tile.internal.fluid.Tank;
 import nc.util.*;
 import net.minecraft.client.util.RecipeItemHelper;
 import net.minecraft.item.*;
@@ -18,6 +19,7 @@ import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.relauncher.*;
 
 import java.util.*;
+import java.util.function.Function;
 
 import static nc.config.NCConfig.*;
 
@@ -44,7 +46,7 @@ public class TooltipHandler {
 	
 	@SideOnly(Side.CLIENT)
 	private static void addPlacementRuleTooltip(List<String> tooltip, ItemStack stack) {
-		RecipeInfo<BasicRecipe> recipeInfo = FissionPlacement.recipe_handler.getRecipeInfoFromInputs(Lists.newArrayList(stack), new ArrayList<>());
+		RecipeInfo<BasicRecipe> recipeInfo = FissionPlacement.recipe_handler.getRecipeInfoFromInputs(Lists.newArrayList(stack), Collections.emptyList());
 		BasicRecipe recipe = recipeInfo == null ? null : recipeInfo.recipe;
 		if (recipe != null) {
 			String rule = FissionPlacement.TOOLTIP_MAP.get(recipe.getPlacementRuleID());
@@ -53,7 +55,7 @@ public class TooltipHandler {
 			}
 		}
 		
-		recipeInfo = TurbinePlacement.recipe_handler.getRecipeInfoFromInputs(Lists.newArrayList(stack), new ArrayList<>());
+		recipeInfo = TurbinePlacement.recipe_handler.getRecipeInfoFromInputs(Lists.newArrayList(stack), Collections.emptyList());
 		recipe = recipeInfo == null ? null : recipeInfo.recipe;
 		if (recipe != null) {
 			String rule = TurbinePlacement.TOOLTIP_MAP.get(recipe.getPlacementRuleID());
@@ -67,26 +69,53 @@ public class TooltipHandler {
 	
 	@SideOnly(Side.CLIENT)
 	private static void addRecipeTooltip(List<String> tooltip, ItemStack stack) {
-		RecipeInfo<BasicRecipe> recipeInfo = NCRecipes.pebble_fission.getRecipeInfoFromInputs(Lists.newArrayList(stack), new ArrayList<>());
-		BasicRecipe recipe = recipeInfo == null ? null : recipeInfo.recipe;
+		List<ItemStack> itemInputs = Lists.newArrayList(stack);
+		List<Tank> fluidInputs = new ArrayList<>();
+		BasicRecipe recipe;
+		
+		Function<BasicRecipeHandler, BasicRecipe> recipeFunction = x -> {
+			RecipeInfo<BasicRecipe> recipeInfo = x.getRecipeInfoFromInputs(itemInputs, fluidInputs);
+			return recipeInfo == null ? null : recipeInfo.recipe;
+		};
+		
+		recipe = recipeFunction.apply(NCRecipes.machine_diaphragm);
+		if (recipe != null) {
+			InfoHelper.infoFull(tooltip, new TextFormatting[] {TextFormatting.UNDERLINE, TextFormatting.LIGHT_PURPLE, TextFormatting.RED}, NCInfo.machineDiaphragmFixedInfo(recipe), TextFormatting.AQUA, NCInfo.machineDiaphragmInfo());
+		}
+		
+		recipe = recipeFunction.apply(NCRecipes.machine_sieve_tray);
+		if (recipe != null) {
+			InfoHelper.infoFull(tooltip, new TextFormatting[] {TextFormatting.UNDERLINE, TextFormatting.LIGHT_PURPLE}, NCInfo.machineSieveTrayFixedInfo(recipe), TextFormatting.AQUA, NCInfo.machineSieveTrayInfo());
+		}
+		
+		BasicRecipe cathodeRecipe = recipeFunction.apply(NCRecipes.electrolyzer_cathode), anodeRecipe = recipeFunction.apply(NCRecipes.electrolyzer_anode);
+		if (cathodeRecipe != null || anodeRecipe != null) {
+			List<TextFormatting> fixedColors = Lists.newArrayList(TextFormatting.UNDERLINE);
+			if (cathodeRecipe != null) {
+				fixedColors.add(TextFormatting.LIGHT_PURPLE);
+			}
+			if (anodeRecipe != null) {
+				fixedColors.add(TextFormatting.BLUE);
+			}
+			InfoHelper.infoFull(tooltip, fixedColors.toArray(new TextFormatting[0]), NCInfo.electrodeFixedInfo(cathodeRecipe, anodeRecipe), TextFormatting.AQUA, NCInfo.electrodeInfo());
+		}
+		
+		recipe = recipeFunction.apply(NCRecipes.pebble_fission);
 		if (recipe != null) {
 			InfoHelper.infoFull(tooltip, new TextFormatting[] {TextFormatting.UNDERLINE, TextFormatting.GREEN, TextFormatting.YELLOW, TextFormatting.LIGHT_PURPLE, TextFormatting.RED, TextFormatting.GRAY, TextFormatting.DARK_AQUA}, NCInfo.fissionFuelInfo(recipe));
 		}
 		
-		recipeInfo = NCRecipes.solid_fission.getRecipeInfoFromInputs(Lists.newArrayList(stack), new ArrayList<>());
-		recipe = recipeInfo == null ? null : recipeInfo.recipe;
+		recipe = recipeFunction.apply(NCRecipes.solid_fission);
 		if (recipe != null) {
 			InfoHelper.infoFull(tooltip, new TextFormatting[] {TextFormatting.UNDERLINE, TextFormatting.GREEN, TextFormatting.YELLOW, TextFormatting.LIGHT_PURPLE, TextFormatting.RED, TextFormatting.GRAY, TextFormatting.DARK_AQUA}, NCInfo.fissionFuelInfo(recipe));
 		}
 		
-		recipeInfo = NCRecipes.fission_moderator.getRecipeInfoFromInputs(Lists.newArrayList(stack), new ArrayList<>());
-		recipe = recipeInfo == null ? null : recipeInfo.recipe;
+		recipe = recipeFunction.apply(NCRecipes.fission_moderator);
 		if (recipe != null) {
 			InfoHelper.infoFull(tooltip, new TextFormatting[] {TextFormatting.UNDERLINE, TextFormatting.GREEN, TextFormatting.LIGHT_PURPLE}, NCInfo.fissionModeratorFixedInfo(recipe), TextFormatting.AQUA, NCInfo.fissionModeratorInfo());
 		}
 		
-		recipeInfo = NCRecipes.fission_reflector.getRecipeInfoFromInputs(Lists.newArrayList(stack), new ArrayList<>());
-		recipe = recipeInfo == null ? null : recipeInfo.recipe;
+		recipe = recipeFunction.apply(NCRecipes.fission_reflector);
 		if (recipe != null) {
 			InfoHelper.infoFull(tooltip, new TextFormatting[] {TextFormatting.UNDERLINE, TextFormatting.WHITE, TextFormatting.LIGHT_PURPLE}, NCInfo.fissionReflectorFixedInfo(recipe), TextFormatting.AQUA, NCInfo.fissionReflectorInfo());
 		}

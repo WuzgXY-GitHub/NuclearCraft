@@ -12,7 +12,7 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.Set;
+import java.util.*;
 
 import static nc.config.NCConfig.*;
 
@@ -53,6 +53,16 @@ public class ManufactoryRecipes extends BasicProcessorRecipeHandler {
 			addRecipe("sand", "itemSilicon", 1D, 1D);
 		}
 		
+		addRecipe("sinteredSteel", "dustSteel", 1D, 1D);
+		addRecipe("sinteredZirconia", "dustZirconia", 1D, 1D);
+		
+		if (!OreDictHelper.oreExists("ingotMolybdenum")) {
+			addRecipe("blockMolybdenum", oreStack("dustMolybdenum", 9), 9D, 1D);
+		}
+		if (!OreDictHelper.oreExists("ingotCopperOxide")) {
+			addRecipe("blockCopperOxide", oreStack("dustCopperOxide", 9), 9D, 1D);
+		}
+		
 		addRecipe("obsidian", oreStack("dustObsidian", 4), 2D, 1D);
 		addRecipe("cobblestone", Blocks.SAND, 1D, 1D);
 		addRecipe("gravel", Items.FLINT, 1D, 1D);
@@ -70,7 +80,6 @@ public class ManufactoryRecipes extends BasicProcessorRecipeHandler {
 		// EnderIO
 		addRecipe("itemPrecientCrystal", "itemPrecientPowder", 1D, 1D);
 		addRecipe("itemVibrantCrystal", "itemVibrantPowder", 1D, 1D);
-		addRecipe("itemPulsatingCrystal", "itemPulsatingPowder", 1D, 1D);
 		addRecipe("itemPulsatingCrystal", "itemPulsatingPowder", 1D, 1D);
 		addRecipe("itemEnderCrystal", "itemEnderCrystalPowder", 1D, 1D);
 		
@@ -133,7 +142,7 @@ public class ManufactoryRecipes extends BasicProcessorRecipeHandler {
 			Block logBlock = Block.getBlockFromItem(logWood.getItem());
 			
 			if (StackHelper.getMetadata(logWood) == OreDictionary.WILDCARD_VALUE) {
-				NonNullList<ItemStack> logVariants = NonNullList.create();
+				NonNullList<ItemStack> logVariants = new NonNullList<>(new ArrayList<>(), ItemStack.EMPTY);
 				logBlock.getSubBlocks(logBlock.getCreativeTab(), logVariants);
 				
 				for (ItemStack log : logVariants) {

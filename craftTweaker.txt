@@ -305,6 +305,70 @@ mods.nuclearcraft.DecayGenerator.removeRecipeWithInput(IIngredient blockInput);
 mods.nuclearcraft.DecayGenerator.removeRecipeWithOutput(IIngredient blockOutput);
 
 
+Diaphragm:
+----------
+
+mods.nuclearcraft.Diaphragm.add(IIngredient block, double efficiency);
+
+mods.nuclearcraft.Diaphragm.remove(IIngredient block);
+
+mods.nuclearcraft.Diaphragm.removeAll();
+
+
+Sieve Tray:
+-----------
+
+mods.nuclearcraft.SieveTray.add(IIngredient block, double efficiency);
+
+mods.nuclearcraft.SieveTray.remove(IIngredient block);
+
+mods.nuclearcraft.SieveTray.removeAll();
+
+
+Multiblock Electrolyzer:
+------------------------
+
+mods.nuclearcraft.MultiblockElectrolyzer.addRecipe(IIngredient itemInput1, IIngredient itemInput2, ILiquidStack fluidInput1, ILiquidStack fluidInput2, IIngredient itemOutput1, IIngredient itemOutput2, IIngredient itemOutput3, IIngredient itemOutput4, ILiquidStack fluidOutput1, ILiquidStack fluidOutput2, ILiquidStack fluidOutput3, ILiquidStack fluidOutput4, double timeMultiplier, double powerMultiplier, double processRadiation, String electrolyteGroup);
+
+mods.nuclearcraft.MultiblockElectrolyzer.removeRecipeWithInput(IIngredient itemInput1, IIngredient itemInput2, ILiquidStack fluidInput1, ILiquidStack fluidInput2);
+mods.nuclearcraft.MultiblockElectrolyzer.removeRecipeWithOutput(IIngredient itemOutput1, IIngredient itemOutput2, IIngredient itemOutput3, IIngredient itemOutput4, ILiquidStack fluidOutput1, ILiquidStack fluidOutput2, ILiquidStack fluidOutput3, ILiquidStack fluidOutput4);
+
+mods.nuclearcraft.MultiblockElectrolyzer.addElectrolyte(String electrolyteGroup, ILiquidStack fluidInput, double efficiency);
+
+mods.nuclearcraft.MultiblockElectrolyzer.removeElectrolyte(String electrolyteGroup, ILiquidStack fluidInput);
+mods.nuclearcraft.MultiblockElectrolyzer.removeElectrolyteGroup(String electrolyteGroup);
+mods.nuclearcraft.MultiblockElectrolyzer.removeAllElectrolyteGroups();
+
+
+Electrolyzer Cathode:
+---------------------
+
+mods.nuclearcraft.ElectrolyzerCathode.add(IIngredient block, double efficiency);
+
+mods.nuclearcraft.ElectrolyzerCathode.remove(IIngredient block);
+
+mods.nuclearcraft.ElectrolyzerCathode.removeAll();
+
+
+Electrolyzer Anode:
+-------------------
+
+mods.nuclearcraft.ElectrolyzerAnode.add(IIngredient block, double efficiency);
+
+mods.nuclearcraft.ElectrolyzerAnode.remove(IIngredient block);
+
+mods.nuclearcraft.ElectrolyzerAnode.removeAll();
+
+
+Multiblock Distiller:
+---------------------
+
+mods.nuclearcraft.MultiblockDistiller.addRecipe(ILiquidStack fluidInput1, ILiquidStack fluidInput2, ILiquidStack fluidOutput1, ILiquidStack fluidOutput2, {double timeMultiplier, double powerMultiplier, double processRadiation});
+
+mods.nuclearcraft.MultiblockDistiller.removeRecipeWithInput(ILiquidStack fluidInput1, ILiquidStack fluidInput2);
+mods.nuclearcraft.MultiblockDistiller.removeRecipeWithOutput(ILiquidStack fluidOutput1, ILiquidStack fluidOutput2);
+
+
 Fission Moderator:
 ------------------
 
@@ -514,6 +578,8 @@ BasicRecipeHandler::removeRecipeWithInput(IIngredient[] ingredients);
 BasicRecipeHandler::removeRecipeWithOutput(IIngredient[] ingredients);
 
 BasicRecipeHandler::removeAllRecipes();
+
+BasicRecipeHandler::resetAllRecipes();
 
 
 Recipe Methods:

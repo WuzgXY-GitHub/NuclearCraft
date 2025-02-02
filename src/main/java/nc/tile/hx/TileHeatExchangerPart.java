@@ -1,8 +1,11 @@
 package nc.tile.hx;
 
+import nc.capability.radiation.source.IRadiationSource;
 import nc.multiblock.cuboidal.*;
 import nc.multiblock.hx.HeatExchanger;
 import net.minecraft.nbt.NBTTagCompound;
+
+import javax.annotation.Nullable;
 
 public abstract class TileHeatExchangerPart extends TileCuboidalMultiblockPart<HeatExchanger, IHeatExchangerPart> implements IHeatExchangerPart {
 	
@@ -18,9 +21,15 @@ public abstract class TileHeatExchangerPart extends TileCuboidalMultiblockPart<H
 	}
 	
 	public void setIsHeatExchangerOn() {
-		if (getMultiblock() != null) {
-			isHeatExchangerOn = getMultiblock().isHeatExchangerOn;
+		HeatExchanger multiblock = getMultiblock();
+		if (multiblock != null) {
+			isHeatExchangerOn = multiblock.isHeatExchangerOn;
 		}
+	}
+	
+	@Override
+	protected @Nullable IRadiationSource getMultiblockRadiationSourceInternal() {
+		return null;
 	}
 	
 	// NBT

@@ -1,5 +1,6 @@
 package nc.util;
 
+import com.google.common.base.MoreObjects;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.Objects;
@@ -51,5 +52,10 @@ public class FourPos {
 		int result = pos != null ? pos.hashCode() : 0;
 		result = 31 * result + dim;
 		return result;
+	}
+	
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper(this).add("dim", dim).add("x", pos.getX()).add("y", pos.getY()).add("z", pos.getZ()).toString();
 	}
 }

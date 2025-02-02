@@ -3,6 +3,7 @@ package nc.render.tile;
 import nc.multiblock.turbine.*;
 import nc.multiblock.turbine.Turbine.PlaneDir;
 import nc.multiblock.turbine.TurbineRotorBladeUtil.TurbinePartDir;
+import nc.render.IWorldRender;
 import nc.tile.turbine.TileTurbineController;
 import nc.util.NCMath;
 import net.minecraft.block.state.IBlockState;
@@ -20,17 +21,16 @@ import javax.vecmath.Vector3f;
 import static nc.config.NCConfig.*;
 
 @SideOnly(Side.CLIENT)
-public class RenderTurbineRotor extends TileEntitySpecialRenderer<TileTurbineController> {
+public class RenderTurbineRotor extends TileEntitySpecialRenderer<TileTurbineController> implements IWorldRender {
 	
-	private static final Minecraft MC = Minecraft.getMinecraft();
+	private final float[] brightnessArray = new float[] {1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F};
+	private int brightnessIndex = 0;
 	
-	private final float[] brightness = new float[] {1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F};
-	private byte count = 0;
 	private long prevRenderTime = 0L;
 	
 	@Override
-	public boolean isGlobalRenderer(TileTurbineController tile) {
-		return tile.isRenderer() && tile.isMultiblockAssembled();
+	public boolean isGlobalRenderer(TileTurbineController controller) {
+		return controller.isRenderer() && controller.isMultiblockAssembled();
 	}
 	
 	@Override
@@ -55,16 +55,16 @@ public class RenderTurbineRotor extends TileEntitySpecialRenderer<TileTurbineCon
 			return;
 		}
 		
-		BlockRendererDispatcher renderer = MC.getBlockRendererDispatcher();
+		BlockRendererDispatcher renderer = Minecraft.getMinecraft().getBlockRendererDispatcher();
 		
-		brightness[count] = controller.getWorld().getLightBrightness(turbine.getExtremeInteriorCoord(NCMath.getBit(count, 0) == 1, NCMath.getBit(count, 1) == 1, NCMath.getBit(count, 2) == 1));
-		++count;
-		count %= 8;
-		float bright = (brightness[0] + brightness[1] + brightness[2] + brightness[3] + brightness[4] + brightness[5] + brightness[6] + brightness[7]) / 8F;
+		brightnessArray[brightnessIndex] = controller.getWorld().getLightBrightness(turbine.getExtremeInteriorCoord(NCMath.getBit(brightnessIndex, 0) == 1, NCMath.getBit(brightnessIndex, 1) == 1, NCMath.getBit(brightnessIndex, 2) == 1));
+		brightnessIndex = (brightnessIndex + 1) % 8;
+		float brightness = (brightnessArray[0] + brightnessArray[1] + brightnessArray[2] + brightnessArray[3] + brightnessArray[4] + brightnessArray[5] + brightnessArray[6] + brightnessArray[7]) / 8F;
 		
-		MC.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		
 		GlStateManager.color(1F, 1F, 1F, 1F);
-		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 0, 15 * 16);
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 0F, 240F);
 		
 		BlockPos pos = controller.getPos();
 		double r = turbine.getRotorRadius(), scale = r / Math.sqrt(r * r + NCMath.sq(shaftWidth) / 4D);
@@ -74,11 +74,12 @@ public class RenderTurbineRotor extends TileEntitySpecialRenderer<TileTurbineCon
 		
 		// Enter rotated frame
 		GlStateManager.pushMatrix();
+		
 		GlStateManager.translate(posX - rX, posY - rY, posZ - rZ);
 		GlStateManager.scale(dir.getAxis() == Axis.X ? 1D : scale, dir.getAxis() == Axis.Y ? 1D : scale, dir.getAxis() == Axis.Z ? 1D : scale);
 		{
 			long systemTime = Minecraft.getSystemTime();
-			if (!MC.isGamePaused()) {
+			if (!Minecraft.getMinecraft().isGamePaused()) {
 				turbine.rotorAngle = (turbine.rotorAngle + (systemTime - prevRenderTime) * turbine.angVel) % 360F;
 			}
 			prevRenderTime = systemTime;
@@ -87,7 +88,7 @@ public class RenderTurbineRotor extends TileEntitySpecialRenderer<TileTurbineCon
 		GlStateManager.translate(-pos.getX() + rX, -pos.getY() + rY, -pos.getZ() + rZ);
 		
 		for (int depth : turbine.bladeDepths) {
-			renderRotor(turbine, renderer, bright, shaftState, dir, flowLength, bladeLength, shaftWidth, turbine_render_blade_width, depth);
+			renderRotor(turbine, renderer, brightness, shaftState, dir, flowLength, bladeLength, shaftWidth, turbine_render_blade_width, depth);
 		}
 		
 		// Leave rotated frame
@@ -95,19 +96,20 @@ public class RenderTurbineRotor extends TileEntitySpecialRenderer<TileTurbineCon
 		
 		// Enter stationary frame
 		GlStateManager.pushMatrix();
-		pos = controller.getPos();
+		
 		GlStateManager.translate(posX - rX, posY - rY, posZ - rZ);
 		GlStateManager.scale(dir.getAxis() == Axis.X ? 1D : scale, dir.getAxis() == Axis.Y ? 1D : scale, dir.getAxis() == Axis.Z ? 1D : scale);
 		GlStateManager.translate(-pos.getX() + rX, -pos.getY() + rY, -pos.getZ() + rZ);
 		
 		for (int depth : turbine.statorDepths) {
-			renderRotor(turbine, renderer, bright, shaftState, dir, flowLength, bladeLength, shaftWidth, turbine_render_blade_width, depth);
+			renderRotor(turbine, renderer, brightness, shaftState, dir, flowLength, bladeLength, shaftWidth, turbine_render_blade_width, depth);
 		}
 		
+		// Leave stationary frame
 		GlStateManager.popMatrix();
 	}
 	
-	public void renderRotor(Turbine turbine, BlockRendererDispatcher renderer, float bright, IBlockState shaftState, EnumFacing flowDir, int flowLength, int bladeLength, int shaftWidth, double bladeWidth, int depth) {
+	public void renderRotor(Turbine turbine, BlockRendererDispatcher renderer, float brightness, IBlockState shaftState, EnumFacing flowDir, int flowLength, int bladeLength, int shaftWidth, double bladeWidth, int depth) {
 		double depthScale = Math.pow(turbine_render_rotor_expansion, (double) (1 + depth - flowLength) / (double) flowLength);
 		
 		GlStateManager.pushMatrix();
@@ -121,15 +123,15 @@ public class RenderTurbineRotor extends TileEntitySpecialRenderer<TileTurbineCon
 		GlStateManager.scale(flowDir.getAxis() == Axis.X ? 1D : depthScale, flowDir.getAxis() == Axis.Y ? 1D : depthScale, flowDir.getAxis() == Axis.Z ? 1D : depthScale);
 		GlStateManager.translate(-renderPos.x - 0.5D, -renderPos.y - 0.5D, -renderPos.z - 0.5D);
 		
-		renderShaft(turbine, renderer, bright, shaftState, flowDir, flowLength, shaftWidth, depth);
+		renderShaft(turbine, renderer, brightness, shaftState, flowDir, flowLength, shaftWidth, depth);
 		for (int j : new int[] {0, flowLength, 2 * flowLength, 3 * flowLength}) {
-			renderBlades(turbine, renderer, bright, flowDir, flowLength, bladeLength, shaftWidth, bladeWidth, j, depth);
+			renderBlades(turbine, renderer, brightness, flowDir, flowLength, bladeLength, shaftWidth, bladeWidth, j, depth);
 		}
 		
 		GlStateManager.popMatrix();
 	}
 	
-	public void renderShaft(Turbine turbine, BlockRendererDispatcher renderer, float bright, IBlockState shaftState, EnumFacing flowDir, int flowLength, int shaftWidth, int depth) {
+	public void renderShaft(Turbine turbine, BlockRendererDispatcher renderer, float brightness, IBlockState shaftState, EnumFacing flowDir, int flowLength, int shaftWidth, int depth) {
 		GlStateManager.pushMatrix();
 		
 		if (turbine.renderPosArray.length < 1 + 4 * flowLength * shaftWidth + depth) {
@@ -143,12 +145,12 @@ public class RenderTurbineRotor extends TileEntitySpecialRenderer<TileTurbineCon
 		GlStateManager.translate(-0.5D, -0.5D, -0.5D);
 		GlStateManager.rotate(-90F, 0F, 1F, 0F);
 		
-		renderer.renderBlockBrightness(shaftState, bright);
+		renderer.renderBlockBrightness(shaftState, brightness);
 		
 		GlStateManager.popMatrix();
 	}
 	
-	public void renderBlades(Turbine turbine, BlockRendererDispatcher renderer, float bright, EnumFacing flowDir, int flowLength, int bladeLength, int shaftWidth, double bladeWidth, int jMult, int depth) {
+	public void renderBlades(Turbine turbine, BlockRendererDispatcher renderer, float brightness, EnumFacing flowDir, int flowLength, int bladeLength, int shaftWidth, double bladeWidth, int jMult, int depth) {
 		Vector3f renderPos;
 		IBlockState rotorState;
 		TurbinePartDir bladeDir;
@@ -175,7 +177,7 @@ public class RenderTurbineRotor extends TileEntitySpecialRenderer<TileTurbineCon
 			GlStateManager.translate(-0.5D, -0.5D, -0.5D);
 			GlStateManager.rotate(-90F, 0F, 1F, 0F);
 			
-			renderer.renderBlockBrightness(rotorState, bright);
+			renderer.renderBlockBrightness(rotorState, brightness);
 			
 			GlStateManager.popMatrix();
 		}

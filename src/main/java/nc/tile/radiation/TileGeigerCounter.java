@@ -65,7 +65,7 @@ public class TileGeigerCounter extends NCTile implements ITickable, SimpleCompon
 		return "nc_geiger_counter";
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getChunkRadiationLevel(Context context, Arguments args) {
 		return new Object[] {getChunkRadiationLevel()};

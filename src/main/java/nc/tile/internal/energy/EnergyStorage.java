@@ -137,9 +137,9 @@ public class EnergyStorage implements IEnergyStorage {
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setLong("energy", energyStored);
 		tag.setLong("capacity", energyCapacity);
+		tag.setInteger("maxTransfer", maxTransfer);
 		nbt.setTag(name, tag);
 		return nbt;
-		
 	}
 	
 	public final EnergyStorage readFromNBT(NBTTagCompound nbt, String name) {
@@ -148,6 +148,9 @@ public class EnergyStorage implements IEnergyStorage {
 			energyStored = tag.getLong("energy");
 			if (tag.hasKey("capacity", 99)) {
 				energyCapacity = tag.getLong("capacity");
+			}
+			if (tag.hasKey("maxTransfer", 99)) {
+				maxTransfer = tag.getInteger("maxTransfer");
 			}
 		}
 		return this;

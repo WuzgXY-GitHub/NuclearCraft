@@ -3,6 +3,7 @@ package nc.tile.inventory;
 import com.google.common.collect.Lists;
 import nc.tile.ITile;
 import nc.tile.internal.inventory.*;
+import nc.tile.machine.IMachinePart;
 import nc.tile.multiblock.port.ITilePort;
 import nc.tile.processor.IProcessor;
 import nc.tile.processor.IProcessor.HandlerPair;
@@ -224,11 +225,15 @@ public interface ITileInventory extends ITile, ISidedInventory {
 			}
 			
 			if (pushed) {
-				if (this instanceof IProcessor) {
-					((IProcessor<?, ?, ?>) this).refreshActivity();
+				if (this instanceof IProcessor<?, ?, ?> processor) {
+					processor.refreshActivity();
 				}
-				if (this instanceof ITilePort) {
-					((ITilePort<?, ?, ?, ?, ?>) this).setRefreshTargetsFlag(true);
+				else if (this instanceof IMachinePart part) {
+					part.refreshMachineActivity();
+				}
+				
+				if (this instanceof ITilePort<?, ?, ?, ?, ?> port) {
+					port.setRefreshTargetsFlag(true);
 				}
 			}
 		}

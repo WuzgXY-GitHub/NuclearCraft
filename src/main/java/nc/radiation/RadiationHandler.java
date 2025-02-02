@@ -242,23 +242,26 @@ public class RadiationHandler {
 		int chunksPerTick = Math.min(radiation_world_chunks_per_tick, chunkCount);
 		double tickMult = Math.max(1D, (double) chunkCount / (double) chunksPerTick);
 		
-		BiomeProvider biomeProvider = world.getBiomeProvider();
 		int dimension = world.provider.getDimension();
 		BlockPos randomOffsetPos = newRandomOffsetPos(world);
+		BiomeProvider biomeProvider = world.getBiomeProvider();
 		String randomStructure = ModCheck.cubicChunksLoaded() || RadStructures.STRUCTURE_LIST.isEmpty() ? null : RadStructures.STRUCTURE_LIST.get(RAND.nextInt(RadStructures.STRUCTURE_LIST.size()));
 		
-		CollectionHelper.forEachIndexed(chunks, (chunk, i) -> {
-			if ((i - chunkStart) % chunkCount >= chunksPerTick) {
-				return;
+		int chunkIndex = -1;
+		for (Chunk chunk : chunks) {
+			++chunkIndex;
+			
+			if ((chunkIndex - chunkStart) % chunkCount >= chunksPerTick) {
+				continue;
 			}
 			
 			if (!chunk.isLoaded()) {
-				return;
+				continue;
 			}
 			
 			IRadiationSource chunkSource = RadiationHelper.getRadiationSource(chunk);
 			if (chunkSource == null) {
-				return;
+				continue;
 			}
 			
 			ClassInheritanceMultiMap<Entity>[] entityListArray = chunk.getEntityLists();
@@ -338,7 +341,7 @@ public class RadiationHandler {
 				RadiationHelper.addToSourceBuffer(chunkSource, RadWorlds.RAD_MAP.get(dimension));
 			}
 			
-			Biome biome = LambdaHelper.getThrowingOrDefault(() -> chunk.getBiome(randomOffsetPos, biomeProvider), null);
+			Biome biome = getBiome(chunk, randomOffsetPos, biomeProvider);
 			if (biome != null && !RadBiomes.DIM_BLACKLIST.contains(dimension)) {
 				Double biomeRadiation = RadBiomes.RAD_MAP.get(biome);
 				if (biomeRadiation != null) {
@@ -354,7 +357,7 @@ public class RadiationHandler {
 				}
 			}
 			
-			if (radiation_check_blocks && i == chunkStart) {
+			if (radiation_check_blocks && chunkIndex == chunkStart) {
 				int packed = RecipeItemHelper.pack(StackHelper.blockStateToStack(world.getBlockState(randomChunkPos)));
 				if (RadSources.STACK_MAP.containsKey(packed)) {
 					RadiationHelper.addToSourceBuffer(chunkSource, RadSources.STACK_MAP.get(packed));
@@ -394,15 +397,18 @@ public class RadiationHandler {
 			chunkSource.setRadiationLevel(newLevel);
 			
 			mutateTerrain(world, chunk, newLevel);
-		});
+		}
 		
-		CollectionHelper.forEachIndexed(chunks, (chunk, i) -> {
-			if ((i - chunkStart) % chunkCount >= chunksPerTick) {
-				return;
+		chunkIndex = -1;
+		for (Chunk chunk : chunks) {
+			++chunkIndex;
+			
+			if ((chunkIndex - chunkStart) % chunkCount >= chunksPerTick) {
+				continue;
 			}
 			
 			RadiationHelper.spreadRadiationFromChunk(chunk, getRandomAdjacentChunk(chunkProvider, chunk));
-		});
+		}
 		
 		tile_side = EnumFacing.byIndex(tile_side.getIndex() + 1);
 	}
@@ -436,6 +442,15 @@ public class RadiationHandler {
 		return chunk.getPos().getBlock(RAND.nextInt(16), RAND.nextInt(world.getHeight()), RAND.nextInt(16));
 	}
 	
+	public static Biome getBiome(Chunk chunk, BlockPos randomOffsetPos, BiomeProvider biomeProvider) {
+		try {
+			return chunk.getBiome(randomOffsetPos, biomeProvider);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+	
 	public static void mutateTerrain(World world, Chunk chunk, double radiation) {
 		long j = Math.min(radiation_block_effect_max_rate, (long) Math.log(Math.E - 1D + radiation / RecipeStats.getBlockMutationThreshold()));
 		while (j > 0) {
@@ -445,7 +460,7 @@ public class RadiationHandler {
 			
 			ItemStack stack = StackHelper.blockStateToStack(state);
 			if (stack != null && !stack.isEmpty()) {
-				RecipeInfo<BasicRecipe> mutationInfo = RADIATION_BLOCK_PURIFICATION.get().getRecipeInfoFromInputs(Lists.newArrayList(stack), new ArrayList<>());
+				RecipeInfo<BasicRecipe> mutationInfo = RADIATION_BLOCK_PURIFICATION.get().getRecipeInfoFromInputs(Lists.newArrayList(stack), Collections.emptyList());
 				if (mutationInfo != null && radiation >= mutationInfo.recipe.getBlockMutationThreshold()) {
 					ItemStack output = RecipeHelper.getItemStackFromIngredientList(mutationInfo.recipe.getItemProducts(), 0);
 					if (output != null) {
@@ -465,7 +480,7 @@ public class RadiationHandler {
 			IBlockState state = world.getBlockState(randomChunkPos);
 			ItemStack stack = StackHelper.blockStateToStack(state);
 			if (stack != null && !stack.isEmpty()) {
-				RecipeInfo<BasicRecipe> mutationInfo = RADIATION_BLOCK_PURIFICATION.get().getRecipeInfoFromInputs(Lists.newArrayList(stack), new ArrayList<>());
+				RecipeInfo<BasicRecipe> mutationInfo = RADIATION_BLOCK_PURIFICATION.get().getRecipeInfoFromInputs(Lists.newArrayList(stack), Collections.emptyList());
 				if (mutationInfo != null && radiation < mutationInfo.recipe.getBlockMutationThreshold()) {
 					ItemStack output = RecipeHelper.getItemStackFromIngredientList(mutationInfo.recipe.getItemProducts(), 0);
 					if (output != null) {

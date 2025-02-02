@@ -12,6 +12,7 @@ import nc.capability.radiation.source.IRadiationSource;
 import nc.init.NCItems;
 import nc.radiation.RadPotionEffects.RadEffect;
 import nc.tile.dummy.TileDummy;
+import nc.tile.multiblock.ITileMultiblockPart;
 import nc.tile.radiation.ITileRadiationEnvironment;
 import nc.util.*;
 import net.minecraft.entity.*;
@@ -181,6 +182,13 @@ public class RadiationHelper {
 		IRadiationSource radiationSource = getRadiationSource(provider);
 		if (radiationSource != null) {
 			rawRadiation += radiationSource.getRadiationLevel();
+		}
+		
+		if (provider instanceof ITileMultiblockPart<?, ?> part) {
+			IRadiationSource multiblockSource = part.getMultiblockRadiationSource();
+			if (multiblockSource != null) {
+				rawRadiation += multiblockSource.getRadiationLevel();
+			}
 		}
 		
 		double resistance = 0D;

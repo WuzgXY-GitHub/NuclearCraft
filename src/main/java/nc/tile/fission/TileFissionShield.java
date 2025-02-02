@@ -70,9 +70,9 @@ public class TileFissionShield extends TileFissionPart implements IFissionHeatin
 	}
 	
 	@Override
-	public void onMachineAssembled(FissionReactor controller) {
-		doStandardNullControllerResponse(controller);
-		super.onMachineAssembled(controller);
+	public void onMachineAssembled(FissionReactor multiblock) {
+		doStandardNullControllerResponse(multiblock);
+		super.onMachineAssembled(multiblock);
 	}
 	
 	public boolean isShieldActive() {
@@ -172,8 +172,9 @@ public class TileFissionShield extends TileFissionPart implements IFissionHeatin
 	
 	@Override
 	public ModeratorBlockInfo getModeratorBlockInfo(EnumFacing dir, boolean validActiveModeratorPosIn) {
-		this.validActiveModeratorPos[dir.getIndex()] = getMultiblock() != null && getLogic().isShieldActiveModerator(this, validActiveModeratorPosIn);
-		return getMultiblock() != null ? getLogic().getShieldModeratorBlockInfo(this, this.validActiveModeratorPos[dir.getIndex()]) : null;
+		FissionReactorLogic logic = getLogic();
+		this.validActiveModeratorPos[dir.getIndex()] = logic != null && logic.isShieldActiveModerator(this, validActiveModeratorPosIn);
+		return logic != null ? logic.getShieldModeratorBlockInfo(this, this.validActiveModeratorPos[dir.getIndex()]) : null;
 	}
 	
 	@Override

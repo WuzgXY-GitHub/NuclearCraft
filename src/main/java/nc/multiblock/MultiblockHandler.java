@@ -3,6 +3,7 @@ package nc.multiblock;
 import nc.multiblock.battery.BatteryMultiblock;
 import nc.multiblock.fission.FissionReactor;
 import nc.multiblock.hx.HeatExchanger;
+import nc.multiblock.machine.Machine;
 import nc.multiblock.quantum.QuantumComputer;
 import nc.multiblock.rtg.RTGMultiblock;
 import nc.multiblock.turbine.Turbine;
@@ -11,6 +12,7 @@ import nc.tile.fission.*;
 import nc.tile.fission.manager.*;
 import nc.tile.fission.port.*;
 import nc.tile.hx.*;
+import nc.tile.machine.*;
 import nc.tile.quantum.*;
 import nc.tile.rtg.TileRTG;
 import nc.tile.turbine.*;
@@ -21,7 +23,7 @@ import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.*;
 
-public final class MultiblockHandler {
+public class MultiblockHandler {
 	
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public void onChunkLoad(final ChunkEvent.Load loadEvent) {
@@ -50,6 +52,12 @@ public final class MultiblockHandler {
 	}
 	
 	public static void init() {
+		Machine.PART_CLASSES.add(IMachineController.class);
+		Machine.PART_CLASSES.add(TileMachineProcessPort.class);
+		Machine.PART_CLASSES.add(TileMachineRedstonePort.class);
+		Machine.PART_CLASSES.add(TileElectrolyzerCathodeTerminal.class);
+		Machine.PART_CLASSES.add(TileElectrolyzerAnodeTerminal.class);
+		
 		RTGMultiblock.PART_CLASSES.add(TileRTG.class);
 		
 		BatteryMultiblock.PART_CLASSES.add(TileBattery.class);
@@ -78,6 +86,7 @@ public final class MultiblockHandler {
 		HeatExchanger.PART_CLASSES.add(TileHeatExchangerVent.class);
 		HeatExchanger.PART_CLASSES.add(TileHeatExchangerTube.class);
 		HeatExchanger.PART_CLASSES.add(TileCondenserTube.class);
+		HeatExchanger.PART_CLASSES.add(TileHeatExchangerRedstonePort.class);
 		
 		Turbine.PART_CLASSES.add(ITurbineController.class);
 		Turbine.PART_CLASSES.add(TileTurbineDynamoPart.class);
@@ -87,6 +96,7 @@ public final class MultiblockHandler {
 		Turbine.PART_CLASSES.add(TileTurbineRotorBearing.class);
 		Turbine.PART_CLASSES.add(TileTurbineInlet.class);
 		Turbine.PART_CLASSES.add(TileTurbineOutlet.class);
+		Turbine.PART_CLASSES.add(TileTurbineRedstonePort.class);
 		
 		QuantumComputer.PART_CLASSES.add(TileQuantumComputerController.class);
 		QuantumComputer.PART_CLASSES.add(TileQuantumComputerQubit.class);

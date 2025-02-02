@@ -25,17 +25,15 @@ public abstract class TileFissionManager<MANAGER extends TileFissionManager<MANA
 	}
 	
 	@Override
-	public void onMachineAssembled(FissionReactor controller) {
-		doStandardNullControllerResponse(controller);
-		super.onMachineAssembled(controller);
-		if (!getWorld().isRemote && getPartPosition().getFacing() != null) {
-			getWorld().setBlockState(getPos(), getWorld().getBlockState(getPos()).withProperty(FACING_ALL, getPartPosition().getFacing()), 2);
+	public void onMachineAssembled(FissionReactor multiblock) {
+		doStandardNullControllerResponse(multiblock);
+		super.onMachineAssembled(multiblock);
+		if (!world.isRemote) {
+			EnumFacing facing = getPartPosition().getFacing();
+			if (facing != null) {
+				world.setBlockState(pos, world.getBlockState(pos).withProperty(FACING_ALL, facing), 2);
+			}
 		}
-	}
-	
-	@Override
-	public void onMachineBroken() {
-		super.onMachineBroken();
 	}
 	
 	@Override

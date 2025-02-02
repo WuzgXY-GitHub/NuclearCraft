@@ -1,6 +1,7 @@
 package nc.util;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.*;
 import net.minecraft.item.*;
@@ -32,15 +33,15 @@ public class StackHelper {
 		}
 	}
 	
-	public static ItemStack blockStateToStack(IBlockState state) {
-		if (state == null) {
+	public static ItemStack blockStateToStack(IBlockState blockState) {
+		if (blockState == null || blockState.getMaterial().equals(Material.AIR)) {
 			return ItemStack.EMPTY;
 		}
-		Block block = state.getBlock();
+		Block block = blockState.getBlock();
 		if (block == null) {
 			return ItemStack.EMPTY;
 		}
-		int meta = block.getMetaFromState(state);
+		int meta = block.getMetaFromState(blockState);
 		return new ItemStack(block, 1, meta);
 	}
 	

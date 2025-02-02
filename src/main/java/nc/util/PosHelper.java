@@ -11,6 +11,16 @@ public class PosHelper {
 	
 	public static final BlockPos DEFAULT_NON = new BlockPos(0, -1, 0);
 	
+	public static EnumFacing getAxisDirectionDir(@Nonnull EnumFacing.Axis axis, @Nonnull EnumFacing.AxisDirection dir) {
+		int index = 1 - getAxisDirIndex(dir);
+		
+		return switch (axis) {
+			case X -> AXIALS_X[index];
+			case Y -> AXIALS_Y[index];
+			case Z -> AXIALS_Z[index];
+		};
+	}
+	
 	// Horizontals
 	
 	private static final EnumFacing[] HORIZONTALS_X = new EnumFacing[] {EnumFacing.DOWN, EnumFacing.UP, EnumFacing.NORTH, EnumFacing.SOUTH};

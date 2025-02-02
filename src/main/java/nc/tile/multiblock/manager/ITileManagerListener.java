@@ -55,7 +55,7 @@ public interface ITileManagerListener<MULTIBLOCK extends Multiblock<MULTIBLOCK, 
 					NBTTagCompound info = nbt.getCompoundTag("componentManagerInfo");
 					if (info.getString("managerType").equals(getManagerType())) {
 						int listenerCount = info.getInteger("listenerCount");
-						info.setLong("listenerPos" + listenerCount, getTile().getPos().toLong());
+						info.setLong("listenerPos" + listenerCount, getTilePos().toLong());
 						info.setInteger("listenerCount", listenerCount + 1);
 						player.sendMessage(new TextComponentString(Lang.localize("info.nuclearcraft.multitool.append_manager_listener_set", getTileBlockDisplayName())));
 						return true;

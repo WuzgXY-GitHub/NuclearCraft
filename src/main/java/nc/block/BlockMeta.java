@@ -97,6 +97,66 @@ public abstract class BlockMeta<T extends Enum<T> & IStringSerializable & IBlock
 		}
 	}
 	
+	public static class BlockIngot2 extends BlockMeta<MetaEnums.IngotType2> {
+		
+		public final static PropertyEnum<MetaEnums.IngotType2> TYPE = PropertyEnum.create("type", MetaEnums.IngotType2.class);
+		
+		public BlockIngot2() {
+			super(MetaEnums.IngotType2.class, TYPE, Material.IRON);
+			setCreativeTab(NCTabs.material);
+		}
+		
+		@Override
+		protected BlockStateContainer createBlockState() {
+			return new BlockStateContainer(this, TYPE);
+		}
+		
+		@Override
+		public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face) {
+			return world.getBlockState(pos).getValue(type).getFireSpreadSpeed();
+		}
+		
+		@Override
+		public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face) {
+			return world.getBlockState(pos).getValue(type).getFlammability();
+		}
+		
+		@Override
+		public boolean isFireSource(World world, BlockPos pos, EnumFacing side) {
+			return world.getBlockState(pos).getValue(type).isFireSource();
+		}
+	}
+	
+	public static class BlockMaterial extends BlockMeta<MetaEnums.BlockMaterial> {
+		
+		public final static PropertyEnum<MetaEnums.BlockMaterial> TYPE = PropertyEnum.create("type", MetaEnums.BlockMaterial.class);
+		
+		public BlockMaterial() {
+			super(MetaEnums.BlockMaterial.class, TYPE, Material.IRON);
+			setCreativeTab(NCTabs.material);
+		}
+		
+		@Override
+		protected BlockStateContainer createBlockState() {
+			return new BlockStateContainer(this, TYPE);
+		}
+		
+		@Override
+		public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face) {
+			return world.getBlockState(pos).getValue(type).getFireSpreadSpeed();
+		}
+		
+		@Override
+		public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face) {
+			return world.getBlockState(pos).getValue(type).getFlammability();
+		}
+		
+		@Override
+		public boolean isFireSource(World world, BlockPos pos, EnumFacing side) {
+			return world.getBlockState(pos).getValue(type).isFireSource();
+		}
+	}
+	
 	public static class BlockFertileIsotope extends BlockMeta<MetaEnums.FertileIsotopeType> {
 		
 		public final static PropertyEnum<MetaEnums.FertileIsotopeType> TYPE = PropertyEnum.create("type", MetaEnums.FertileIsotopeType.class);
@@ -109,6 +169,48 @@ public abstract class BlockMeta<T extends Enum<T> & IStringSerializable & IBlock
 		@Override
 		protected BlockStateContainer createBlockState() {
 			return new BlockStateContainer(this, TYPE);
+		}
+	}
+	
+	public static class BlockMachineDiaphragm extends Transparent<MetaEnums.MachineDiaphragmType> {
+		
+		public final static PropertyEnum<MetaEnums.MachineDiaphragmType> TYPE = PropertyEnum.create("type", MetaEnums.MachineDiaphragmType.class);
+		
+		public BlockMachineDiaphragm() {
+			super(MetaEnums.MachineDiaphragmType.class, TYPE, Material.IRON, true);
+			setCreativeTab(NCTabs.multiblock);
+		}
+		
+		@Override
+		protected BlockStateContainer createBlockState() {
+			return new BlockStateContainer(this, TYPE);
+		}
+		
+		@Override
+		@SideOnly(Side.CLIENT)
+		public BlockRenderLayer getRenderLayer() {
+			return BlockRenderLayer.CUTOUT;
+		}
+	}
+	
+	public static class BlockMachineSieveTray extends Transparent<MetaEnums.MachineSieveTrayType> {
+		
+		public final static PropertyEnum<MetaEnums.MachineSieveTrayType> TYPE = PropertyEnum.create("type", MetaEnums.MachineSieveTrayType.class);
+		
+		public BlockMachineSieveTray() {
+			super(MetaEnums.MachineSieveTrayType.class, TYPE, Material.IRON, true);
+			setCreativeTab(NCTabs.multiblock);
+		}
+		
+		@Override
+		protected BlockStateContainer createBlockState() {
+			return new BlockStateContainer(this, TYPE);
+		}
+		
+		@Override
+		@SideOnly(Side.CLIENT)
+		public BlockRenderLayer getRenderLayer() {
+			return BlockRenderLayer.CUTOUT;
 		}
 	}
 	
@@ -223,5 +325,54 @@ public abstract class BlockMeta<T extends Enum<T> & IStringSerializable & IBlock
 	
 	public void dropItems(World world, BlockPos pos, List<ItemStack> stacks) {
 		NCInventoryHelper.dropInventoryItems(world, pos, stacks);
+	}
+	
+	// Transparent Block
+	
+	public static class Transparent<T extends Enum<T> & IStringSerializable & IBlockMetaEnum> extends BlockMeta<T> {
+		
+		protected final boolean smartRender;
+		
+		public Transparent(Class<T> enumm, PropertyEnum<T> property, Material material, boolean smartRender) {
+			super(enumm, property, material);
+			setHardness(1.5F);
+			setResistance(10F);
+			this.smartRender = smartRender;
+			canSustainPlant = false;
+			canCreatureSpawn = false;
+		}
+		
+		@Override
+		@SideOnly(Side.CLIENT)
+		public BlockRenderLayer getRenderLayer() {
+			return BlockRenderLayer.CUTOUT;
+		}
+		
+		@Override
+		public boolean isFullCube(IBlockState state) {
+			return false;
+		}
+		
+		@Override
+		public boolean isOpaqueCube(IBlockState state) {
+			return false;
+		}
+		
+		@Override
+		@SideOnly(Side.CLIENT)
+		public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+			if (!smartRender) {
+				return true;
+			}
+			
+			IBlockState otherState = world.getBlockState(pos.offset(side));
+			Block block = otherState.getBlock();
+			
+			if (state != otherState) {
+				return true;
+			}
+			
+			return block != this && super.shouldSideBeRendered(state, world, pos, side);
+		}
 	}
 }

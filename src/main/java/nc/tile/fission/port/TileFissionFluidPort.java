@@ -38,7 +38,6 @@ public abstract class TileFissionFluidPort<PORT extends TileFissionFluidPort<POR
 	protected @Nonnull FluidConnection[] fluidConnections = ITileFluid.fluidConnectionAll(Lists.newArrayList(TankSorption.IN, TankSorption.OUT));
 	
 	protected @Nonnull FluidTileWrapper[] fluidSides;
-	
 	protected @Nonnull GasTileWrapper gasWrapper;
 	
 	protected final BasicRecipeHandler recipeHandler;
@@ -102,7 +101,7 @@ public abstract class TileFissionFluidPort<PORT extends TileFissionFluidPort<POR
 	
 	@Override
 	public boolean canModifyFilter(int tank) {
-		return getMultiblock() == null || !getMultiblock().isAssembled();
+		return !isMultiblockAssembled();
 	}
 	
 	@Override
@@ -183,7 +182,7 @@ public abstract class TileFissionFluidPort<PORT extends TileFissionFluidPort<POR
 		}
 		
 		if (NCConfig.smart_processor_input) {
-			return recipeHandler.isValidFluidInput(stack, tankNumber, getTanks().subList(0, recipeHandler.fluidInputSize), new ArrayList<>(), null);
+			return recipeHandler.isValidFluidInput(stack, tankNumber, getTanks().subList(0, recipeHandler.fluidInputSize), Collections.emptyList(), null);
 		}
 		else {
 			return recipeHandler.isValidFluidInput(stack, tankNumber);
@@ -227,7 +226,7 @@ public abstract class TileFissionFluidPort<PORT extends TileFissionFluidPort<POR
 						setTankSorption(side, 1, TankSorption.NON);
 					}
 					setActivity(false);
-					player.sendMessage(new TextComponentString(Lang.localize("nc.block.port_toggle") + " " + TextFormatting.DARK_AQUA + Lang.localize("nc.block.fission_port_mode.input") + " " + TextFormatting.WHITE + Lang.localize("nc.block.port_toggle.mode")));
+					player.sendMessage(new TextComponentString(Lang.localize("nc.block.port_toggle") + " " + TextFormatting.DARK_AQUA + Lang.localize("nc.block.port_mode.input") + " " + TextFormatting.WHITE + Lang.localize("nc.block.port_toggle.mode")));
 				}
 				else {
 					for (EnumFacing side : EnumFacing.VALUES) {
@@ -235,7 +234,7 @@ public abstract class TileFissionFluidPort<PORT extends TileFissionFluidPort<POR
 						setTankSorption(side, 1, TankSorption.OUT);
 					}
 					setActivity(true);
-					player.sendMessage(new TextComponentString(Lang.localize("nc.block.port_toggle") + " " + TextFormatting.RED + Lang.localize("nc.block.fission_port_mode.output") + " " + TextFormatting.WHITE + Lang.localize("nc.block.port_toggle.mode")));
+					player.sendMessage(new TextComponentString(Lang.localize("nc.block.port_toggle") + " " + TextFormatting.RED + Lang.localize("nc.block.port_mode.output") + " " + TextFormatting.WHITE + Lang.localize("nc.block.port_toggle.mode")));
 				}
 				markDirtyAndNotify(true);
 				return true;

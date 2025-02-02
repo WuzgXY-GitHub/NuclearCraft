@@ -41,4 +41,8 @@ public class TileContainerInfo<TILE extends TileEntity> {
 	public Object getNewGui(int id, EntityPlayer player, TILE tile) {
 		return guiFunction.apply(player, tile);
 	}
+	
+	public int getGuiId() {
+		return guiId;
+	}
 }

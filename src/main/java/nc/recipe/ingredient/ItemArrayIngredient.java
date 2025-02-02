@@ -8,12 +8,13 @@ import nc.util.StreamHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Optional;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class ItemArrayIngredient implements IItemIngredient {
 	
 	public final List<IItemIngredient> ingredientList;
-	public final List<ItemStack> cachedStackList;
+	public final @Nullable ItemStack cachedStack;
 	
 	public ItemArrayIngredient(IItemIngredient... ingredients) {
 		this(Lists.newArrayList(ingredients));
@@ -21,12 +22,17 @@ public class ItemArrayIngredient implements IItemIngredient {
 	
 	public ItemArrayIngredient(List<IItemIngredient> ingredientList) {
 		this.ingredientList = ingredientList;
-		cachedStackList = StreamHelper.map(ingredientList, IItemIngredient::getStack);
+		cachedStack = ingredientList.stream().map(IItemIngredient::getStack).filter(Objects::nonNull).findFirst().orElse(null);
+	}
+	
+	@Override
+	public void init() {
+		ingredientList.forEach(IIngredient::init);
 	}
 	
 	@Override
 	public ItemStack getStack() {
-		return isValid() ? cachedStackList.get(0).copy() : null;
+		return isValid() ? cachedStack.copy() : null;
 	}
 	
 	@Override
@@ -49,14 +55,11 @@ public class ItemArrayIngredient implements IItemIngredient {
 		for (IItemIngredient ingredient : ingredientList) {
 			ingredient.setMaxStackSize(stackSize);
 		}
-		for (ItemStack stack : cachedStackList) {
-			stack.setCount(stackSize);
-		}
+		cachedStack.setCount(stackSize);
 	}
 	
 	@Override
 	public String getIngredientName() {
-		// return ingredientList.get(0).getIngredientName();
 		return getIngredientNamesConcat();
 	}
 	
@@ -121,7 +124,12 @@ public class ItemArrayIngredient implements IItemIngredient {
 	
 	@Override
 	public boolean isValid() {
-		return cachedStackList != null && !cachedStackList.isEmpty() && cachedStackList.get(0) != null;
+		return cachedStack != null;
+	}
+	
+	@Override
+	public boolean isEmpty() {
+		return ingredientList.stream().allMatch(IIngredient::isEmpty);
 	}
 	
 	// CraftTweaker

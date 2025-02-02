@@ -7,6 +7,7 @@ import nc.radiation.environment.*;
 import nc.recipe.BasicRecipe;
 import nc.tile.processor.TileProcessorImpl.TileBasicEnergyProcessor;
 import nc.util.*;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
@@ -53,6 +54,18 @@ public class TileRadiationScrubber extends TileBasicEnergyProcessor<TileRadiatio
 			isProcessing = isProcessing();
 			if (isProcessing) {
 				process();
+			}
+			else {
+				getRadiationSource().setRadiationLevel(0D);
+				if (getCurrentTime() > 0D) {
+					if (getContainerInfo().losesProgress && !isHalted()) {
+						loseProgress();
+					}
+					else if (!getCanProcessInputs()) {
+						setCurrentTime(0D);
+						setResetTime(0D);
+					}
+				}
 			}
 			
 			if (wasProcessing == isProcessing) {
@@ -123,24 +136,19 @@ public class TileRadiationScrubber extends TileBasicEnergyProcessor<TileRadiatio
 	// Processing
 	
 	@Override
-	public boolean isProcessing() {
-		return readyToProcess();
-	}
-	
-	@Override
 	public boolean readyToProcess() {
 		return canProcessInputs && hasConsumed && hasSufficientEnergy();
 	}
 	
 	@Override
 	public boolean hasSufficientEnergy() {
-		return getEnergyStored() >= (int) baseProcessPower;
+		return getEnergyStoredLong() >= (long) baseProcessPower;
 	}
 	
 	@Override
 	public void process() {
 		++time;
-		getEnergyStorage().changeEnergyStored((int) -baseProcessPower);
+		getEnergyStorage().changeEnergyStored((long) -baseProcessPower);
 		if (time >= baseProcessTime) {
 			finishProcess();
 		}
@@ -230,7 +238,8 @@ public class TileRadiationScrubber extends TileBasicEnergyProcessor<TileRadiatio
 	// All opaque blocks plus translucent full blocks are occlusive
 	private static boolean isOcclusive(BlockPos pos, World world, BlockPos otherPos) {
 		IBlockState state = world.getBlockState(otherPos);
-		return pos.distanceSq(otherPos) < NCMath.sq(radiation_scrubber_radius) && !MaterialHelper.isEmpty(state.getMaterial()) && (state.isOpaqueCube() || !state.getMaterial().isOpaque());
+		Material mat = state.getMaterial();
+		return pos.distanceSq(otherPos) < NCMath.sq(radiation_scrubber_radius) && !MaterialHelper.isEmpty(mat) && !MaterialHelper.isFoliage(mat) && (!state.isOpaqueCube() || !mat.isOpaque());
 	}
 	
 	@Override
@@ -287,13 +296,13 @@ public class TileRadiationScrubber extends TileBasicEnergyProcessor<TileRadiatio
 	
 	// OpenComputers
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getRadiationRemovalRate(Context context, Arguments args) {
 		return new Object[] {getRawScrubberRate()};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getEfficiency(Context context, Arguments args) {
 		return new Object[] {Math.abs(100D * getRadiationContributionFraction() / getMaxScrubberFraction())};

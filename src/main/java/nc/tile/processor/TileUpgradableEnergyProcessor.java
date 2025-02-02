@@ -43,12 +43,22 @@ public abstract class TileUpgradableEnergyProcessor<TILE extends TileUpgradableE
 	
 	@Override
 	public double getSpeedMultiplier() {
-		return 1D + speed_upgrade_multipliers_fp[0] * powerLawFactor(getSpeedCount(), speed_upgrade_power_laws_fp[0]);
+		if (info.isGenerator) {
+			return (1D + speed_upgrade_multipliers_fp[2] * powerLawFactor(getSpeedCount(), speed_upgrade_power_laws_fp[2])) / (1D + energy_upgrade_multipliers_fp[1] * powerLawFactor(getEnergyCount(), energy_upgrade_power_laws_fp[1]));
+		}
+		else {
+			return 1D + speed_upgrade_multipliers_fp[0] * powerLawFactor(getSpeedCount(), speed_upgrade_power_laws_fp[0]);
+		}
 	}
 	
 	@Override
 	public double getPowerMultiplier() {
-		return (1D + speed_upgrade_multipliers_fp[1] * powerLawFactor(getSpeedCount(), speed_upgrade_power_laws_fp[1])) / (1D + energy_upgrade_multipliers_fp[0] * powerLawFactor(getEnergyCount(), energy_upgrade_power_laws_fp[0]));
+		if (info.isGenerator) {
+			return 1D + speed_upgrade_multipliers_fp[3] * powerLawFactor(getSpeedCount(), speed_upgrade_power_laws_fp[3]);
+		}
+		else {
+			return (1D + speed_upgrade_multipliers_fp[1] * powerLawFactor(getSpeedCount(), speed_upgrade_power_laws_fp[1])) / (1D + energy_upgrade_multipliers_fp[0] * powerLawFactor(getEnergyCount(), energy_upgrade_power_laws_fp[0]));
+		}
 	}
 	
 	public static double powerLawFactor(int upgradeCount, double power) {

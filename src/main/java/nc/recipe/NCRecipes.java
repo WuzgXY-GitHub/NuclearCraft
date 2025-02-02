@@ -53,6 +53,12 @@ public class NCRecipes {
 			"rock_crusher",
 			"electric_furnace",
 			"decay_generator",
+			"machine_diaphragm",
+			"machine_sieve_tray",
+			"multiblock_electrolyzer",
+			"electrolyzer_cathode",
+			"electrolyzer_anode",
+			"multiblock_distiller",
 			"fission_moderator",
 			"fission_reflector",
 			"fission_irradiator",
@@ -125,6 +131,12 @@ public class NCRecipes {
 		putHandler(new ElectricFurnaceRecipes());
 		putHandler(new CollectorRecipes());
 		putHandler(new DecayGeneratorRecipes());
+		putHandler(new MachineDiaphragmRecipes());
+		putHandler(new MachineSieveTrayRecipes());
+		putHandler(new MultiblockElectrolyzerRecipes());
+		putHandler(new ElectrolyzerCathodeRecipes());
+		putHandler(new ElectrolyzerAnodeRecipes());
+		putHandler(new MultiblockDistillerRecipes());
 		putHandler(new FissionModeratorRecipes());
 		putHandler(new FissionReflectorRecipes());
 		putHandler(new FissionIrradiatorRecipes());
@@ -174,6 +186,12 @@ public class NCRecipes {
 	public static ElectricFurnaceRecipes electric_furnace;
 	public static CollectorRecipes collector;
 	public static DecayGeneratorRecipes decay_generator;
+	public static MachineDiaphragmRecipes machine_diaphragm;
+	public static MachineSieveTrayRecipes machine_sieve_tray;
+	public static MultiblockElectrolyzerRecipes multiblock_electrolyzer;
+	public static ElectrolyzerCathodeRecipes electrolyzer_cathode;
+	public static ElectrolyzerAnodeRecipes electrolyzer_anode;
+	public static MultiblockDistillerRecipes multiblock_distiller;
 	public static FissionModeratorRecipes fission_moderator;
 	public static FissionReflectorRecipes fission_reflector;
 	public static FissionIrradiatorRecipes fission_irradiator;
@@ -213,6 +231,12 @@ public class NCRecipes {
 		electric_furnace = getHandler("electric_furnace");
 		collector = getHandler("collector");
 		decay_generator = getHandler("decay_generator");
+		machine_diaphragm = getHandler("machine_diaphragm");
+		machine_sieve_tray = getHandler("machine_sieve_tray");
+		multiblock_electrolyzer = getHandler("multiblock_electrolyzer");
+		electrolyzer_cathode = getHandler("electrolyzer_cathode");
+		electrolyzer_anode = getHandler("electrolyzer_anode");
+		multiblock_distiller = getHandler("multiblock_distiller");
 		fission_moderator = getHandler("fission_moderator");
 		fission_reflector = getHandler("fission_reflector");
 		fission_irradiator = getHandler("fission_irradiator");

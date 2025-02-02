@@ -7,16 +7,18 @@ import java.util.*;
 
 public class InventoryStackList extends NonNullList<ItemStack> {
 	
-	public InventoryStackList() {
-		super();
+	public InventoryStackList(List<ItemStack> other) {
+		super(other, ItemStack.EMPTY);
 	}
 	
-	public InventoryStackList(List<ItemStack> other) {
-		super(other, null);
+	public static InventoryStackList withSize(int size) {
+		ItemStack[] array = new ItemStack[size];
+		Arrays.fill(array, ItemStack.EMPTY);
+		return new InventoryStackList(Arrays.asList(array));
 	}
 	
 	@Override
-	public List<ItemStack> subList(int fromIndex, int toIndex) {
+	public NonNullList<ItemStack> subList(int fromIndex, int toIndex) {
 		return new SubList<>(this, fromIndex, toIndex);
 	}
 	

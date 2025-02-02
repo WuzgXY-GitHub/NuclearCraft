@@ -41,7 +41,7 @@ public class CoolantHeaterRecipes extends BasicRecipeHandler {
 	}
 	
 	public @Nullable RecipeInfo<BasicRecipe> getRecipeInfoFromHeaterInputs(String heaterType, List<Tank> fluidInputs) {
-		long hash = 31L * (heaterType + "_heater").hashCode() + RecipeHelper.hashMaterialsRaw(new ArrayList<>(), fluidInputs);
+		long hash = 31L * (heaterType + "_heater").hashCode() + RecipeHelper.hashMaterialsRaw(Collections.emptyList(), fluidInputs);
 		if (recipeCache.containsKey(hash)) {
 			ObjectSet<BasicRecipe> set = recipeCache.get(hash);
 			for (BasicRecipe recipe : set) {
@@ -67,7 +67,7 @@ public class CoolantHeaterRecipes extends BasicRecipeHandler {
 			
 			for (Pair<List<ItemStack>, List<FluidStack>> materials : materialListTuples) {
 				for (List<FluidStack> fluids : PermutationHelper.permutations(materials.getRight())) {
-					long hash = 31L * recipe.getCoolantHeaterPlacementRule().hashCode() + RecipeHelper.hashMaterials(new ArrayList<>(), fluids);
+					long hash = 31L * recipe.getCoolantHeaterPlacementRule().hashCode() + RecipeHelper.hashMaterials(Collections.emptyList(), fluids);
 					if (recipeCache.containsKey(hash)) {
 						recipeCache.get(hash).add(recipe);
 					}
@@ -96,7 +96,7 @@ public class CoolantHeaterRecipes extends BasicRecipeHandler {
 			if (!getCoolantHeaterPlacementRule().equals(heaterType + "_heater")) {
 				return RecipeMatchResult.FAIL;
 			}
-			return RecipeHelper.matchIngredients(IngredientSorption.INPUT, new ArrayList<>(), fluidIngredients, new ArrayList<>(), fluidInputs, isShapeless);
+			return RecipeHelper.matchIngredients(IngredientSorption.INPUT, Collections.emptyList(), fluidIngredients, Collections.emptyList(), fluidInputs, isShapeless);
 		}
 	}
 }

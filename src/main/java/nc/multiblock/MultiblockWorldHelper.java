@@ -6,7 +6,7 @@ import net.minecraft.world.chunk.IChunkProvider;
 /**
  * Chunk and block update helpers
  */
-public final class MultiblockWorldHelper {
+public class MultiblockWorldHelper {
 	
 	public static int getChunkXFromBlock(int blockX) {
 		return blockX >> 4;

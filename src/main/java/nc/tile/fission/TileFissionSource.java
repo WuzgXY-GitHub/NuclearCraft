@@ -77,14 +77,9 @@ public class TileFissionSource extends TileFissionPart implements IFissionManage
 	}
 	
 	@Override
-	public void onMachineAssembled(FissionReactor controller) {
-		doStandardNullControllerResponse(controller);
-		super.onMachineAssembled(controller);
-	}
-	
-	@Override
-	public void onMachineBroken() {
-		super.onMachineBroken();
+	public void onMachineAssembled(FissionReactor multiblock) {
+		doStandardNullControllerResponse(multiblock);
+		super.onMachineAssembled(multiblock);
 	}
 	
 	@Override

@@ -1,6 +1,5 @@
 package nc.tile.passive;
 
-import com.google.common.collect.Lists;
 import gregtech.api.capability.GregtechCapabilities;
 import nc.ModCheck;
 import nc.capability.radiation.source.IRadiationSource;
@@ -26,7 +25,6 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nullable;
-
 import java.util.Collections;
 
 import static nc.config.NCConfig.*;
@@ -125,13 +123,13 @@ public abstract class TilePassiveAbstract extends TileEnergyFluidSidedInventory 
 		}
 		
 		energyBuffer += energyRate;
-		int energyChange = (int) energyBuffer;
+		long energyChange = (long) energyBuffer;
 		energyBuffer -= energyChange;
 		
-		if (energyRate > 0 && getEnergyStorage().getEnergyStored() >= getEnergyStorage().getMaxEnergyStored()) {
+		if (energyRate > 0 && getEnergyStorage().getEnergyStoredLong() >= getEnergyStorage().getMaxEnergyStoredLong()) {
 			return false;
 		}
-		if (energyRate < 0 && getEnergyStorage().getEnergyStored() < Math.abs(energyChange)) {
+		if (energyRate < 0 && getEnergyStorage().getEnergyStoredLong() < Math.abs(energyChange)) {
 			return false;
 		}
 		

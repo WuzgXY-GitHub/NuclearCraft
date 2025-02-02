@@ -46,7 +46,7 @@ public class TileSaltFissionVessel extends TileFissionPart implements IBasicProc
 	protected final @Nonnull NonNullList<ItemStack> inventoryStacks;
 	protected final @Nonnull NonNullList<ItemStack> consumedStacks;
 	
-	protected @Nonnull InventoryConnection[] inventoryConnections = ITileInventory.inventoryConnectionAll(Arrays.asList());
+	protected @Nonnull InventoryConnection[] inventoryConnections = ITileInventory.inventoryConnectionAll(Collections.emptyList());
 	
 	protected final @Nonnull List<Tank> tanks;
 	protected final @Nonnull List<Tank> consumedTanks;
@@ -103,7 +103,7 @@ public class TileSaltFissionVessel extends TileFissionPart implements IBasicProc
 		
 		inventoryName = Global.MOD_ID + ".container." + info.name;
 		
-		inventoryStacks = NonNullList.create();
+		inventoryStacks = NonNullList.withSize(0, ItemStack.EMPTY);
 		consumedStacks = info.getConsumedStacks();
 		
 		Set<String> validFluids = NCRecipes.salt_fission.validFluids.get(0);
@@ -116,14 +116,9 @@ public class TileSaltFissionVessel extends TileFissionPart implements IBasicProc
 	}
 	
 	@Override
-	public void onMachineAssembled(FissionReactor controller) {
-		doStandardNullControllerResponse(controller);
-		super.onMachineAssembled(controller);
-	}
-	
-	@Override
-	public void onMachineBroken() {
-		super.onMachineBroken();
+	public void onMachineAssembled(FissionReactor multiblock) {
+		doStandardNullControllerResponse(multiblock);
+		super.onMachineAssembled(multiblock);
 	}
 	
 	// IFissionFuelComponent
@@ -425,10 +420,11 @@ public class TileSaltFissionVessel extends TileFissionPart implements IBasicProc
 		IBlockState corium = FluidRegistry.getFluid("corium").getBlock().getDefaultState();
 		world.setBlockState(pos, corium);
 		
-		if (getMultiblock() != null) {
+		FissionReactor multiblock = getMultiblock();
+		if (multiblock != null) {
 			for (EnumFacing dir : EnumFacing.VALUES) {
 				BlockPos offPos = pos.offset(dir);
-				if (getMultiblock().rand.nextDouble() < 0.75D) {
+				if (multiblock.rand.nextDouble() < 0.75D) {
 					world.removeTileEntity(offPos);
 					world.setBlockState(offPos, corium);
 				}
@@ -466,7 +462,8 @@ public class TileSaltFissionVessel extends TileFissionPart implements IBasicProc
 	
 	@Override
 	public void refreshMasterPort() {
-		masterPort = getMultiblock() == null ? null : getMultiblock().getPartMap(TileFissionVesselPort.class).get(masterPortPos.toLong());
+		FissionReactor multiblock = getMultiblock();
+		masterPort = multiblock == null ? null : multiblock.getPartMap(TileFissionVesselPort.class).get(masterPortPos.toLong());
 		if (masterPort == null) {
 			masterPortPos = DEFAULT_NON;
 		}
@@ -609,8 +606,9 @@ public class TileSaltFissionVessel extends TileFissionPart implements IBasicProc
 	public void refreshActivity() {
 		boolean wasReady = readyToProcess(false);
 		canProcessInputs = canProcessInputs();
-		if (getMultiblock() != null && !wasReady && readyToProcess(false)) {
-			getMultiblock().refreshFlag = true;
+		FissionReactor multiblock = getMultiblock();
+		if (multiblock != null && !wasReady && readyToProcess(false)) {
+			multiblock.refreshFlag = true;
 		}
 	}
 	
@@ -781,20 +779,21 @@ public class TileSaltFissionVessel extends TileFissionPart implements IBasicProc
 			time = 0;
 		}
 		
-		if (getMultiblock() != null) {
+		FissionReactor multiblock = getMultiblock();
+		if (multiblock != null) {
 			if (canProcessInputs) {
 				if (oldProcessHeat != baseProcessHeat || oldProcessEfficiency != baseProcessEfficiency || oldProcessDecayFactor != baseProcessDecayFactor || oldCriticality != getCriticality()) {
 					if (!hasEnoughFlux()) {
-						getMultiblock().refreshFlag = true;
+						multiblock.refreshFlag = true;
 					}
 					else {
-						getMultiblock().addClusterToRefresh(cluster);
+						multiblock.addClusterToRefresh(cluster);
 					}
 				}
 			}
 			else {
 				sourceEfficiency = null;
-				getMultiblock().refreshFlag = true;
+				multiblock.refreshFlag = true;
 			}
 		}
 	}
@@ -916,7 +915,7 @@ public class TileSaltFissionVessel extends TileFissionPart implements IBasicProc
 	
 	@Override
 	public boolean canModifyFilter(int tank) {
-		return getMultiblock() == null || !getMultiblock().isAssembled();
+		return !isMultiblockAssembled();
 	}
 	
 	@Override

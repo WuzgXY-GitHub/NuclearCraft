@@ -88,6 +88,36 @@
 				"textures": {
 					"layer0": "nuclearcraft:items/part/pyrolytic_carbon"
 				}
+			},
+			"sintered_steel": {
+				"transform": "forge:default-item",
+				"textures": {
+					"layer0": "nuclearcraft:items/part/sintered_steel"
+				}
+			},
+			"sintered_zirconia": {
+				"transform": "forge:default-item",
+				"textures": {
+					"layer0": "nuclearcraft:items/part/sintered_zirconia"
+				}
+			},
+			"polyethersulfone": {
+				"transform": "forge:default-item",
+				"textures": {
+					"layer0": "nuclearcraft:items/part/polyethersulfone"
+				}
+			},
+			"zirfon": {
+				"transform": "forge:default-item",
+				"textures": {
+					"layer0": "nuclearcraft:items/part/zirfon"
+				}
+			},
+			"polytetrafluoroethene": {
+				"transform": "forge:default-item",
+				"textures": {
+					"layer0": "nuclearcraft:items/part/polytetrafluoroethene"
+				}
 			}
 		}
 	}

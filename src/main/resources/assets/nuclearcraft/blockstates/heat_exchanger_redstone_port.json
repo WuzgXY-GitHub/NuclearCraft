@@ -3,7 +3,7 @@
 	"defaults": {
 		"model": "cube_all",
 		"textures": {
-			"all": "nuclearcraft:blocks/fission/redstone_port_off"
+			"all": "nuclearcraft:blocks/heat_exchanger/redstone_port_off"
 		}
 	},
 	"variants": {
@@ -12,7 +12,7 @@
 			"false": {},
 			"true": {
 				"textures": {
-					"all": "nuclearcraft:blocks/fission/redstone_port_on"
+					"all": "nuclearcraft:blocks/heat_exchanger/redstone_port_on"
 				}
 			}
 		}

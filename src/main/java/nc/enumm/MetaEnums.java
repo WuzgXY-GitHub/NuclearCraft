@@ -174,6 +174,178 @@ public class MetaEnums {
 		}
 	}
 	
+	public enum IngotType2 implements IStringSerializable, IBlockMetaEnum {
+		
+		ZIRCONIA("zirconia", 0, 0, "pickaxe", 4, 30, 0, 0, 0, false),
+		PALLADIUM("palladium", 1, 0, "pickaxe", 4, 30, 0, 0, 0, false),
+		TIN_OXIDE("tin_oxide", 2, 0, "pickaxe", 4, 30, 0, 0, 0, false),
+		NICKEL_OXIDE("nickel_oxide", 3, 0, "pickaxe", 4, 30, 0, 0, 0, false),
+		COBALT_OXIDE("cobalt_oxide", 4, 0, "pickaxe", 4, 30, 0, 0, 0, false),
+		RUTHENIUM_OXIDE("ruthenium_oxide", 5, 0, "pickaxe", 4, 30, 0, 0, 0, false),
+		IRIDIUM_OXIDE("iridium_oxide", 6, 0, "pickaxe", 4, 30, 0, 0, 0, false);
+		
+		private final String name;
+		private final int id;
+		private final int harvestLevel;
+		private final String harvestTool;
+		private final float hardness;
+		private final float resistance;
+		private final int lightValue;
+		private final int fireSpreadSpeed;
+		private final int flammability;
+		private final boolean isFireSource;
+		
+		IngotType2(String name, int id, int harvestLevel, String harvestTool, float hardness, float resistance, int lightValue, int fireSpreadSpeed, int flammability, boolean isFireSource) {
+			this.name = name;
+			this.id = id;
+			this.harvestLevel = harvestLevel;
+			this.harvestTool = harvestTool;
+			this.hardness = hardness;
+			this.resistance = resistance;
+			this.lightValue = lightValue;
+			this.fireSpreadSpeed = fireSpreadSpeed;
+			this.flammability = flammability;
+			this.isFireSource = isFireSource;
+		}
+		
+		@Override
+		public String getName() {
+			return name;
+		}
+		
+		@Override
+		public String toString() {
+			return getName();
+		}
+		
+		@Override
+		public int getID() {
+			return id;
+		}
+		
+		@Override
+		public int getHarvestLevel() {
+			return harvestLevel;
+		}
+		
+		@Override
+		public String getHarvestTool() {
+			return harvestTool;
+		}
+		
+		@Override
+		public float getHardness() {
+			return hardness;
+		}
+		
+		@Override
+		public float getResistance() {
+			return resistance;
+		}
+		
+		@Override
+		public int getLightValue() {
+			return lightValue;
+		}
+		
+		public int getFireSpreadSpeed() {
+			return fireSpreadSpeed;
+		}
+		
+		public int getFlammability() {
+			return flammability;
+		}
+		
+		public boolean isFireSource() {
+			return isFireSource;
+		}
+	}
+	
+	public enum BlockMaterial implements IStringSerializable, IBlockMetaEnum {
+		
+		MOLYBDENUM("molybdenum", 0, 0, "pickaxe", 4, 30, 0, 0, 0, false),
+		COPPER_OXIDE("copper_oxide", 1, 0, "pickaxe", 4, 30, 0, 0, 0, false),
+		COBALT("cobalt", 2, 0, "pickaxe", 4, 30, 0, 0, 0, false),
+		NICKEL("nickel", 3, 0, "pickaxe", 4, 30, 0, 0, 0, false),
+		PLATINUM("platinum", 4, 0, "pickaxe", 4, 30, 0, 0, 0, false);
+		
+		private final String name;
+		private final int id;
+		private final int harvestLevel;
+		private final String harvestTool;
+		private final float hardness;
+		private final float resistance;
+		private final int lightValue;
+		private final int fireSpreadSpeed;
+		private final int flammability;
+		private final boolean isFireSource;
+		
+		BlockMaterial(String name, int id, int harvestLevel, String harvestTool, float hardness, float resistance, int lightValue, int fireSpreadSpeed, int flammability, boolean isFireSource) {
+			this.name = name;
+			this.id = id;
+			this.harvestLevel = harvestLevel;
+			this.harvestTool = harvestTool;
+			this.hardness = hardness;
+			this.resistance = resistance;
+			this.lightValue = lightValue;
+			this.fireSpreadSpeed = fireSpreadSpeed;
+			this.flammability = flammability;
+			this.isFireSource = isFireSource;
+		}
+		
+		@Override
+		public String getName() {
+			return name;
+		}
+		
+		@Override
+		public String toString() {
+			return getName();
+		}
+		
+		@Override
+		public int getID() {
+			return id;
+		}
+		
+		@Override
+		public int getHarvestLevel() {
+			return harvestLevel;
+		}
+		
+		@Override
+		public String getHarvestTool() {
+			return harvestTool;
+		}
+		
+		@Override
+		public float getHardness() {
+			return hardness;
+		}
+		
+		@Override
+		public float getResistance() {
+			return resistance;
+		}
+		
+		@Override
+		public int getLightValue() {
+			return lightValue;
+		}
+		
+		public int getFireSpreadSpeed() {
+			return fireSpreadSpeed;
+		}
+		
+		public int getFlammability() {
+			return flammability;
+		}
+		
+		public boolean isFireSource() {
+			return isFireSource;
+		}
+	}
+	
 	public enum FertileIsotopeType implements IStringSerializable, IBlockMetaEnum {
 		
 		URANIUM("uranium", 0, 0, "pickaxe", 3, 15, 0),
@@ -215,6 +387,212 @@ public class MetaEnums {
 		@Override
 		public int getID() {
 			return id;
+		}
+		
+		@Override
+		public int getHarvestLevel() {
+			return harvestLevel;
+		}
+		
+		@Override
+		public String getHarvestTool() {
+			return harvestTool;
+		}
+		
+		@Override
+		public float getHardness() {
+			return hardness;
+		}
+		
+		@Override
+		public float getResistance() {
+			return resistance;
+		}
+		
+		@Override
+		public int getLightValue() {
+			return lightValue;
+		}
+	}
+	
+	public enum MachineDiaphragmType implements IStringSerializable, IBlockMetaEnum {
+		
+		SINTERED_STEEL("sintered_steel", 0, 0, "pickaxe", 3, 15, 0),
+		POLYETHERSULFONE("polyethersulfone", 1, 0, "pickaxe", 3, 15, 0),
+		ZIRFON("zirfon", 2, 0, "pickaxe", 3, 15, 0);
+		
+		private final String name;
+		private final int id;
+		private final int harvestLevel;
+		private final String harvestTool;
+		private final float hardness;
+		private final float resistance;
+		private final int lightValue;
+		
+		MachineDiaphragmType(String name, int id, int harvestLevel, String harvestTool, float hardness, float resistance, int lightValue) {
+			this.name = name;
+			this.id = id;
+			this.harvestLevel = harvestLevel;
+			this.harvestTool = harvestTool;
+			this.hardness = hardness;
+			this.resistance = resistance;
+			this.lightValue = lightValue;
+		}
+		
+		@Override
+		public String getName() {
+			return name;
+		}
+		
+		@Override
+		public String toString() {
+			return getName();
+		}
+		
+		@Override
+		public int getID() {
+			return id;
+		}
+		
+		@Override
+		public int getHarvestLevel() {
+			return harvestLevel;
+		}
+		
+		@Override
+		public String getHarvestTool() {
+			return harvestTool;
+		}
+		
+		@Override
+		public float getHardness() {
+			return hardness;
+		}
+		
+		@Override
+		public float getResistance() {
+			return resistance;
+		}
+		
+		@Override
+		public int getLightValue() {
+			return lightValue;
+		}
+	}
+	
+	public enum MachineSieveTrayType implements IStringSerializable, IBlockMetaEnum {
+		
+		STEEL("steel", 0, 0, "pickaxe", 3, 15, 0),
+		POLYTETRAFLUOROETHENE("polytetrafluoroethene", 1, 0, "pickaxe", 3, 15, 0),
+		HASTELLOY("hastelloy", 2, 0, "pickaxe", 3, 15, 0);
+		
+		private final String name;
+		private final int id;
+		private final int harvestLevel;
+		private final String harvestTool;
+		private final float hardness;
+		private final float resistance;
+		private final int lightValue;
+		
+		MachineSieveTrayType(String name, int id, int harvestLevel, String harvestTool, float hardness, float resistance, int lightValue) {
+			this.name = name;
+			this.id = id;
+			this.harvestLevel = harvestLevel;
+			this.harvestTool = harvestTool;
+			this.hardness = hardness;
+			this.resistance = resistance;
+			this.lightValue = lightValue;
+		}
+		
+		@Override
+		public String getName() {
+			return name;
+		}
+		
+		@Override
+		public String toString() {
+			return getName();
+		}
+		
+		@Override
+		public int getID() {
+			return id;
+		}
+		
+		@Override
+		public int getHarvestLevel() {
+			return harvestLevel;
+		}
+		
+		@Override
+		public String getHarvestTool() {
+			return harvestTool;
+		}
+		
+		@Override
+		public float getHardness() {
+			return hardness;
+		}
+		
+		@Override
+		public float getResistance() {
+			return resistance;
+		}
+		
+		@Override
+		public int getLightValue() {
+			return lightValue;
+		}
+	}
+	
+	public enum NeutronReflectorType implements IStringSerializable, IBlockMetaEnum {
+		
+		BERYLLIUM_CARBON("beryllium_carbon", 0, fission_reflector_efficiency[0], fission_reflector_reflectivity[0], 0, "pickaxe", 2, 15, 0),
+		LEAD_STEEL("lead_steel", 1, fission_reflector_efficiency[1], fission_reflector_reflectivity[1], 0, "pickaxe", 2, 15, 0);
+		
+		private final String name;
+		private final int id;
+		private final double efficiency;
+		private final double reflectivity;
+		private final int harvestLevel;
+		private final String harvestTool;
+		private final float hardness;
+		private final float resistance;
+		private final int lightValue;
+		
+		NeutronReflectorType(String name, int id, double efficiency, double reflectivity, int harvestLevel, String harvestTool, float hardness, float resistance, int lightValue) {
+			this.name = name;
+			this.id = id;
+			this.efficiency = efficiency;
+			this.reflectivity = reflectivity;
+			this.harvestLevel = harvestLevel;
+			this.harvestTool = harvestTool;
+			this.hardness = hardness;
+			this.resistance = resistance;
+			this.lightValue = lightValue;
+		}
+		
+		@Override
+		public String getName() {
+			return name;
+		}
+		
+		@Override
+		public String toString() {
+			return getName();
+		}
+		
+		@Override
+		public int getID() {
+			return id;
+		}
+		
+		public double getEfficiency() {
+			return efficiency;
+		}
+		
+		public double getReflectivity() {
+			return reflectivity;
 		}
 		
 		@Override
@@ -318,82 +696,6 @@ public class MetaEnums {
 		@Override
 		public Class<? extends TileFissionSource.Meta> getTileClass() {
 			return tileClass;
-		}
-	}
-	
-	public enum NeutronReflectorType implements IStringSerializable, IBlockMetaEnum {
-		
-		BERYLLIUM_CARBON("beryllium_carbon", 0, fission_reflector_efficiency[0], fission_reflector_reflectivity[0], 0, "pickaxe", 2, 15, 0),
-		LEAD_STEEL("lead_steel", 1, fission_reflector_efficiency[1], fission_reflector_reflectivity[1], 0, "pickaxe", 2, 15, 0);
-		
-		private final String name;
-		private final int id;
-		private final double efficiency;
-		private final double reflectivity;
-		private final int harvestLevel;
-		private final String harvestTool;
-		private final float hardness;
-		private final float resistance;
-		private final int lightValue;
-		
-		NeutronReflectorType(String name, int id, double efficiency, double reflectivity, int harvestLevel, String harvestTool, float hardness, float resistance, int lightValue) {
-			this.name = name;
-			this.id = id;
-			this.efficiency = efficiency;
-			this.reflectivity = reflectivity;
-			this.harvestLevel = harvestLevel;
-			this.harvestTool = harvestTool;
-			this.hardness = hardness;
-			this.resistance = resistance;
-			this.lightValue = lightValue;
-		}
-		
-		@Override
-		public String getName() {
-			return name;
-		}
-		
-		@Override
-		public String toString() {
-			return getName();
-		}
-		
-		@Override
-		public int getID() {
-			return id;
-		}
-		
-		public double getEfficiency() {
-			return efficiency;
-		}
-		
-		public double getReflectivity() {
-			return reflectivity;
-		}
-		
-		@Override
-		public int getHarvestLevel() {
-			return harvestLevel;
-		}
-		
-		@Override
-		public String getHarvestTool() {
-			return harvestTool;
-		}
-		
-		@Override
-		public float getHardness() {
-			return hardness;
-		}
-		
-		@Override
-		public float getResistance() {
-			return resistance;
-		}
-		
-		@Override
-		public int getLightValue() {
-			return lightValue;
 		}
 	}
 	
@@ -859,49 +1161,6 @@ public class MetaEnums {
 		}
 	}
 	
-	public enum DustType implements IStringSerializable, IMetaEnum {
-		
-		COPPER("copper", 0),
-		TIN("tin", 1),
-		LEAD("lead", 2),
-		THORIUM("thorium", 3),
-		URANIUM("uranium", 4),
-		BORON("boron", 5),
-		LITHIUM("lithium", 6),
-		MAGNESIUM("magnesium", 7),
-		GRAPHITE("graphite", 8),
-		BERYLLIUM("beryllium", 9),
-		ZIRCONIUM("zirconium", 10),
-		MANGANESE("manganese", 11),
-		ALUMINUM("aluminum", 12),
-		SILVER("silver", 13),
-		MANGANESE_OXIDE("manganese_oxide", 14),
-		MANGANESE_DIOXIDE("manganese_dioxide", 15);
-		
-		private final String name;
-		private final int id;
-		
-		DustType(String name, int id) {
-			this.name = name;
-			this.id = id;
-		}
-		
-		@Override
-		public String getName() {
-			return name;
-		}
-		
-		@Override
-		public String toString() {
-			return getName();
-		}
-		
-		@Override
-		public int getID() {
-			return id;
-		}
-	}
-	
 	public enum GemType implements IStringSerializable, IMetaEnum {
 		
 		RHODOCHROSITE("rhodochrosite", 0),
@@ -993,7 +1252,8 @@ public class MetaEnums {
 		SILICON_CARBIDE("silicon_carbide", 13),
 		SIC_SIC_CMC("sic_sic_cmc", 14),
 		HSLA_STEEL("hsla_steel", 15),
-		ZIRCONIUM_MOLYBDENUM("zirconium_molybdenum", 16);
+		ZIRCONIUM_MOLYBDENUM("zirconium_molybdenum", 16),
+		HASTELLOY("hastelloy", 17);
 		
 		private final String name;
 		private final int id;
@@ -1032,7 +1292,13 @@ public class MetaEnums {
 		IRRADIATED_BORAX("irradiated_borax", 8),
 		DIMENSIONAL_BLEND("dimensional_blend", 9),
 		C_MN_BLEND("c_mn_blend", 10),
-		ALUGENTUM("alugentum", 11);
+		ALUGENTUM("alugentum", 11),
+		AMMONIUM_SULFATE("ammonium_sulfate", 12),
+		AMMONIUM_BISULFATE("ammonium_bisulfate", 13),
+		AMMONIUM_PERSULFATE("ammonium_persulfate", 14),
+		HYDROQUINONE("hydroquinone", 15),
+		SODIUM_HYDROQUINONE("sodium_hydroquinone", 16),
+		POTASSIUM_HYDROQUINONE("potassium_hydroquinone", 17);
 		
 		private final String name;
 		private final int id;
@@ -1075,7 +1341,12 @@ public class MetaEnums {
 		STEEL_FRAME("steel_frame", 12),
 		SIC_FIBER("sic_fiber", 13),
 		EMPTY_HEAT_SINK("empty_sink", 14),
-		PYROLYTIC_CARBON("pyrolytic_carbon", 15);
+		PYROLYTIC_CARBON("pyrolytic_carbon", 15),
+		SINTERED_STEEL("sintered_steel", 16),
+		SINTERED_ZIRCONIA("sintered_zirconia", 17),
+		POLYETHERSULFONE("polyethersulfone", 18),
+		ZIRFON("zirfon", 19),
+		POLYTETRAFLUOROETHENE("polytetrafluoroethene", 20);
 		
 		private final String name;
 		private final int id;

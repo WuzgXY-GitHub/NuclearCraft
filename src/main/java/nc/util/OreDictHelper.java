@@ -122,7 +122,7 @@ public class OreDictHelper {
 		return prioritisedStackList;
 	}
 	
-	public static ItemStack getPrioritisedCraftingStack(ItemStack backup, String ore) {
+	public static ItemStack getPrioritisedCraftingStack(ItemStack backup, String ore, int count) {
 		if (ore == null) {
 			return backup;
 		}
@@ -134,8 +134,12 @@ public class OreDictHelper {
 			return backup;
 		}
 		ItemStack stack = stackList.get(0).copy();
-		stack.setCount(backup == null || backup.isEmpty() ? 1 : backup.getCount());
+		stack.setCount(count);
 		return stack;
+	}
+	
+	public static ItemStack getPrioritisedCraftingStack(ItemStack backup, String ore) {
+		return getPrioritisedCraftingStack(backup, ore, backup == null || backup.isEmpty() ? 1 : backup.getCount());
 	}
 	
 	public static ItemStack getPrioritisedCraftingStack(Item backup, String ore) {

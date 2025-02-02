@@ -32,7 +32,18 @@ public class PressurizerRecipes extends BasicProcessorRecipeHandler {
 		addRecipe("dustFluorite", "gemFluorite", 1D, 1D);
 		addRecipe("dustVilliaumite", "gemVilliaumite", 1D, 1D);
 		addRecipe("dustCarobbiite", "gemCarobbiite", 1D, 1D);
-		addRecipe(oreStackList(Lists.newArrayList("dustWheat", "foodFlour"), 2), NCItems.graham_cracker, 0.25D, 0.5D);
+		
+		addRecipe("dustSteel", "sinteredSteel", 2D, 2D);
+		addRecipe("dustZirconia", "sinteredZirconia", 2D, 2D);
+		
+		if (!OreDictHelper.oreExists("ingotMolybdenum")) {
+			addRecipe(oreStack("dustMolybdenum", 9), "blockMolybdenum", 9D, 1D);
+		}
+		if (!OreDictHelper.oreExists("ingotCopperOxide")) {
+			addRecipe(oreStack("dustCopperOxide", 9), "blockCopperOxide", 9D, 1D);
+		}
+		
+		addRecipe(oreStackList(Lists.newArrayList("dustWheat", "foodFlour"), 2), NCItems.graham_cracker, 0.5D, 0.5D);
 		
 		// IC2
 		addRecipe(oreStack("dustClay", 4), "dustSiliconDioxide", 1D, 1D);

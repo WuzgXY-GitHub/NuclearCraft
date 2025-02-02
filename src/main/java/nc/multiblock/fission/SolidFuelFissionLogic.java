@@ -89,32 +89,32 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
 	public void refreshReactorStats() {
 		super.refreshReactorStats();
 		
-		for (FissionCluster cluster : getReactor().getClusterMap().values()) {
+		for (FissionCluster cluster : multiblock.getClusterMap().values()) {
 			if (cluster.connectedToWall) {
-				getReactor().usefulPartCount += cluster.componentCount;
-				getReactor().fuelComponentCount += cluster.fuelComponentCount;
-				getReactor().cooling += cluster.cooling;
-				getReactor().rawHeating += cluster.rawHeating;
+				multiblock.usefulPartCount += cluster.componentCount;
+				multiblock.fuelComponentCount += cluster.fuelComponentCount;
+				multiblock.cooling += cluster.cooling;
+				multiblock.rawHeating += cluster.rawHeating;
 				effectiveHeating += cluster.effectiveHeating;
-				getReactor().totalHeatMult += cluster.totalHeatMult;
-				getReactor().totalEfficiency += cluster.totalEfficiency;
+				multiblock.totalHeatMult += cluster.totalHeatMult;
+				multiblock.totalEfficiency += cluster.totalEfficiency;
 			}
 		}
 		
-		getReactor().usefulPartCount += getReactor().passiveModeratorCache.size() + getReactor().activeModeratorCache.size() + getReactor().activeReflectorCache.size();
-		double usefulPartRatio = (double) getReactor().usefulPartCount / (double) getReactor().getInteriorVolume();
-		getReactor().sparsityEfficiencyMult = usefulPartRatio >= fission_sparsity_penalty_params[1] ? 1D : (1D - fission_sparsity_penalty_params[0]) * Math.sin(usefulPartRatio * Math.PI / (2D * fission_sparsity_penalty_params[1])) + fission_sparsity_penalty_params[0];
-		effectiveHeating *= getReactor().sparsityEfficiencyMult;
-		getReactor().totalEfficiency *= getReactor().sparsityEfficiencyMult;
-		getReactor().meanHeatMult = getReactor().fuelComponentCount == 0 ? 0D : (double) getReactor().totalHeatMult / (double) getReactor().fuelComponentCount;
-		getReactor().meanEfficiency = getReactor().fuelComponentCount == 0 ? 0D : getReactor().totalEfficiency / getReactor().fuelComponentCount;
+		multiblock.usefulPartCount += multiblock.passiveModeratorCache.size() + multiblock.activeModeratorCache.size() + multiblock.activeReflectorCache.size();
+		double usefulPartRatio = (double) multiblock.usefulPartCount / (double) multiblock.getInteriorVolume();
+		multiblock.sparsityEfficiencyMult = usefulPartRatio >= fission_sparsity_penalty_params[1] ? 1D : (1D - fission_sparsity_penalty_params[0]) * Math.sin(usefulPartRatio * Math.PI / (2D * fission_sparsity_penalty_params[1])) + fission_sparsity_penalty_params[0];
+		effectiveHeating *= multiblock.sparsityEfficiencyMult;
+		multiblock.totalEfficiency *= multiblock.sparsityEfficiencyMult;
+		multiblock.meanHeatMult = multiblock.fuelComponentCount == 0 ? 0D : (double) multiblock.totalHeatMult / (double) multiblock.fuelComponentCount;
+		multiblock.meanEfficiency = multiblock.fuelComponentCount == 0 ? 0D : multiblock.totalEfficiency / multiblock.fuelComponentCount;
 	}
 	
 	// Server
 	
 	@Override
 	public boolean onUpdateServer() {
-		heatBuffer.changeHeatStored(getReactor().rawHeating);
+		heatBuffer.changeHeatStored(multiblock.rawHeating);
 		
 		if (heatBuffer.isFull() && fission_overheat) {
 			heatBuffer.setHeatStored(0L);
@@ -142,7 +142,7 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
 	}
 	
 	public void updateFluidHeating() {
-		if (getReactor().isReactorOn) {
+		if (multiblock.isReactorOn) {
 			refreshRecipe();
 			if (canProcessInputs()) {
 				produceProducts();
@@ -154,13 +154,13 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
 	}
 	
 	public void updateSounds() {
-		if (getReactor().isReactorOn) {
+		if (multiblock.isReactorOn) {
 			playFuelComponentSounds(TileSolidFissionCell.class);
 		}
 	}
 	
 	public void refreshRecipe() {
-		heatingRecipeInfo = NCRecipes.fission_heating.getRecipeInfoFromInputs(new ArrayList<>(), tanks.subList(0, 1));
+		heatingRecipeInfo = NCRecipes.fission_heating.getRecipeInfoFromInputs(Collections.emptyList(), tanks.subList(0, 1));
 	}
 	
 	public boolean canProcessInputs() {
@@ -233,16 +233,16 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
 			}
 		}
 		
-		long heatRemoval = (long) (getReactor().rawHeating / effectiveHeating * heatingRecipeRate * inputSize * recipe.getFissionHeatingHeatPerInputMB());
+		long heatRemoval = (long) (multiblock.rawHeating / effectiveHeating * heatingRecipeRate * inputSize * recipe.getFissionHeatingHeatPerInputMB());
 		heatBuffer.changeHeatStored(-heatRemoval);
 	}
 	
 	public double getEffectiveHeat() {
-		return getReactor().rawHeating == 0L ? 0D : effectiveHeating / getReactor().rawHeating * heatBuffer.getHeatStored();
+		return multiblock.rawHeating == 0L ? 0D : effectiveHeating / multiblock.rawHeating * heatBuffer.getHeatStored();
 	}
 	
 	public long getNetClusterHeating() {
-		return getReactor().rawHeating - getReactor().cooling;
+		return multiblock.rawHeating - multiblock.cooling;
 	}
 	
 	@Override
@@ -279,7 +279,7 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
 	
 	@Override
 	public @Nonnull List<Tank> getVentTanks(List<Tank> backupTanks) {
-		return getReactor().isAssembled() ? tanks : backupTanks;
+		return multiblock.isAssembled() ? tanks : backupTanks;
 	}
 	
 	// Client
@@ -315,7 +315,7 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
 	
 	@Override
 	public SolidFissionUpdatePacket getMultiblockUpdatePacket() {
-		return new SolidFissionUpdatePacket(getReactor().controller.getTilePos(), getReactor().isReactorOn, heatBuffer, getReactor().clusterCount, getReactor().cooling, getReactor().rawHeating, getReactor().totalHeatMult, getReactor().meanHeatMult, getReactor().fuelComponentCount, getReactor().usefulPartCount, getReactor().totalEfficiency, getReactor().meanEfficiency, getReactor().sparsityEfficiencyMult, effectiveHeating, heatingOutputRateFP, reservedEffectiveHeat);
+		return new SolidFissionUpdatePacket(multiblock.controller.getTilePos(), multiblock.isReactorOn, heatBuffer, multiblock.clusterCount, multiblock.cooling, multiblock.rawHeating, multiblock.totalHeatMult, multiblock.meanHeatMult, multiblock.fuelComponentCount, multiblock.usefulPartCount, multiblock.totalEfficiency, multiblock.meanEfficiency, multiblock.sparsityEfficiencyMult, effectiveHeating, heatingOutputRateFP, reservedEffectiveHeat);
 	}
 	
 	@Override

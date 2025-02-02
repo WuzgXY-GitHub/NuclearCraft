@@ -56,14 +56,9 @@ public class TileTurbineRotorBlade extends TileTurbinePart implements ITurbineRo
 	}
 	
 	@Override
-	public void onMachineAssembled(Turbine controller) {
-		doStandardNullControllerResponse(controller);
-		super.onMachineAssembled(controller);
-	}
-	
-	@Override
-	public void onMachineBroken() {
-		super.onMachineBroken();
+	public void onMachineAssembled(Turbine multiblock) {
+		doStandardNullControllerResponse(multiblock);
+		super.onMachineAssembled(multiblock);
 	}
 	
 	@Override

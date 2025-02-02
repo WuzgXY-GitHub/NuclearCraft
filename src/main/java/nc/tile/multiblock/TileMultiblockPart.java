@@ -2,6 +2,7 @@ package nc.tile.multiblock;
 
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import nc.Global;
+import nc.capability.radiation.source.IRadiationSource;
 import nc.multiblock.*;
 import nc.util.NCUtil;
 import net.minecraft.nbt.NBTTagCompound;
@@ -10,6 +11,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.FMLLog;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 /**
@@ -298,27 +300,27 @@ public abstract class TileMultiblockPart<MULTIBLOCK extends Multiblock<MULTIBLOC
 	
 	// Validator standard errors
 	
-	protected void doStandardNullControllerResponse(MULTIBLOCK controller) {
-		if (controller == null) {
+	protected void doStandardNullControllerResponse(MULTIBLOCK multiblock) {
+		if (multiblock == null) {
 			throw nullControllerError();
 		}
 		
-		if (multiblock == null) {
+		if (this.multiblock == null) {
 			nullControllerWarn();
-			onAttached(controller);
+			onAttached(multiblock);
 		}
 	}
 	
 	protected void setStandardLastError(MULTIBLOCK multiblock) {
-		multiblock.setLastError(Global.MOD_ID + ".multiblock_validation.invalid_block", getPos(), getPos().getX(), getPos().getY(), getPos().getZ(), getBlock(getPos()).getLocalizedName());
+		multiblock.setLastError(Global.MOD_ID + ".multiblock_validation.invalid_block", pos, pos.getX(), pos.getY(), pos.getZ(), getBlock(pos).getLocalizedName());
 	}
 	
 	protected IllegalArgumentException nullControllerError() {
-		return new IllegalArgumentException("Attempted to attach " + getBlock(getPos()).getLocalizedName() + " to a null controller. This should never happen - please report this bug to the NuclearCraft GitHub repo!");
+		return new IllegalArgumentException("Attempted to attach " + getBlock(pos).getLocalizedName() + " to a null controller. This should never happen - please report this bug to the NuclearCraft GitHub repo!");
 	}
 	
 	protected void nullControllerWarn() {
-		NCUtil.getLogger().warn(getBlock(getPos()).getLocalizedName() + " at (%d, %d, %d) is being assembled without being attached to a controller. It is recommended that the multiblock is completely disassambled and rebuilt if these errors continue!", getPos().getX(), getPos().getY(), getPos().getZ());
+		NCUtil.getLogger().warn(getBlock(pos).getLocalizedName() + " at (%d, %d, %d) is being assembled without being attached to a controller. It is recommended that the multiblock is completely disassambled and rebuilt if these errors continue!", pos.getX(), pos.getY(), pos.getZ());
 	}
 	
 	// Private/Protected Logic Helpers
@@ -347,4 +349,10 @@ public abstract class TileMultiblockPart<MULTIBLOCK extends Multiblock<MULTIBLOC
 			multiblock.markMultiblockForRenderUpdate();
 		}
 	}
+	
+	public @Nullable IRadiationSource getMultiblockRadiationSource() {
+		return isMultiblockSaveDelegate() && isConnected() ? getMultiblockRadiationSourceInternal() : null;
+	}
+	
+	protected abstract @Nullable IRadiationSource getMultiblockRadiationSourceInternal();
 }

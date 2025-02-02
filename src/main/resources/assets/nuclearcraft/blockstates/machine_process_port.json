@@ -1,0 +1,41 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "nuclearcraft:wall_part",
+		"textures": {
+			"in": "nuclearcraft:blocks/machine/process_port_item_in",
+			"out": "nuclearcraft:blocks/machine/process_port_item_in",
+			"side": "nuclearcraft:blocks/machine/process_port_side",
+			"top": "nuclearcraft:blocks/machine/process_port_top"
+		}
+	},
+	"variants": {
+		"inventory": [{}],
+		"machine_port_sorption": {
+			"item_in": {},
+			"fluid_in": {
+				"textures": {
+					"in": "nuclearcraft:blocks/machine/process_port_fluid_in",
+					"out": "nuclearcraft:blocks/machine/process_port_fluid_in"
+				}
+			},
+			"item_out": {
+				"textures": {
+					"in": "nuclearcraft:blocks/machine/process_port_item_out",
+					"out": "nuclearcraft:blocks/machine/process_port_item_out"
+				}
+			},
+			"fluid_out": {
+				"textures": {
+					"in": "nuclearcraft:blocks/machine/process_port_fluid_out",
+					"out": "nuclearcraft:blocks/machine/process_port_fluid_out"
+				}
+			}
+		},
+		"axis": {
+			"x": {"y": 90},
+			"y": {"x": 90},
+			"z": {}
+		}
+	}
+}

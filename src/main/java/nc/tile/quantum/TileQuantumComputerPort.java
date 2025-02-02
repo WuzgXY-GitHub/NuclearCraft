@@ -28,7 +28,7 @@ public class TileQuantumComputerPort extends TileQuantumComputerPart implements 
 		return "nc_quantum_computer";
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] isComplete(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled()};

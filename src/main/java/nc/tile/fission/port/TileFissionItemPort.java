@@ -98,7 +98,7 @@ public abstract class TileFissionItemPort<PORT extends TileFissionItemPort<PORT,
 	
 	@Override
 	public boolean canModifyFilter(int slot) {
-		return getMultiblock() == null || !getMultiblock().isAssembled();
+		return !isMultiblockAssembled();
 	}
 	
 	@Override
@@ -174,7 +174,7 @@ public abstract class TileFissionItemPort<PORT extends TileFissionItemPort<PORT,
 		}
 		
 		if (NCConfig.smart_processor_input) {
-			return recipeHandler.isValidItemInput(stack, slot, getInventoryStacks().subList(0, recipeHandler.itemInputSize), new ArrayList<>(), null);
+			return recipeHandler.isValidItemInput(stack, slot, getInventoryStacks().subList(0, recipeHandler.itemInputSize), Collections.emptyList(), null);
 		}
 		else {
 			return recipeHandler.isValidItemInput(stack, slot);
@@ -251,7 +251,7 @@ public abstract class TileFissionItemPort<PORT extends TileFissionItemPort<PORT,
 						setItemSorption(side, 1, ItemSorption.NON);
 					}
 					setActivity(false);
-					player.sendMessage(new TextComponentString(Lang.localize("nc.block.port_toggle") + " " + TextFormatting.BLUE + Lang.localize("nc.block.fission_port_mode.input") + " " + TextFormatting.WHITE + Lang.localize("nc.block.port_toggle.mode")));
+					player.sendMessage(new TextComponentString(Lang.localize("nc.block.port_toggle") + " " + TextFormatting.BLUE + Lang.localize("nc.block.port_mode.input") + " " + TextFormatting.WHITE + Lang.localize("nc.block.port_toggle.mode")));
 				}
 				else {
 					for (EnumFacing side : EnumFacing.VALUES) {
@@ -259,7 +259,7 @@ public abstract class TileFissionItemPort<PORT extends TileFissionItemPort<PORT,
 						setItemSorption(side, 1, ItemSorption.OUT);
 					}
 					setActivity(true);
-					player.sendMessage(new TextComponentString(Lang.localize("nc.block.port_toggle") + " " + TextFormatting.GOLD + Lang.localize("nc.block.fission_port_mode.output") + " " + TextFormatting.WHITE + Lang.localize("nc.block.port_toggle.mode")));
+					player.sendMessage(new TextComponentString(Lang.localize("nc.block.port_toggle") + " " + TextFormatting.GOLD + Lang.localize("nc.block.port_mode.output") + " " + TextFormatting.WHITE + Lang.localize("nc.block.port_toggle.mode")));
 				}
 				markDirtyAndNotify(true);
 				return true;

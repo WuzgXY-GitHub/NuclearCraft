@@ -2,7 +2,10 @@ package nc.multiblock.cuboidal;
 
 import nc.multiblock.Multiblock;
 import nc.multiblock.internal.MultiblockValidationError;
-import nc.util.NCMath;
+import nc.util.*;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -51,27 +54,27 @@ public abstract class CuboidalMultiblock<MULTIBLOCK extends CuboidalMultiblock<M
 		int minZSize = getMinimumZSize();
 		
 		if (maxXSize > 0 && deltaX > maxXSize) {
-			setLastError("zerocore.api.nc.multiblock.validation.machine_too_large", null, maxXSize, "X");
+			setLastError("zerocore.api.nc.multiblock.validation.machine_too_large", null, maxXSize, "x");
 			return false;
 		}
 		if (maxYSize > 0 && deltaY > maxYSize) {
-			setLastError("zerocore.api.nc.multiblock.validation.machine_too_large", null, maxYSize, "Y");
+			setLastError("zerocore.api.nc.multiblock.validation.machine_too_large", null, maxYSize, "y");
 			return false;
 		}
 		if (maxZSize > 0 && deltaZ > maxZSize) {
-			setLastError("zerocore.api.nc.multiblock.validation.machine_too_large", null, maxZSize, "Z");
+			setLastError("zerocore.api.nc.multiblock.validation.machine_too_large", null, maxZSize, "z");
 			return false;
 		}
 		if (deltaX < minXSize) {
-			setLastError("zerocore.api.nc.multiblock.validation.machine_too_small", null, minXSize, "X");
+			setLastError("zerocore.api.nc.multiblock.validation.machine_too_small", null, minXSize, "x");
 			return false;
 		}
 		if (deltaY < minYSize) {
-			setLastError("zerocore.api.nc.multiblock.validation.machine_too_small", null, minYSize, "Y");
+			setLastError("zerocore.api.nc.multiblock.validation.machine_too_small", null, minYSize, "y");
 			return false;
 		}
 		if (deltaZ < minZSize) {
-			setLastError("zerocore.api.nc.multiblock.validation.machine_too_small", null, minZSize, "Z");
+			setLastError("zerocore.api.nc.multiblock.validation.machine_too_small", null, minZSize, "z");
 			return false;
 		}
 		
@@ -184,7 +187,7 @@ public abstract class CuboidalMultiblock<MULTIBLOCK extends CuboidalMultiblock<M
 						
 						if (!isPartValid) {
 							if (getLastError() == null) {
-								setLastError("zerocore.api.nc.multiblock.validation.reactor.invalid_part_for_interior", pos, x, y, z);
+								setLastError("zerocore.api.nc.multiblock.validation.invalid_part_for_interior", pos, x, y, z);
 							}
 							return false;
 						}
@@ -192,6 +195,44 @@ public abstract class CuboidalMultiblock<MULTIBLOCK extends CuboidalMultiblock<M
 				}
 			}
 		}
+		return true;
+	}
+	
+	public boolean hasAxialSymmetry(EnumFacing.Axis axis) {
+		if (axis == null) {
+			return true;
+		}
+		
+		EnumFacing normal = PosHelper.getAxisDirectionDir(axis, EnumFacing.AxisDirection.NEGATIVE);
+		int interiorLength = getInteriorLength(normal);
+		
+		if (interiorLength <= 1) {
+			return true;
+		}
+		
+		Iterable<MutableBlockPos> plane = getInteriorPlane(normal, 0, 0, 0, 0, 0);
+		
+		for (MutableBlockPos planePos : plane) {
+			MutableBlockPos columnPos = new MutableBlockPos(planePos.x, planePos.y, planePos.z);
+			ItemStack stack = StackHelper.blockStateToStack(WORLD.getBlockState(columnPos));
+			
+			for (int i = 1; i < interiorLength; ++i) {
+				switch (axis) {
+					case X -> ++columnPos.x;
+					case Y -> ++columnPos.y;
+					case Z -> ++columnPos.z;
+				}
+				
+				IBlockState state = WORLD.getBlockState(columnPos);
+				if ((!stack.isEmpty() || !state.getMaterial().equals(Material.AIR)) && !stack.isItemEqual(StackHelper.blockStateToStack(state))) {
+					if (getLastError() == null) {
+						setLastError("zerocore.api.nc.multiblock.validation.invalid_axial_symmetry", columnPos, columnPos.x, columnPos.y, columnPos.z, axis.getName());
+					}
+					return false;
+				}
+			}
+		}
+		
 		return true;
 	}
 	

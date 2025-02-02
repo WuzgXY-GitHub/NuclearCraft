@@ -1,15 +1,16 @@
 package nc.tile;
 
 import nc.block.property.BlockProperties;
-import nc.block.tile.IActivatable;
+import nc.block.tile.*;
 import nc.capability.radiation.source.IRadiationSource;
 import net.minecraft.block.*;
+import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -61,8 +62,14 @@ public interface ITile {
 	
 	@Deprecated
 	default void setState(boolean isActive, TileEntity tile) {
-		if (getTileBlockType() instanceof IActivatable) {
-			((IActivatable) getTileBlockType()).setActivity(isActive, tile);
+		if (getTileBlockType() instanceof IActivatable block) {
+			block.setActivity(isActive, tile);
+		}
+	}
+	
+	default <T extends Enum<T> & IStringSerializable> void setProperty(PropertyEnum<T> property, T value) {
+		if (getTileBlockType() instanceof IDynamicState block) {
+			block.setProperty(property, value, getTile());
 		}
 	}
 	

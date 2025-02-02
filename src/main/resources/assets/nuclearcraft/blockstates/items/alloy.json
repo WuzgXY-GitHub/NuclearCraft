@@ -90,6 +90,11 @@
 				"textures": {
 					"layer0": "nuclearcraft:items/alloy/zirconium_molybdenum"
 				}
+			},
+			"hastelloy": {
+				"textures": {
+					"layer0": "nuclearcraft:items/alloy/hastelloy"
+				}
 			}
 		}
 	}

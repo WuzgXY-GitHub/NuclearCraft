@@ -42,6 +42,8 @@ public interface IIngredient<T> {
 	
 	boolean isValid();
 	
+	boolean isEmpty();
+	
 	// CraftTweaker
 	
 	@Optional.Method(modid = "crafttweaker")

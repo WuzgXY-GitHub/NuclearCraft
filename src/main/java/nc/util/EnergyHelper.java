@@ -15,7 +15,7 @@ public class EnergyHelper {
 		return (int) Math.min(Math.ceil((Math.log(euPerTick) / Math.log(2D) - 3D) / 2D), maxTier);
 	}
 	
-	public static int getMaxEUFromTier(int tier) {
-		return (int) Math.pow(2, 2 * tier + 3);
+	public static long getMaxEUFromTier(int tier) {
+		return (long) Math.pow(2, 2 * tier + 3);
 	}
 }

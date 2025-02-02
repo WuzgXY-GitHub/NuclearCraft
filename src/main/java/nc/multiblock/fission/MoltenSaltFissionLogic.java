@@ -119,7 +119,7 @@ public class MoltenSaltFissionLogic extends FissionReactorLogic {
 			}
 			
 			if (bunch == null) {
-				bunch = new SaltFissionVesselBunch(getReactor());
+				bunch = new SaltFissionVesselBunch(multiblock);
 				vessel.setVesselBunch(bunch);
 				vesselBunches.add(bunch);
 			}
@@ -177,30 +177,30 @@ public class MoltenSaltFissionLogic extends FissionReactorLogic {
 	public void refreshReactorStats() {
 		super.refreshReactorStats();
 		
-		for (FissionCluster cluster : getReactor().getClusterMap().values()) {
-			getReactor().usefulPartCount += cluster.componentCount;
-			getReactor().fuelComponentCount += cluster.fuelComponentCount;
-			getReactor().cooling += cluster.cooling;
-			getReactor().rawHeating += cluster.rawHeating;
+		for (FissionCluster cluster : multiblock.getClusterMap().values()) {
+			multiblock.usefulPartCount += cluster.componentCount;
+			multiblock.fuelComponentCount += cluster.fuelComponentCount;
+			multiblock.cooling += cluster.cooling;
+			multiblock.rawHeating += cluster.rawHeating;
 			// effectiveHeating += cluster.effectiveHeating;
-			getReactor().totalHeatMult += cluster.totalHeatMult;
-			getReactor().totalEfficiency += cluster.totalEfficiency;
+			multiblock.totalHeatMult += cluster.totalHeatMult;
+			multiblock.totalEfficiency += cluster.totalEfficiency;
 		}
 		
-		getReactor().usefulPartCount += getReactor().passiveModeratorCache.size() + getReactor().activeModeratorCache.size() + getReactor().activeReflectorCache.size();
-		double usefulPartRatio = (double) getReactor().usefulPartCount / (double) getReactor().getInteriorVolume();
-		getReactor().sparsityEfficiencyMult = usefulPartRatio >= fission_sparsity_penalty_params[1] ? 1D : (1D - fission_sparsity_penalty_params[0]) * Math.sin(usefulPartRatio * Math.PI / (2D * fission_sparsity_penalty_params[1])) + fission_sparsity_penalty_params[0];
+		multiblock.usefulPartCount += multiblock.passiveModeratorCache.size() + multiblock.activeModeratorCache.size() + multiblock.activeReflectorCache.size();
+		double usefulPartRatio = (double) multiblock.usefulPartCount / (double) multiblock.getInteriorVolume();
+		multiblock.sparsityEfficiencyMult = usefulPartRatio >= fission_sparsity_penalty_params[1] ? 1D : (1D - fission_sparsity_penalty_params[0]) * Math.sin(usefulPartRatio * Math.PI / (2D * fission_sparsity_penalty_params[1])) + fission_sparsity_penalty_params[0];
 		// effectiveHeating *= sparsityEfficiencyMult;
-		getReactor().totalEfficiency *= getReactor().sparsityEfficiencyMult;
-		getReactor().meanHeatMult = getReactor().fuelComponentCount == 0 ? 0D : (double) getReactor().totalHeatMult / (double) getReactor().fuelComponentCount;
-		getReactor().meanEfficiency = getReactor().fuelComponentCount == 0 ? 0D : getReactor().totalEfficiency / getReactor().fuelComponentCount;
+		multiblock.totalEfficiency *= multiblock.sparsityEfficiencyMult;
+		multiblock.meanHeatMult = multiblock.fuelComponentCount == 0 ? 0D : (double) multiblock.totalHeatMult / (double) multiblock.fuelComponentCount;
+		multiblock.meanEfficiency = multiblock.fuelComponentCount == 0 ? 0D : multiblock.totalEfficiency / multiblock.fuelComponentCount;
 		
-		for (FissionCluster cluster : getReactor().getClusterMap().values()) {
+		for (FissionCluster cluster : multiblock.getClusterMap().values()) {
 			cluster.meanHeatingSpeedMultiplier = cluster.totalHeatingSpeedMultiplier = 0D;
 			int clusterHeaters = 0;
 			for (IFissionComponent component : cluster.getComponentMap().values()) {
 				if (component instanceof TileSaltFissionHeater heater) {
-					heater.heatingSpeedMultiplier = cluster.meanEfficiency * getReactor().sparsityEfficiencyMult * (cluster.rawHeating >= cluster.cooling ? 1D : (double) cluster.rawHeating / (double) cluster.cooling);
+					heater.heatingSpeedMultiplier = cluster.meanEfficiency * multiblock.sparsityEfficiencyMult * (cluster.rawHeating >= cluster.cooling ? 1D : (double) cluster.rawHeating / (double) cluster.cooling);
 					cluster.totalHeatingSpeedMultiplier += heater.heatingSpeedMultiplier;
 					++clusterHeaters;
 				}
@@ -208,7 +208,7 @@ public class MoltenSaltFissionLogic extends FissionReactorLogic {
 			cluster.meanHeatingSpeedMultiplier = clusterHeaters == 0 ? 0D : cluster.totalHeatingSpeedMultiplier / clusterHeaters;
 			totalHeatingSpeedMultiplier += cluster.meanHeatingSpeedMultiplier;
 		}
-		meanHeatingSpeedMultiplier = getReactor().getClusterMap().isEmpty() ? 0D : totalHeatingSpeedMultiplier / getReactor().getClusterMap().size();
+		meanHeatingSpeedMultiplier = multiblock.getClusterMap().isEmpty() ? 0D : totalHeatingSpeedMultiplier / multiblock.getClusterMap().size();
 	}
 	
 	// Server
@@ -247,7 +247,7 @@ public class MoltenSaltFissionLogic extends FissionReactorLogic {
 	}
 	
 	public void updateEmergencyCooling() {
-		if (!getReactor().isReactorOn) {
+		if (!multiblock.isReactorOn) {
 			refreshRecipe();
 			if (canProcessInputs()) {
 				produceProducts();
@@ -256,13 +256,13 @@ public class MoltenSaltFissionLogic extends FissionReactorLogic {
 	}
 	
 	public void updateSounds() {
-		if (getReactor().isReactorOn) {
+		if (multiblock.isReactorOn) {
 			playFuelComponentSounds(TileSaltFissionVessel.class);
 		}
 	}
 	
 	public void refreshRecipe() {
-		emergencyCoolingRecipeInfo = NCRecipes.fission_emergency_cooling.getRecipeInfoFromInputs(new ArrayList<>(), tanks.subList(0, 1));
+		emergencyCoolingRecipeInfo = NCRecipes.fission_emergency_cooling.getRecipeInfoFromInputs(Collections.emptyList(), tanks.subList(0, 1));
 	}
 	
 	public boolean canProcessInputs() {
@@ -314,7 +314,7 @@ public class MoltenSaltFissionLogic extends FissionReactorLogic {
 	}
 	
 	public long getNetClusterHeating() {
-		return getReactor().rawHeating - getReactor().cooling;
+		return multiblock.rawHeating - multiblock.cooling;
 	}
 	
 	@Override
@@ -357,7 +357,7 @@ public class MoltenSaltFissionLogic extends FissionReactorLogic {
 	
 	@Override
 	public @Nonnull List<Tank> getVentTanks(List<Tank> backupTanks) {
-		return getReactor().isAssembled() ? tanks : backupTanks;
+		return multiblock.isAssembled() ? tanks : backupTanks;
 	}
 	
 	// Client
@@ -391,7 +391,7 @@ public class MoltenSaltFissionLogic extends FissionReactorLogic {
 	
 	@Override
 	public SaltFissionUpdatePacket getMultiblockUpdatePacket() {
-		return new SaltFissionUpdatePacket(getReactor().controller.getTilePos(), getReactor().isReactorOn, heatBuffer, getReactor().clusterCount, getReactor().cooling, getReactor().rawHeating, getReactor().totalHeatMult, getReactor().meanHeatMult, getReactor().fuelComponentCount, getReactor().usefulPartCount, getReactor().totalEfficiency, getReactor().meanEfficiency, getReactor().sparsityEfficiencyMult, meanHeatingSpeedMultiplier, totalHeatingSpeedMultiplier);
+		return new SaltFissionUpdatePacket(multiblock.controller.getTilePos(), multiblock.isReactorOn, heatBuffer, multiblock.clusterCount, multiblock.cooling, multiblock.rawHeating, multiblock.totalHeatMult, multiblock.meanHeatMult, multiblock.fuelComponentCount, multiblock.usefulPartCount, multiblock.totalEfficiency, multiblock.meanEfficiency, multiblock.sparsityEfficiencyMult, meanHeatingSpeedMultiplier, totalHeatingSpeedMultiplier);
 	}
 	
 	@Override

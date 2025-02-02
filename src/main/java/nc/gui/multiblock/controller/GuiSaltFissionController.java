@@ -67,7 +67,7 @@ public class GuiSaltFissionController extends GuiLogicMultiblockController<Fissi
 		String clusters = Lang.localize("gui.nc.container.fission_controller.clusters") + " " + multiblock.clusterCount;
 		fontRenderer.drawString(clusters, xSize / 2 - fontRenderer.getStringWidth(clusters) / 2, 22, fontColor);
 		
-		String heatMult = NCUtil.isModifierKeyDown() ? Lang.localize("gui.nc.container.fission_controller.efficiency") + " " + NCMath.pcDecimalPlaces(multiblock.meanEfficiency, 1) : Lang.localize("gui.nc.container.fission_controller.heat_mult") + " " + NCMath.pcDecimalPlaces(multiblock.meanHeatMult, 1);
+		String heatMult = NCUtil.isModifierKeyDown() ? Lang.localize("gui.nc.container.fission_controller.heat_mult") + " " + NCMath.pcDecimalPlaces(multiblock.meanHeatMult, 1) : Lang.localize("gui.nc.container.fission_controller.efficiency") + " " + NCMath.pcDecimalPlaces(multiblock.meanEfficiency, 1);
 		fontRenderer.drawString(heatMult, xSize / 2 - fontRenderer.getStringWidth(heatMult) / 2, 34, fontColor);
 		
 		String speedMult = Lang.localize("gui.nc.container.salt_fission_controller.heating_speed_multiplier") + " " + NCMath.pcDecimalPlaces(getLogic().meanHeatingSpeedMultiplier, 1);
@@ -76,7 +76,7 @@ public class GuiSaltFissionController extends GuiLogicMultiblockController<Fissi
 		String sparsity = NCUtil.isModifierKeyDown() ? Lang.localize("gui.nc.container.fission_controller.useful_parts") + " " + multiblock.usefulPartCount + "/" + multiblock.getInteriorVolume() : Lang.localize("gui.nc.container.fission_controller.sparsity") + " " + NCMath.pcDecimalPlaces(multiblock.sparsityEfficiencyMult, 1);
 		fontRenderer.drawString(sparsity, xSize / 2 - fontRenderer.getStringWidth(sparsity) / 2, 58, fontColor);
 		
-		String temperature = Lang.localize("gui.nc.container.fission_controller.temperature") + " " + (NCUtil.isModifierKeyDown() ? logic.getTemperature() - 273 + " C" : logic.getTemperature() + " K");
+		String temperature = Lang.localize("gui.nc.container.fission_controller.temperature") + " " + (NCUtil.isModifierKeyDown() ? Math.round(logic.getTemperature() - 273.15D) + " C" : Math.round(logic.getTemperature()) + " K");
 		fontRenderer.drawString(temperature, xSize / 2 - fontRenderer.getStringWidth(temperature) / 2, NCUtil.isModifierKeyDown() ? 70 : 76, fontColor);
 		
 		if (!NCUtil.isModifierKeyDown()) {

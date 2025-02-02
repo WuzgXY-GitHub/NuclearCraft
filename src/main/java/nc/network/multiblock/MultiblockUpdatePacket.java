@@ -50,9 +50,9 @@ public abstract class MultiblockUpdatePacket extends NCPacket {
 				Minecraft.getMinecraft().addScheduledTask(() -> {
 					TileEntity tile = Minecraft.getMinecraft().player.world.getTileEntity(message.pos);
 					if (controllerClass.isInstance(tile)) {
-						CONTROLLER controller = controllerClass.cast(tile);
-						if (controller.getMultiblock() != null) {
-							onPacket(message, controller.getMultiblock());
+						MULTIBLOCK multiblock = controllerClass.cast(tile).getMultiblock();
+						if (multiblock != null) {
+							onPacket(message, multiblock);
 						}
 					}
 				});

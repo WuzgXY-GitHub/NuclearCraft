@@ -469,7 +469,7 @@ public abstract class PlacementRule<MULTIBLOCK extends Multiblock<MULTIBLOCK, T>
 			Object2ObjectMap<String, Object2BooleanMap<String>> cycleMap = new Object2ObjectOpenHashMap<>();
 			ObjectSet<String> finished = new ObjectOpenHashSet<>();
 			
-			Stack<Vertex<String>> vertexStack = new Stack<>();
+			Deque<Vertex<String>> vertexStack = new ArrayDeque<>();
 			vertexStack.push(new Vertex<>(ruleID));
 			
 			while (!vertexStack.isEmpty()) {
@@ -522,7 +522,7 @@ public abstract class PlacementRule<MULTIBLOCK extends Multiblock<MULTIBLOCK, T>
 				}
 			}
 			
-			Stack<String> stack = new Stack<>();
+			Deque<String> stack = new ArrayDeque<>();
 			stack.push(ruleID);
 			
 			while (!stack.isEmpty()) {
@@ -543,7 +543,7 @@ public abstract class PlacementRule<MULTIBLOCK extends Multiblock<MULTIBLOCK, T>
 					
 					for (Vertex<String> child : v.children) {
 						boolean continueCycle = true;
-						Stack<String> traversedPath = new Stack<>();
+						Deque<String> traversedPath = new ArrayDeque<>();
 						
 						String cycle = "[";
 						for (String s : child.getPath(true)) {

@@ -5,7 +5,6 @@ import it.unimi.dsi.fastutil.doubles.*;
 import it.unimi.dsi.fastutil.ints.*;
 import it.unimi.dsi.fastutil.objects.*;
 import nc.Global;
-import nc.handler.SoundHandler.SoundInfo;
 import nc.multiblock.*;
 import nc.multiblock.cuboidal.CuboidalMultiblock;
 import nc.multiblock.turbine.TurbineRotorBladeUtil.*;
@@ -17,6 +16,7 @@ import nc.tile.multiblock.TilePartAbstract.SyncReason;
 import nc.tile.turbine.*;
 import nc.util.*;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.audio.ISound;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -67,12 +67,8 @@ public class Turbine extends CuboidalMultiblock<Turbine, ITurbinePart> implement
 	public final DoubleList expansionLevels = new DoubleArrayList(), rawBladeEfficiencies = new DoubleArrayList();
 	
 	@SideOnly(Side.CLIENT)
-	public static final int SOUND_LENGTH = 186;
-	@SideOnly(Side.CLIENT)
-	public List<SoundInfo> activeSounds;
-	public int soundCount = rand.nextInt(20);
-	public boolean refreshSoundInfo = true;
-	public float prevAngVel = 0F;
+	public final Object2ObjectMap<BlockPos, ISound> soundMap = new Object2ObjectOpenHashMap<>();
+	public boolean refreshSounds = true;
 	
 	public String particleEffect = "cloud";
 	public double particleSpeedMult = 1D / 23.2D;
@@ -91,14 +87,13 @@ public class Turbine extends CuboidalMultiblock<Turbine, ITurbinePart> implement
 	public IBlockState[] rotorStateArray = null;
 	public final IntList bladeDepths = new IntArrayList(), statorDepths = new IntArrayList();
 	
-	protected final Set<EntityPlayer> updatePacketListeners;
+	protected final Set<EntityPlayer> updatePacketListeners = new ObjectOpenHashSet<>();
 	
 	public Turbine(World world) {
 		super(world, Turbine.class, ITurbinePart.class);
 		for (Class<? extends ITurbinePart> clazz : PART_CLASSES) {
 			partSuperMap.equip(clazz);
 		}
-		updatePacketListeners = new ObjectOpenHashSet<>();
 	}
 	
 	@Override
@@ -197,6 +192,7 @@ public class Turbine extends CuboidalMultiblock<Turbine, ITurbinePart> implement
 		
 		for (ITurbineController<?> contr : getParts(ITurbineController.class)) {
 			controller = contr;
+			break;
 		}
 		
 		setLogic(controller.getLogicID());
@@ -310,7 +306,6 @@ public class Turbine extends CuboidalMultiblock<Turbine, ITurbinePart> implement
 	@Override
 	protected boolean updateServer() {
 		boolean flag = false;
-		// setIsTurbineOn();
 		if (logic.onUpdateServer()) {
 			flag = true;
 		}

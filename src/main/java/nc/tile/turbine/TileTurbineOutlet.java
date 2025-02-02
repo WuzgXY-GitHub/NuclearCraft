@@ -8,7 +8,7 @@ import nc.multiblock.turbine.Turbine;
 import nc.tile.fluid.ITileFluid;
 import nc.tile.internal.fluid.*;
 import nc.tile.passive.ITilePassive;
-import nc.util.CapabilityHelper;
+import nc.util.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
@@ -27,13 +27,8 @@ public class TileTurbineOutlet extends TileTurbinePart implements ITickable, ITi
 	
 	private @Nonnull FluidConnection[] fluidConnections = ITileFluid.fluidConnectionAll(TankSorption.OUT);
 	
-	private @Nonnull
-	final FluidTileWrapper[] fluidSides;
-	
-	private @Nonnull
-	final GasTileWrapper gasWrapper;
-	
-	protected int outletCount;
+	private @Nonnull final FluidTileWrapper[] fluidSides;
+	private @Nonnull final GasTileWrapper gasWrapper;
 	
 	public TileTurbineOutlet() {
 		super(CuboidalPartPositionType.WALL);
@@ -42,32 +37,25 @@ public class TileTurbineOutlet extends TileTurbinePart implements ITickable, ITi
 	}
 	
 	@Override
-	public void onMachineAssembled(Turbine controller) {
-		doStandardNullControllerResponse(controller);
-		super.onMachineAssembled(controller);
-		if (!getWorld().isRemote && getPartPosition().getFacing() != null) {
-			getWorld().setBlockState(getPos(), getWorld().getBlockState(getPos()).withProperty(AXIS_ALL, getPartPosition().getFacing().getAxis()), 2);
+	public void onMachineAssembled(Turbine multiblock) {
+		doStandardNullControllerResponse(multiblock);
+		super.onMachineAssembled(multiblock);
+		if (!world.isRemote) {
+			EnumFacing posFacing = getPartPosition().getFacing();
+			if (posFacing != null) {
+				world.setBlockState(pos, world.getBlockState(pos).withProperty(AXIS_ALL, posFacing.getAxis()), 2);
+			}
 		}
-	}
-	
-	@Override
-	public void onMachineBroken() {
-		super.onMachineBroken();
 	}
 	
 	@Override
 	public void update() {
-		if (!world.isRemote) {
-			if (outletCount == 0) {
-				pushFluid();
+		if (!world.isRemote && !getTanks().get(0).isEmpty()) {
+			EnumFacing posFacing = getPartPosition().getFacing();
+			if (posFacing != null && getTankSorption(posFacing, 0).canDrain()) {
+				pushFluidToSide(posFacing);
 			}
-			tickOutlet();
 		}
-	}
-	
-	public void tickOutlet() {
-		++outletCount;
-		outletCount %= machine_update_rate / 4;
 	}
 	
 	// Fluids
@@ -105,25 +93,22 @@ public class TileTurbineOutlet extends TileTurbinePart implements ITickable, ITi
 	
 	@Override
 	public void pushFluidToSide(@Nonnull EnumFacing side) {
-		if (!getTankSorption(side, 0).canDrain() || getTanks().get(0).getFluid() == null) {
-			return;
-		}
-		
 		TileEntity tile = getTileWorld().getTileEntity(getTilePos().offset(side));
 		if (tile == null || tile instanceof TileTurbineOutlet) {
 			return;
 		}
 		
-		if (tile instanceof ITilePassive && !((ITilePassive) tile).canPushFluidsTo()) {
+		if (tile instanceof ITilePassive tilePassive && !tilePassive.canPushFluidsTo()) {
 			return;
 		}
 		
 		IFluidHandler adjStorage = tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite());
-		if (adjStorage == null || getTanks().get(0).getFluid() == null) {
+		if (adjStorage == null) {
 			return;
 		}
 		
-		getTanks().get(0).drain(adjStorage.fill(getTanks().get(0).drain(getTanks().get(0).getCapacity(), false), true), true);
+		Tank tank = getTanks().get(0);
+		tank.drain(adjStorage.fill(tank.drain(tank.getCapacity(), false), true), true);
 	}
 	
 	@Override

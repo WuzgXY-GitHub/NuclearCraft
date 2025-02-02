@@ -84,7 +84,7 @@ public class TileDecayGenerator extends TileEnergy implements ITickable, IInterf
 			if (block == null) {
 				return 0D;
 			}
-			getWorld().setBlockState(pos.offset(side), block);
+			world.setBlockState(pos.offset(side), block);
 			refreshRecipe(side);
 		}
 		return getRecipePower(side);

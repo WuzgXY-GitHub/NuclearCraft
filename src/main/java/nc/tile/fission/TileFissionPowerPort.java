@@ -4,7 +4,7 @@ import gregtech.api.capability.GregtechCapabilities;
 import ic2.api.energy.tile.*;
 import nc.ModCheck;
 import nc.multiblock.cuboidal.CuboidalPartPositionType;
-import nc.multiblock.fission.FissionReactor;
+import nc.multiblock.fission.*;
 import nc.tile.energy.ITileEnergy;
 import nc.tile.internal.energy.*;
 import nc.util.Lang;
@@ -28,7 +28,7 @@ public class TileFissionPowerPort extends TileFissionPart implements ITickable, 
 	
 	protected final EnergyStorage backupStorage = new EnergyStorage(1);
 	
-	protected final EnergyConnection[] energyConnections = ITileEnergy.energyConnectionAll(EnergyConnection.OUT);
+	protected final EnergyConnection[] energyConnections = ITileEnergy.energyConnectionAll(EnergyConnection.IN);
 	
 	protected final EnergyTileWrapper[] energySides = ITileEnergy.getDefaultEnergySides(this);
 	protected final EnergyTileWrapperGT[] energySidesGT = ITileEnergy.getDefaultEnergySidesGT(this);
@@ -40,24 +40,24 @@ public class TileFissionPowerPort extends TileFissionPart implements ITickable, 
 	}
 	
 	@Override
-	public void onMachineAssembled(FissionReactor controller) {
-		doStandardNullControllerResponse(controller);
-		super.onMachineAssembled(controller);
-		if (!getWorld().isRemote && getPartPosition().getFacing() != null) {
-			getWorld().setBlockState(getPos(), getWorld().getBlockState(getPos()).withProperty(FACING_ALL, getPartPosition().getFacing()), 2);
+	public void onMachineAssembled(FissionReactor multiblock) {
+		doStandardNullControllerResponse(multiblock);
+		super.onMachineAssembled(multiblock);
+		if (!world.isRemote) {
+			EnumFacing facing = getPartPosition().getFacing();
+			if (facing != null) {
+				world.setBlockState(pos, world.getBlockState(pos).withProperty(FACING_ALL, facing), 2);
+			}
 		}
 	}
 	
 	@Override
-	public void onMachineBroken() {
-		super.onMachineBroken();
-	}
-	
-	@Override
 	public void update() {
-		EnumFacing facing = getPartPosition().getFacing();
-		if (!world.isRemote && facing != null && getEnergyStored() > 0 && getEnergyConnection(facing).canExtract()) {
-			pushEnergyToSide(facing);
+		if (!world.isRemote && getEnergyStored() > 0) {
+			EnumFacing facing = getPartPosition().getFacing();
+			if (facing != null && getEnergyConnection(facing).canExtract()) {
+				pushEnergyToSide(facing);
+			}
 		}
 	}
 	
@@ -87,7 +87,8 @@ public class TileFissionPowerPort extends TileFissionPart implements ITickable, 
 	
 	@Override
 	public EnergyStorage getEnergyStorage() {
-		return getMultiblock() != null ? getLogic().getPowerPortEnergyStorage(backupStorage) : backupStorage;
+		FissionReactorLogic logic = getLogic();
+		return logic != null ? logic.getPowerPortEnergyStorage(backupStorage) : backupStorage;
 	}
 	
 	@Override
@@ -119,12 +120,14 @@ public class TileFissionPowerPort extends TileFissionPart implements ITickable, 
 	
 	@Override
 	public int getSinkTier() {
-		return getMultiblock() != null ? getLogic().getPowerPortEUSinkTier() : 1;
+		FissionReactorLogic logic = getLogic();
+		return logic != null ? logic.getPowerPortEUSinkTier() : 10;
 	}
 	
 	@Override
 	public int getSourceTier() {
-		return getMultiblock() != null ? getLogic().getPowerPortEUSourceTier() : 1;
+		FissionReactorLogic logic = getLogic();
+		return logic != null ? logic.getPowerPortEUSourceTier() : 1;
 	}
 	
 	@Override
@@ -177,19 +180,19 @@ public class TileFissionPowerPort extends TileFissionPart implements ITickable, 
 		}
 		else {
 			if (getMultiblock() != null) {
-				if (getEnergyConnection(facing) != EnergyConnection.OUT) {
-					for (EnumFacing side : EnumFacing.VALUES) {
-						setEnergyConnection(EnergyConnection.OUT, side);
-					}
-					setActivity(false);
-					player.sendMessage(new TextComponentString(Lang.localize("nc.block.port_toggle") + " " + TextFormatting.GOLD + Lang.localize("nc.block.fission_port_mode.output") + " " + TextFormatting.WHITE + Lang.localize("nc.block.port_toggle.mode")));
-				}
-				else {
+				if (getEnergyConnection(facing) != EnergyConnection.IN) {
 					for (EnumFacing side : EnumFacing.VALUES) {
 						setEnergyConnection(EnergyConnection.IN, side);
 					}
+					setActivity(false);
+					player.sendMessage(new TextComponentString(Lang.localize("nc.block.port_toggle") + " " + TextFormatting.BLUE + Lang.localize("nc.block.port_mode.input") + " " + TextFormatting.WHITE + Lang.localize("nc.block.port_toggle.mode")));
+				}
+				else {
+					for (EnumFacing side : EnumFacing.VALUES) {
+						setEnergyConnection(EnergyConnection.OUT, side);
+					}
 					setActivity(true);
-					player.sendMessage(new TextComponentString(Lang.localize("nc.block.port_toggle") + " " + TextFormatting.DARK_AQUA + Lang.localize("nc.block.fission_port_mode.input") + " " + TextFormatting.WHITE + Lang.localize("nc.block.port_toggle.mode")));
+					player.sendMessage(new TextComponentString(Lang.localize("nc.block.port_toggle") + " " + TextFormatting.RED + Lang.localize("nc.block.port_mode.output") + " " + TextFormatting.WHITE + Lang.localize("nc.block.port_toggle.mode")));
 				}
 				markDirtyAndNotify(true);
 				return true;

@@ -20,7 +20,7 @@ public class EmptyItemIngredient implements IItemIngredient {
 	
 	@Override
 	public List<ItemStack> getInputStackList() {
-		return new ArrayList<>();
+		return Collections.emptyList();
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ public class EmptyItemIngredient implements IItemIngredient {
 	
 	@Override
 	public List<ItemStack> getOutputStackList() {
-		return new ArrayList<>();
+		return Collections.emptyList();
 	}
 	
 	@Override
@@ -76,6 +76,11 @@ public class EmptyItemIngredient implements IItemIngredient {
 	
 	@Override
 	public boolean isValid() {
+		return true;
+	}
+	
+	@Override
+	public boolean isEmpty() {
 		return true;
 	}
 	

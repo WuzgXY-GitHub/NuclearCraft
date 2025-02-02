@@ -4,7 +4,7 @@ import nc.init.NCItems;
 import nc.network.tile.processor.ProcessorUpdatePacket;
 import nc.tile.ITileInstallable;
 import nc.tile.processor.info.ProcessorContainerInfoImpl;
-import nc.util.PrimitiveFunction;
+import nc.util.PrimitiveFunction.ToBooleanBiFunction;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -16,7 +16,7 @@ public interface IUpgradableBasicProcessor<TILE extends TileEntity & IUpgradable
 	default boolean tryInstall(EntityPlayer player, EnumHand hand, EnumFacing facing) {
 		ItemStack held = player.getHeldItem(hand);
 		
-		PrimitiveFunction.ToBooleanBiFunction<Integer, ItemStack> tryInstallUpgrade = (x, y) -> {
+		ToBooleanBiFunction<Integer, ItemStack> tryInstallUpgrade = (x, y) -> {
 			if (held.isItemEqual(y)) {
 				IItemHandler inv = getTile().getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
 				if (inv != null && inv.isItemValid(x, held)) {

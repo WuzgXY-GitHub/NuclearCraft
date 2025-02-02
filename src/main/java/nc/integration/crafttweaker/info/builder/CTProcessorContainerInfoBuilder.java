@@ -13,8 +13,13 @@ import nc.network.tile.processor.EnergyProcessorUpdatePacket;
 import nc.tab.NCTabs;
 import nc.tile.processor.TileProcessorImpl.*;
 import nc.tile.processor.info.builder.ProcessorContainerInfoBuilderImpl.*;
-import nc.util.ContainerInfoHelper;
+import nc.util.*;
+import nc.util.ReflectionHelper.ConstructorWrapper;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import stanhebben.zenscript.annotations.*;
+
+import static nc.NuclearCraft.proxy;
 
 public class CTProcessorContainerInfoBuilder {
 	
@@ -44,12 +49,11 @@ public class CTProcessorContainerInfoBuilder {
 		
 		@ZenConstructor
 		public CTEnergyProcessorContainerInfoBuilder(String name) {
-			super(Global.MOD_ID, name, TileBasicEnergyProcessorDyn.class, TileBasicEnergyProcessorDyn::new, ContainerBasicEnergyProcessorDyn.class, ContainerBasicEnergyProcessorDyn::new, GuiBasicEnergyProcessorDyn.class, GuiBasicEnergyProcessorDyn::new);
+			this(name, ReflectionHelper.cloneClass(ContainerBasicEnergyProcessorDyn.class, "Container" + name + "Dyn"), ReflectionHelper.cloneClass(GuiBasicEnergyProcessorDyn.class, "Gui" + name + "Dyn"));
 		}
 		
-		@Override
-		protected CTEnergyProcessorContainerInfoBuilder getThis() {
-			return this;
+		protected CTEnergyProcessorContainerInfoBuilder(String name, Class<? extends ContainerBasicEnergyProcessor<TileBasicEnergyProcessorDyn>> containerClass, Class<? extends GuiBasicEnergyProcessor<TileBasicEnergyProcessorDyn>> guiClass) {
+			super(Global.MOD_ID, name, TileBasicEnergyProcessorDyn.class, TileBasicEnergyProcessorDyn::new, containerClass, new ConstructorWrapper<>(containerClass, EntityPlayer.class, TileBasicEnergyProcessorDyn.class)::newInstance, proxy.clientGet(() -> guiClass), LambdaHelper.let(new ConstructorWrapper<>(guiClass, Container.class, EntityPlayer.class, TileBasicEnergyProcessorDyn.class, String.class), x -> proxy.clientGet(() -> x::newInstance)));
 		}
 		
 		@ZenMethod("buildAndRegister")
@@ -256,12 +260,11 @@ public class CTProcessorContainerInfoBuilder {
 		
 		@ZenConstructor
 		public CTUpgradableEnergyProcessorContainerInfoBuilder(String name) {
-			super(Global.MOD_ID, name, TileBasicUpgradableEnergyProcessorDyn.class, TileBasicUpgradableEnergyProcessorDyn::new, ContainerBasicUpgradableEnergyProcessorDyn.class, ContainerBasicUpgradableEnergyProcessorDyn::new, GuiBasicUpgradableEnergyProcessorDyn.class, GuiBasicUpgradableEnergyProcessorDyn::new);
+			this(name, ReflectionHelper.cloneClass(ContainerBasicUpgradableEnergyProcessorDyn.class, "Container" + name + "Dyn"), ReflectionHelper.cloneClass(GuiBasicUpgradableEnergyProcessorDyn.class, "Gui" + name + "Dyn"));
 		}
 		
-		@Override
-		protected CTUpgradableEnergyProcessorContainerInfoBuilder getThis() {
-			return this;
+		protected CTUpgradableEnergyProcessorContainerInfoBuilder(String name, Class<? extends ContainerBasicUpgradableEnergyProcessor<TileBasicUpgradableEnergyProcessorDyn>> containerClass, Class<? extends GuiBasicUpgradableEnergyProcessor<TileBasicUpgradableEnergyProcessorDyn>> guiClass) {
+			super(Global.MOD_ID, name, TileBasicUpgradableEnergyProcessorDyn.class, TileBasicUpgradableEnergyProcessorDyn::new, containerClass, new ConstructorWrapper<>(containerClass, EntityPlayer.class, TileBasicUpgradableEnergyProcessorDyn.class)::newInstance, proxy.clientGet(() -> guiClass), LambdaHelper.let(new ConstructorWrapper<>(guiClass, Container.class, EntityPlayer.class, TileBasicUpgradableEnergyProcessorDyn.class, String.class), x -> proxy.clientGet(() -> x::newInstance)));
 		}
 		
 		@ZenMethod("buildAndRegister")

@@ -25,7 +25,6 @@ public abstract class TileEnergyFluid extends TileEnergy implements ITileFluid {
 	private @Nonnull FluidConnection[] fluidConnections = null;
 	
 	private final @Nonnull FluidTileWrapper[] fluidSides;
-	
 	private final @Nonnull GasTileWrapper gasWrapper;
 	
 	private boolean inputTanksSeparated = false;
@@ -55,12 +54,10 @@ public abstract class TileEnergyFluid extends TileEnergy implements ITileFluid {
 		tanks = new ArrayList<>();
 		voidUnusableFluidInputs = new ArrayList<>();
 		tankOutputSettings = new ArrayList<>();
-		if (!fluidCapacity.isEmpty()) {
-			for (int i = 0; i < fluidCapacity.size(); ++i) {
-				tanks.add(new Tank(fluidCapacity.get(i), allowedFluids == null || allowedFluids.size() <= i ? null : allowedFluids.get(i)));
-				voidUnusableFluidInputs.add(false);
-				tankOutputSettings.add(TankOutputSetting.DEFAULT);
-			}
+		for (int i = 0, len = fluidCapacity.size(); i < len; ++i) {
+			tanks.add(new Tank(fluidCapacity.get(i), allowedFluids == null || allowedFluids.size() <= i ? null : allowedFluids.get(i)));
+			voidUnusableFluidInputs.add(false);
+			tankOutputSettings.add(TankOutputSetting.DEFAULT);
 		}
 		this.fluidConnections = fluidConnections;
 	}

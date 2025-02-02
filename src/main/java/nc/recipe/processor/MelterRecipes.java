@@ -37,6 +37,8 @@ public class MelterRecipes extends BasicProcessorRecipeHandler {
 		
 		addRecipe(Lists.newArrayList("ingotSilicon", "itemSilicon"), fluidStack("silicon", INGOT_VOLUME), 1D, 1D);
 		
+		addRecipe("sinteredSteel", fluidStack("steel", INGOT_VOLUME), 1D, 1D);
+		
 		addIngotMeltingRecipes("Boron10", "boron_10");
 		addIngotMeltingRecipes("Boron11", "boron_11");
 		addIngotMeltingRecipes("Lithium6", "lithium_6");

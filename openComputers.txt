@@ -26,6 +26,23 @@ void resumeProcess()
 
 ---------------------------------------------------------------------------------------------------------------------------
 
+ Large Machine - component.nc_machine:
+>-------------------------------------<
+
+boolean isComplete()
+boolean isMachineOn()
+
+int getLengthX()
+int getLengthY()
+int getLengthZ()
+
+void haltProcess()
+void resumeProcess()
+
+void clearAllMaterial()
+
+---------------------------------------------------------------------------------------------------------------------------
+
  Fission Reactor - component.nc_fission_reactor:
 >-----------------------------------------------<
 
@@ -39,7 +56,7 @@ int getLengthZ()
 long getHeatStored()
 long getHeatCapacity()
 
-int getTemperature()
+double getTemperature()
 
 double getCoolingRate()
 double getRawHeatingRate()
@@ -81,7 +98,7 @@ int getLengthZ()
 double getFractionOfTubesActive()
 double getMeanEfficiency()
 int getNumberOfExchangerTubes()
-int getNumberOfCondensationTubes()
+int getNumberOfCondenserTubes()
 
 void activate()
 void deactivate()

@@ -53,14 +53,9 @@ public class TileCondenserTube extends TileHeatExchangerPart {
 	}
 	
 	@Override
-	public void onMachineAssembled(HeatExchanger controller) {
-		doStandardNullControllerResponse(controller);
-		super.onMachineAssembled(controller);
-	}
-	
-	@Override
-	public void onMachineBroken() {
-		super.onMachineBroken();
+	public void onMachineAssembled(HeatExchanger multiblock) {
+		doStandardNullControllerResponse(multiblock);
+		super.onMachineAssembled(multiblock);
 	}
 	
 	public void updateAdjacentTemperatures() {

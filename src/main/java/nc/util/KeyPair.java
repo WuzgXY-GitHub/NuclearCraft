@@ -4,7 +4,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;
 
-public final class KeyPair<L, R> extends Pair<L, R> {
+public class KeyPair<L, R> extends Pair<L, R> {
 	
 	public final L left;
 	public final R right;

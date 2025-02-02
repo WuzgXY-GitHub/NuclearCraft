@@ -1,19 +1,25 @@
 package nc.integration.jei.wrapper;
 
 import mezz.jei.api.IGuiHelper;
+import nc.gui.element.GuiFluidRenderer;
 import nc.integration.jei.category.info.JEISimpleCategoryInfo;
 import nc.network.tile.multiblock.*;
 import nc.network.tile.processor.*;
 import nc.radiation.RadiationHelper;
 import nc.recipe.*;
+import nc.recipe.multiblock.ElectrolyzerElectrolyteRecipeHandler;
 import nc.tile.fission.*;
 import nc.tile.processor.*;
 import nc.tile.processor.TileProcessorImpl.*;
 import nc.tile.processor.info.ProcessorContainerInfoImpl;
 import nc.tile.radiation.TileRadiationScrubber;
 import nc.util.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fluids.*;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;
 
@@ -336,6 +342,206 @@ public class JEIRecipeWrapperImpl {
 		private static final String BLOCK_LIFETIME = Lang.localize("jei.nuclearcraft.decay_gen_lifetime");
 		private static final String BLOCK_POWER = Lang.localize("jei.nuclearcraft.decay_gen_power");
 		private static final String BLOCK_RADIATION = Lang.localize("jei.nuclearcraft.decay_gen_radiation");
+	}
+	
+	public static class MachineDiaphragmRecipeWrapper extends JEISimpleRecipeWrapper<MachineDiaphragmRecipeWrapper> {
+		
+		public MachineDiaphragmRecipeWrapper(IGuiHelper guiHelper, JEISimpleCategoryInfo<MachineDiaphragmRecipeWrapper> categoryInfo, BasicRecipe recipe) {
+			super(guiHelper, categoryInfo, recipe);
+		}
+		
+		@Override
+		protected int getProgressArrowTime() {
+			return 1;
+		}
+	}
+	
+	public static class MachineSieveTrayRecipeWrapper extends JEISimpleRecipeWrapper<MachineSieveTrayRecipeWrapper> {
+		
+		public MachineSieveTrayRecipeWrapper(IGuiHelper guiHelper, JEISimpleCategoryInfo<MachineSieveTrayRecipeWrapper> categoryInfo, BasicRecipe recipe) {
+			super(guiHelper, categoryInfo, recipe);
+		}
+		
+		@Override
+		protected int getProgressArrowTime() {
+			return 1;
+		}
+	}
+	
+	public static class MultiblockElectrolyzerRecipeWrapper extends JEISimpleRecipeWrapper<MultiblockElectrolyzerRecipeWrapper> {
+		
+		protected final int electrolyteX;
+		protected final int electrolyteY;
+		protected final int electrolyteW;
+		protected final int electrolyteH;
+		
+		public MultiblockElectrolyzerRecipeWrapper(IGuiHelper guiHelper, JEISimpleCategoryInfo<MultiblockElectrolyzerRecipeWrapper> categoryInfo, BasicRecipe recipe) {
+			super(guiHelper, categoryInfo, recipe);
+			electrolyteX = 64 - categoryInfo.jeiBackgroundX;
+			electrolyteY = 41 - categoryInfo.jeiBackgroundY;
+			electrolyteW = 16;
+			electrolyteH = 16;
+		}
+		
+		@Override
+		protected int getProgressArrowTime() {
+			return (int) (getBaseProcessTime() / 4D);
+		}
+		
+		protected double getBaseProcessTime() {
+			if (recipe == null) {
+				return machine_electrolyzer_time;
+			}
+			return recipe.getMultiblockElectrolyzerBaseProcessTime();
+		}
+		
+		protected double getBaseProcessPower() {
+			if (recipe == null) {
+				return machine_electrolyzer_power;
+			}
+			return recipe.getMultiblockElectrolyzerBaseProcessPower();
+		}
+		
+		protected double getBaseProcessRadiation() {
+			if (recipe == null) {
+				return 0D;
+			}
+			return recipe.getMultiblockElectrolyzerBaseProcessRadiation();
+		}
+		
+		protected List<Pair<Fluid, Double>> getElectrolyteList() {
+			if (recipe != null) {
+				ElectrolyzerElectrolyteRecipeHandler handler = recipe.getElectrolyzerElectrolyteRecipeHandler();
+				if (handler != null) {
+					return handler.electrolyteList;
+				}
+			}
+			return new ArrayList<>();
+		}
+		
+		@Override
+		public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
+			super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
+			
+			List<Pair<Fluid, Double>> electrolyteList = getElectrolyteList();
+			if (!electrolyteList.isEmpty()) {
+				Pair<Fluid, Double> electrolyte = getEnumerationElement(electrolyteList, 1000L);
+				GlStateManager.pushAttrib();
+				GuiFluidRenderer.renderGuiTank(new FluidStack(electrolyte.getLeft(), 1), 1, 1, electrolyteX, electrolyteY, 50D, electrolyteW, electrolyteH, 255);
+				GlStateManager.popAttrib();
+			}
+		}
+		
+		@Override
+		public List<String> getTooltipStrings(int mouseX, int mouseY) {
+			List<String> tooltip = new ArrayList<>();
+			
+			int x1 = electrolyteX - 1, y1 = electrolyteY, x2 = electrolyteX + electrolyteW, y2 = electrolyteY + electrolyteH + 1;
+			if (mouseX > x1 && mouseY > y1 && mouseX < x2 && mouseY < y2) {
+				List<Pair<Fluid, Double>> electrolyteList = getElectrolyteList();
+				if (electrolyteList.isEmpty()) {
+					tooltip.add(TextFormatting.AQUA + ELECTROLYTE + " " + TextFormatting.WHITE + "null");
+				}
+				else {
+					Pair<Fluid, Double> electrolyte = getEnumerationElement(electrolyteList, 1000L);
+					tooltip.add(TextFormatting.AQUA + ELECTROLYTE + " " + TextFormatting.WHITE + Lang.localize(electrolyte.getLeft().getUnlocalizedName()));
+					tooltip.add(TextFormatting.LIGHT_PURPLE + ELECTROLYTE_EFFICIENCY + " " + TextFormatting.WHITE + NCMath.pcDecimalPlaces(electrolyte.getRight(), 1));
+				}
+			}
+			else if (mouseX != x1 && mouseY != y1 && mouseX != x2 && mouseY != y2 && showTooltip(mouseX, mouseY)) {
+				tooltip.add(TextFormatting.GREEN + BASE_TIME + " " + TextFormatting.WHITE + UnitHelper.applyTimeUnitShort(getBaseProcessTime(), 3));
+				tooltip.add(TextFormatting.LIGHT_PURPLE + BASE_POWER + " " + TextFormatting.WHITE + UnitHelper.prefix(getBaseProcessPower(), 5, "RF/t"));
+				double radiation = getBaseProcessRadiation();
+				if (radiation > 0D) {
+					tooltip.add(TextFormatting.GOLD + BASE_RADIATION + " " + RadiationHelper.radsColoredPrefix(radiation, true));
+				}
+			}
+			
+			return tooltip;
+		}
+		
+		public static final String ELECTROLYTE = Lang.localize("jei.nuclearcraft.electrolyte");
+		public static final String ELECTROLYTE_EFFICIENCY = Lang.localize("jei.nuclearcraft.electrolyte_efficiency");
+		public static final String BASE_TIME = Lang.localize("jei.nuclearcraft.base_process_time");
+		public static final String BASE_POWER = Lang.localize("jei.nuclearcraft.base_process_power");
+		public static final String BASE_RADIATION = Lang.localize("jei.nuclearcraft.base_process_radiation");
+	}
+	
+	public static class MultiblockDistillerRecipeWrapper extends JEISimpleRecipeWrapper<MultiblockDistillerRecipeWrapper> {
+		
+		public MultiblockDistillerRecipeWrapper(IGuiHelper guiHelper, JEISimpleCategoryInfo<MultiblockDistillerRecipeWrapper> categoryInfo, BasicRecipe recipe) {
+			super(guiHelper, categoryInfo, recipe);
+		}
+		
+		@Override
+		protected int getProgressArrowTime() {
+			return (int) (getBaseProcessTime() / 4D);
+		}
+		
+		protected double getBaseProcessTime() {
+			if (recipe == null) {
+				return machine_distiller_time;
+			}
+			return recipe.getMultiblockDistillerBaseProcessTime();
+		}
+		
+		protected double getBaseProcessPower() {
+			if (recipe == null) {
+				return machine_distiller_power;
+			}
+			return recipe.getMultiblockDistillerBaseProcessPower();
+		}
+		
+		protected double getBaseProcessRadiation() {
+			if (recipe == null) {
+				return 0D;
+			}
+			return recipe.getMultiblockDistillerBaseProcessRadiation();
+		}
+		
+		@Override
+		public List<String> getTooltipStrings(int mouseX, int mouseY) {
+			List<String> tooltip = new ArrayList<>();
+			
+			if (showTooltip(mouseX, mouseY)) {
+				tooltip.add(TextFormatting.GREEN + BASE_TIME + " " + TextFormatting.WHITE + UnitHelper.applyTimeUnitShort(getBaseProcessTime(), 3));
+				tooltip.add(TextFormatting.LIGHT_PURPLE + BASE_POWER + " " + TextFormatting.WHITE + UnitHelper.prefix(getBaseProcessPower(), 5, "RF/t"));
+				double radiation = getBaseProcessRadiation();
+				if (radiation > 0D) {
+					tooltip.add(TextFormatting.GOLD + BASE_RADIATION + " " + RadiationHelper.radsColoredPrefix(radiation, true));
+				}
+			}
+			
+			return tooltip;
+		}
+		
+		public static final String BASE_TIME = Lang.localize("jei.nuclearcraft.base_process_time");
+		public static final String BASE_POWER = Lang.localize("jei.nuclearcraft.base_process_power");
+		public static final String BASE_RADIATION = Lang.localize("jei.nuclearcraft.base_process_radiation");
+	}
+	
+	public static class ElectrolyzerCathodeRecipeWrapper extends JEISimpleRecipeWrapper<ElectrolyzerCathodeRecipeWrapper> {
+		
+		public ElectrolyzerCathodeRecipeWrapper(IGuiHelper guiHelper, JEISimpleCategoryInfo<ElectrolyzerCathodeRecipeWrapper> categoryInfo, BasicRecipe recipe) {
+			super(guiHelper, categoryInfo, recipe);
+		}
+		
+		@Override
+		protected int getProgressArrowTime() {
+			return 1;
+		}
+	}
+	
+	public static class ElectrolyzerAnodeRecipeWrapper extends JEISimpleRecipeWrapper<ElectrolyzerAnodeRecipeWrapper> {
+		
+		public ElectrolyzerAnodeRecipeWrapper(IGuiHelper guiHelper, JEISimpleCategoryInfo<ElectrolyzerAnodeRecipeWrapper> categoryInfo, BasicRecipe recipe) {
+			super(guiHelper, categoryInfo, recipe);
+		}
+		
+		@Override
+		protected int getProgressArrowTime() {
+			return 1;
+		}
 	}
 	
 	public static class FissionModeratorRecipeWrapper extends JEISimpleRecipeWrapper<FissionModeratorRecipeWrapper> {

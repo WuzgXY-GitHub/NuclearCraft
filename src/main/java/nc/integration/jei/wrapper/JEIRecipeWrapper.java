@@ -75,4 +75,8 @@ public abstract class JEIRecipeWrapper implements IRecipeWrapper {
 	public boolean handleClick(Minecraft minecraft, int mouseX, int mouseY, int mouseButton) {
 		return false;
 	}
+	
+	protected <T> T getEnumerationElement(List<T> list, long millisPerElement) {
+		return list.get((int) ((System.currentTimeMillis() / millisPerElement) % list.size()));
+	}
 }

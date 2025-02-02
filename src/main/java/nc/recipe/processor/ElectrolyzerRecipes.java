@@ -18,14 +18,18 @@ public class ElectrolyzerRecipes extends BasicProcessorRecipeHandler {
 			return;
 		}
 		
-		addRecipe(fluidStack("water", BUCKET_VOLUME / 2), fluidStack("hydrogen", BUCKET_VOLUME / 2), fluidStack("oxygen", BUCKET_VOLUME / 4), emptyFluidStack(), emptyFluidStack(), 0.5D, 1D);
-		addRecipe(fluidStack("heavy_water", BUCKET_VOLUME / 2), fluidStack("deuterium", BUCKET_VOLUME / 2), fluidStack("oxygen", BUCKET_VOLUME / 4), emptyFluidStack(), emptyFluidStack(), 0.5D, 1D);
-		addRecipe(fluidStack("hydrofluoric_acid", BUCKET_VOLUME / 4), fluidStack("hydrogen", BUCKET_VOLUME / 4), fluidStack("fluorine", BUCKET_VOLUME / 4), emptyFluidStack(), emptyFluidStack(), 0.5D, 1D);
+		addRecipe(fluidStack("water", BUCKET_VOLUME / 2), fluidStack("hydrogen", BUCKET_VOLUME / 2), fluidStack("oxygen", BUCKET_VOLUME / 4), emptyFluidStack(), emptyFluidStack(), 1D, 1D);
+		addRecipe(fluidStack("le_water", BUCKET_VOLUME / 2), fluidStack("hydrogen", 3 * BUCKET_VOLUME / 8), fluidStack("deuterium", BUCKET_VOLUME / 8), fluidStack("oxygen", BUCKET_VOLUME / 4), emptyFluidStack(), 1D, 1D);
+		addRecipe(fluidStack("he_water", BUCKET_VOLUME / 2), fluidStack("hydrogen", BUCKET_VOLUME / 4), fluidStack("deuterium", BUCKET_VOLUME / 4), fluidStack("oxygen", BUCKET_VOLUME / 4), emptyFluidStack(), 1D, 1D);
+		addRecipe(fluidStack("heavy_water", BUCKET_VOLUME / 2), fluidStack("deuterium", BUCKET_VOLUME / 2), fluidStack("oxygen", BUCKET_VOLUME / 4), emptyFluidStack(), emptyFluidStack(), 1D, 1D);
+		addRecipe(fluidStack("hydrofluoric_acid", BUCKET_VOLUME / 4), fluidStack("hydrogen", BUCKET_VOLUME / 4), fluidStack("fluorine", BUCKET_VOLUME / 4), emptyFluidStack(), emptyFluidStack(), 1D, 1D);
 		
-		addRecipe(fluidStack("naoh", GEM_VOLUME / 2), fluidStack("sodium", INGOT_VOLUME / 2), fluidStack("water", BUCKET_VOLUME / 4), fluidStack("oxygen", BUCKET_VOLUME / 8), emptyFluidStack(), 0.5D, 1D);
-		addRecipe(fluidStack("koh", GEM_VOLUME / 2), fluidStack("potassium", INGOT_VOLUME / 2), fluidStack("water", BUCKET_VOLUME / 4), fluidStack("oxygen", BUCKET_VOLUME / 8), emptyFluidStack(), 0.5D, 1D);
+		addRecipe(fluidStack("naoh", GEM_VOLUME / 2), fluidStack("sodium", INGOT_VOLUME / 2), fluidStack("water", BUCKET_VOLUME / 4), fluidStack("oxygen", BUCKET_VOLUME / 8), emptyFluidStack(), 1D, 1D);
+		addRecipe(fluidStack("koh", GEM_VOLUME / 2), fluidStack("potassium", INGOT_VOLUME / 2), fluidStack("water", BUCKET_VOLUME / 4), fluidStack("oxygen", BUCKET_VOLUME / 8), emptyFluidStack(), 1D, 1D);
 		
-		addRecipe(fluidStack("alumina", INGOT_VOLUME / 2), fluidStack("aluminum", INGOT_VOLUME), fluidStack("oxygen", BUCKET_VOLUME * 3 / 4), emptyFluidStack(), emptyFluidStack(), 1D, 1D);
+		addRecipe(fluidStack("alumina", INGOT_VOLUME / 2), fluidStack("aluminum", INGOT_VOLUME), fluidStack("oxygen", BUCKET_VOLUME * 3 / 4), emptyFluidStack(), emptyFluidStack(), 2D, 1D);
+		
+		addRecipe(fluidStack("ammonium_bisulfate_solution", GEM_VOLUME), fluidStack("ammonium_persulfate_solution", GEM_VOLUME / 2), fluidStack("hydrogen", BUCKET_VOLUME / 2), emptyFluidStack(), emptyFluidStack(), 1D, 1D);
 		
 		// Fission Materials
 		addFissionFluorideRecipes();

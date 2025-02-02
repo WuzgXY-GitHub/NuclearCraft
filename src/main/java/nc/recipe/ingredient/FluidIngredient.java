@@ -95,6 +95,11 @@ public class FluidIngredient implements IFluidIngredient {
 		return stack != null;
 	}
 	
+	@Override
+	public boolean isEmpty() {
+		return stack != null && stack.amount > 0;
+	}
+	
 	// CraftTweaker
 	
 	@Override

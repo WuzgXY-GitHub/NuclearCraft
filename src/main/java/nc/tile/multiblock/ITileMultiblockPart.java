@@ -1,9 +1,11 @@
 package nc.tile.multiblock;
 
+import nc.capability.radiation.source.IRadiationSource;
 import nc.multiblock.Multiblock;
 import nc.tile.IMultitoolLogic;
 import net.minecraft.nbt.NBTTagCompound;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 /**
@@ -159,4 +161,6 @@ public interface ITileMultiblockPart<MULTIBLOCK extends Multiblock<MULTIBLOCK, T
 	 * Called after a block is added and the multiblock has incorporated the part's saved multiblock game-data into itself. Generally, you should clear the saved data here.
 	 */
 	void onMultiblockDataAssimilated();
+	
+	@Nullable IRadiationSource getMultiblockRadiationSource();
 }

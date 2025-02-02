@@ -1,3 +1,7 @@
+v2o.8.0
+
+- Removed Paulobrine and Herobrian
+
 v2o.7.7
 
 + Added initial GroovyScript support mirroring CraftTweaker recipe integration
@@ -7,8 +11,6 @@ v2o.7.7
 * Fixed broken custom placement rules
 
 + Added configs to disable default processor recipe registration
-
-- Removed Paulobrine and Herobrian
 
 v2o.7.6
 

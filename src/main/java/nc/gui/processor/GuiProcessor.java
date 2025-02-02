@@ -52,8 +52,12 @@ public abstract class GuiProcessor<TILE extends TileEntity & IProcessor<TILE, PA
 	}
 	
 	protected void initConfigButtons() {
-		buttonList.add(new NCButton.MachineConfig(info.getMachineConfigButtonID(), guiLeft + info.machineConfigGuiX, guiTop + info.machineConfigGuiY));
-		buttonList.add(new NCToggleButton.RedstoneControl(info.getRedstoneControlButtonID(), guiLeft + info.redstoneControlGuiX, guiTop + info.redstoneControlGuiY, tile));
+		if (info.machineConfigGuiX >= 0 && info.machineConfigGuiY >= 0) {
+			buttonList.add(new NCButton.MachineConfig(info.getMachineConfigButtonID(), guiLeft + info.machineConfigGuiX, guiTop + info.machineConfigGuiY));
+		}
+		if (info.redstoneControlGuiX >= 0 && info.redstoneControlGuiY >= 0) {
+			buttonList.add(new NCToggleButton.RedstoneControl(info.getRedstoneControlButtonID(), guiLeft + info.redstoneControlGuiX, guiTop + info.redstoneControlGuiY, tile));
+		}
 	}
 	
 	protected void initSorptionButtons() {
@@ -247,8 +251,12 @@ public abstract class GuiProcessor<TILE extends TileEntity & IProcessor<TILE, PA
 	}
 	
 	protected void renderConfigButtonTooltips(int mouseX, int mouseY) {
-		drawTooltip(Lang.localize("gui.nc.container.machine_side_config"), mouseX, mouseY, info.machineConfigGuiX, info.machineConfigGuiY, 18, 18);
-		drawTooltip(Lang.localize("gui.nc.container.redstone_control"), mouseX, mouseY, info.redstoneControlGuiX, info.redstoneControlGuiY, 18, 18);
+		if (info.machineConfigGuiX >= 0 && info.machineConfigGuiY >= 0) {
+			drawTooltip(Lang.localize("gui.nc.container.machine_side_config"), mouseX, mouseY, info.machineConfigGuiX, info.machineConfigGuiY, 18, 18);
+		}
+		if (info.redstoneControlGuiX >= 0 && info.redstoneControlGuiY >= 0) {
+			drawTooltip(Lang.localize("gui.nc.container.redstone_control"), mouseX, mouseY, info.redstoneControlGuiX, info.redstoneControlGuiY, 18, 18);
+		}
 	}
 	
 	protected void renderSorptionButtonTooltips(int mouseX, int mouseY) {

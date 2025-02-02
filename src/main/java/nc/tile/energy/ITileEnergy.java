@@ -13,7 +13,6 @@ import nc.util.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.energy.*;
 import net.minecraftforge.fml.common.Optional;
@@ -188,7 +187,7 @@ public interface ITileEnergy extends ITile, IBigPower {
 	
 	default void pushEnergy() {
 		for (EnumFacing side : EnumFacing.VALUES) {
-			if (getEnergyStorage().getEnergyStored() <= 0) {
+			if (getEnergyStoredLong() <= 0) {
 				return;
 			}
 			pushEnergyToSide(side);
@@ -210,8 +209,8 @@ public interface ITileEnergy extends ITile, IBigPower {
 				return;
 			}
 		}
-		if (tile instanceof ITilePassive) {
-			if (!((ITilePassive) tile).canPushEnergyTo()) {
+		if (tile instanceof ITilePassive tilePassive) {
+			if (!tilePassive.canPushEnergyTo()) {
 				return;
 			}
 		}
@@ -219,25 +218,25 @@ public interface ITileEnergy extends ITile, IBigPower {
 		IEnergyStorage adjStorage = tile.getCapability(CapabilityEnergy.ENERGY, side.getOpposite());
 		
 		if (adjStorage != null && getEnergyStorage().canExtract()) {
-			getEnergyStorage().extractEnergy(adjStorage.receiveEnergy(getEnergyStorage().extractEnergy(getEnergyStorage().getMaxEnergyStored(), true), false), false);
+			getEnergyStorage().extractEnergy(adjStorage.receiveEnergy(getEnergyStorage().extractEnergy(getMaxEnergyStored(), true), false), false);
 			return;
 		}
 		
-		if (getEnergyStorage().getEnergyStored() < rf_per_eu) {
+		if (getEnergyStoredLong() < rf_per_eu) {
 			return;
 		}
 		
 		if (ModCheck.ic2Loaded() && enable_ic2_eu) {
 			if (tile instanceof IEnergySink) {
-				getEnergyStorage().extractEnergy((int) Math.round(((IEnergySink) tile).injectEnergy(side.getOpposite(), (double) getEnergyStorage().extractEnergy(getEnergyStorage().getMaxEnergyStored(), true) / rf_per_eu, getSourceTier()) * rf_per_eu), false);
+				getEnergyStorage().extractEnergy((int) Math.round(((IEnergySink) tile).injectEnergy(side.getOpposite(), (double) getEnergyStorage().extractEnergy(getMaxEnergyStored(), true) / rf_per_eu, getSourceTier()) * rf_per_eu), false);
 				return;
 			}
 		}
 		if (enable_gtce_eu && ModCheck.gregtechLoaded()) {
 			IEnergyContainer adjStorageGT = tile.getCapability(GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER, side.getOpposite());
 			if (adjStorageGT != null && getEnergyStorage().canExtract()) {
-				int voltage = MathHelper.clamp(getEnergyStorage().getEnergyStored() / rf_per_eu, 1, EnergyHelper.getMaxEUFromTier(getSourceTier()));
-				getEnergyStorage().extractEnergy(NCMath.toInt(voltage * adjStorageGT.acceptEnergyFromNetwork(side.getOpposite(), voltage, 1) * rf_per_eu), false);
+				long voltage = NCMath.clamp(getEnergyStoredLong() / rf_per_eu, 1L, EnergyHelper.getMaxEUFromTier(getSourceTier()));
+				getEnergyStorage().extractEnergy(NCMath.toInt(voltage * adjStorageGT.acceptEnergyFromNetwork(side.getOpposite(), voltage, 1L) * rf_per_eu), false);
 			}
 		}
 	}
@@ -281,12 +280,12 @@ public interface ITileEnergy extends ITile, IBigPower {
 	@Override
 	@Optional.Method(modid = "theoneprobe")
 	default long getStoredPower() {
-		return getEnergyStorage().getEnergyStoredLong();
+		return getEnergyStoredLong();
 	}
 	
 	@Override
 	@Optional.Method(modid = "theoneprobe")
 	default long getCapacity() {
-		return getEnergyStorage().getMaxEnergyStoredLong();
+		return getMaxEnergyStoredLong();
 	}
 }

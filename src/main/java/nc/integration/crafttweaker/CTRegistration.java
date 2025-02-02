@@ -1,6 +1,5 @@
 package nc.integration.crafttweaker;
 
-import com.google.common.collect.Lists;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.mc1120.util.CraftTweakerPlatformUtils;
@@ -707,9 +706,9 @@ public class CTRegistration {
 		@Override
 		public void init() {
 			super.init();
-			Class<? extends JEIProcessorRecipeWrapper> jeiWrapperClass = ReflectionHelper.cloneClass(jeiWrapperClassSuper, info.name + "RecipeWrapper");
+			Class<? extends JEIProcessorRecipeWrapper> jeiWrapperClass = ReflectionHelper.cloneClass(jeiWrapperClassSuper, info.name + "RecipeWrapperDyn");
 			ConstructorWrapper<? extends JEIProcessorRecipeWrapper> constructor = new ConstructorWrapper<>(jeiWrapperClass, String.class, IGuiHelper.class, BasicRecipe.class);
-			TileInfoHandler.registerJEICategoryInfo(new JEIProcessorCategoryInfo(info.name, jeiWrapperClass, constructor::newInstance, Lists.newArrayList(block.get())));
+			TileInfoHandler.registerJEICategoryInfo(new JEIProcessorCategoryInfo(info.name, jeiWrapperClass, constructor::newInstance, Collections.singletonList(block.get())));
 		}
 	}
 	

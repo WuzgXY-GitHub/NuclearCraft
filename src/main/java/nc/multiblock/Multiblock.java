@@ -366,10 +366,9 @@ public abstract class Multiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK, T>, T
 	 * @param error the error
 	 */
 	public void setLastError(MultiblockValidationError error) {
-		if (null == error) {
+		if (error == null) {
 			throw new IllegalArgumentException("The validation error can't be null");
 		}
-		
 		lastValidationError = error;
 	}
 	

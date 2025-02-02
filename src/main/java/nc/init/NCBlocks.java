@@ -9,6 +9,7 @@ import nc.block.fission.port.*;
 import nc.block.hx.*;
 import nc.block.item.*;
 import nc.block.item.energy.ItemBlockBattery;
+import nc.block.machine.*;
 import nc.block.plant.*;
 import nc.block.quantum.*;
 import nc.block.rtg.BlockRTG;
@@ -24,6 +25,7 @@ import nc.multiblock.turbine.TurbineRotorBladeUtil.*;
 import nc.radiation.RadiationHelper;
 import nc.tab.NCTabs;
 import nc.util.*;
+import nc.util.PrimitiveFunction.ObjIntFunction;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -42,7 +44,8 @@ public class NCBlocks {
 	
 	public static Block ore;
 	public static Block ingot_block;
-	
+	public static Block ingot_block2;
+	public static Block material_block;
 	public static Block fertile_isotope;
 	
 	public static Block supercold_ice;
@@ -74,7 +77,21 @@ public class NCBlocks {
 	public static Block machine_interface;
 	
 	public static Block machine_frame;
-	public static Block machine_port;
+	public static Block machine_glass;
+	public static Block machine_power_port;
+	public static Block machine_process_port;
+	public static Block machine_reservoir_port;
+	public static Block machine_redstone_port;
+	public static Block machine_computer_port;
+	
+	public static Block machine_diaphragm;
+	public static Block machine_sieve_tray;
+	
+	public static Block electrolyzer_controller;
+	public static Block electrolyzer_cathode_terminal;
+	public static Block electrolyzer_anode_terminal;
+	
+	public static Block distiller_controller;
 	
 	public static Block rtg_uranium;
 	public static Block rtg_plutonium;
@@ -140,6 +157,7 @@ public class NCBlocks {
 	public static Block heat_exchanger_tube_copper;
 	public static Block heat_exchanger_tube_hard_carbon;
 	public static Block heat_exchanger_tube_thermoconducting;
+	public static Block heat_exchanger_redstone_port;
 	public static Block heat_exchanger_computer_port;
 	
 	public static Block condenser_controller;
@@ -160,6 +178,7 @@ public class NCBlocks {
 	public static Block turbine_coil_connector;
 	public static Block turbine_inlet;
 	public static Block turbine_outlet;
+	public static Block turbine_redstone_port;
 	public static Block turbine_computer_port;
 	
 	public static Block cobblestone_generator;
@@ -204,7 +223,8 @@ public class NCBlocks {
 	public static void init() {
 		ore = addWithNameMeta(Global.MOD_ID, "ore", new BlockMeta.BlockOre());
 		ingot_block = addWithNameMeta(Global.MOD_ID, "ingot_block", new BlockMeta.BlockIngot());
-		
+		ingot_block2 = addWithNameMeta(Global.MOD_ID, "ingot_block2", new BlockMeta.BlockIngot2());
+		material_block = addWithNameMeta(Global.MOD_ID, "material_block", new BlockMeta.BlockMaterial());
 		fertile_isotope = addWithNameMeta(Global.MOD_ID, "fertile_isotope", new BlockMeta.BlockFertileIsotope());
 		
 		supercold_ice = addWithName(Global.MOD_ID, "supercold_ice", new NCBlockIce(Math.nextAfter(1F, -1F)).setCreativeTab(NCTabs.material));
@@ -276,6 +296,23 @@ public class NCBlocks {
 		}
 		
 		machine_interface = addWithName(Global.MOD_ID, new BlockMachineInterface("machine_interface"));
+		
+		machine_frame = addWithName(Global.MOD_ID, "machine_frame", new BlockMachineFrame());
+		machine_glass = addWithName(Global.MOD_ID, "machine_glass", new BlockMachineGlass());
+		machine_power_port = addWithName(Global.MOD_ID, "machine_power_port", new BlockMachinePowerPort());
+		machine_process_port = addWithName(Global.MOD_ID, "machine_process_port", new BlockMachineProcessPort());
+		machine_reservoir_port = addWithName(Global.MOD_ID, "machine_reservoir_port", new BlockMachineReservoirPort());
+		machine_redstone_port = addWithName(Global.MOD_ID, "machine_redstone_port", new BlockMachineRedstonePort());
+		machine_computer_port = addWithName(Global.MOD_ID, "machine_computer_port", new BlockMachineComputerPort());
+		
+		machine_diaphragm = addWithNameMeta(Global.MOD_ID, "machine_diaphragm", new BlockMeta.BlockMachineDiaphragm());
+		machine_sieve_tray = addWithNameMeta(Global.MOD_ID, "machine_sieve_tray", new BlockMeta.BlockMachineSieveTray());
+		
+		electrolyzer_controller = addWithName(Global.MOD_ID, "electrolyzer_controller", new BlockElectrolyzerController());
+		electrolyzer_cathode_terminal = addWithName(Global.MOD_ID, "electrolyzer_cathode_terminal", new BlockElectrolyzerCathodeTerminal());
+		electrolyzer_anode_terminal = addWithName(Global.MOD_ID, "electrolyzer_anode_terminal", new BlockElectrolyzerAnodeTerminal());
+		
+		distiller_controller = addWithName(Global.MOD_ID, "distiller_controller", new BlockElectrolyzerController());
 		
 		IntFunction<String[]> rtgInfo = x -> InfoHelper.formattedInfo(infoLine(Global.MOD_ID, "rtg"), UnitHelper.prefix(rtg_power[x], 5, "RF/t"));
 		rtg_uranium = addWithName(Global.MOD_ID, "rtg_uranium", new BlockRTG(RTGType.URANIUM), rtgInfo.apply(0));
@@ -350,6 +387,7 @@ public class NCBlocks {
 		heat_exchanger_tube_hard_carbon = addWithName(Global.MOD_ID, "heat_exchanger_tube_hard_carbon", new BlockHeatExchangerTube(HeatExchangerTubeType.HARD_CARBON), x -> hxTubeItemBlockFunction.apply(x, "heat_exchanger_tube", 1));
 		heat_exchanger_tube_thermoconducting = addWithName(Global.MOD_ID, "heat_exchanger_tube_thermoconducting", new BlockHeatExchangerTube(HeatExchangerTubeType.THERMOCONDUCTING), x -> hxTubeItemBlockFunction.apply(x, "heat_exchanger_tube", 2));
 		
+		heat_exchanger_redstone_port = addWithName(Global.MOD_ID, "heat_exchanger_redstone_port", new BlockHeatExchangerRedstonePort());
 		heat_exchanger_computer_port = addWithName(Global.MOD_ID, "heat_exchanger_computer_port", new BlockHeatExchangerComputerPort());
 		
 		condenser_controller = addWithName(Global.MOD_ID, "condenser_controller", new BlockCondenserController());
@@ -363,7 +401,7 @@ public class NCBlocks {
 		turbine_glass = addWithName(Global.MOD_ID, "turbine_glass", new BlockTurbineGlass());
 		turbine_rotor_shaft = addWithName(Global.MOD_ID, "turbine_rotor_shaft", new BlockTurbineRotorShaft());
 		
-		PrimitiveFunction.ObjIntFunction<Block, ItemBlock> turbineBladeItemBlockFunction = (x, y) -> new NCItemBlock(x, new TextFormatting[] {TextFormatting.LIGHT_PURPLE, TextFormatting.GRAY}, new String[] {Lang.localize(fixedLine(Global.MOD_ID, "turbine_rotor_blade_efficiency"), NCMath.pcDecimalPlaces(turbine_blade_efficiency[y], 1)), Lang.localize(fixedLine(Global.MOD_ID, "turbine_rotor_blade_expansion"), NCMath.pcDecimalPlaces(turbine_blade_expansion[y], 1))}, TextFormatting.AQUA, InfoHelper.formattedInfo(infoLine(Global.MOD_ID, "turbine_rotor_blade"), UnitHelper.prefix(turbine_mb_per_blade, 5, "B/t", -1)));
+		ObjIntFunction<Block, ItemBlock> turbineBladeItemBlockFunction = (x, y) -> new NCItemBlock(x, new TextFormatting[] {TextFormatting.LIGHT_PURPLE, TextFormatting.GRAY}, new String[] {Lang.localize(fixedLine(Global.MOD_ID, "turbine_rotor_blade_efficiency"), NCMath.pcDecimalPlaces(turbine_blade_efficiency[y], 1)), Lang.localize(fixedLine(Global.MOD_ID, "turbine_rotor_blade_expansion"), NCMath.pcDecimalPlaces(turbine_blade_expansion[y], 1))}, TextFormatting.AQUA, InfoHelper.formattedInfo(infoLine(Global.MOD_ID, "turbine_rotor_blade"), UnitHelper.prefix(turbine_mb_per_blade, 5, "B/t", -1)));
 		turbine_rotor_blade_steel = addWithName(Global.MOD_ID, "turbine_rotor_blade_steel", new BlockTurbineRotorBlade(TurbineRotorBladeType.STEEL), x -> turbineBladeItemBlockFunction.apply(x, 0));
 		turbine_rotor_blade_extreme = addWithName(Global.MOD_ID, "turbine_rotor_blade_extreme", new BlockTurbineRotorBlade(TurbineRotorBladeType.EXTREME), x -> turbineBladeItemBlockFunction.apply(x, 1));
 		turbine_rotor_blade_sic_sic_cmc = addWithName(Global.MOD_ID, "turbine_rotor_blade_sic_sic_cmc", new BlockTurbineRotorBlade(TurbineRotorBladeType.SIC_SIC_CMC), x -> turbineBladeItemBlockFunction.apply(x, 2));
@@ -376,10 +414,11 @@ public class NCBlocks {
 		turbine_inlet = addWithName(Global.MOD_ID, "turbine_inlet", new BlockTurbineInlet());
 		turbine_outlet = addWithName(Global.MOD_ID, "turbine_outlet", new BlockTurbineOutlet());
 		
+		turbine_redstone_port = addWithName(Global.MOD_ID, "turbine_redstone_port", new BlockTurbineRedstonePort());
 		turbine_computer_port = addWithName(Global.MOD_ID, "turbine_computer_port", new BlockTurbineComputerPort());
 		
 		if (register_passive[0]) {
-			PrimitiveFunction.ObjIntFunction<Block, ItemBlock> cobbleGeneratorItemBlockFunction = (x, y) -> {
+			ObjIntFunction<Block, ItemBlock> cobbleGeneratorItemBlockFunction = (x, y) -> {
 				String rateString = NCMath.sigFigs(processor_passive_rate[0] * y, 5) + " " + Lang.localize("nuclearcraft.cobblestone") + "/t";
 				return new NCItemBlock(x, cobble_gen_power > 0 ? InfoHelper.formattedInfo("tile.nuclearcraft.cobblestone_generator_req_power", rateString, UnitHelper.prefix(cobble_gen_power * y, 5, "RF/t")) : InfoHelper.formattedInfo("tile.nuclearcraft.cobblestone_generator_no_req_power", rateString));
 			};
@@ -389,14 +428,14 @@ public class NCBlocks {
 		}
 		
 		if (register_passive[1]) {
-			PrimitiveFunction.ObjIntFunction<Block, ItemBlock> waterSourceItemBlockFunction = (x, y) -> new NCItemBlock(x, InfoHelper.formattedInfo(infoLine(Global.MOD_ID, "water_source"), UnitHelper.prefix(processor_passive_rate[1] * y, 5, "B/t", -1)));
+			ObjIntFunction<Block, ItemBlock> waterSourceItemBlockFunction = (x, y) -> new NCItemBlock(x, InfoHelper.formattedInfo(infoLine(Global.MOD_ID, "water_source"), UnitHelper.prefix(processor_passive_rate[1] * y, 5, "B/t", -1)));
 			water_source = addWithName(Global.MOD_ID, new BlockSimpleTile<>("water_source"), x -> waterSourceItemBlockFunction.apply(x, 1));
 			water_source_compact = addWithName(Global.MOD_ID, new BlockSimpleTile<>("water_source_compact"), x -> waterSourceItemBlockFunction.apply(x, 8));
 			water_source_dense = addWithName(Global.MOD_ID, new BlockSimpleTile<>("water_source_dense"), x -> waterSourceItemBlockFunction.apply(x, 64));
 		}
 		
 		if (register_passive[2]) {
-			PrimitiveFunction.ObjIntFunction<Block, ItemBlock> nitrogenCollectorItemBlockFunction = (x, y) -> new NCItemBlock(x, InfoHelper.formattedInfo(infoLine(Global.MOD_ID, "nitrogen_collector"), UnitHelper.prefix(processor_passive_rate[2] * y, 5, "B/t", -1)));
+			ObjIntFunction<Block, ItemBlock> nitrogenCollectorItemBlockFunction = (x, y) -> new NCItemBlock(x, InfoHelper.formattedInfo(infoLine(Global.MOD_ID, "nitrogen_collector"), UnitHelper.prefix(processor_passive_rate[2] * y, 5, "B/t", -1)));
 			nitrogen_collector = addWithName(Global.MOD_ID, new BlockSimpleTile<>("nitrogen_collector"), x -> nitrogenCollectorItemBlockFunction.apply(x, 1));
 			nitrogen_collector_compact = addWithName(Global.MOD_ID, new BlockSimpleTile<>("nitrogen_collector_compact"), x -> nitrogenCollectorItemBlockFunction.apply(x, 8));
 			nitrogen_collector_dense = addWithName(Global.MOD_ID, new BlockSimpleTile<>("nitrogen_collector_dense"), x -> nitrogenCollectorItemBlockFunction.apply(x, 64));

@@ -14,14 +14,9 @@ public class TileHeatExchangerComputerPort extends TileHeatExchangerPart impleme
 	}
 	
 	@Override
-	public void onMachineAssembled(HeatExchanger controller) {
-		doStandardNullControllerResponse(controller);
-		super.onMachineAssembled(controller);
-	}
-	
-	@Override
-	public void onMachineBroken() {
-		super.onMachineBroken();
+	public void onMachineAssembled(HeatExchanger multiblock) {
+		doStandardNullControllerResponse(multiblock);
+		super.onMachineAssembled(multiblock);
 	}
 	
 	// OpenComputers
@@ -32,58 +27,62 @@ public class TileHeatExchangerComputerPort extends TileHeatExchangerPart impleme
 		return "nc_heat_exchanger";
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] isComplete(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled()};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] isHeatExchangerOn(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled() && getMultiblock().isHeatExchangerOn};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getLengthX(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled() ? getMultiblock().getInteriorLengthX() : 0};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getLengthY(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled() ? getMultiblock().getInteriorLengthY() : 0};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getLengthZ(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled() ? getMultiblock().getInteriorLengthZ() : 0};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getFractionOfTubesActive(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled() ? getMultiblock().fractionOfTubesActive : 0D};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getMeanEfficiency(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled() ? getMultiblock().efficiency : 0D};
 	}
 	
-	@Callback
-	@Optional.Method(modid = "opencomputers")
-	public Object[] getNumberOfExchangerTubes(Context context, Arguments args) {
-		return new Object[] {isMultiblockAssembled() ? getMultiblock().getTubes().size() : 0};
+	protected <T extends IHeatExchangerPart> Object[] getPartCount(Class<T> type) {
+		return new Object[] {isMultiblockAssembled() ? getMultiblock().getPartCount(type) : 0};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
-	public Object[] getNumberOfCondensationTubes(Context context, Arguments args) {
-		return new Object[] {isMultiblockAssembled() ? getMultiblock().getCondenserTubes().size() : 0};
+	public Object[] getNumberOfExchangerTubes(Context context, Arguments args) {
+		return getPartCount(TileHeatExchangerTube.class);
+	}
+	
+	@Callback(direct = true)
+	@Optional.Method(modid = "opencomputers")
+	public Object[] getNumberOfCondenserTubes(Context context, Arguments args) {
+		return getPartCount(TileCondenserTube.class);
 	}
 	
 	@Callback
@@ -91,7 +90,7 @@ public class TileHeatExchangerComputerPort extends TileHeatExchangerPart impleme
 	public Object[] activate(Context context, Arguments args) {
 		if (isMultiblockAssembled()) {
 			getMultiblock().computerActivated = true;
-			getMultiblock().setIsHeatExchangerOn();
+			getLogic().setIsHeatExchangerOn();
 		}
 		return new Object[] {};
 	}
@@ -101,7 +100,7 @@ public class TileHeatExchangerComputerPort extends TileHeatExchangerPart impleme
 	public Object[] deactivate(Context context, Arguments args) {
 		if (isMultiblockAssembled()) {
 			getMultiblock().computerActivated = false;
-			getMultiblock().setIsHeatExchangerOn();
+			getLogic().setIsHeatExchangerOn();
 		}
 		return new Object[] {};
 	}

@@ -18,8 +18,12 @@ public class ElectricFurnaceRecipes extends BasicProcessorRecipeHandler {
 	}
 	
 	@Override
-	public void postInit() {
-		FurnaceRecipes.instance().getSmeltingList().forEach((k, v) -> addRecipe(k, v, 1D, 1D));
-		super.postInit();
+	public void init() {
+		FurnaceRecipes.instance().getSmeltingList().forEach((k, v) -> {
+			if (!k.isEmpty() && k.getItem() != null && !v.isEmpty() && v.getItem() != null) {
+				addRecipe(k, v, 1D, 1D);
+			}
+		});
+		super.init();
 	}
 }

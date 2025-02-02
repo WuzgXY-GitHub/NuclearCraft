@@ -157,6 +157,7 @@ public class QuantumComputer extends Multiblock<QuantumComputer, IQuantumCompute
 		
 		for (TileQuantumComputerController contr : getParts(TileQuantumComputerController.class)) {
 			controller = contr;
+			break;
 		}
 		
 		return true;

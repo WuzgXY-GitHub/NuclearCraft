@@ -1,0 +1,25 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "nuclearcraft:wall_part",
+		"textures": {
+			"in": "nuclearcraft:blocks/machine/electrolyzer/anode_terminal_in",
+			"out": "nuclearcraft:blocks/machine/electrolyzer/anode_terminal_out",
+			"side": "nuclearcraft:blocks/machine/electrolyzer/anode_terminal_side",
+			"top": "nuclearcraft:blocks/machine/electrolyzer/anode_terminal_top"
+		}
+	},
+	"variants": {
+		"inventory": [{
+			"y": 180
+		}],
+		"facing": {
+			"down": {"x": 90},
+			"up": {"x": 270},
+			"north": {},
+			"east": {"y": 90},
+			"south": {"y": 180},
+			"west": {"y": 270}
+		}
+	}
+}

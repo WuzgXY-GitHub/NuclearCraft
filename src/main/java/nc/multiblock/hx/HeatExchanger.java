@@ -30,11 +30,13 @@ public class HeatExchanger extends CuboidalMultiblock<HeatExchanger, IHeatExchan
 	public boolean isHeatExchangerOn, computerActivated;
 	public double fractionOfTubesActive, efficiency, maxEfficiency;
 	
-	protected final Set<EntityPlayer> updatePacketListeners;
+	protected final Set<EntityPlayer> updatePacketListeners = new ObjectOpenHashSet<>();
 	
 	public HeatExchanger(World world) {
 		super(world, HeatExchanger.class, IHeatExchangerPart.class);
-		updatePacketListeners = new ObjectOpenHashSet<>();
+		for (Class<? extends IHeatExchangerPart> clazz : PART_CLASSES) {
+			partSuperMap.equip(clazz);
+		}
 	}
 	
 	@Override
@@ -124,6 +126,7 @@ public class HeatExchanger extends CuboidalMultiblock<HeatExchanger, IHeatExchan
 		
 		for (IHeatExchangerController<?> contr : getParts(IHeatExchangerController.class)) {
 			controller = contr;
+			break;
 		}
 		
 		setLogic(controller.getLogicID());
@@ -146,64 +149,10 @@ public class HeatExchanger extends CuboidalMultiblock<HeatExchanger, IHeatExchan
 	@Override
 	protected boolean updateServer() {
 		boolean flag = false;
-		// setIsHeatExchangerOn();
-		updateHeatExchangerStats();
 		if (logic.onUpdateServer()) {
 			flag = true;
 		}
-		if (controller != null) {
-			sendMultiblockUpdatePacketToListeners();
-		}
 		return flag;
-	}
-	
-	public void setIsHeatExchangerOn() {
-		boolean oldIsHeatExchangerOn = isHeatExchangerOn;
-		isHeatExchangerOn = (isRedstonePowered() || computerActivated) && isAssembled();
-		if (isHeatExchangerOn != oldIsHeatExchangerOn) {
-			if (controller != null) {
-				controller.setActivity(isHeatExchangerOn);
-				sendMultiblockUpdatePacketToAll();
-			}
-		}
-	}
-	
-	protected boolean isRedstonePowered() {
-		if (controller != null && controller.checkIsRedstonePowered(WORLD, controller.getTilePos())) {
-			return true;
-		}
-		return false;
-	}
-	
-	protected void updateHeatExchangerStats() {
-		int totalTubeCount = getPartCount(TileHeatExchangerTube.class) + getPartCount(TileCondenserTube.class);
-		if (totalTubeCount < 1) {
-			fractionOfTubesActive = efficiency = maxEfficiency = 0D;
-			return;
-		}
-		int activeCount = 0, efficiencyCount = 0, maxEfficiencyCount = 0;
-		
-		/*for (TileHeatExchangerTube tube : tubes) {
-			int[] eff = tube.checkPosition();
-			if (eff[0] > 0) {
-				++activeCount;
-			}
-			efficiencyCount += eff[0];
-			maxEfficiencyCount += eff[1];
-		}
-		
-		for (TileCondenserTube condenserTube : condenserTubes) {
-			int eff = condenserTube.checkPosition();
-			if (eff > 0) {
-				++activeCount;
-			}
-			efficiencyCount += eff;
-			maxEfficiencyCount += eff;
-		}*/
-		
-		fractionOfTubesActive = (double) activeCount / totalTubeCount;
-		efficiency = activeCount == 0 ? 0D : (double) efficiencyCount / activeCount;
-		maxEfficiency = (double) maxEfficiencyCount / totalTubeCount;
 	}
 	
 	// Client
@@ -246,22 +195,19 @@ public class HeatExchanger extends CuboidalMultiblock<HeatExchanger, IHeatExchan
 	
 	@Override
 	public HeatExchangerUpdatePacket getMultiblockUpdatePacket() {
-		return new HeatExchangerUpdatePacket(controller.getTilePos(), isHeatExchangerOn, fractionOfTubesActive, efficiency, maxEfficiency);
+		return logic.getMultiblockUpdatePacket();
 	}
 	
 	@Override
 	public void onMultiblockUpdatePacket(HeatExchangerUpdatePacket message) {
-		isHeatExchangerOn = message.isHeatExchangerOn;
-		fractionOfTubesActive = message.fractionOfTubesActive;
-		efficiency = message.efficiency;
-		maxEfficiency = message.maxEfficiency;
+		logic.onMultiblockUpdatePacket(message);
 	}
 	
 	// Multiblock Validators
 	
 	@Override
 	protected boolean isBlockGoodForInterior(World world, BlockPos pos) {
-		return true;
+		return logic.isBlockGoodForInterior(world, pos);
 	}
 	
 	// Clear Material

@@ -1,6 +1,5 @@
 package nc.item.tool;
 
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import nc.item.IInfoItem;
 import nc.util.*;
 import net.minecraft.block.*;
@@ -18,7 +17,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.relauncher.*;
 
 import javax.annotation.Nullable;
-import java.util.List;
+import java.util.*;
 
 public class NCSpaxelhoe extends ItemTool implements IInfoItem {
 	
@@ -27,7 +26,7 @@ public class NCSpaxelhoe extends ItemTool implements IInfoItem {
 	public String[] info;
 	
 	public NCSpaxelhoe(ToolMaterial material, TextFormatting infoColor, String... tooltip) {
-		super(3F, -2.4F, material, new ObjectOpenHashSet<>());
+		super(3F, -2.4F, material, Collections.emptySet());
 		this.infoColor = infoColor;
 		this.tooltip = tooltip;
 	}

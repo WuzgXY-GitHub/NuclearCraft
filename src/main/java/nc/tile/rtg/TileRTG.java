@@ -3,6 +3,7 @@ package nc.tile.rtg;
 import gregtech.api.capability.GregtechCapabilities;
 import ic2.api.energy.tile.*;
 import nc.ModCheck;
+import nc.capability.radiation.source.IRadiationSource;
 import nc.multiblock.rtg.*;
 import nc.tile.energy.ITileEnergy;
 import nc.tile.internal.energy.*;
@@ -89,8 +90,8 @@ public class TileRTG extends TileMultiblockPart<RTGMultiblock, TileRTG> implemen
 	}
 	
 	@Override
-	public void onMachineAssembled(RTGMultiblock controller) {
-		doStandardNullControllerResponse(controller);
+	public void onMachineAssembled(RTGMultiblock multiblock) {
+		doStandardNullControllerResponse(multiblock);
 	}
 	
 	@Override
@@ -149,7 +150,8 @@ public class TileRTG extends TileMultiblockPart<RTGMultiblock, TileRTG> implemen
 	
 	@Override
 	public EnergyStorage getEnergyStorage() {
-		return getMultiblock() != null ? getMultiblock().getEnergyStorage() : backupStorage;
+		RTGMultiblock multiblock = getMultiblock();
+		return multiblock != null ? multiblock.getEnergyStorage() : backupStorage;
 	}
 	
 	@Override
@@ -165,6 +167,11 @@ public class TileRTG extends TileMultiblockPart<RTGMultiblock, TileRTG> implemen
 	@Override
 	public @Nonnull EnergyTileWrapperGT[] getEnergySidesGT() {
 		return energySidesGT;
+	}
+	
+	@Override
+	protected @Nullable IRadiationSource getMultiblockRadiationSourceInternal() {
+		return null;
 	}
 	
 	// IC2 Energy

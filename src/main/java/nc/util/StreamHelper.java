@@ -37,4 +37,8 @@ public class StreamHelper {
 	public static <T, U> Set<U> flatMap(Set<T> set, Function<? super T, ? extends Collection<? extends U>> function) {
 		return set.stream().flatMap(x -> function.apply(x).stream()).collect(Collectors.toSet());
 	}
+	
+	public static <T> T[] flatten(T[][] array, IntFunction<T[]> generator) {
+		return flatMap(array, Arrays::asList, generator);
+	}
 }

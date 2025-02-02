@@ -79,7 +79,7 @@ public class GuiSolidFissionController extends GuiLogicMultiblockController<Fiss
 		String sparsity = NCUtil.isModifierKeyDown() ? Lang.localize("gui.nc.container.fission_controller.useful_parts") + " " + multiblock.usefulPartCount + "/" + multiblock.getInteriorVolume() : Lang.localize("gui.nc.container.fission_controller.sparsity") + " " + NCMath.pcDecimalPlaces(multiblock.sparsityEfficiencyMult, 1);
 		fontRenderer.drawString(sparsity, xSize / 2 - fontRenderer.getStringWidth(sparsity) / 2, 58, fontColor);
 		
-		String temperature = Lang.localize("gui.nc.container.fission_controller.temperature") + " " + (NCUtil.isModifierKeyDown() ? logic.getTemperature() - 273 + " C" : logic.getTemperature() + " K");
+		String temperature = Lang.localize("gui.nc.container.fission_controller.temperature") + " " + (NCUtil.isModifierKeyDown() ? Math.round(logic.getTemperature() - 273.15D) + " C" : Math.round(logic.getTemperature()) + " K");
 		fontRenderer.drawString(temperature, xSize / 2 - fontRenderer.getStringWidth(temperature) / 2, NCUtil.isModifierKeyDown() ? 70 : 76, fontColor);
 		
 		if (!NCUtil.isModifierKeyDown()) {

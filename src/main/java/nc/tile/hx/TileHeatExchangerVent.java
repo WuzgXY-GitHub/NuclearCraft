@@ -6,7 +6,7 @@ import nc.multiblock.cuboidal.CuboidalPartPositionType;
 import nc.multiblock.hx.HeatExchanger;
 import nc.tile.fluid.ITileFluid;
 import nc.tile.internal.fluid.*;
-import nc.util.CapabilityHelper;
+import nc.util.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraftforge.common.capabilities.Capability;
@@ -24,13 +24,8 @@ public class TileHeatExchangerVent extends TileHeatExchangerPart implements ITic
 	
 	private @Nonnull FluidConnection[] fluidConnections = ITileFluid.fluidConnectionAll(TankSorption.BOTH);
 	
-	private @Nonnull
-	final FluidTileWrapper[] fluidSides;
-	
-	private @Nonnull
-	final GasTileWrapper gasWrapper;
-	
-	protected int ventCount;
+	private @Nonnull final FluidTileWrapper[] fluidSides;
+	private @Nonnull final GasTileWrapper gasWrapper;
 	
 	public TileHeatExchangerVent() {
 		super(CuboidalPartPositionType.WALL);
@@ -39,32 +34,27 @@ public class TileHeatExchangerVent extends TileHeatExchangerPart implements ITic
 	}
 	
 	@Override
-	public void onMachineAssembled(HeatExchanger controller) {
-		doStandardNullControllerResponse(controller);
-		super.onMachineAssembled(controller);
-		if (!getWorld().isRemote && getPartPosition().getFacing() != null) {
-			getWorld().setBlockState(getPos(), getWorld().getBlockState(getPos()).withProperty(AXIS_ALL, getPartPosition().getFacing().getAxis()), 2);
+	public void onMachineAssembled(HeatExchanger multiblock) {
+		doStandardNullControllerResponse(multiblock);
+		super.onMachineAssembled(multiblock);
+		if (!world.isRemote) {
+			EnumFacing posFacing = getPartPosition().getFacing();
+			if (posFacing != null) {
+				world.setBlockState(pos, world.getBlockState(pos).withProperty(AXIS_ALL, posFacing.getAxis()), 2);
+			}
 		}
-	}
-	
-	@Override
-	public void onMachineBroken() {
-		super.onMachineBroken();
 	}
 	
 	@Override
 	public void update() {
-		if (!world.isRemote) {
-			if (ventCount == 0) {
-				pushFluid();
+		if (!world.isRemote && !tanks.get(0).isEmpty()) {
+			EnumFacing posFacing = getPartPosition().getFacing();
+			if (posFacing != null) {
+				for (EnumFacing side : PosHelper.getAxialDirs(posFacing)) {
+					pushFluidToSide(side);
+				}
 			}
-			tickVent();
 		}
-	}
-	
-	public void tickVent() {
-		++ventCount;
-		ventCount %= machine_update_rate / 4;
 	}
 	
 	// Fluids

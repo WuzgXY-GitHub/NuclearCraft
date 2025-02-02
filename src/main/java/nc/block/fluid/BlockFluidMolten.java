@@ -39,7 +39,7 @@ public class BlockFluidMolten extends NCBlockFluid {
 	
 	@Override
 	protected boolean shouldMixWithAdjacentFluid(World world, BlockPos pos, IBlockState state, IBlockState otherState) {
-		return otherState.getMaterial() == Material.WATER;
+		return otherState.getMaterial().equals(Material.WATER);
 	}
 	
 	@Override

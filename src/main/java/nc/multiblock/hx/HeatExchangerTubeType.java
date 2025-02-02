@@ -14,13 +14,13 @@ public enum HeatExchangerTubeType implements ITileEnum<TileHeatExchangerTube.Var
 	private final String name;
 	private final double conductivity;
 	private final Class<? extends TileHeatExchangerTube.Variant> tileClass;
-	private final Class<? extends TileCondenserTube.Variant> condenserClass;
+	private final Class<? extends TileCondenserTube.Variant> condenserTileClass;
 	
-	HeatExchangerTubeType(String name, double conductivity, Class<? extends TileHeatExchangerTube.Variant> tileClass, Class<? extends TileCondenserTube.Variant> condenserClass) {
+	HeatExchangerTubeType(String name, double conductivity, Class<? extends TileHeatExchangerTube.Variant> tileClass, Class<? extends TileCondenserTube.Variant> condenserTileClass) {
 		this.name = name;
 		this.conductivity = conductivity;
 		this.tileClass = tileClass;
-		this.condenserClass = condenserClass;
+		this.condenserTileClass = condenserTileClass;
 	}
 	
 	@Override
@@ -37,7 +37,7 @@ public enum HeatExchangerTubeType implements ITileEnum<TileHeatExchangerTube.Var
 		return tileClass;
 	}
 	
-	public Class<? extends TileCondenserTube.Variant> getCondenserClass() {
-		return condenserClass;
+	public Class<? extends TileCondenserTube.Variant> getCondenserTileClass() {
+		return condenserTileClass;
 	}
 }

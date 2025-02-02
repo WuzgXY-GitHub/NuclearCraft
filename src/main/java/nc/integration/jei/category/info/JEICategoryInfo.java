@@ -145,7 +145,7 @@ public abstract class JEICategoryInfo<WRAPPER extends JEIRecipeWrapper, CATEGORY
 	
 	public void addRecipeTransferHandlers(IRecipeTransferRegistry transferRegistry) {
 		for (JEIContainerConnection connection : jeiContainerConnections) {
-			transferRegistry.addRecipeTransferHandler(connection.containerClass, getJEICategoryUid(), connection.itemInputStart, connection.itemInputEnd, connection.playerInventoryStart, 36);
+			transferRegistry.addRecipeTransferHandler(connection.containerClass, getJEICategoryUid(), connection.itemInputStart, connection.itemInputSize, connection.playerInventoryStart, 36);
 		}
 	}
 }

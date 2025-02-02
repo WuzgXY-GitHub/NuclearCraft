@@ -48,7 +48,10 @@ public class NCFluids {
 		
 		addFluidPair(FluidType.SUPERFLUID, "liquid_helium");
 		addFluidPair(FluidType.LIQUID, "liquid_nitrogen", false, 0x31C23A, 810, 70, 170, 0);
+		addFluidPair(FluidType.LIQUID, "le_water");
+		addFluidPair(FluidType.LIQUID, "he_water");
 		addFluidPair(FluidType.LIQUID, "heavy_water");
+		addFluidPair(FluidType.LIQUID, "hydrogen_peroxide");
 		
 		if (registerCoFHAlt()) {
 			addFluidPair(FluidType.LIQUID, "ender", true, 0x14584D, 4000, 300, 2500, 3);
@@ -63,6 +66,9 @@ public class NCFluids {
 		
 		addFluidPair(FluidType.FLAMMABLE, "ethanol", 0x655140);
 		addFluidPair(FluidType.FLAMMABLE, "methanol", 0x71524C);
+		addFluidPair(FluidType.FLAMMABLE, "benzene", 0x999999);
+		addFluidPair(FluidType.FLAMMABLE, "phenol", 0xF2F2F2);
+		addFluidPair(FluidType.FLAMMABLE, "fluorobenzene", 0xBAB58B);
 		
 		addFluidPair(FluidType.LIQUID, "radaway");
 		addFluidPair(FluidType.LIQUID, "radaway_slow");
@@ -74,6 +80,7 @@ public class NCFluids {
 		addFluidPair(FluidType.GAS, "carbon_dioxide", 0x5C635A);
 		addFluidPair(FluidType.GAS, "carbon_monoxide", 0x4C5649);
 		addFluidPair(FluidType.GAS, "ethene", 0xFFE4A3);
+		addFluidPair(FluidType.GAS, "ethyne", 0xFFE442);
 		
 		addFluidPair(FluidType.GAS, "fluoromethane", 0x424C05);
 		addFluidPair(FluidType.GAS, "ammonia", 0x7AC3A0);
@@ -81,6 +88,8 @@ public class NCFluids {
 		addFluidPair(FluidType.GAS, "diborane", 0xCC6E8C);
 		addFluidPair(FluidType.GAS, "sulfur_dioxide", 0xC3BC7A);
 		addFluidPair(FluidType.GAS, "sulfur_trioxide", 0xD3AE5D);
+		addFluidPair(FluidType.GAS, "tetrafluoroethene", 0x7EA542);
+		addFluidPair(FluidType.GAS, "hydrogen_sulfide", 0xC8AC9E);
 		
 		addFluidPair(FluidType.ACID, "hydrofluoric_acid", 0x004C05);
 		addFluidPair(FluidType.ACID, "boric_acid", 0x696939);
@@ -95,6 +104,12 @@ public class NCFluids {
 		addFluidPair(FluidType.SALT_SOLUTION, "potassium_hydroxide_solution", ColorHelper.waterBlend(0xB8C6B0, 0.5F));
 		addFluidPair(FluidType.SALT_SOLUTION, "borax_solution", ColorHelper.waterBlend(0xEEEEEE, 0.5F));
 		addFluidPair(FluidType.SALT_SOLUTION, "irradiated_borax_solution", ColorHelper.waterBlend(0xFFD0A3, 0.5F));
+		addFluidPair(FluidType.SALT_SOLUTION, "ammonium_sulfate_solution", ColorHelper.waterBlend(0x6CA377, 0.5F));
+		addFluidPair(FluidType.SALT_SOLUTION, "ammonium_bisulfate_solution", ColorHelper.waterBlend(0x5F8450, 0.5F));
+		addFluidPair(FluidType.SALT_SOLUTION, "ammonium_persulfate_solution", ColorHelper.waterBlend(0x74A364, 0.5F));
+		addFluidPair(FluidType.SALT_SOLUTION, "hydroquinone_solution", ColorHelper.waterBlend(0xB7B7B7, 0.5F));
+		addFluidPair(FluidType.SALT_SOLUTION, "sodium_hydroquinone_solution", ColorHelper.waterBlend(0xC9B9BA, 0.5F));
+		addFluidPair(FluidType.SALT_SOLUTION, "potassium_hydroquinone_solution", ColorHelper.waterBlend(0xC6CA94, 0.5F));
 		
 		addFluidPair(FluidType.CORIUM, "corium", 0x7C7C6F);
 		
@@ -108,7 +123,7 @@ public class NCFluids {
 		addFluidPair(FluidType.CHOCOLATE, "milk_chocolate", 0x884121);
 		addFluidPair(FluidType.SUGAR, "sugar", 0xFFD59A);
 		addFluidPair(FluidType.SUGAR, "gelatin", 0xDDD09C);
-		addFluidPair(FluidType.SUGAR, "hydrated_gelatin", ColorHelper.waterBlend(0xDDD09C, 0.8F));
+		addFluidPair(FluidType.SUGAR, "hydrated_gelatin", ColorHelper.waterBlend(0xDDD09C, 0.75F));
 		addFluidPair(FluidType.CHOCOLATE, "marshmallow", 0xE1E1E3);
 		addFluidPair(FluidType.LIQUID, "milk");
 		
@@ -117,6 +132,10 @@ public class NCFluids {
 		addFluidPair(FluidType.MOLTEN, "flibe", 0xC1C8B0);
 		addFluidPair(FluidType.MOLTEN, "naoh", 0xC2B7BB);
 		addFluidPair(FluidType.MOLTEN, "koh", 0xB8C6B0);
+		
+		addFluidPair(FluidType.MOLTEN, "dfdps", 0xB4B3A7);
+		addFluidPair(FluidType.MOLTEN, "polyethersulfone", 0xC9B8A6);
+		addFluidPair(FluidType.MOLTEN, "polytetrafluoroethene", 0x7F9F4D);
 		
 		if (registerCoFHAlt()) {
 			addFluidPair(FluidType.STEAM, "steam", 0x929292, 800);

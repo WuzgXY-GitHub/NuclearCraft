@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import nc.ModCheck;
 import nc.multiblock.cuboidal.CuboidalPartPositionType;
-import nc.multiblock.fission.FissionReactor;
+import nc.multiblock.fission.*;
 import nc.tile.fluid.ITileFluid;
 import nc.tile.internal.fluid.*;
 import nc.tile.passive.ITilePassive;
@@ -20,7 +20,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.*;
 
 import javax.annotation.*;
-import java.util.List;
+import java.util.*;
 
 import static nc.block.property.BlockProperties.FACING_ALL;
 import static nc.config.NCConfig.enable_mek_gas;
@@ -31,11 +31,8 @@ public class TileFissionVent extends TileFissionPart implements ITickable, ITile
 	
 	private @Nonnull FluidConnection[] fluidConnections = ITileFluid.fluidConnectionAll(Lists.newArrayList(TankSorption.IN, TankSorption.NON));
 	
-	private @Nonnull
-	final FluidTileWrapper[] fluidSides;
-	
-	private @Nonnull
-	final GasTileWrapper gasWrapper;
+	private @Nonnull final FluidTileWrapper[] fluidSides;
+	private @Nonnull final GasTileWrapper gasWrapper;
 	
 	public TileFissionVent() {
 		super(CuboidalPartPositionType.WALL);
@@ -44,24 +41,24 @@ public class TileFissionVent extends TileFissionPart implements ITickable, ITile
 	}
 	
 	@Override
-	public void onMachineAssembled(FissionReactor controller) {
-		doStandardNullControllerResponse(controller);
-		super.onMachineAssembled(controller);
-		if (!getWorld().isRemote && getPartPosition().getFacing() != null) {
-			getWorld().setBlockState(getPos(), getWorld().getBlockState(getPos()).withProperty(FACING_ALL, getPartPosition().getFacing()), 2);
+	public void onMachineAssembled(FissionReactor multiblock) {
+		doStandardNullControllerResponse(multiblock);
+		super.onMachineAssembled(multiblock);
+		if (!world.isRemote) {
+			EnumFacing facing = getPartPosition().getFacing();
+			if (facing != null) {
+				world.setBlockState(pos, world.getBlockState(pos).withProperty(FACING_ALL, facing), 2);
+			}
 		}
 	}
 	
 	@Override
-	public void onMachineBroken() {
-		super.onMachineBroken();
-	}
-	
-	@Override
 	public void update() {
-		EnumFacing facing = getPartPosition().getFacing();
-		if (!world.isRemote && facing != null && !getTanks().get(1).isEmpty() && getTankSorption(facing, 1).canDrain()) {
-			pushFluidToSide(facing);
+		if (!world.isRemote && !getTanks().get(1).isEmpty()) {
+			EnumFacing facing = getPartPosition().getFacing();
+			if (facing != null && getTankSorption(facing, 1).canDrain()) {
+				pushFluidToSide(facing);
+			}
 		}
 	}
 	
@@ -69,7 +66,8 @@ public class TileFissionVent extends TileFissionPart implements ITickable, ITile
 	
 	@Override
 	public @Nonnull List<Tank> getTanks() {
-		return getMultiblock() != null ? getLogic().getVentTanks(backupTanks) : backupTanks;
+		FissionReactorLogic logic = getLogic();
+		return logic != null ? logic.getVentTanks(backupTanks) : backupTanks;
 	}
 	
 	@Override
@@ -101,10 +99,8 @@ public class TileFissionVent extends TileFissionPart implements ITickable, ITile
 			return;
 		}
 		
-		if (tile instanceof ITilePassive) {
-			if (!((ITilePassive) tile).canPushFluidsTo()) {
-				return;
-			}
+		if (tile instanceof ITilePassive tilePassive && !tilePassive.canPushFluidsTo()) {
+			return;
 		}
 		
 		IFluidHandler adjStorage = tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite());
@@ -112,14 +108,8 @@ public class TileFissionVent extends TileFissionPart implements ITickable, ITile
 			return;
 		}
 		
-		for (int i = 0; i < getTanks().size(); ++i) {
-			Tank tank = getTanks().get(i);
-			if (tank.getFluid() == null || !getTankSorption(side, i).canDrain()) {
-				continue;
-			}
-			
-			tank.drain(adjStorage.fill(tank.drain(tank.getCapacity(), false), true), true);
-		}
+		Tank tank = getTanks().get(1);
+		tank.drain(adjStorage.fill(tank.drain(tank.getCapacity(), false), true), true);
 	}
 	
 	@Override
@@ -166,7 +156,7 @@ public class TileFissionVent extends TileFissionPart implements ITickable, ITile
 						setTankSorption(side, 1, TankSorption.NON);
 					}
 					setActivity(false);
-					player.sendMessage(new TextComponentString(Lang.localize("nc.block.vent_toggle") + " " + TextFormatting.DARK_AQUA + Lang.localize("nc.block.fission_vent_mode.input") + " " + TextFormatting.WHITE + Lang.localize("nc.block.vent_toggle.mode")));
+					player.sendMessage(new TextComponentString(Lang.localize("nc.block.vent_toggle") + " " + TextFormatting.DARK_AQUA + Lang.localize("nc.block.port_mode.input") + " " + TextFormatting.WHITE + Lang.localize("nc.block.port_toggle.mode")));
 				}
 				else {
 					for (EnumFacing side : EnumFacing.VALUES) {
@@ -174,7 +164,7 @@ public class TileFissionVent extends TileFissionPart implements ITickable, ITile
 						setTankSorption(side, 1, TankSorption.OUT);
 					}
 					setActivity(true);
-					player.sendMessage(new TextComponentString(Lang.localize("nc.block.vent_toggle") + " " + TextFormatting.RED + Lang.localize("nc.block.fission_vent_mode.output") + " " + TextFormatting.WHITE + Lang.localize("nc.block.vent_toggle.mode")));
+					player.sendMessage(new TextComponentString(Lang.localize("nc.block.vent_toggle") + " " + TextFormatting.RED + Lang.localize("nc.block.port_mode.output") + " " + TextFormatting.WHITE + Lang.localize("nc.block.port_toggle.mode")));
 				}
 				markDirtyAndNotify(true);
 				return true;

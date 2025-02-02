@@ -3,7 +3,8 @@ package nc.recipe.vanilla;
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.objects.*;
 import nc.*;
-import nc.enumm.MetaEnums.IngotType;
+import nc.enumm.IMetaEnum;
+import nc.enumm.MetaEnums.*;
 import nc.init.*;
 import nc.item.ItemMultitool;
 import nc.multiblock.quantum.QuantumGateEnums;
@@ -22,6 +23,8 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.*;
 import vazkii.patchouli.common.item.ItemModBook;
 
+import java.util.ArrayList;
+
 import static nc.config.NCConfig.*;
 
 public class CraftingRecipeHandler {
@@ -32,26 +35,14 @@ public class CraftingRecipeHandler {
 			addShapelessOreRecipe(Items.BOOK, ItemModBook.forBook("nuclearcraft:guide"));
 		}
 		
-		for (int i = 0; i < IngotType.values().length; ++i) {
-			String type = StringHelper.capitalize(IngotType.values()[i].getName());
-			if (!ore_dict_raw_material_recipes) {
-				blockCompress(NCBlocks.ingot_block, i, "block" + type, new ItemStack(NCItems.ingot, 1, i));
-			}
-			else {
-				for (ItemStack ingot : OreDictionary.getOres("ingot" + type, false)) {
-					blockCompress(NCBlocks.ingot_block, i, "block" + type, ingot);
-				}
-			}
-			
-			if (!ore_dict_raw_material_recipes) {
-				blockOpen(NCItems.ingot, i, "ingot" + type, new ItemStack(NCBlocks.ingot_block, 1, i));
-			}
-			else {
-				for (ItemStack block : OreDictionary.getOres("block" + type, false)) {
-					blockOpen(NCItems.ingot, i, "ingot" + type, block);
-				}
-			}
-		}
+		ingotBlockRecipes(IngotType.class, NCBlocks.ingot_block, NCItems.ingot);
+		ingotBlockRecipes(IngotType2.class, NCBlocks.ingot_block2, NCItems.ingot2);
+		
+		materialBlockRecipes(0, "Molybdenum");
+		materialBlockRecipes(1, "CopperOxide");
+		materialBlockRecipes(2, "Cobalt");
+		materialBlockRecipes(3, "Nickel");
+		materialBlockRecipes(4, "Platinum");
 		
 		blockCompress(NCBlocks.fertile_isotope, 0, "blockUranium238", "ingotUranium238");
 		blockCompress(NCBlocks.fertile_isotope, 1, "blockNeptunium237", "ingotNeptunium237");
@@ -135,6 +126,34 @@ public class CraftingRecipeHandler {
 		
 		addShapedOreRecipe(NCBlocks.machine_interface, " A ", "MCM", " S ", 'C', "chassis", 'A', "actuator", 'M', "motor", 'S', "servo");
 		
+		addShapedOreRecipe(new ItemStack(NCBlocks.machine_frame, 8), " B ", "BCB", " B ", 'B', "ingotBronze", 'C', "chassis");
+		addShapelessOreRecipe(NCBlocks.machine_frame, NCBlocks.machine_glass);
+		addShapelessOreRecipe(NCBlocks.machine_glass, NCBlocks.machine_frame, "blockGlass");
+		addShapedOreRecipe(new ItemStack(NCBlocks.machine_power_port, 4), "BPB", "RCR", "BPB", 'B', "ingotBronze", 'P', "ingotCopper", 'R', "dustRedstone", 'C', "chassis");
+		addShapedOreRecipe(new ItemStack(NCBlocks.machine_process_port, 4), "BHB", "SCS", "BHB", 'B', "ingotBronze", 'H', Blocks.HOPPER, 'S', "servo", 'C', "chassis");
+		addShapedOreRecipe(new ItemStack(NCBlocks.machine_reservoir_port, 4), "BSB", "TCT", "BSB", 'B', "ingotBronze", 'S', "servo", 'T', "ingotSteel", 'C', "chassis");
+		addShapedOreRecipe(NCBlocks.machine_redstone_port, "BRB", "TCT", "BRB", 'B', "ingotBronze", 'R', "dustRedstone", 'T', Blocks.REDSTONE_TORCH, 'C', "chassis");
+		if (ModCheck.openComputersLoaded()) {
+			addShapedOreRecipe(NCBlocks.machine_computer_port, "BMB", "LCL", "BPB", 'B', "ingotBronze", 'M', RegistryHelper.itemStackFromRegistry("opencomputers:material:7"), 'L', RegistryHelper.blockStackFromRegistry("opencomputers:cable:0"), 'P', RegistryHelper.itemStackFromRegistry("opencomputers:material:4"), 'C', "chassis");
+		}
+		
+		addShapedOreRecipe(new ItemStack(NCBlocks.machine_diaphragm, 4, 0), "SQS", "QSQ", "SQS", 'S', "sinteredSteel", 'Q', "dustQuartz");
+		addShapedOreRecipe(new ItemStack(NCBlocks.machine_diaphragm, 4, 0), "SQS", "QSQ", "SQS", 'S', "sinteredSteel", 'Q', "dustNetherQuartz");
+		addShapedOreRecipe(new ItemStack(NCBlocks.machine_diaphragm, 4, 1), "PQP", "QPQ", "PQP", 'P', "ingotPolyethersulfone", 'Q', "dustQuartz");
+		addShapedOreRecipe(new ItemStack(NCBlocks.machine_diaphragm, 4, 1), "PQP", "QPQ", "PQP", 'P', "ingotPolyethersulfone", 'Q', "dustNetherQuartz");
+		addShapedOreRecipe(new ItemStack(NCBlocks.machine_diaphragm, 4, 2), "ZQZ", "QZQ", "ZQZ", 'Z', "ingotZirfon", 'Q', "dustQuartz");
+		addShapedOreRecipe(new ItemStack(NCBlocks.machine_diaphragm, 4, 2), "ZQZ", "QZQ", "ZQZ", 'Z', "ingotZirfon", 'Q', "dustNetherQuartz");
+		
+		addShapedOreRecipe(new ItemStack(NCBlocks.machine_sieve_tray, 4, 0), "SSS", "OSO", "SSS", 'S', "ingotSteel", 'O', "dustObsidian");
+		addShapedOreRecipe(new ItemStack(NCBlocks.machine_sieve_tray, 4, 1), "PPP", "OPO", "PPP", 'P', "ingotPolytetrafluoroethene", 'O', "dustObsidian");
+		addShapedOreRecipe(new ItemStack(NCBlocks.machine_sieve_tray, 4, 2), "HHH", "OHO", "HHH", 'H', "ingotHastelloy", 'O', "dustObsidian");
+		
+		addShapedOreRecipe(NCBlocks.electrolyzer_controller, "BSB", "TCT", "BSB", 'B', "ingotBronze", 'S', "sinteredSteel", 'T', "ingotTough", 'C', "chassis");
+		addShapedOreRecipe(new ItemStack(NCBlocks.electrolyzer_cathode_terminal, 2), "BSB", "RCR", "BSB", 'B', "ingotBronze", 'S', "solenoidCopper", 'R', "dustRedstone", 'C', "chassis");
+		addShapedOreRecipe(new ItemStack(NCBlocks.electrolyzer_anode_terminal, 2), "BSB", "LCL", "BSB", 'B', "ingotBronze", 'S', "solenoidCopper", 'L', "gemLapis", 'C', "chassis");
+		
+		addShapedOreRecipe(NCBlocks.distiller_controller, "BFB", "HCH", "BFB", 'B', "ingotBronze", 'F', "ingotFerroboron", 'H', "ingotHardCarbon", 'C', "chassis");
+		
 		addShapedOreRecipe(NCBlocks.rtg_uranium, "PGP", "GUG", "PGP", 'G', "ingotGraphite", 'P', "plateBasic", 'U', "blockUranium238");
 		addShapedOreRecipe(NCBlocks.rtg_plutonium, "PGP", "GUG", "PGP", 'G', "ingotGraphite", 'P', "plateAdvanced", 'U', "ingotPlutonium238All");
 		addShapedOreRecipe(NCBlocks.rtg_americium, "PGP", "GAG", "PGP", 'G', "ingotGraphite", 'P', "plateAdvanced", 'A', "ingotAmericium241All");
@@ -190,8 +209,8 @@ public class CraftingRecipeHandler {
 		addShapelessOreRecipe(NCBlocks.fission_glass, NCBlocks.fission_casing, "blockGlass");
 		addShapelessOreRecipe(NCBlocks.fission_conductor, NCBlocks.fission_casing);
 		addShapedOreRecipe(new ItemStack(NCBlocks.fission_monitor, 4), "PGP", "TFT", "PGP", 'P', "plateBasic", 'G', "dustGlowstone", 'T', "ingotTough", 'F', "steelFrame");
-		addShapedOreRecipe(new ItemStack(NCBlocks.fission_power_port, 4), "PTP", "RFR", "PTP", 'P', "plateBasic", 'T', "ingotTough", 'R', "dustRedstone", 'F', "steelFrame");
-		addShapedOreRecipe(new ItemStack(NCBlocks.fission_vent, 4), "PTP", "VFV", "PTP", 'P', "plateBasic", 'T', "ingotTough", 'V', "servo", 'F', "steelFrame");
+		addShapedOreRecipe(new ItemStack(NCBlocks.fission_power_port, 4), "PCP", "RFR", "PCP", 'P', "plateBasic", 'C', "ingotCopper", 'R', "dustRedstone", 'F', "steelFrame");
+		addShapedOreRecipe(new ItemStack(NCBlocks.fission_vent, 4), "PTP", "SFS", "PTP", 'P', "plateBasic", 'T', "ingotTough", 'S', "servo", 'F', "steelFrame");
 		addShapedOreRecipe(new ItemStack(NCBlocks.fission_irradiator, 4), "PZP", "AFA", "PZP", 'P', "plateBasic", 'Z', "ingotZirconium", 'A', "ingotZircaloy", 'F', "steelFrame");
 		addShapedOreRecipe(new ItemStack(NCBlocks.fission_source, 2, 0), "PRP", "BFB", "PRP", 'P', "plateBasic", 'R', "dustRadium", 'B', "dustBeryllium", 'F', "steelFrame");
 		addShapedOreRecipe(new ItemStack(NCBlocks.fission_source, 2, 1), "PLP", "BFB", "PLP", 'P', "plateBasic", 'L', "dustPolonium", 'B', "dustBeryllium", 'F', "steelFrame");
@@ -315,22 +334,23 @@ public class CraftingRecipeHandler {
 		addShapedOreRecipe(new ItemStack(NCBlocks.salt_fission_heater2, 1, 14), " E ", "EHE", " E ", 'H', new ItemStack(NCBlocks.salt_fission_heater, 1, 0), 'E', "ingotEnderium");
 		addShapedOreRecipe(new ItemStack(NCBlocks.salt_fission_heater2, 1, 15), " C ", "CHC", " C ", 'H', new ItemStack(NCBlocks.salt_fission_heater, 1, 0), 'C', "dustCryotheum");
 		
-		addShapedOreRecipe(NCBlocks.heat_exchanger_controller, "SES", "TFT", "SES", 'S', "stone", 'E', "ingotExtreme", 'T', "ingotThermoconducting", 'F', "steelFrame");
-		addShapedOreRecipe(new ItemStack(NCBlocks.heat_exchanger_casing, 8), " S ", "SFS", " S ", 'S', "stone", 'F', "steelFrame");
+		addShapedOreRecipe(NCBlocks.heat_exchanger_controller, "SES", "TFT", "SES", 'S', "ingotSteel", 'E', "ingotExtreme", 'T', "ingotThermoconducting", 'F', "steelFrame");
+		addShapedOreRecipe(new ItemStack(NCBlocks.heat_exchanger_casing, 8), " S ", "SFS", " S ", 'S', "ingotSteel", 'F', "steelFrame");
 		addShapelessOreRecipe(NCBlocks.heat_exchanger_casing, NCBlocks.heat_exchanger_glass);
 		addShapelessOreRecipe(NCBlocks.heat_exchanger_glass, NCBlocks.heat_exchanger_casing, "blockGlass");
-		addShapedOreRecipe(new ItemStack(NCBlocks.heat_exchanger_vent, 4), "SIS", "VFV", "SIS", 'S', "stone", 'I', "ingotSteel", 'V', "servo", 'F', "steelFrame");
-		addShapedOreRecipe(new ItemStack(NCBlocks.heat_exchanger_tube_copper, 4), "SCS", "CFC", "SVS", 'S', "stone", 'C', "ingotCopper", 'F', "steelFrame", 'V', "servo");
-		addShapedOreRecipe(new ItemStack(NCBlocks.heat_exchanger_tube_hard_carbon, 4), "SHS", "HFH", "SVS", 'S', "stone", 'H', "ingotHardCarbon", 'F', "steelFrame", 'V', "servo");
-		addShapedOreRecipe(new ItemStack(NCBlocks.heat_exchanger_tube_thermoconducting, 4), "STS", "TFT", "SVS", 'S', "stone", 'T', "ingotThermoconducting", 'F', "steelFrame", 'V', "servo");
+		addShapedOreRecipe(new ItemStack(NCBlocks.heat_exchanger_vent, 4), "SIS", "VFV", "SIS", 'S', "ingotSteel", 'I', "ingotFerroboron", 'V', "servo", 'F', "steelFrame");
+		addShapedOreRecipe(new ItemStack(NCBlocks.heat_exchanger_tube_copper, 4), "SCS", "CFC", "SVS", 'S', "ingotSteel", 'C', "ingotCopper", 'F', "steelFrame", 'V', "servo");
+		addShapedOreRecipe(new ItemStack(NCBlocks.heat_exchanger_tube_hard_carbon, 4), "SHS", "HFH", "SVS", 'S', "ingotSteel", 'H', "ingotHardCarbon", 'F', "steelFrame", 'V', "servo");
+		addShapedOreRecipe(new ItemStack(NCBlocks.heat_exchanger_tube_thermoconducting, 4), "STS", "TFT", "SVS", 'S', "ingotSteel", 'T', "ingotThermoconducting", 'F', "steelFrame", 'V', "servo");
 		addShapelessOreRecipe(NCBlocks.heat_exchanger_tube_copper, NCBlocks.condenser_tube_copper);
 		addShapelessOreRecipe(NCBlocks.heat_exchanger_tube_hard_carbon, NCBlocks.condenser_tube_hard_carbon);
 		addShapelessOreRecipe(NCBlocks.heat_exchanger_tube_thermoconducting, NCBlocks.condenser_tube_thermoconducting);
+		addShapedOreRecipe(NCBlocks.heat_exchanger_redstone_port, "SRS", "TFT", "SRS", 'S', "ingotSteel", 'R', "dustRedstone", 'T', Blocks.REDSTONE_TORCH, 'F', "steelFrame");
 		if (ModCheck.openComputersLoaded()) {
-			addShapedOreRecipe(NCBlocks.heat_exchanger_computer_port, "SMS", "CFC", "SPS", 'S', "stone", 'M', RegistryHelper.itemStackFromRegistry("opencomputers:material:7"), 'C', RegistryHelper.blockStackFromRegistry("opencomputers:cable:0"), 'P', RegistryHelper.itemStackFromRegistry("opencomputers:material:4"), 'F', "steelFrame");
+			addShapedOreRecipe(NCBlocks.heat_exchanger_computer_port, "SMS", "CFC", "SPS", 'S', "ingotSteel", 'M', RegistryHelper.itemStackFromRegistry("opencomputers:material:7"), 'C', RegistryHelper.blockStackFromRegistry("opencomputers:cable:0"), 'P', RegistryHelper.itemStackFromRegistry("opencomputers:material:4"), 'F', "steelFrame");
 		}
 		
-		addShapedOreRecipe(NCBlocks.condenser_controller, "STS", "CFC", "STS", 'S', "stone", 'T', "ingotTough", 'C', "ingotThermoconducting", 'F', "steelFrame");
+		addShapedOreRecipe(NCBlocks.condenser_controller, "STS", "CFC", "STS", 'S', "ingotSteel", 'T', "ingotTough", 'C', "ingotThermoconducting", 'F', "steelFrame");
 		addShapelessOreRecipe(NCBlocks.condenser_tube_copper, NCBlocks.heat_exchanger_tube_copper);
 		addShapelessOreRecipe(NCBlocks.condenser_tube_hard_carbon, NCBlocks.heat_exchanger_tube_hard_carbon);
 		addShapelessOreRecipe(NCBlocks.condenser_tube_thermoconducting, NCBlocks.heat_exchanger_tube_thermoconducting);
@@ -354,6 +374,7 @@ public class CraftingRecipeHandler {
 		addShapedOreRecipe(new ItemStack(NCBlocks.turbine_coil_connector, 4), "HHH", "HTH", "HHH", 'T', "ingotTough", 'H', "ingotHSLASteel");
 		addShapedOreRecipe(new ItemStack(NCBlocks.turbine_inlet, 4), "STS", "VFV", "STS", 'S', "ingotHSLASteel", 'T', "ingotTough", 'V', "servo", 'F', "steelFrame");
 		addShapedOreRecipe(new ItemStack(NCBlocks.turbine_outlet, 4), "SSS", "VFV", "SSS", 'S', "ingotHSLASteel", 'V', "servo", 'F', "steelFrame");
+		addShapedOreRecipe(NCBlocks.turbine_redstone_port, "SRS", "TFT", "SRS", 'S', "ingotHSLASteel", 'R', "dustRedstone", 'T', Blocks.REDSTONE_TORCH, 'F', "steelFrame");
 		if (ModCheck.openComputersLoaded()) {
 			addShapedOreRecipe(NCBlocks.turbine_computer_port, "SMS", "CFC", "SPS", 'S', "ingotHSLASteel", 'M', RegistryHelper.itemStackFromRegistry("opencomputers:material:7"), 'C', RegistryHelper.blockStackFromRegistry("opencomputers:cable:0"), 'P', RegistryHelper.itemStackFromRegistry("opencomputers:material:4"), 'F', "steelFrame");
 		}
@@ -419,8 +440,6 @@ public class CraftingRecipeHandler {
 		addShapedOreRecipe(NCItems.geiger_counter, "SFF", "CRR", "BFF", 'S', "ingotSteel", 'F', "ingotFerroboron", 'C', "ingotCopper", 'R', "dustRedstone", 'B', "bioplastic");
 		addShapedOreRecipe(NCItems.radiation_badge, " C ", "SRS", " L ", 'C', "ingotCopper", 'S', "string", 'R', "dustRedstone", 'L', "ingotLead");
 		
-		// addShapedOreRecipe(NCItems.radaway_slow, new Object[] {" D ", "DRD",
-		// " D ", 'R', NCItems.radaway, 'D', "dustRedstone"});
 		addShapedOreRecipe(NCItems.rad_x, "EPE", "PRP", "PBP", 'E', "dustEnergetic", 'P', "bioplastic", 'R', NCItems.radaway, 'B', Items.BLAZE_POWDER);
 		
 		addShapedOreRecipe(NCBlocks.radiation_scrubber, "PCP", "CEC", "PCP", 'P', "plateElite", 'E', "ingotExtreme", 'C', "dustBorax");
@@ -495,7 +514,7 @@ public class CraftingRecipeHandler {
 		if (radiation_shielding_default_recipes) {
 			for (Item item : ForgeRegistries.ITEMS.getValuesCollection()) {
 				if (ArmorHelper.isArmor(item, radiation_horse_armor_public)) {
-					NonNullList<ItemStack> stacks = NonNullList.create();
+					NonNullList<ItemStack> stacks = new NonNullList<>(new ArrayList<>(), ItemStack.EMPTY);
 					item.getSubItems(CreativeTabs.SEARCH, stacks);
 					for (ItemStack stack : stacks) {
 						int packed = RecipeItemHelper.pack(stack);
@@ -509,6 +528,38 @@ public class CraftingRecipeHandler {
 		
 		for (int packed : RadArmor.ARMOR_STACK_SHIELDING_LIST) {
 			RadArmor.addArmorShieldingRecipes(RecipeItemHelper.unpack(packed));
+		}
+	}
+	
+	public static <T extends Enum<T> & IStringSerializable & IMetaEnum> void ingotBlockRecipes(Class<T> enumm, Block block, Item ingot) {
+		T[] values = enumm.getEnumConstants();
+		for (int i = 0, len = values.length; i < len; ++i) {
+			String type = StringHelper.capitalize(values[i].getName());
+			if (!ore_dict_raw_material_recipes) {
+				blockCompress(block, i, "block" + type, new ItemStack(ingot, 1, i));
+			}
+			else {
+				for (ItemStack ingotStack : OreDictionary.getOres("ingot" + type, false)) {
+					blockCompress(block, i, "block" + type, ingotStack);
+				}
+			}
+			
+			if (!ore_dict_raw_material_recipes) {
+				blockOpen(ingot, i, "ingot" + type, new ItemStack(block, 1, i));
+			}
+			else {
+				for (ItemStack blockStack : OreDictionary.getOres("block" + type, false)) {
+					blockOpen(ingot, i, "ingot" + type, blockStack);
+				}
+			}
+		}
+	}
+	
+	public static void materialBlockRecipes(int meta, String suffix) {
+		String ingot = "ingot" + suffix, block = "block" + suffix;
+		if (OreDictHelper.oreExists(ingot)) {
+			blockCompress(NCBlocks.material_block, meta, block, ingot);
+			addShapelessOreRecipe(OreDictHelper.getPrioritisedCraftingStack(ItemStack.EMPTY, ingot, 9), block);
 		}
 	}
 	

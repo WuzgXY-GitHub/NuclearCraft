@@ -14,6 +14,7 @@ import nc.tile.fission.manager.*;
 import nc.tile.fission.port.*;
 import nc.tile.generator.*;
 import nc.tile.hx.*;
+import nc.tile.machine.*;
 import nc.tile.passive.TilePassive;
 import nc.tile.processor.TileNuclearFurnace;
 import nc.tile.processor.TileProcessorImpl.*;
@@ -56,6 +57,20 @@ public class NCTiles {
 		registerTile(Global.MOD_ID, "basic_upgradable_energy_processor_dyn", TileBasicUpgradableEnergyProcessorDyn.class);
 		
 		registerTile(Global.MOD_ID, "machine_interface", TileMachineInterface.class);
+		
+		registerTile(Global.MOD_ID, "machine_frame", TileMachineFrame.class);
+		registerTile(Global.MOD_ID, "machine_glass", TileMachineGlass.class);
+		registerTile(Global.MOD_ID, "machine_power_port", TileMachinePowerPort.class);
+		registerTile(Global.MOD_ID, "machine_process_port", TileMachineProcessPort.class);
+		registerTile(Global.MOD_ID, "machine_reservoir_port", TileMachineReservoirPort.class);
+		registerTile(Global.MOD_ID, "machine_redstone_port", TileMachineRedstonePort.class);
+		registerTile(Global.MOD_ID, "machine_computer_port", TileMachineComputerPort.class);
+		
+		registerTile(Global.MOD_ID, "electrolyzer_controller", TileElectrolyzerController.class);
+		registerTile(Global.MOD_ID, "electrolyzer_cathode_terminal", TileElectrolyzerCathodeTerminal.class);
+		registerTile(Global.MOD_ID, "electrolyzer_anode_terminal", TileElectrolyzerAnodeTerminal.class);
+		
+		registerTile(Global.MOD_ID, "distiller_controller", TileDistillerController.class);
 		
 		registerTile(Global.MOD_ID, "fission_casing", TileFissionCasing.class);
 		registerTile(Global.MOD_ID, "fission_glass", TileFissionGlass.class);
@@ -107,12 +122,13 @@ public class NCTiles {
 		registerTile(Global.MOD_ID, "heat_exchanger_tube", TileHeatExchangerTube.class);
 		registerTileVariants(Global.MOD_ID, "heat_exchanger_tube", HeatExchangerTubeType.class);
 		
+		registerTile(Global.MOD_ID, "heat_exchanger_redstone_port", TileHeatExchangerRedstonePort.class);
 		registerTile(Global.MOD_ID, "heat_exchanger_computer_port", TileHeatExchangerComputerPort.class);
 		
 		registerTile(Global.MOD_ID, "condenser_controller", TileCondenserController.class);
 		
 		registerTile(Global.MOD_ID, "condenser_tube", TileCondenserTube.class);
-		registerTileVariants(Global.MOD_ID, "condenser_tube", HeatExchangerTubeType.class, x -> Pair.of(x.toString(), x.getCondenserClass()));
+		registerTileVariants(Global.MOD_ID, "condenser_tube", HeatExchangerTubeType.class, x -> Pair.of(x.toString(), x.getCondenserTileClass()));
 		
 		registerTile(Global.MOD_ID, "turbine_controller", TileTurbineController.class);
 		registerTile(Global.MOD_ID, "turbine_casing", TileTurbineCasing.class);
@@ -133,6 +149,7 @@ public class NCTiles {
 		registerTile(Global.MOD_ID, "turbine_coil_connector", TileTurbineCoilConnector.class);
 		registerTile(Global.MOD_ID, "turbine_inlet", TileTurbineInlet.class);
 		registerTile(Global.MOD_ID, "turbine_outlet", TileTurbineOutlet.class);
+		registerTile(Global.MOD_ID, "turbine_redstone_port", TileTurbineRedstonePort.class);
 		registerTile(Global.MOD_ID, "turbine_computer_port", TileTurbineComputerPort.class);
 		
 		registerTile(Global.MOD_ID, "rtg", TileRTG.class);

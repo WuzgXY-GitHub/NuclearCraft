@@ -10,14 +10,8 @@ public class TileHeatExchangerGlass extends TileHeatExchangerPart {
 	}
 	
 	@Override
-	public void onMachineAssembled(HeatExchanger controller) {
-		doStandardNullControllerResponse(controller);
-		super.onMachineAssembled(controller);
+	public void onMachineAssembled(HeatExchanger multiblock) {
+		doStandardNullControllerResponse(multiblock);
+		super.onMachineAssembled(multiblock);
 	}
-	
-	@Override
-	public void onMachineBroken() {
-		super.onMachineBroken();
-	}
-	
 }

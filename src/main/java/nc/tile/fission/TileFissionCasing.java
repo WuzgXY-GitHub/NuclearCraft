@@ -11,18 +11,18 @@ public class TileFissionCasing extends TileFissionPart {
 	}
 	
 	@Override
-	public void onMachineAssembled(FissionReactor controller) {
-		doStandardNullControllerResponse(controller);
-		super.onMachineAssembled(controller);
-		if (!getWorld().isRemote && getPartPosition().isFrame()) {
-			getWorld().setBlockState(getPos(), getWorld().getBlockState(getPos()).withProperty(BlockProperties.FRAME, true), 2);
+	public void onMachineAssembled(FissionReactor multiblock) {
+		doStandardNullControllerResponse(multiblock);
+		super.onMachineAssembled(multiblock);
+		if (!world.isRemote && getPartPosition().isFrame()) {
+			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockProperties.FRAME, true), 2);
 		}
 	}
 	
 	@Override
 	public void onMachineBroken() {
-		if (!getWorld().isRemote && getPartPosition().isFrame()) {
-			getWorld().setBlockState(getPos(), getWorld().getBlockState(getPos()).withProperty(BlockProperties.FRAME, false), 2);
+		if (!world.isRemote && getPartPosition().isFrame()) {
+			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockProperties.FRAME, false), 2);
 		}
 		super.onMachineBroken();
 	}

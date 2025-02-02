@@ -23,7 +23,6 @@ public abstract class TileFluid extends NCTile implements ITileFluid {
 	private @Nonnull FluidConnection[] fluidConnections;
 	
 	private final @Nonnull FluidTileWrapper[] fluidSides;
-	
 	private final @Nonnull GasTileWrapper gasWrapper;
 	
 	private boolean inputTanksSeparated = false;

@@ -1,4 +1,9 @@
 {
+	"block.nc.electrolyzer_run": {
+		"category": "block",
+		"subtitle": "block.nc.electrolyzer_run",
+		"sounds": [ { "name": "nuclearcraft:block/electrolyzer_run", "stream": false } ]
+	},
 	"block.nc.fusion_run": {
 		"category": "block",
 		"subtitle": "block.nc.fusion_run",

@@ -4,6 +4,7 @@ import gregtech.api.capability.GregtechCapabilities;
 import ic2.api.energy.tile.*;
 import nc.ModCheck;
 import nc.block.battery.*;
+import nc.capability.radiation.source.IRadiationSource;
 import nc.multiblock.battery.BatteryMultiblock;
 import nc.tile.dummy.IInterfaceable;
 import nc.tile.energy.ITileEnergy;
@@ -121,8 +122,8 @@ public class TileBattery extends TileMultiblockPart<BatteryMultiblock, TileBatte
 	}
 	
 	@Override
-	public void onMachineAssembled(BatteryMultiblock controller) {
-		doStandardNullControllerResponse(controller);
+	public void onMachineAssembled(BatteryMultiblock multiblock) {
+		doStandardNullControllerResponse(multiblock);
 	}
 	
 	@Override
@@ -183,7 +184,8 @@ public class TileBattery extends TileMultiblockPart<BatteryMultiblock, TileBatte
 	
 	@Override
 	public EnergyStorage getEnergyStorage() {
-		return getMultiblock() != null ? getMultiblock().getEnergyStorage() : backupStorage;
+		BatteryMultiblock multiblock = getMultiblock();
+		return multiblock != null ? multiblock.getEnergyStorage() : backupStorage;
 	}
 	
 	@Override
@@ -199,6 +201,11 @@ public class TileBattery extends TileMultiblockPart<BatteryMultiblock, TileBatte
 	@Override
 	public @Nonnull EnergyTileWrapperGT[] getEnergySidesGT() {
 		return energySidesGT;
+	}
+	
+	@Override
+	protected @Nullable IRadiationSource getMultiblockRadiationSourceInternal() {
+		return null;
 	}
 	
 	// IC2 Energy

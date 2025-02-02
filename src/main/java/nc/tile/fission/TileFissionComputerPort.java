@@ -17,14 +17,9 @@ public class TileFissionComputerPort extends TileFissionPart implements SimpleCo
 	}
 	
 	@Override
-	public void onMachineAssembled(FissionReactor controller) {
-		doStandardNullControllerResponse(controller);
-		super.onMachineAssembled(controller);
-	}
-	
-	@Override
-	public void onMachineBroken() {
-		super.onMachineBroken();
+	public void onMachineAssembled(FissionReactor multiblock) {
+		doStandardNullControllerResponse(multiblock);
+		super.onMachineAssembled(multiblock);
 	}
 	
 	// OpenComputers
@@ -35,113 +30,113 @@ public class TileFissionComputerPort extends TileFissionPart implements SimpleCo
 		return "nc_salt_fission_reactor";
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] isComplete(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled()};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] isReactorOn(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled() && getMultiblock().isReactorOn};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getLengthX(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled() ? getMultiblock().getInteriorLengthX() : 0};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getLengthY(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled() ? getMultiblock().getInteriorLengthY() : 0};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getLengthZ(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled() ? getMultiblock().getInteriorLengthZ() : 0};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getHeatStored(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled() ? getLogic().heatBuffer.getHeatStored() : 0L};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getHeatCapacity(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled() ? getLogic().heatBuffer.getHeatCapacity() : 0L};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getTemperature(Context context, Arguments args) {
-		return new Object[] {isMultiblockAssembled() ? getLogic().getTemperature() : 0};
+		return new Object[] {isMultiblockAssembled() ? getLogic().getTemperature() : 0D};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getCoolingRate(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled() ? getMultiblock().cooling : 0D};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getRawHeatingRate(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled() ? getMultiblock().rawHeating : 0D};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getMeanEfficiency(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled() ? getMultiblock().meanEfficiency : 0D};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getMeanHeatMultiplier(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled() ? getMultiblock().meanHeatMult : 0D};
 	}
 	
 	protected <T extends IFissionPart> Object[] getPartCount(Class<T> type) {
-		return new Object[] {isMultiblockAssembled() ? getMultiblock().getPartMap(type).size() : 0};
+		return new Object[] {isMultiblockAssembled() ? getMultiblock().getPartCount(type) : 0};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getNumberOfIrradiators(Context context, Arguments args) {
 		return getPartCount(TileFissionIrradiator.class);
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getNumberOfCells(Context context, Arguments args) {
 		return getPartCount(TileSolidFissionCell.class);
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getNumberOfSinks(Context context, Arguments args) {
 		return getPartCount(TileSolidFissionSink.class);
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getNumberOfVessels(Context context, Arguments args) {
 		return getPartCount(TileSaltFissionVessel.class);
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getNumberOfHeaters(Context context, Arguments args) {
 		return getPartCount(TileSaltFissionHeater.class);
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getNumberOfShields(Context context, Arguments args) {
 		return getPartCount(TileFissionShield.class);
@@ -151,49 +146,49 @@ public class TileFissionComputerPort extends TileFissionPart implements SimpleCo
 		return new Object[] {isMultiblockAssembled() ? new Object[] {} : getMultiblock().getParts(type).stream().map(IFissionComponent::getOCInfo).toArray()};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getIrradiatorStats(Context context, Arguments args) {
 		return getPartStats(TileFissionIrradiator.class);
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getCellStats(Context context, Arguments args) {
 		return getPartStats(TileSolidFissionCell.class);
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getSinkStats(Context context, Arguments args) {
 		return getPartStats(TileSolidFissionSink.class);
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getVesselStats(Context context, Arguments args) {
 		return getPartStats(TileSaltFissionVessel.class);
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getHeaterStats(Context context, Arguments args) {
 		return getPartStats(TileSaltFissionHeater.class);
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getShieldStats(Context context, Arguments args) {
 		return getPartStats(TileFissionShield.class);
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getNumberOfClusters(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled() ? getMultiblock().clusterCount : 0};
 	}
 	
-	@Callback
+	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getClusterInfo(Context context, Arguments args) {
 		int clusterID;

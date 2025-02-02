@@ -15,6 +15,7 @@ public class ScriptAddonHandler {
 	public static final ObjectSet<File> SCRIPT_ADDON_DIRS = new ObjectOpenHashSet<>();
 	
 	public static final String[] NC_ASSETS = {"advancements", "blockstates", "loot_tables", "models", "patchouli_books", "textures"};
+	public static final String[] RESOURCE_ASSETS = {"qmd", "trinity"};
 	public static final String[] ADDON_ASSETS = {"advancements", "blockstates", "contenttweaker", "lang", "loot_tables", "models", "modularmachinery", "patchouli_books", "scripts", "textures"};
 	public static final String[] IGNORE_SUFFIX = {".ignore", ".ignored", ".disable", ".disabled"};
 	
@@ -113,6 +114,14 @@ public class ScriptAddonHandler {
 				for (String s : NC_ASSETS) {
 					if (f.getName().equals(s)) {
 						FileUtils.copyDirectory(f, new File("resources/nuclearcraft/" + s));
+						SCRIPT_ADDON_DIRS.add(dir);
+						break;
+					}
+				}
+				
+				for (String s : RESOURCE_ASSETS) {
+					if (f.getName().equals(s)) {
+						FileUtils.copyDirectory(f, new File("resources/" + s));
 						SCRIPT_ADDON_DIRS.add(dir);
 						break;
 					}

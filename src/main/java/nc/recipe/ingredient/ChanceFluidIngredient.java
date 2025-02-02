@@ -42,6 +42,11 @@ public class ChanceFluidIngredient implements IChanceFluidIngredient {
 	}
 	
 	@Override
+	public void init() {
+		ingredient.init();
+	}
+	
+	@Override
 	public FluidStack getStack() {
 		return ingredient.getStack();
 	}
@@ -120,6 +125,11 @@ public class ChanceFluidIngredient implements IChanceFluidIngredient {
 	@Override
 	public boolean isValid() {
 		return ingredient.isValid();
+	}
+	
+	@Override
+	public boolean isEmpty() {
+		return ingredient.isEmpty();
 	}
 	
 	// IChanceFluidIngredient

@@ -12,6 +12,7 @@ public class NCMath {
 	public static final double INV_SQRT2 = 0.707106781186547524401D;
 	public static final double LN2 = 0.693147180559945309417D;
 	public static final double LN10 = 2.30258509299404568402D;
+	public static final double EPSILON = Math.ulp(1D);
 	
 	private static final Random rand = new Random();
 	
@@ -305,7 +306,7 @@ public class NCMath {
 		return (int) MathHelper.clamp(value, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 	
-	public static int getComparatorSignal(double var, double max, double leeway) {
-		return var <= leeway ? 0 : var >= max - leeway ? 15 : (int) (1D + 14D * var / max);
+	public static int getComparatorSignal(double value, double max, double leeway) {
+		return value <= leeway ? 0 : value >= max - leeway ? 15 : (int) (1D + 14D * value / max);
 	}
 }

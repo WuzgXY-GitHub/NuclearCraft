@@ -1,0 +1,25 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "cube_all"
+	},
+	"variants": {
+		"type": {
+			"sintered_steel": {
+				"textures": {
+					"all": "nuclearcraft:blocks/machine/diaphragm/sintered_steel"
+				}
+			},
+			"polyethersulfone": {
+				"textures": {
+					"all": "nuclearcraft:blocks/machine/diaphragm/polyethersulfone"
+				}
+			},
+			"zirfon": {
+				"textures": {
+					"all": "nuclearcraft:blocks/machine/diaphragm/zirfon"
+				}
+			}
+		}
+	}
+}

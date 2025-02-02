@@ -98,10 +98,28 @@
 				"fluid": "liquid_nitrogen"
 			}
 		},
+		"fluid_le_water": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "le_water"
+			}
+		},
+		"fluid_he_water": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "he_water"
+			}
+		},
 		"fluid_heavy_water": {
 			"model": "forge:fluid",
 			"custom": {
 				"fluid": "heavy_water"
+			}
+		},
+		"fluid_hydrogen_peroxide": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "hydrogen_peroxide"
 			}
 		},
 		"fluid_ender": {
@@ -236,10 +254,34 @@
 				"fluid": "ethene"
 			}
 		},
+		"fluid_ethyne": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "ethyne"
+			}
+		},
 		"fluid_methanol": {
 			"model": "forge:fluid",
 			"custom": {
 				"fluid": "methanol"
+			}
+		},
+		"fluid_benzene": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "benzene"
+			}
+		},
+		"fluid_phenol": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "phenol"
+			}
+		},
+		"fluid_fluorobenzene": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "fluorobenzene"
 			}
 		},
 		"fluid_boric_acid": {
@@ -332,6 +374,18 @@
 				"fluid": "sulfur_trioxide"
 			}
 		},
+		"fluid_tetrafluoroethene": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "tetrafluoroethene"
+			}
+		},
+		"fluid_hydrogen_sulfide": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "hydrogen_sulfide"
+			}
+		},
 		"fluid_sulfuric_acid": {
 			"model": "forge:fluid",
 			"custom": {
@@ -354,12 +408,6 @@
 			"model": "forge:fluid",
 			"custom": {
 				"fluid": "hydrofluoric_acid"
-			}
-		},
-		"fluid_oxygen_difluoride": {
-			"model": "forge:fluid",
-			"custom": {
-				"fluid": "oxygen_difluoride"
 			}
 		},
 		"fluid_oxygen_difluoride": {
@@ -530,6 +578,42 @@
 				"fluid": "irradiated_borax_solution"
 			}
 		},
+		"fluid_ammonium_sulfate_solution": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "ammonium_sulfate_solution"
+			}
+		},
+		"fluid_ammonium_bisulfate_solution": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "ammonium_bisulfate_solution"
+			}
+		},
+		"fluid_ammonium_persulfate_solution": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "ammonium_persulfate_solution"
+			}
+		},
+		"fluid_hydroquinone_solution": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "hydroquinone_solution"
+			}
+		},
+		"fluid_sodium_hydroquinone_solution": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "sodium_hydroquinone_solution"
+			}
+		},
+		"fluid_potassium_hydroquinone_solution": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "potassium_hydroquinone_solution"
+			}
+		},
 		"fluid_naoh": {
 			"model": "forge:fluid",
 			"custom": {
@@ -540,6 +624,24 @@
 			"model": "forge:fluid",
 			"custom": {
 				"fluid": "koh"
+			}
+		},
+		"fluid_dfdps": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "dfdps"
+			}
+		},
+		"fluid_polyethersulfone": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "polyethersulfone"
+			}
+		},
+		"fluid_polytetrafluoroethene": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "polytetrafluoroethene"
 			}
 		},
 		"fluid_bas": {

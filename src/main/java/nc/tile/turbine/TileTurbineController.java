@@ -2,11 +2,12 @@ package nc.tile.turbine;
 
 import nc.handler.TileInfoHandler;
 import nc.multiblock.cuboidal.CuboidalPartPositionType;
-import nc.multiblock.turbine.Turbine;
+import nc.multiblock.turbine.*;
 import nc.tile.TileContainerInfo;
 import nc.util.NCMath;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.*;
@@ -34,17 +35,15 @@ public class TileTurbineController extends TileTurbinePart implements ITurbineCo
 	}
 	
 	@Override
-	public void onMachineAssembled(Turbine controller) {
-		doStandardNullControllerResponse(controller);
-		super.onMachineAssembled(controller);
-		if (!getWorld().isRemote && getPartPosition().getFacing() != null) {
-			getWorld().setBlockState(getPos(), getWorld().getBlockState(getPos()).withProperty(FACING_ALL, getPartPosition().getFacing()), 2);
+	public void onMachineAssembled(Turbine multiblock) {
+		doStandardNullControllerResponse(multiblock);
+		super.onMachineAssembled(multiblock);
+		if (!world.isRemote) {
+			EnumFacing facing = getPartPosition().getFacing();
+			if (facing != null) {
+				world.setBlockState(pos, world.getBlockState(pos).withProperty(FACING_ALL, facing), 2);
+			}
 		}
-	}
-	
-	@Override
-	public void onMachineBroken() {
-		super.onMachineBroken();
 	}
 	
 	@Override
@@ -90,8 +89,9 @@ public class TileTurbineController extends TileTurbinePart implements ITurbineCo
 	@Override
 	public void onBlockNeighborChanged(IBlockState state, World worldIn, BlockPos posIn, BlockPos fromPos) {
 		super.onBlockNeighborChanged(state, worldIn, posIn, fromPos);
-		if (getMultiblock() != null) {
-			getLogic().setIsTurbineOn();
+		TurbineLogic logic = getLogic();
+		if (logic != null) {
+			logic.setIsTurbineOn();
 		}
 	}
 	

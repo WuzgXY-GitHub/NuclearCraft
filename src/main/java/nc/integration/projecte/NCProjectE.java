@@ -27,10 +27,26 @@ public class NCProjectE {
 		addIngotEMCValues("Beryllium", 128);
 		addIngotEMCValues("Zirconium", 128);
 		addIngotEMCValues("Manganese", 128);
-		addIngotEMCValues("ManganeseOxide", 128);
-		addIngotEMCValues("ManganeseDioxide", 128);
 		addIngotEMCValues("Aluminum", 128);
 		addIngotEMCValues("Silver", 512);
+		addIngotEMCValues("ManganeseOxide", 128);
+		addIngotEMCValues("ManganeseDioxide", 128);
+		
+		addIngotEMCValues("Zirconia", 128);
+		addIngotEMCValues("Palladium", 8192);
+		addIngotEMCValues("TinOxide", 256);
+		addIngotEMCValues("Nickel", 1024);
+		addIngotEMCValues("NickelOxide", 1024);
+		addIngotEMCValues("Cobalt", 4096);
+		addIngotEMCValues("CobaltOxide", 4096);
+		addIngotEMCValues("Ruthenium", 8192);
+		addIngotEMCValues("RutheniumOxide", 8192);
+		addIngotEMCValues("Iridium", 8192);
+		addIngotEMCValues("IridiumOxide", 8192);
+		
+		addIngotEMCValues("CopperOxide", 128);
+		addIngotEMCValues("Platinum", 8192);
+		addIngotEMCValues("PlatinumOxide", 8192);
 		
 		addIngotEMCValues("Tough", 464);
 		addIngotEMCValues("HardCarbon", 4160);
@@ -40,7 +56,7 @@ public class NCProjectE {
 		addIngotEMCValues("Ferroboron", 416);
 		addIngotEMCValues("Shibuichi", 448);
 		addIngotEMCValues("TinSilver", 640);
-		addIngotEMCValues("LeadPlatinum", 2816);
+		addIngotEMCValues("LeadPlatinum", 2432);
 		addIngotEMCValues("Extreme", 4624);
 		addIngotEMCValues("Thermoconducting", 2600);
 		addIngotEMCValues("Zircaloy", 144);

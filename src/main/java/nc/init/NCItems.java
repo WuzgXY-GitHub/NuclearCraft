@@ -24,7 +24,9 @@ import static nc.config.NCConfig.*;
 public class NCItems {
 	
 	public static Item ingot;
+	public static Item ingot2;
 	public static Item dust;
+	public static Item dust2;
 	public static Item gem;
 	public static Item gem_dust;
 	public static Item alloy;
@@ -121,7 +123,9 @@ public class NCItems {
 	
 	public static void init() {
 		ingot = addWithNameMeta(Global.MOD_ID, "ingot", new NCItemMeta<>(MetaEnums.IngotType.class), NCTabs.material);
-		dust = addWithNameMeta(Global.MOD_ID, "dust", new NCItemMeta<>(MetaEnums.DustType.class), NCTabs.material);
+		ingot2 = addWithNameMeta(Global.MOD_ID, "ingot2", new NCItemMeta<>(MetaEnums.IngotType2.class), NCTabs.material);
+		dust = addWithNameMeta(Global.MOD_ID, "dust", new NCItemMeta<>(MetaEnums.IngotType.class), NCTabs.material);
+		dust2 = addWithNameMeta(Global.MOD_ID, "dust2", new NCItemMeta<>(MetaEnums.IngotType2.class), NCTabs.material);
 		gem = addWithNameMeta(Global.MOD_ID, "gem", new NCItemMeta<>(MetaEnums.GemType.class), NCTabs.material);
 		gem_dust = addWithNameMeta(Global.MOD_ID, "gem_dust", new NCItemMeta<>(MetaEnums.GemDustType.class), NCTabs.material);
 		alloy = addWithNameMeta(Global.MOD_ID, "alloy", new NCItemMeta<>(MetaEnums.AlloyType.class), NCTabs.material);

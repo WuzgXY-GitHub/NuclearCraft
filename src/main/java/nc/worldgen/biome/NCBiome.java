@@ -46,7 +46,7 @@ public class NCBiome extends Biome {
 			else {
 				IBlockState currentBlockState = chunkPrimerIn.getBlockState(chunkPosX, posY, chunkPosZ);
 				
-				if (currentBlockState.getMaterial() == Material.AIR) {
+				if (currentBlockState.getMaterial().equals(Material.AIR)) {
 					heightCount = -1;
 				}
 				else if (currentBlockState.getBlock() == stoneBlock.getBlock()) {
@@ -60,7 +60,7 @@ public class NCBiome extends Biome {
 							fillerBlockState = fillerBlock;
 						}
 						
-						if (posY < seaLevel && (topBlockState == null || topBlockState.getMaterial() == Material.AIR)) {
+						if (posY < seaLevel && (topBlockState == null || topBlockState.getMaterial().equals(Material.AIR))) {
 							if (getTemperature(mutableblockpos.setPos(x, posY, z)) < 0.15F) {
 								topBlockState = frozenBlock;
 							}

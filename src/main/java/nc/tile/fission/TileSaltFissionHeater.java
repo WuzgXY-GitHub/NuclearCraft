@@ -47,7 +47,7 @@ public class TileSaltFissionHeater extends TileFissionPart implements IBasicProc
 	protected final @Nonnull NonNullList<ItemStack> inventoryStacks;
 	protected final @Nonnull NonNullList<ItemStack> consumedStacks;
 	
-	protected @Nonnull InventoryConnection[] inventoryConnections = ITileInventory.inventoryConnectionAll(Arrays.asList());
+	protected @Nonnull InventoryConnection[] inventoryConnections = ITileInventory.inventoryConnectionAll(Collections.emptyList());
 	
 	protected final @Nonnull List<Tank> tanks;
 	protected final @Nonnull List<Tank> consumedTanks;
@@ -91,7 +91,7 @@ public class TileSaltFissionHeater extends TileFissionPart implements IBasicProc
 		
 		inventoryName = Global.MOD_ID + ".container." + info.name;
 		
-		inventoryStacks = NonNullList.create();
+		inventoryStacks = NonNullList.withSize(0, ItemStack.EMPTY);
 		consumedStacks = info.getConsumedStacks();
 		
 		tanks = Lists.newArrayList(new Tank(INGOT_BLOCK_VOLUME, null), new Tank(INGOT_BLOCK_VOLUME, new ObjectOpenHashSet<>()));
@@ -351,14 +351,9 @@ public class TileSaltFissionHeater extends TileFissionPart implements IBasicProc
 	}
 	
 	@Override
-	public void onMachineAssembled(FissionReactor controller) {
-		doStandardNullControllerResponse(controller);
-		super.onMachineAssembled(controller);
-	}
-	
-	@Override
-	public void onMachineBroken() {
-		super.onMachineBroken();
+	public void onMachineAssembled(FissionReactor multiblock) {
+		doStandardNullControllerResponse(multiblock);
+		super.onMachineAssembled(multiblock);
 	}
 	
 	// IFissionComponent
@@ -478,7 +473,8 @@ public class TileSaltFissionHeater extends TileFissionPart implements IBasicProc
 	
 	@Override
 	public void refreshMasterPort() {
-		masterPort = getMultiblock() == null ? null : getMultiblock().getPartMap(TileFissionHeaterPort.class).get(masterPortPos.toLong());
+		FissionReactor multiblock = getMultiblock();
+		masterPort = multiblock == null ? null : multiblock.getPartMap(TileFissionHeaterPort.class).get(masterPortPos.toLong());
 		if (masterPort == null) {
 			masterPortPos = DEFAULT_NON;
 		}
@@ -678,14 +674,15 @@ public class TileSaltFissionHeater extends TileFissionPart implements IBasicProc
 			time = 0;
 		}
 		
-		if (getMultiblock() != null) {
+		FissionReactor multiblock = getMultiblock();
+		if (multiblock != null) {
 			if (canProcessInputs) {
 				if (oldProcessCooling != baseProcessCooling) {
-					getMultiblock().addClusterToRefresh(cluster);
+					multiblock.addClusterToRefresh(cluster);
 				}
 			}
 			else {
-				getMultiblock().refreshFlag = true;
+				multiblock.refreshFlag = true;
 			}
 		}
 	}
@@ -807,7 +804,7 @@ public class TileSaltFissionHeater extends TileFissionPart implements IBasicProc
 	
 	@Override
 	public boolean canModifyFilter(int tank) {
-		return getMultiblock() == null || !getMultiblock().isAssembled();
+		return !isMultiblockAssembled();
 	}
 	
 	@Override

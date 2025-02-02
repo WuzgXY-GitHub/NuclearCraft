@@ -1,5 +1,3 @@
-Patchouli documentation
-
 Generate nuclearcraft.ncpf.json for registered multiblock component stats and rules
 
 Multiblock monitors: show cluster information, meltdown locations, side configurations, etc.
@@ -18,6 +16,8 @@ Read Pu + Fatmice neutron poison discussion (+ "Technically, almost all of the n
 Reduce default neutron poison lifetime
 
 Keep clusters running even when multiblock is invalidated
+
+Patchouli documentation
 ___________________________________________________________________________________________________________________________
 
 Gas-cooled Pebble-Bed Reactor that produces energy directly
@@ -27,7 +27,6 @@ ________________________________________________________________________________
 Multiblock Electrolyser
 
 Girdler process for deuterium extraction: https://en.wikipedia.org/wiki/Girdler_sulfide_process
-Add generic reaction tower for slow chemical recipes
 
 Girdler process requires two towers:
 H2S + [preheated water OR steam?] + energy -> deuterium-enriched H2S + deuterium-depleted water
@@ -57,28 +56,28 @@ SiC–SiC ceramic matrix composite for top-tier turbine blades, made by melt inf
 ___________________________________________________________________________________________________________________________
 ---------------------------------------------------------------------------------------------------------------------------
 
-1.20+: Potential block state getter optimisation - https://github.com/RogueLogix/BiggerSeries/blob/master/Phosphophyllite/src/main/java/net/roguelogix/phosphophyllite/util/Util.java#L51-L83 (chunkCachedBlockStateIteration)
-1.20+: Potential TE getter optimisation - https://github.com/mekanism/Mekanism/blob/1.16.x/src/main/java/mekanism/common/util/MekanismUtils.java#L929-L948 (getChunkForTile)
+1.21+: Potential block state getter optimisation - https://github.com/RogueLogix/BiggerSeries/blob/master/Phosphophyllite/src/main/java/net/roguelogix/phosphophyllite/util/Util.java#L51-L83 (chunkCachedBlockStateIteration)
+1.21+: Potential TE getter optimisation - https://github.com/mekanism/Mekanism/blob/1.16.x/src/main/java/mekanism/common/util/MekanismUtils.java#L929-L948 (getChunkForTile)
 
-1.20+: Remove fission clusters
-1.20+: Make reflectors tile entities and conduct heat
-1.20+: Placement rule tweaks (e.g. nerf emerald and liquid helium)
+1.21+: Remove fission clusters
+1.21+: Make reflectors tile entities and conduct heat
+1.21+: Placement rule tweaks (e.g. nerf emerald and liquid helium)
 
-1.20+: Give dynamo depth for 3D coil puzzle?
+1.21+: Give dynamo depth for 3D coil puzzle?
 ___________________________________________________________________________________________________________________________
 
-1.20+: Uranium/Thorium ore processing - ore -> 2x crushed ore -> hexa/tetrafluoride -> 4x dust
-1.20+: Multiblock variants of basic machines?
+1.21+: Uranium/Thorium ore processing - ore -> 2x crushed ore -> hexa/tetrafluoride -> 4x dust
+1.21+: Multiblock variants of basic machines?
 
-1.20+: Specialised fuel-making machine
+1.21+: Specialised fuel-making machine
 
-1.20+: MSR split: NaK coolant for thermal, eutectic Pb-Bi alloy coolant for fast?
-1.20+: Negative temperature coefficient for MSR anf PBR
+1.21+: MSR split: NaK coolant for thermal, eutectic Pb-Bi alloy coolant for fast?
+1.21+: Negative temperature coefficient for MSR anf PBR
 ___________________________________________________________________________________________________________________________
 
-1.20+: Inertial Confinement Fusion - synchrotron radiation as laser -> heat molten salt coolant
+1.21+: Inertial Confinement Fusion - synchrotron radiation as laser -> heat molten salt coolant
 
-1.20+: Focus Fusion -> direct energy production?
+1.21+: Focus Fusion -> direct energy production?
 ___________________________________________________________________________________________________________________________
 
-1.20+: Hawking Generator - form black hole and power with matter -> Hawking radiation produced for energy
+1.21+: Hawking Generator - form black hole and power with matter -> Hawking radiation produced for energy

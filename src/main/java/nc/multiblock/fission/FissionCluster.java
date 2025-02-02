@@ -61,11 +61,12 @@ public class FissionCluster {
 		}
 	}
 	
-	public int getTemperature() {
-		return Math.round(reactor.ambientTemp + (FissionReactor.MAX_TEMP - reactor.ambientTemp) * (float) heatBuffer.getHeatStored() / heatBuffer.getHeatCapacity());
+	public double getTemperature() {
+		return reactor.ambientTemp + (FissionReactor.MAX_TEMP - reactor.ambientTemp) * (double) heatBuffer.getHeatStored() / (double) heatBuffer.getHeatCapacity();
 	}
 	
 	public float getBurnDamage() {
-		return getTemperature() < 373 ? 0F : 1F + (getTemperature() - 373) / 200F;
+		double temp = getTemperature();
+		return temp < 353D ? 0F : (float) (1D + (temp - 353D) / 200D);
 	}
 }

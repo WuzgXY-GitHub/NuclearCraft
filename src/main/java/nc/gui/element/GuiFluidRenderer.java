@@ -90,10 +90,10 @@ public class GuiFluidRenderer {
 				BufferBuilder buffer = tessellator.getBuffer();
 				buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 				double u = minU + (maxU - minU) * drawWidth / 16F, v = minV + (maxV - minV) * drawHeight / 16F;
-				buffer.pos(drawX, drawY + drawHeight, 0).tex(minU, v).endVertex();
-				buffer.pos(drawX + drawWidth, drawY + drawHeight, 0).tex(u, v).endVertex();
-				buffer.pos(drawX + drawWidth, drawY, 0).tex(u, minV).endVertex();
-				buffer.pos(drawX, drawY, 0).tex(minU, minV).endVertex();
+				buffer.pos(drawX, drawY + drawHeight, zLevel).tex(minU, v).endVertex();
+				buffer.pos(drawX + drawWidth, drawY + drawHeight, zLevel).tex(u, v).endVertex();
+				buffer.pos(drawX + drawWidth, drawY, zLevel).tex(u, minV).endVertex();
+				buffer.pos(drawX, drawY, zLevel).tex(minU, minV).endVertex();
 				tessellator.draw();
 			}
 		}

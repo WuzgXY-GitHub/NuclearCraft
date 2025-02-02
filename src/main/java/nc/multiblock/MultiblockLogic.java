@@ -4,6 +4,7 @@ import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.objects.*;
 import nc.multiblock.fission.*;
 import nc.multiblock.hx.*;
+import nc.multiblock.machine.*;
 import nc.multiblock.turbine.*;
 import nc.tile.ITileFiltered;
 import nc.tile.internal.energy.EnergyStorage;
@@ -25,9 +26,9 @@ import java.util.*;
 
 public abstract class MultiblockLogic<MULTIBLOCK extends Multiblock<MULTIBLOCK, T> & ILogicMultiblock<MULTIBLOCK, LOGIC, T>, LOGIC extends MultiblockLogic<MULTIBLOCK, LOGIC, T>, T extends ITileLogicMultiblockPart<MULTIBLOCK, LOGIC, T>> implements IMultiblockLogic<MULTIBLOCK, LOGIC, T> {
 	
-	protected final MULTIBLOCK multiblock;
+	public final MULTIBLOCK multiblock;
 	
-	protected final Random rand = new Random();
+	public final Random rand = new Random();
 	
 	public MultiblockLogic(MULTIBLOCK multiblock) {
 		this.multiblock = multiblock;
@@ -235,6 +236,10 @@ public abstract class MultiblockLogic<MULTIBLOCK extends Multiblock<MULTIBLOCK, 
 	// Init
 	
 	public static void init() {
+		Machine.LOGIC_MAP.put("", MachineLogic::new);
+		Machine.LOGIC_MAP.put("electrolyzer", ElectrolyzerLogic::new);
+		Machine.LOGIC_MAP.put("distiller", DistillerLogic::new);
+		
 		FissionReactor.LOGIC_MAP.put("", FissionReactorLogic::new);
 		// FissionReactor.LOGIC_MAP.put("pebble_bed", PebbleBedFissionLogic::new);
 		FissionReactor.LOGIC_MAP.put("solid_fuel", SolidFuelFissionLogic::new);

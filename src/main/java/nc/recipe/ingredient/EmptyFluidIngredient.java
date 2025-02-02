@@ -21,7 +21,7 @@ public class EmptyFluidIngredient implements IFluidIngredient {
 	
 	@Override
 	public List<FluidStack> getInputStackList() {
-		return new ArrayList<>();
+		return Collections.emptyList();
 	}
 	
 	@Override
@@ -31,7 +31,7 @@ public class EmptyFluidIngredient implements IFluidIngredient {
 	
 	@Override
 	public List<FluidStack> getOutputStackList() {
-		return new ArrayList<>();
+		return Collections.emptyList();
 	}
 	
 	@Override
@@ -77,6 +77,11 @@ public class EmptyFluidIngredient implements IFluidIngredient {
 	
 	@Override
 	public boolean isValid() {
+		return true;
+	}
+	
+	@Override
+	public boolean isEmpty() {
 		return true;
 	}
 	

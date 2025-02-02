@@ -38,21 +38,22 @@ public class FissionReactor extends CuboidalMultiblock<FissionReactor, IFissionP
 	public final LongSet activeReflectorCache = new LongOpenHashSet();
 	
 	public static final long BASE_MAX_HEAT = 25000;
-	public static final int MAX_TEMP = 2400, BASE_TANK_CAPACITY = 4000;
+	public static final int BASE_TANK_CAPACITY = 4000;
+	public static final double MAX_TEMP = 2400D;
 	
 	public boolean refreshFlag = true, isReactorOn = false;
-	public int ambientTemp = 290, fuelComponentCount = 0;
+	public double ambientTemp = 290D;
+	public int fuelComponentCount = 0;
 	public long cooling = 0L, rawHeating = 0L, totalHeatMult = 0L, usefulPartCount = 0L;
 	public double meanHeatMult = 0D, totalEfficiency = 0D, meanEfficiency = 0D, sparsityEfficiencyMult = 0D;
 	
-	protected final Set<EntityPlayer> updatePacketListeners;
+	protected final Set<EntityPlayer> updatePacketListeners = new ObjectOpenHashSet<>();
 	
 	public FissionReactor(World world) {
 		super(world, FissionReactor.class, IFissionPart.class);
 		for (Class<? extends IFissionPart> clazz : PART_CLASSES) {
 			partSuperMap.equip(clazz);
 		}
-		updatePacketListeners = new ObjectOpenHashSet<>();
 	}
 	
 	@Override
@@ -154,6 +155,7 @@ public class FissionReactor extends CuboidalMultiblock<FissionReactor, IFissionP
 		
 		for (IFissionController<?> contr : getParts(IFissionController.class)) {
 			controller = contr;
+			break;
 		}
 		
 		setLogic(controller.getLogicID());

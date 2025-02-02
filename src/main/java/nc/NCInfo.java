@@ -8,11 +8,49 @@ import nc.recipe.BasicRecipe;
 import nc.util.*;
 import net.minecraft.util.IStringSerializable;
 
-import java.util.List;
+import java.util.*;
 
 import static nc.config.NCConfig.*;
 
 public class NCInfo {
+	
+	// Machine Diaphragms
+	
+	public static String[] machineDiaphragmFixedInfo(BasicRecipe diaphragmInfo) {
+		return new String[] {Lang.localize("info." + Global.MOD_ID + ".diaphragm.fixd"), Lang.localize("info." + Global.MOD_ID + ".diaphragm.efficiency.fixd", NCMath.pcDecimalPlaces(diaphragmInfo.getMachineDiaphragmEfficiency(), 1)), Lang.localize("info." + Global.MOD_ID + ".diaphragm.contact.fixd", NCMath.pcDecimalPlaces(diaphragmInfo.getMachineDiaphragmContactFactor(), 1))};
+	}
+	
+	public static String[] machineDiaphragmInfo() {
+		return InfoHelper.formattedInfo(Lang.localize("info." + Global.MOD_ID + ".diaphragm.desc"));
+	}
+	
+	// Machine Sieve Tray
+	
+	public static String[] machineSieveTrayFixedInfo(BasicRecipe sieveTrayInfo) {
+		return new String[] {Lang.localize("info." + Global.MOD_ID + ".sieve_tray.fixd"), Lang.localize("info." + Global.MOD_ID + ".sieve_tray.efficiency.fixd", NCMath.pcDecimalPlaces(sieveTrayInfo.getMachineSieveTrayEfficiency(), 1))};
+	}
+	
+	public static String[] machineSieveTrayInfo() {
+		return InfoHelper.formattedInfo(Lang.localize("info." + Global.MOD_ID + ".sieve_tray.desc"));
+	}
+	
+	// Electrolyzer Electrodes
+	
+	public static String[] electrodeFixedInfo(BasicRecipe cathodeInfo, BasicRecipe anodeInfo) {
+		boolean anyElectrode = cathodeInfo != null && anodeInfo != null;
+		List<String> list = Lists.newArrayList(Lang.localize("info." + Global.MOD_ID + ".electrode." + (anyElectrode ? "fixd" : cathodeInfo != null ? "cathode.fixd" : "anode.fixd")));
+		if (cathodeInfo != null) {
+			list.add(Lang.localize("info." + Global.MOD_ID + ".electrode.efficiency." + (anyElectrode ? "cathode.fixd" : "fixd"), NCMath.pcDecimalPlaces(cathodeInfo.getElectrolyzerElectrodeEfficiency(), 1)));
+		}
+		if (anodeInfo != null) {
+			list.add(Lang.localize("info." + Global.MOD_ID + ".electrode.efficiency." + (anyElectrode ? "anode.fixd" : "fixd"), NCMath.pcDecimalPlaces(anodeInfo.getElectrolyzerElectrodeEfficiency(), 1)));
+		}
+		return list.toArray(new String[0]);
+	}
+	
+	public static String[] electrodeInfo() {
+		return InfoHelper.formattedInfo(Lang.localize("info." + Global.MOD_ID + ".electrode.desc"));
+	}
 	
 	// Fission Fuel
 	
@@ -178,35 +216,6 @@ public class NCInfo {
 		preposition = "nc.sf." + preposition;
 		return Lang.canLocalize(preposition) ? Lang.localize("nc.sf.power_adverb_preposition", Lang.localize("nc.sf.power_adverb" + p, verb), Lang.localize(preposition)) : Lang.localize("nc.sf.power_adverb" + p, verb);
 	}
-	
-	// Extra Ore Drops
-	
-	/*public static <T extends Enum<T> & IStringSerializable & IMetaEnum> String[][] oreDropInfo(String type, T[] values, int[] configIds, int[] metas) {
-		String[][] info = new String[values.length][];
-		for (int i = 0; i < values.length; ++i) {
-			info[i] = null;
-		}
-		for (int i = 0; i < configIds.length; ++i) {
-			String unloc = "item." + Global.MOD_ID + "." + type + "." + values[metas[i]].getName() + ".desc";
-			if (Lang.canLocalize(unloc) && ore_drops[configIds[i]]) {
-				info[metas[i]] = InfoHelper.formattedInfo(Lang.localize(unloc));
-			}
-		}
-		
-		return info;
-	}
-	
-	public static <T extends Enum<T> & IStringSerializable & IMetaEnum> String[][] dustOreDropInfo() {
-		return oreDropInfo("dust", MetaEnums.DustType.values(), new int[] {1, 2}, new int[] {9, 10});
-	}
-	
-	public static <T extends Enum<T> & IStringSerializable & IMetaEnum> String[][] gemOreDropInfo() {
-		return oreDropInfo("gem", MetaEnums.GemType.values(), new int[] {0, 3, 5, 6}, new int[] {0, 2, 3, 4});
-	}
-	
-	public static <T extends Enum<T> & IStringSerializable & IMetaEnum> String[][] gemDustOreDropInfo() {
-		return oreDropInfo("gem_dust", MetaEnums.GemDustType.values(), new int[] {4}, new int[] {6});
-	}*/
 	
 	// Rad Shielding
 	

@@ -4,7 +4,7 @@
 		"model": "nuclearcraft:wall_part",
 		"textures": {
 			"in": "nuclearcraft:blocks/fission/power_port_in",
-			"out": "nuclearcraft:blocks/fission/power_port_out_output",
+			"out": "nuclearcraft:blocks/fission/power_port_out_input",
 			"side": "nuclearcraft:blocks/fission/power_port_side",
 			"top": "nuclearcraft:blocks/fission/power_port_side"
 		}
@@ -15,7 +15,7 @@
 			"false": {},
 			"true": {
 				"textures": {
-					"out": "nuclearcraft:blocks/fission/power_port_out_input"
+					"out": "nuclearcraft:blocks/fission/power_port_out_output"
 				}
 			}
 		},

@@ -1,7 +1,10 @@
 package nc.tile.turbine;
 
+import nc.capability.radiation.source.IRadiationSource;
 import nc.multiblock.cuboidal.*;
 import nc.multiblock.turbine.Turbine;
+
+import javax.annotation.Nullable;
 
 public abstract class TileTurbinePart extends TileCuboidalMultiblockPart<Turbine, ITurbinePart> implements ITurbinePart {
 	
@@ -21,8 +24,8 @@ public abstract class TileTurbinePart extends TileCuboidalMultiblockPart<Turbine
 	@Override
 	public boolean isGoodForFrame(Turbine multiblock) {
 		if (getPartPositionType().isGoodForFrame()) {
-			if (isTransparent() && getMultiblock() != null) {
-				getMultiblock().shouldSpecialRenderRotor = true;
+			if (isTransparent() && multiblock != null) {
+				multiblock.shouldSpecialRenderRotor = true;
 			}
 			return true;
 		}
@@ -33,8 +36,8 @@ public abstract class TileTurbinePart extends TileCuboidalMultiblockPart<Turbine
 	@Override
 	public boolean isGoodForSides(Turbine multiblock) {
 		if (getPartPositionType().isGoodForWall()) {
-			if (isTransparent() && getMultiblock() != null) {
-				getMultiblock().shouldSpecialRenderRotor = true;
+			if (isTransparent() && multiblock != null) {
+				multiblock.shouldSpecialRenderRotor = true;
 			}
 			return true;
 		}
@@ -45,8 +48,8 @@ public abstract class TileTurbinePart extends TileCuboidalMultiblockPart<Turbine
 	@Override
 	public boolean isGoodForTop(Turbine multiblock) {
 		if (getPartPositionType().isGoodForWall()) {
-			if (isTransparent() && getMultiblock() != null) {
-				getMultiblock().shouldSpecialRenderRotor = true;
+			if (isTransparent() && multiblock != null) {
+				multiblock.shouldSpecialRenderRotor = true;
 			}
 			return true;
 		}
@@ -57,12 +60,17 @@ public abstract class TileTurbinePart extends TileCuboidalMultiblockPart<Turbine
 	@Override
 	public boolean isGoodForBottom(Turbine multiblock) {
 		if (getPartPositionType().isGoodForWall()) {
-			if (isTransparent() && getMultiblock() != null) {
-				getMultiblock().shouldSpecialRenderRotor = true;
+			if (isTransparent() && multiblock != null) {
+				multiblock.shouldSpecialRenderRotor = true;
 			}
 			return true;
 		}
 		setStandardLastError(multiblock);
 		return false;
+	}
+	
+	@Override
+	protected @Nullable IRadiationSource getMultiblockRadiationSourceInternal() {
+		return null;
 	}
 }

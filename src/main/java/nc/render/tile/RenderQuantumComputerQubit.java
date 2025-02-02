@@ -1,5 +1,6 @@
 package nc.render.tile;
 
+import nc.render.IWorldRender;
 import nc.tile.quantum.TileQuantumComputerQubit;
 import nc.util.*;
 import net.minecraft.client.renderer.*;
@@ -8,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
-public class RenderQuantumComputerQubit extends TileEntitySpecialRenderer<TileQuantumComputerQubit> {
+public class RenderQuantumComputerQubit extends TileEntitySpecialRenderer<TileQuantumComputerQubit> implements IWorldRender {
 	
 	@Override
 	public void render(TileQuantumComputerQubit qubit, double posX, double posY, double posZ, float partialTicks, int destroyStage, float alpha) {
