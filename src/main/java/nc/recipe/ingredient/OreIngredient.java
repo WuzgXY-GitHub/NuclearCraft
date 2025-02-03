@@ -131,7 +131,7 @@ public class OreIngredient implements IItemIngredient {
 	
 	@Override
 	public boolean isEmpty() {
-		return stackSize > 0;
+		return stackSize <= 0;
 	}
 	
 	// CraftTweaker

@@ -1,5 +1,6 @@
 package nc.integration.jei.category.info;
 
+import com.google.common.collect.Lists;
 import mezz.jei.api.IGuiHelper;
 import nc.handler.TileInfoHandler;
 import nc.integration.jei.category.JEIProcessorRecipeCategory;
@@ -23,7 +24,7 @@ public class JEIProcessorCategoryInfo<TILE extends TileEntity & IProcessor<TILE,
 	}
 	
 	private JEIProcessorCategoryInfo(INFO containerInfo, Class<WRAPPER> jeiRecipeClass, JEIProcessorRecipeWrapperFunction<TILE, PACKET, INFO, WRAPPER> jeiRecipeWrapperFunction, List<Object> jeiCrafters) {
-		super(containerInfo.modId, containerInfo.recipeHandlerName, JEIProcessorRecipeCategory::new, jeiRecipeClass, null, jeiCrafters, Collections.singletonList(containerInfo.getJEIContainerConnection()));
+		super(containerInfo.modId, containerInfo.recipeHandlerName, JEIProcessorRecipeCategory::new, jeiRecipeClass, null, jeiCrafters, Lists.newArrayList(containerInfo.getJEIContainerConnection()));
 		
 		this.containerInfo = containerInfo;
 		this.jeiRecipeWrapperFunction = jeiRecipeWrapperFunction;
