@@ -23,14 +23,14 @@ public class GSHelper {
 		else if (object instanceof OreDictIngredient gsOreStack) {
 			return new OreIngredient(gsOreStack.getOreDict(), gsOreStack.getAmount());
 		}
+		else if (object instanceof OreDictWildcardIngredient gsOreWildcard) {
+			return RecipeHelper.buildItemIngredient(StreamHelper.map(gsOreWildcard.getMatchingOreDictionaries(), x -> new OreIngredient(x, gsOreWildcard.getAmount())));
+		}
 		else if (object instanceof ItemsIngredient gsItemsIngredient) {
 			return RecipeHelper.buildItemIngredient(StreamHelper.map(gsItemsIngredient.getMatchingStacks(), GSHelper::buildAdditionItemIngredient));
 		}
 		else if (object instanceof OrIngredient gsOrIngredient) {
 			return RecipeHelper.buildItemIngredient(StreamHelper.map(gsOrIngredient.getMatchingStacks(), GSHelper::buildAdditionItemIngredient));
-		}
-		else if (object instanceof OreDictWildcardIngredient gsOreWildcard) {
-			return RecipeHelper.buildItemIngredient(StreamHelper.map(gsOreWildcard.getMatchingOreDictionaries(), x -> new OreIngredient(x, gsOreWildcard.getAmount())));
 		}
 		else {
 			throw invalidIngredientException(object);
@@ -65,14 +65,14 @@ public class GSHelper {
 		else if (object instanceof OreDictIngredient gsOreStack) {
 			return new OreIngredient(gsOreStack.getOreDict(), gsOreStack.getAmount());
 		}
+		else if (object instanceof OreDictWildcardIngredient gsOreWildcard) {
+			return RecipeHelper.buildItemIngredient(StreamHelper.map(gsOreWildcard.getMatchingOreDictionaries(), x -> new OreIngredient(x, gsOreWildcard.getAmount())));
+		}
 		else if (object instanceof ItemsIngredient gsItemsIngredient) {
 			return RecipeHelper.buildItemIngredient(StreamHelper.map(gsItemsIngredient.getMatchingStacks(), GSHelper::buildRemovalItemIngredient));
 		}
 		else if (object instanceof OrIngredient gsOrIngredient) {
 			return RecipeHelper.buildItemIngredient(StreamHelper.map(gsOrIngredient.getMatchingStacks(), GSHelper::buildRemovalItemIngredient));
-		}
-		else if (object instanceof OreDictWildcardIngredient gsOreWildcard) {
-			return RecipeHelper.buildItemIngredient(StreamHelper.map(gsOreWildcard.getMatchingOreDictionaries(), x -> new OreIngredient(x, gsOreWildcard.getAmount())));
 		}
 		else {
 			throw invalidIngredientException(object);

@@ -1,0 +1,19 @@
+{
+	"display": {
+		"icon": {
+			"item": "nuclearcraft:electrolyzer_controller"
+		},
+		"title": {
+			"translate": "advancement.nuclearcraft.electrolyzer_assembled.name"
+		},
+		"description": {
+			"translate": "advancement.nuclearcraft.electrolyzer_assembled.desc"
+		}
+	},
+	"parent": "nuclearcraft:processors/alloy_furnace",
+	"criteria": {
+		"electrolyzer_assembled": {
+			"trigger": "nuclearcraft:electrolyzer_assembled"
+		}
+	}
+}

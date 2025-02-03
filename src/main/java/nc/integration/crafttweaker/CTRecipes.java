@@ -36,11 +36,6 @@ public class CTRecipes {
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
 		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
-		}
 	}
 	
 	@ZenClass("mods.nuclearcraft.Separator")
@@ -70,11 +65,6 @@ public class CTRecipes {
 		@ZenMethod
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
-		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
 		}
 	}
 	
@@ -106,11 +96,6 @@ public class CTRecipes {
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
 		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
-		}
 	}
 	
 	@ZenClass("mods.nuclearcraft.FuelReprocessor")
@@ -140,11 +125,6 @@ public class CTRecipes {
 		@ZenMethod
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
-		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
 		}
 	}
 	
@@ -176,11 +156,6 @@ public class CTRecipes {
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
 		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
-		}
 	}
 	
 	@ZenClass("mods.nuclearcraft.Infuser")
@@ -210,11 +185,6 @@ public class CTRecipes {
 		@ZenMethod
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
-		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
 		}
 	}
 	
@@ -246,11 +216,6 @@ public class CTRecipes {
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
 		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
-		}
 	}
 	
 	@ZenClass("mods.nuclearcraft.Supercooler")
@@ -280,11 +245,6 @@ public class CTRecipes {
 		@ZenMethod
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
-		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
 		}
 	}
 	
@@ -316,11 +276,6 @@ public class CTRecipes {
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
 		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
-		}
 	}
 	
 	@ZenClass("mods.nuclearcraft.Assembler")
@@ -350,11 +305,6 @@ public class CTRecipes {
 		@ZenMethod
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
-		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
 		}
 	}
 	
@@ -386,11 +336,6 @@ public class CTRecipes {
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
 		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
-		}
 	}
 	
 	@ZenClass("mods.nuclearcraft.Pressurizer")
@@ -420,11 +365,6 @@ public class CTRecipes {
 		@ZenMethod
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
-		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
 		}
 	}
 	
@@ -456,11 +396,6 @@ public class CTRecipes {
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
 		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
-		}
 	}
 	
 	@ZenClass("mods.nuclearcraft.SaltMixer")
@@ -490,11 +425,6 @@ public class CTRecipes {
 		@ZenMethod
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
-		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
 		}
 	}
 	
@@ -526,11 +456,6 @@ public class CTRecipes {
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
 		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
-		}
 	}
 	
 	@ZenClass("mods.nuclearcraft.Enricher")
@@ -560,11 +485,6 @@ public class CTRecipes {
 		@ZenMethod
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
-		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
 		}
 	}
 	
@@ -596,11 +516,6 @@ public class CTRecipes {
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
 		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
-		}
 	}
 	
 	@ZenClass("mods.nuclearcraft.Centrifuge")
@@ -630,11 +545,6 @@ public class CTRecipes {
 		@ZenMethod
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
-		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
 		}
 	}
 	
@@ -666,11 +576,6 @@ public class CTRecipes {
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
 		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
-		}
 	}
 	
 	@ZenClass("mods.nuclearcraft.ElectricFurnace")
@@ -700,11 +605,6 @@ public class CTRecipes {
 		@ZenMethod
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
-		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
 		}
 	}
 	
@@ -736,10 +636,55 @@ public class CTRecipes {
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
 		}
+	}
+	
+	@ZenClass("mods.nuclearcraft.Diaphragm")
+	@ZenRegister
+	public static class DiaphragmMethods {
 		
 		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
+		public static BasicRecipeHandler getRecipeHandler() {
+			return NCRecipes.machine_diaphragm;
+		}
+		
+		@ZenMethod
+		public static void add(IIngredient input, double efficiency, double contactFactor) {
+			getRecipeHandler().ctAddRecipe(input, efficiency, contactFactor);
+		}
+		
+		@ZenMethod
+		public static void remove(IIngredient input) {
+			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		}
+		
+		@ZenMethod
+		public static void removeAll() {
+			getRecipeHandler().ctRemoveAllRecipes();
+		}
+	}
+	
+	@ZenClass("mods.nuclearcraft.SieveTray")
+	@ZenRegister
+	public static class SieveTrayMethods {
+		
+		@ZenMethod
+		public static BasicRecipeHandler getRecipeHandler() {
+			return NCRecipes.machine_sieve_tray;
+		}
+		
+		@ZenMethod
+		public static void add(IIngredient input, double efficiency) {
+			getRecipeHandler().ctAddRecipe(input, efficiency);
+		}
+		
+		@ZenMethod
+		public static void remove(IIngredient input) {
+			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		}
+		
+		@ZenMethod
+		public static void removeAll() {
+			getRecipeHandler().ctRemoveAllRecipes();
 		}
 	}
 	
@@ -753,8 +698,8 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output1, IIngredient output2, IIngredient output3, IIngredient output4, String electrolyteGroup, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input, output1, output2, output3, output4, electrolyteGroup, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient input, IIngredient output1, IIngredient output2, IIngredient output3, IIngredient output4, double timeMultiplier, double powerMultiplier, double processRadiation, String electrolyteGroup) {
+			getRecipeHandler().ctAddRecipe(input, output1, output2, output3, output4, timeMultiplier, powerMultiplier, processRadiation, electrolyteGroup);
 		}
 		
 		@ZenMethod
@@ -770,11 +715,6 @@ public class CTRecipes {
 		@ZenMethod
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
-		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
 		}
 		
 		@ZenMethod
@@ -876,11 +816,6 @@ public class CTRecipes {
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
 		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
-		}
 	}
 	
 	@ZenClass("mods.nuclearcraft.FissionModerator")
@@ -961,11 +896,6 @@ public class CTRecipes {
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
 		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
-		}
 	}
 	
 	@ZenClass("mods.nuclearcraft.PebbleFission")
@@ -995,11 +925,6 @@ public class CTRecipes {
 		@ZenMethod
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
-		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
 		}
 	}
 	
@@ -1031,11 +956,6 @@ public class CTRecipes {
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
 		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
-		}
 	}
 	
 	@ZenClass("mods.nuclearcraft.FissionHeating")
@@ -1065,11 +985,6 @@ public class CTRecipes {
 		@ZenMethod
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
-		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
 		}
 	}
 	
@@ -1101,11 +1016,6 @@ public class CTRecipes {
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
 		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
-		}
 	}
 	
 	@ZenClass("mods.nuclearcraft.FissionEmergencyCooling")
@@ -1135,11 +1045,6 @@ public class CTRecipes {
 		@ZenMethod
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
-		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
 		}
 	}
 	
@@ -1172,11 +1077,6 @@ public class CTRecipes {
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
 		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
-		}
 	}
 	
 	// TODO
@@ -1208,11 +1108,6 @@ public class CTRecipes {
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
 		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
-		}
 	}
 	
 	@ZenClass("mods.nuclearcraft.Turbine")
@@ -1242,11 +1137,6 @@ public class CTRecipes {
 		@ZenMethod
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
-		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
 		}
 	}
 	
@@ -1278,11 +1168,6 @@ public class CTRecipes {
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
 		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
-		}
 	}
 	
 	@ZenClass("mods.nuclearcraft.RadiationBlockMutation")
@@ -1313,11 +1198,6 @@ public class CTRecipes {
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
 		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
-		}
 	}
 	
 	@ZenClass("mods.nuclearcraft.RadiationBlockPurification")
@@ -1347,11 +1227,6 @@ public class CTRecipes {
 		@ZenMethod
 		public static void removeAllRecipes() {
 			getRecipeHandler().ctRemoveAllRecipes();
-		}
-		
-		@ZenMethod
-		public static void resetAllRecipes() {
-			getRecipeHandler().ctResetAllRecipes();
 		}
 	}
 }

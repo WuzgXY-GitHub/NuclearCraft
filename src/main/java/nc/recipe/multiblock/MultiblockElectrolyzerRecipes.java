@@ -69,9 +69,15 @@ public class MultiblockElectrolyzerRecipes extends BasicRecipeHandler {
 	}
 	
 	@Override
-	public void onReload() {
-		super.onReload();
-		electrolyteRecipeHandlerMap.values().forEach(AbstractRecipeHandler::onReload);
+	public void preReload() {
+		super.preReload();
+		electrolyteRecipeHandlerMap.values().forEach(AbstractRecipeHandler::preReload);
+	}
+	
+	@Override
+	public void postReload() {
+		super.postReload();
+		electrolyteRecipeHandlerMap.values().forEach(AbstractRecipeHandler::postReload);
 	}
 	
 	@Override

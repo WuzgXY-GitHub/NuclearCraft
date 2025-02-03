@@ -1,0 +1,19 @@
+{
+	"display": {
+		"icon": {
+			"item": "nuclearcraft:distiller_controller"
+		},
+		"title": {
+			"translate": "advancement.nuclearcraft.distiller_assembled.name"
+		},
+		"description": {
+			"translate": "advancement.nuclearcraft.distiller_assembled.desc"
+		}
+	},
+	"parent": "nuclearcraft:processors/alloy_furnace",
+	"criteria": {
+		"distiller_assembled": {
+			"trigger": "nuclearcraft:distiller_assembled"
+		}
+	}
+}

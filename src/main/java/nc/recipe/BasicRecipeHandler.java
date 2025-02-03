@@ -64,20 +64,30 @@ public abstract class BasicRecipeHandler extends AbstractRecipeHandler<BasicReci
 	
 	@Override
 	public boolean isValidRecipe(BasicRecipe recipe) {
-		if (itemInputSize + fluidInputSize == 0 || itemOutputSize + fluidOutputSize == 0) {
+		if (itemOutputSize == 0 && fluidOutputSize == 0) {
 			return true;
 		}
 		
-		for (List<? extends IIngredient<?>> ingredientList : Arrays.asList(recipe.getItemIngredients(), recipe.getFluidIngredients(), recipe.getItemProducts(), recipe.getFluidProducts())) {
-			for (IIngredient<?> ingredient : ingredientList) {
-				if (!ingredient.isEmpty()) {
-					return true;
-				}
+		for (IIngredient<?> ingredient : recipe.getItemIngredients()) {
+			if (!ingredient.isEmpty()) {
+				return true;
 			}
 		}
 		
-		for (Object extra : recipe.getExtras()) {
-			if (extra instanceof IIngredient<?> ingredient && !ingredient.isEmpty()) {
+		for (IIngredient<?> ingredient : recipe.getFluidIngredients()) {
+			if (!ingredient.isEmpty()) {
+				return true;
+			}
+		}
+		
+		for (IIngredient<?> ingredient : recipe.getItemProducts()) {
+			if (!ingredient.isEmpty()) {
+				return true;
+			}
+		}
+		
+		for (IIngredient<?> ingredient : recipe.getFluidProducts()) {
+			if (!ingredient.isEmpty()) {
 				return true;
 			}
 		}
@@ -370,12 +380,6 @@ public abstract class BasicRecipeHandler extends AbstractRecipeHandler<BasicReci
 	@Optional.Method(modid = "crafttweaker")
 	public void ctRemoveAllRecipes() {
 		CraftTweakerAPI.apply(new CTRemoveAllRecipes(this));
-	}
-	
-	@ZenMethod(value = "resetAllRecipes")
-	@Optional.Method(modid = "crafttweaker")
-	public void ctResetAllRecipes() {
-		CraftTweakerAPI.apply(new CTResetAllRecipes(this));
 	}
 	
 	protected void setValidFluids() {

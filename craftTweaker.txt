@@ -308,7 +308,7 @@ mods.nuclearcraft.DecayGenerator.removeRecipeWithOutput(IIngredient blockOutput)
 Diaphragm:
 ----------
 
-mods.nuclearcraft.Diaphragm.add(IIngredient block, double efficiency);
+mods.nuclearcraft.Diaphragm.add(IIngredient block, double efficiency, double contactFactor);
 
 mods.nuclearcraft.Diaphragm.remove(IIngredient block);
 
@@ -392,7 +392,7 @@ mods.nuclearcraft.FissionReflector.removeAll();
 Fission Irradiator:
 -------------------
 
-mods.nuclearcraft.FissionIrradiator.addRecipe(IIngredient itemInput, IIngredient itemOutput, int fluxRequired, double heatPerFlux, double efficiency, {long minFluxPerTick, long maxFluxPerTick, double radiation});
+mods.nuclearcraft.FissionIrradiator.addRecipe(IIngredient itemInput, IIngredient itemOutput, long fluxRequired, double heatPerFlux, double efficiency, {long minFluxPerTick, long maxFluxPerTick, double radiation});
 
 mods.nuclearcraft.FissionIrradiator.removeRecipeWithInput(IIngredient itemInput);
 mods.nuclearcraft.FissionIrradiator.removeRecipeWithOutput(IIngredient itemOutput);
@@ -443,8 +443,8 @@ mods.nuclearcraft.FissionEmergencyCooling.removeRecipeWithInput(ILiquidStack flu
 mods.nuclearcraft.FissionEmergencyCooling.removeRecipeWithOutput(ILiquidStack fluidOutput);
 
 
-Heat Exchanger (KINDA BROKEN!):
--------------------------------
+Heat Exchanger (WIP):
+---------------------
 
 mods.nuclearcraft.HeatExchanger.addRecipe(ILiquidStack fluidInput, ILiquidStack fluidOutput, int heatRequired, int temperatureIn, int temperatureOut);
 
@@ -452,8 +452,8 @@ mods.nuclearcraft.HeatExchanger.removeRecipeWithInput(ILiquidStack fluidInput);
 mods.nuclearcraft.HeatExchanger.removeRecipeWithOutput(ILiquidStack fluidOutput);
 
 
-Condenser (KINDA BROKEN!):
---------------------------
+Condenser (WIP):
+----------------
 
 mods.nuclearcraft.Condenser.addRecipe(ILiquidStack fluidInput, ILiquidStack fluidOutput, int coolingRequired, int condensingTemperature);
 
@@ -578,8 +578,6 @@ BasicRecipeHandler::removeRecipeWithInput(IIngredient[] ingredients);
 BasicRecipeHandler::removeRecipeWithOutput(IIngredient[] ingredients);
 
 BasicRecipeHandler::removeAllRecipes();
-
-BasicRecipeHandler::resetAllRecipes();
 
 
 Recipe Methods:
@@ -735,4 +733,3 @@ mods.nuclearcraft.ProcessorBuilderHelper.bigSlot(int x, int y);
 mods.nuclearcraft.ProcessorBuilderHelper.getCreativeTabNC(String name);
 ___________________________________________________________________________________________________________________________
 ---------------------------------------------------------------------------------------------------------------------------
-

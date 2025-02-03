@@ -1,5 +1,43 @@
 v2o.8.0
 
++ Added Multiblock Electrolyser - design custom layouts of cathodes, anodes and diaphragms!
+
++ Added multiple new ingot blocks for constructing electrodes
++ Added multiple new materials for crafting diaphragms
+
++ Added CraftTweaker and GroovyScript support for new recipe types
+
++ Added Turbine Redstone Port
+
+* Fixed sporadic crashes with radiation enabled when using old JVMs
+
+* Fixed crash on attempting to modify Radiation Scrubber's side configs
+
+* Fixed bug where sound effects would duplicate on pausing and unpausing the game
+
+* Fixed multiple bugs involving unnecessary clamping of stored energy
+* Fixed transfer rates of energy storages not being saved to NBT
+
+* Fixed crash looking up recipes of custom processors
+* Fixed behaviour of speed and energy upgrades in custom generators
+
+* Fixed crash with latest GroovyScript versions [thanks to brachy84!]
+* Fixed multiple bugs in GroovyScript support [thanks to Wizzerinus!]
+
++ Added recipe builders to GroovyScript support [thanks to brachy84!]
+
+* Fixed copying of QMD and Trinity resources from script addons
+
++ Added direct modifier to OC getter methods
+
+* Fixed bug where recipe ingredients wouldn't respect changes to the ore dictionary
+* Attempted to prevent the registration of empty recipes
+
+* Updated Russian language file [thanks to Golyb007!]
+
+* Updated the versions of various dependencies
+* A few other minor fixes and changes
+
 - Removed Paulobrine and Herobrian
 
 v2o.7.7

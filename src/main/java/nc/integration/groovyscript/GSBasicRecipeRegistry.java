@@ -10,6 +10,7 @@ import nc.recipe.*;
 import nc.recipe.ingredient.*;
 import nc.util.*;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public abstract class GSBasicRecipeRegistry extends VirtualizedRegistry<BasicRecipe> {
@@ -33,11 +34,17 @@ public abstract class GSBasicRecipeRegistry extends VirtualizedRegistry<BasicRec
 		BasicRecipeHandler recipeHandler = getRecipeHandler();
 		removeScripted().forEach(recipeHandler::removeRecipe);
 		restoreFromBackup().forEach(recipeHandler::addRecipe);
-		recipeHandler.onReload();
+		getRecipeHandler().preReload();
 	}
 	
 	@GroovyBlacklist
-	protected void addRecipeInternal(Object... objects) {
+	@Override
+	public void afterScriptLoad() {
+		getRecipeHandler().postReload();
+	}
+	
+	@GroovyBlacklist
+	protected @Nullable BasicRecipe addRecipeInternal(Object... objects) {
 		BasicRecipeHandler recipeHandler = getRecipeHandler();
 		List<Object> objectList = Arrays.asList(objects);
 		BasicRecipe recipe = recipeHandler.buildRecipe(
@@ -48,8 +55,14 @@ public abstract class GSBasicRecipeRegistry extends VirtualizedRegistry<BasicRec
 				objectList.subList(recipeHandler.fluidOutputLastIndex, objects.length),
 				recipeHandler.isShapeless
 		);
-		addScripted(recipe);
-		recipeHandler.addRecipe(recipe);
+		
+		if (recipeHandler.addRecipe(recipe) != null) {
+			addScripted(recipe);
+			return recipe;
+		}
+		else {
+			return null;
+		}
 	}
 	
 	@GroovyBlacklist
@@ -119,5 +132,25 @@ public abstract class GSBasicRecipeRegistry extends VirtualizedRegistry<BasicRec
 	@MethodDescription(type = Type.QUERY)
 	public boolean isShapeless() {
 		return getRecipeHandler().isShapeless();
+	}
+	
+	@MethodDescription(type = Type.ADDITION)
+	public void addRecipe(Object... objects) {
+		addRecipeInternal(objects);
+	}
+	
+	@MethodDescription(type = Type.REMOVAL)
+	public void removeRecipeWithInput(Object... inputs) {
+		removeRecipeWithInputInternal(inputs);
+	}
+	
+	@MethodDescription(type = Type.REMOVAL)
+	public void removeRecipeWithOutput(Object... outputs) {
+		removeRecipeWithOutputInternal(outputs);
+	}
+	
+	@MethodDescription(type = Type.REMOVAL)
+	public void removeAllRecipes() {
+		removeAllRecipesInternal();
 	}
 }

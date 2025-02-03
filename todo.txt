@@ -1,3 +1,5 @@
+ZenRecipeReload support
+
 Generate nuclearcraft.ncpf.json for registered multiblock component stats and rules
 
 Multiblock monitors: show cluster information, meltdown locations, side configurations, etc.

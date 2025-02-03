@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
-import static nc.config.NCConfig.*;
+import static nc.config.NCConfig.machine_sieve_tray_efficiency;
 
 public class MachineSieveTrayRecipes extends BasicRecipeHandler {
 	

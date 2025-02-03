@@ -312,7 +312,7 @@ public class NCBlocks {
 		electrolyzer_cathode_terminal = addWithName(Global.MOD_ID, "electrolyzer_cathode_terminal", new BlockElectrolyzerCathodeTerminal());
 		electrolyzer_anode_terminal = addWithName(Global.MOD_ID, "electrolyzer_anode_terminal", new BlockElectrolyzerAnodeTerminal());
 		
-		distiller_controller = addWithName(Global.MOD_ID, "distiller_controller", new BlockElectrolyzerController());
+		distiller_controller = addWithName(Global.MOD_ID, "distiller_controller", new BlockDistillerController());
 		
 		IntFunction<String[]> rtgInfo = x -> InfoHelper.formattedInfo(infoLine(Global.MOD_ID, "rtg"), UnitHelper.prefix(rtg_power[x], 5, "RF/t"));
 		rtg_uranium = addWithName(Global.MOD_ID, "rtg_uranium", new BlockRTG(RTGType.URANIUM), rtgInfo.apply(0));
