@@ -2,6 +2,7 @@ package nc.network.multiblock;
 
 import io.netty.buffer.ByteBuf;
 import nc.multiblock.machine.Machine;
+import nc.recipe.RecipeUnitInfo;
 import nc.tile.TileContainerInfo;
 import nc.tile.internal.fluid.Tank;
 import nc.tile.machine.*;
@@ -17,8 +18,8 @@ public class ElectrolyzerUpdatePacket extends MachineUpdatePacket {
 		super();
 	}
 	
-	public ElectrolyzerUpdatePacket(BlockPos pos, boolean isMachineOn, boolean isProcessing, double time, double baseProcessTime, double baseProcessPower, List<Tank> tanks, double baseSpeedMultiplier, double basePowerMultiplier, double electrolyteEfficiency) {
-		super(pos, isMachineOn, isProcessing, time, baseProcessTime, baseProcessPower, tanks, baseSpeedMultiplier, basePowerMultiplier);
+	public ElectrolyzerUpdatePacket(BlockPos pos, boolean isMachineOn, boolean isProcessing, double time, double baseProcessTime, double baseProcessPower, List<Tank> tanks, double baseSpeedMultiplier, double basePowerMultiplier, RecipeUnitInfo recipeUnitInfo, double electrolyteEfficiency) {
+		super(pos, isMachineOn, isProcessing, time, baseProcessTime, baseProcessPower, tanks, baseSpeedMultiplier, basePowerMultiplier, recipeUnitInfo);
 		this.electrolyteEfficiency = electrolyteEfficiency;
 	}
 	

@@ -27,11 +27,6 @@ public abstract class TileHeatExchangerPart extends TileCuboidalMultiblockPart<H
 		}
 	}
 	
-	@Override
-	protected @Nullable IRadiationSource getMultiblockRadiationSourceInternal() {
-		return null;
-	}
-	
 	// NBT
 	
 	@Override

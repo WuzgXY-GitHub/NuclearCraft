@@ -63,6 +63,8 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 	
 	public RecipeInfo<BasicRecipe> recipeInfo = null;
 	
+	public RecipeUnitInfo recipeUnitInfo = RecipeUnitInfo.DEFAULT;
+	
 	public MachineLogic(Machine machine) {
 		super(machine);
 		constructorInit();
@@ -110,6 +112,8 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 			basePowerMultiplier = oldLogic.basePowerMultiplier;
 			
 			recipeInfo = oldLogic.recipeInfo;
+			
+			recipeUnitInfo = oldLogic.recipeUnitInfo;
 		}
 		else {
 			constructorInit();
@@ -126,8 +130,10 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 		energyStorage = new EnergyStorage(volume * energyDensity());
 		
 		int tankCapacity = volume * tankDensity();
+		
+		List<Set<String>> reservoirValidFluids = getReservoirValidFluids();
 		for (int i = 0, len = reservoirTanks.size(); i < len; ++i) {
-			reservoirTanks.set(i, new Tank(tankCapacity, null));
+			reservoirTanks.set(i, new Tank(tankCapacity, reservoirValidFluids == null || reservoirValidFluids.size() <= i ? null : reservoirValidFluids.get(i)));
 		}
 		
 		recipeHandler = getRecipeHandler();
@@ -177,6 +183,10 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 				consumedTanks.add(new Tank(tankCapacity, new ObjectOpenHashSet<>()));
 			}
 		}
+	}
+	
+	public List<Set<String>> getReservoirValidFluids() {
+		return null;
 	}
 	
 	public BasicRecipeHandler getRecipeHandler() {
@@ -390,6 +400,7 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 	
 	protected boolean setRecipeStats() {
 		setRecipeStats(recipeInfo == null ? null : recipeInfo.recipe);
+		recipeUnitInfo = recipeInfo == null ? RecipeUnitInfo.DEFAULT : recipeInfo.getRecipeUnitInfo();
 		return recipeInfo != null;
 	}
 	
@@ -448,18 +459,31 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 		return basePowerMultiplier;
 	}
 	
+	public double getProcessTimeFP() {
+		return baseProcessTime / getSpeedMultiplier();
+	}
+	
 	public long getProcessTime() {
-		double processTime = baseProcessTime / getSpeedMultiplier();
-		return processTime >= Long.MAX_VALUE ? Long.MAX_VALUE : Math.max(1L, (long) Math.ceil(processTime));
+		double processTimeFP = getProcessTimeFP();
+		return processTimeFP >= Long.MAX_VALUE ? Long.MAX_VALUE : Math.max(1L, (long) Math.ceil(processTimeFP));
+	}
+	
+	public double getProcessPowerFP() {
+		return baseProcessPower * getPowerMultiplier();
 	}
 	
 	public long getProcessPower() {
-		return (long) Math.ceil(baseProcessPower * getPowerMultiplier());
+		double processPowerFP = getProcessPowerFP();
+		return processPowerFP >= Long.MAX_VALUE ? Long.MAX_VALUE : (long) Math.ceil(processPowerFP);
+	}
+	
+	public double getProcessEnergyFP() {
+		return getProcessTimeFP() * getProcessPowerFP();
 	}
 	
 	public long getProcessEnergy() {
-		double processTime = baseProcessTime / getSpeedMultiplier();
-		return (long) ((processTime >= Long.MAX_VALUE ? (double) Long.MAX_VALUE : Math.max(1D, Math.ceil(processTime))) * Math.ceil(baseProcessPower * getPowerMultiplier()));
+		double processEnergyFP = getProcessEnergyFP();
+		return processEnergyFP >= Long.MAX_VALUE ? Long.MAX_VALUE : (long) Math.ceil(processEnergyFP);
 	}
 	
 	protected boolean isProcessing() {
@@ -833,6 +857,8 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 		
 		logicTag.setDouble("baseSpeedMultiplier", baseSpeedMultiplier);
 		logicTag.setDouble("basePowerMultiplier", basePowerMultiplier);
+		
+		recipeUnitInfo.writeToNBT(logicTag, "recipeUnitInfo");
 	}
 	
 	@Override
@@ -853,6 +879,8 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 		
 		baseSpeedMultiplier = logicTag.getDouble("baseSpeedMultiplier");
 		basePowerMultiplier = logicTag.getDouble("basePowerMultiplier");
+		
+		recipeUnitInfo = RecipeUnitInfo.readFromNBT(logicTag, "recipeUnitInfo");
 	}
 	
 	// Packets
@@ -872,6 +900,7 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 		TankInfo.readInfoList(message.tankInfos, tanks);
 		baseSpeedMultiplier = message.baseSpeedMultiplier;
 		basePowerMultiplier = message.basePowerMultiplier;
+		recipeUnitInfo = message.recipeUnitInfo;
 	}
 	
 	public MachineRenderPacket getRenderPacket() {

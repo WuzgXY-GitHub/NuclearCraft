@@ -20,11 +20,6 @@ public abstract class TileQuantumComputerPart extends TileMultiblockPart<Quantum
 		return new QuantumComputer(world);
 	}
 	
-	@Override
-	protected @Nullable IRadiationSource getMultiblockRadiationSourceInternal() {
-		return null;
-	}
-	
 	// NBT
 	
 	@Override

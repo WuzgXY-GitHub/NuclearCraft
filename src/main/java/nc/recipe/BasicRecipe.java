@@ -151,18 +151,6 @@ public class BasicRecipe implements IRecipe {
 	
 	// Electrolyzer
 	
-	public double getMultiblockElectrolyzerBaseProcessTime() {
-		return (double) extras.get(0) * machine_electrolyzer_time;
-	}
-	
-	public double getMultiblockElectrolyzerBaseProcessPower() {
-		return (double) extras.get(1) * machine_electrolyzer_power;
-	}
-	
-	public double getMultiblockElectrolyzerBaseProcessRadiation() {
-		return (double) extras.get(2);
-	}
-	
 	public ElectrolyzerElectrolyteRecipeHandler getElectrolyzerElectrolyteRecipeHandler() {
 		return NCRecipes.multiblock_electrolyzer.electrolyteRecipeHandlerMap.get(extras.get(3));
 	}
@@ -173,20 +161,6 @@ public class BasicRecipe implements IRecipe {
 	
 	public double getElectrolyzerElectrodeEfficiency() {
 		return (double) extras.get(0);
-	}
-	
-	// Distiller
-	
-	public double getMultiblockDistillerBaseProcessTime() {
-		return (double) extras.get(0) * machine_distiller_time;
-	}
-	
-	public double getMultiblockDistillerBaseProcessPower() {
-		return (double) extras.get(1) * machine_distiller_power;
-	}
-	
-	public double getMultiblockDistillerBaseProcessRadiation() {
-		return (double) extras.get(2);
 	}
 	
 	// Fission Moderator

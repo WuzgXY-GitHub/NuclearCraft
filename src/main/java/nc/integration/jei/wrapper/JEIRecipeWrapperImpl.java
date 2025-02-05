@@ -392,21 +392,21 @@ public class JEIRecipeWrapperImpl {
 			if (recipe == null) {
 				return machine_electrolyzer_time;
 			}
-			return recipe.getMultiblockElectrolyzerBaseProcessTime();
+			return recipe.getBaseProcessTime(machine_electrolyzer_time);
 		}
 		
 		protected double getBaseProcessPower() {
 			if (recipe == null) {
 				return machine_electrolyzer_power;
 			}
-			return recipe.getMultiblockElectrolyzerBaseProcessPower();
+			return recipe.getBaseProcessPower(machine_electrolyzer_power);
 		}
 		
 		protected double getBaseProcessRadiation() {
 			if (recipe == null) {
 				return 0D;
 			}
-			return recipe.getMultiblockElectrolyzerBaseProcessRadiation();
+			return recipe.getBaseProcessRadiation();
 		}
 		
 		protected List<Pair<Fluid, Double>> getElectrolyteList() {
@@ -482,21 +482,21 @@ public class JEIRecipeWrapperImpl {
 			if (recipe == null) {
 				return machine_distiller_time;
 			}
-			return recipe.getMultiblockDistillerBaseProcessTime();
+			return recipe.getBaseProcessTime(machine_distiller_time);
 		}
 		
 		protected double getBaseProcessPower() {
 			if (recipe == null) {
 				return machine_distiller_power;
 			}
-			return recipe.getMultiblockDistillerBaseProcessPower();
+			return recipe.getBaseProcessPower(machine_distiller_power);
 		}
 		
 		protected double getBaseProcessRadiation() {
 			if (recipe == null) {
 				return 0D;
 			}
-			return recipe.getMultiblockDistillerBaseProcessRadiation();
+			return recipe.getBaseProcessRadiation();
 		}
 		
 		@Override
@@ -1082,7 +1082,7 @@ public class JEIRecipeWrapperImpl {
 				tooltip.add((heating ? TextFormatting.AQUA : TextFormatting.RED) + TEMPERATURE + TextFormatting.WHITE + " " + inputTemp + "K");
 				tooltip.add((heating ? TextFormatting.RED : TextFormatting.AQUA) + TEMPERATURE + TextFormatting.WHITE + " " + outputTemp + "K");
 				
-				tooltip.add((heating ? TextFormatting.AQUA + COOLING_PROVIDED : TextFormatting.RED + HEATING_PROVIDED) + TextFormatting.WHITE + " " + Math.abs(inputTemp - outputTemp) + "/t");
+				tooltip.add((heating ? TextFormatting.AQUA + COOLING_PROVIDED : TextFormatting.RED + HEATING_PROVIDED) + TextFormatting.WHITE + " " + Math.abs(inputTemp - outputTemp) + " H/t");
 				tooltip.add((heating ? TextFormatting.RED + HEATING_REQUIRED : TextFormatting.AQUA + COOLING_REQUIRED) + TextFormatting.WHITE + " " + getHeatExchangerProcessTime());
 			}
 			

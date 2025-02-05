@@ -3,8 +3,12 @@ package nc.tile.machine;
 import li.cil.oc.api.machine.*;
 import li.cil.oc.api.network.SimpleComponent;
 import nc.multiblock.cuboidal.CuboidalPartPositionType;
+import nc.multiblock.machine.*;
 import nc.multiblock.machine.Machine;
+import nc.util.OCHelper;
 import net.minecraftforge.fml.common.Optional;
+
+import java.util.Collections;
 
 @Optional.Interface(iface = "li.cil.oc.api.network.SimpleComponent", modid = "opencomputers")
 public class TileMachineComputerPort extends TileMachinePart implements SimpleComponent {
@@ -55,6 +59,62 @@ public class TileMachineComputerPort extends TileMachinePart implements SimpleCo
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getLengthZ(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled() ? getMultiblock().getInteriorLengthZ() : 0};
+	}
+	
+	@Callback(direct = true)
+	@Optional.Method(modid = "opencomputers")
+	public Object[] getIsProcessing(Context context, Arguments args) {
+		MachineLogic logic = isMultiblockAssembled() ? null : getLogic();
+		return new Object[] {logic != null && logic.isProcessing};
+	}
+	
+	@Callback(direct = true)
+	@Optional.Method(modid = "opencomputers")
+	public Object[] getCurrentTime(Context context, Arguments args) {
+		MachineLogic logic = isMultiblockAssembled() ? null : getLogic();
+		return new Object[] {logic == null ? 0D : logic.time};
+	}
+	
+	@Callback(direct = true)
+	@Optional.Method(modid = "opencomputers")
+	public Object[] getBaseProcessTime(Context context, Arguments args) {
+		MachineLogic logic = isMultiblockAssembled() ? null : getLogic();
+		return new Object[] {logic == null ? 1D : logic.getProcessTimeFP()};
+	}
+	
+	@Callback(direct = true)
+	@Optional.Method(modid = "opencomputers")
+	public Object[] getBaseProcessPower(Context context, Arguments args) {
+		MachineLogic logic = isMultiblockAssembled() ? null : getLogic();
+		return new Object[] {logic == null ? 0D : logic.getProcessPowerFP()};
+	}
+	
+	@Callback(direct = true)
+	@Optional.Method(modid = "opencomputers")
+	public Object[] getItemInputs(Context context, Arguments args) {
+		MachineLogic logic = isMultiblockAssembled() ? null : getLogic();
+		return new Object[] {OCHelper.stackInfoArray(logic == null ? Collections.emptyList() : logic.getItemInputs(false))};
+	}
+	
+	@Callback(direct = true)
+	@Optional.Method(modid = "opencomputers")
+	public Object[] getFluidInputs(Context context, Arguments args) {
+		MachineLogic logic = isMultiblockAssembled() ? null : getLogic();
+		return new Object[] {OCHelper.tankInfoArray(logic == null ? Collections.emptyList() : logic.getFluidInputs(false))};
+	}
+	
+	@Callback(direct = true)
+	@Optional.Method(modid = "opencomputers")
+	public Object[] getItemOutputs(Context context, Arguments args) {
+		MachineLogic logic = isMultiblockAssembled() ? null : getLogic();
+		return new Object[] {OCHelper.stackInfoArray(logic == null ? Collections.emptyList() : logic.getItemOutputs())};
+	}
+	
+	@Callback(direct = true)
+	@Optional.Method(modid = "opencomputers")
+	public Object[] getFluidOutputs(Context context, Arguments args) {
+		MachineLogic logic = isMultiblockAssembled() ? null : getLogic();
+		return new Object[] {OCHelper.tankInfoArray(logic == null ? Collections.emptyList() : logic.getFluidOutputs())};
 	}
 	
 	@Callback

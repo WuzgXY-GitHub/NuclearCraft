@@ -118,8 +118,8 @@ public class TileMachineProcessPort extends TileMachinePart implements ITickable
 			return;
 		}
 		
-		int inventorySize = logic.inventorySize(), tankCount = logic.tankCount();
-		if (inventorySize + tankCount == 0) {
+		int sorptionSize = logic.inventorySize() + logic.tankCount();
+		if (sorptionSize == 0) {
 			setting = 0;
 			slot = tankIndex = -1;
 			return;
@@ -131,7 +131,7 @@ public class TileMachineProcessPort extends TileMachinePart implements ITickable
 		else {
 			++setting;
 		}
-		setting %= (inventorySize + tankCount);
+		setting = (sorptionSize + setting % sorptionSize) % sorptionSize;
 		
 		if (setting < logic.itemInputSize) {
 			slot = setting;

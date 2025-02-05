@@ -68,9 +68,4 @@ public abstract class TileTurbinePart extends TileCuboidalMultiblockPart<Turbine
 		setStandardLastError(multiblock);
 		return false;
 	}
-	
-	@Override
-	protected @Nullable IRadiationSource getMultiblockRadiationSourceInternal() {
-		return null;
-	}
 }

@@ -16,9 +16,4 @@ public abstract class TileFissionPart extends TileCuboidalMultiblockPart<Fission
 	public FissionReactor createNewMultiblock() {
 		return new FissionReactor(world);
 	}
-	
-	@Override
-	protected @Nullable IRadiationSource getMultiblockRadiationSourceInternal() {
-		return null;
-	}
 }

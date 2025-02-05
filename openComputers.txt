@@ -36,6 +36,18 @@ int getLengthX()
 int getLengthY()
 int getLengthZ()
 
+boolean getIsProcessing()
+
+double getCurrentTime()
+
+double getBaseProcessTime()
+double getBaseProcessPower()
+
+Table[] getItemInputs() -> {{stackSize, itemID}, ...}
+Table[] getFluidInputs() -> {{fluidAmount, fluidName}, ...}
+Table[] getItemOutputs() -> {{stackSize, itemID}, ...}
+Table[] getFluidOutputs() -> {{fluidAmount, fluidName}, ...}
+
 void haltProcess()
 void resumeProcess()
 

@@ -169,11 +169,6 @@ public class TileRTG extends TileMultiblockPart<RTGMultiblock, TileRTG> implemen
 		return energySidesGT;
 	}
 	
-	@Override
-	protected @Nullable IRadiationSource getMultiblockRadiationSourceInternal() {
-		return null;
-	}
-	
 	// IC2 Energy
 	
 	@Override

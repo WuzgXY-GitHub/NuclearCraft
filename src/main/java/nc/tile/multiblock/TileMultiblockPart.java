@@ -350,9 +350,12 @@ public abstract class TileMultiblockPart<MULTIBLOCK extends Multiblock<MULTIBLOC
 		}
 	}
 	
+	@Override
 	public @Nullable IRadiationSource getMultiblockRadiationSource() {
 		return isMultiblockSaveDelegate() && isConnected() ? getMultiblockRadiationSourceInternal() : null;
 	}
 	
-	protected abstract @Nullable IRadiationSource getMultiblockRadiationSourceInternal();
+	protected @Nullable IRadiationSource getMultiblockRadiationSourceInternal() {
+		return null;
+	}
 }

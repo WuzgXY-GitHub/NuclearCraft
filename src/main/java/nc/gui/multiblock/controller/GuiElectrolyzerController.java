@@ -21,7 +21,7 @@ public class GuiElectrolyzerController extends GuiLogicMultiblockController<Mach
 		super(inventory, player, controller, textureLocation);
 		gui_texture = new ResourceLocation(Global.MOD_ID + ":textures/gui/container/" + "electrolyzer_controller" + ".png");
 		xSize = 176;
-		ySize = 64;
+		ySize = 76;
 	}
 	
 	@Override
@@ -51,8 +51,11 @@ public class GuiElectrolyzerController extends GuiLogicMultiblockController<Mach
 		String electrolyteEfficiency = Lang.localize("gui.nc.container.electrolyzer_controller.electrolyte_efficiency") + " " + NCMath.pcDecimalPlaces(getLogic().electrolyteEfficiency, 1);
 		fontRenderer.drawString(electrolyteEfficiency, xSize / 2 - fontRenderer.getStringWidth(electrolyteEfficiency) / 2, 34, fontColor);
 		
+		String rate = Lang.localize("gui.nc.container.machine_controller.rate") + " " + logic.recipeUnitInfo.getString(logic.isProcessing ? logic.getProcessTimeFP() : null, 5);
+		fontRenderer.drawString(rate, xSize / 2 - fontRenderer.getStringWidth(rate) / 2, 46, fontColor);
+		
 		String power = Lang.localize("gui.nc.container.machine_controller.power") + " " + UnitHelper.prefix(logic.isProcessing ? logic.getProcessPower() : 0L, 5, "RF/t");
-		fontRenderer.drawString(power, xSize / 2 - fontRenderer.getStringWidth(power) / 2, 46, fontColor);
+		fontRenderer.drawString(power, xSize / 2 - fontRenderer.getStringWidth(power) / 2, 58, fontColor);
 	}
 	
 	@Override

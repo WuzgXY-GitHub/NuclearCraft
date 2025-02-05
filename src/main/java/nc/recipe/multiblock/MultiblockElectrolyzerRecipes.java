@@ -13,6 +13,8 @@ public class MultiblockElectrolyzerRecipes extends BasicRecipeHandler {
 	
 	public final Object2ObjectMap<String, ElectrolyzerElectrolyteRecipeHandler> electrolyteRecipeHandlerMap;
 	
+	public final List<Set<String>> validElectrolyteFluids = new ArrayList<>();
+	
 	public MultiblockElectrolyzerRecipes() {
 		super("multiblock_electrolyzer", 2, 2, 4, 4);
 		electrolyteRecipeHandlerMap = new Object2ObjectOpenHashMap<>();
@@ -66,6 +68,11 @@ public class MultiblockElectrolyzerRecipes extends BasicRecipeHandler {
 	public void postInit() {
 		super.postInit();
 		electrolyteRecipeHandlerMap.values().forEach(AbstractRecipeHandler::postInit);
+		
+		validElectrolyteFluids.clear();
+		Set<String> validElectrolytes = new ObjectOpenHashSet<>();
+		validElectrolyteFluids.add(validElectrolytes);
+		electrolyteRecipeHandlerMap.values().forEach(x -> validElectrolytes.addAll(x.validFluids.get(0)));
 	}
 	
 	@Override

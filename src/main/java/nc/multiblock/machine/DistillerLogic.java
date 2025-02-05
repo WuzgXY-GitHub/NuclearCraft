@@ -115,7 +115,7 @@ public class DistillerLogic extends MachineLogic {
 	
 	@Override
 	public MachineUpdatePacket getMultiblockUpdatePacket() {
-		return new DistillerUpdatePacket(multiblock.controller.getTilePos(), multiblock.isMachineOn, isProcessing, time, baseProcessTime, baseProcessPower, tanks, baseSpeedMultiplier, basePowerMultiplier);
+		return new DistillerUpdatePacket(multiblock.controller.getTilePos(), multiblock.isMachineOn, isProcessing, time, baseProcessTime, baseProcessPower, tanks, baseSpeedMultiplier, basePowerMultiplier, recipeUnitInfo);
 	}
 	
 	@Override

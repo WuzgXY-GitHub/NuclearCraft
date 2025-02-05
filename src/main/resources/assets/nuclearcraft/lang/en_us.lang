@@ -131,7 +131,7 @@ tile.nuclearcraft.electric_furnace.desc=Smelts items using energy.
 tile.nuclearcraft.machine_interface.name=Machine Interface
 tile.nuclearcraft.machine_interface.desc=Automation can access the machine directly adjacent to this block. Can only extend one adjacent machine at maximum.
 
-tile.nuclearcraft.machine_frame.name=Large Machine Frame
+tile.nuclearcraft.machine_frame.name=Large Machine Casing
 tile.nuclearcraft.machine_glass.name=Large Machine Glass
 tile.nuclearcraft.machine_power_port.name=Large Machine Power Port
 tile.nuclearcraft.machine_process_port.name=Large Machine Process Port
@@ -342,7 +342,7 @@ tile.nuclearcraft.salt_fission_heater2.cryotheum.name=Cryotheum Fission Coolant 
 tile.nuclearcraft.salt_fission_heater.cooling_rate=Cooling Rate:
 
 tile.nuclearcraft.heat_exchanger_controller.name=Heat Exchanger Controller (WIP)
-tile.nuclearcraft.heat_exchanger_casing.name=Heat Exchanger Shell
+tile.nuclearcraft.heat_exchanger_casing.name=Heat Exchanger Casing
 tile.nuclearcraft.heat_exchanger_glass.name=Heat Exchanger Glass
 tile.nuclearcraft.heat_exchanger_vent.name=Heat Exchanger Vent
 tile.nuclearcraft.heat_exchanger_vent.desc=Used to move fluid in and out of the exchanger. Will push to [accept from] accepting [pushing] tubes.
@@ -398,7 +398,6 @@ tile.nuclearcraft.cobblestone_generator_compact.name=Compact Cobblestone Generat
 tile.nuclearcraft.cobblestone_generator_dense.name=Dense Cobblestone Generator
 tile.nuclearcraft.cobblestone_generator_req_power=Produces %s constantly if supplied %s.
 tile.nuclearcraft.cobblestone_generator_no_req_power=Produces %s constantly.
-nuclearcraft.cobblestone=Cobblestone
 
 tile.nuclearcraft.water_source.name=Infinite Water Source
 tile.nuclearcraft.water_source_compact.name=Compact Infinite Water Source
@@ -3302,8 +3301,10 @@ nuclearcraft.multiblock_validation.invalid_block=%4$s is not a valid block at [%
 nuclearcraft.multiblock_validation.no_controller=There must be a controller for the multiblock to form
 nuclearcraft.multiblock_validation.too_many_controllers=There must only be one controller for the multiblock to form
 
-nuclearcraft.multiblock_validation.electrolyzer.invalid_cathode=Cathodes must be installed opposite each other in the top and bottom layers of the electrolyzer for it to form
-nuclearcraft.multiblock_validation.electrolyzer.invalid_anode=Anodes must be installed opposite each other in the top and bottom layers of the electrolyzer for it to form
+nuclearcraft.multiblock_validation.electrolyzer.invalid_cathode_terminal=Cathode terminals must be installed opposite each other in the top and bottom layers of the electrolyzer for it to form
+nuclearcraft.multiblock_validation.electrolyzer.invalid_anode_terminal=Anode terminals must be installed opposite each other in the top and bottom layers of the electrolyzer for it to form
+nuclearcraft.multiblock_validation.electrolyzer.invalid_cathode_recipe=Opposing cathode terminals must be connected by valid cathode blocks for the electrolyzer to form
+nuclearcraft.multiblock_validation.electrolyzer.invalid_anode_recipe=Opposing anode terminals must be connected by valid anode blocks for the electrolyzer to form
 nuclearcraft.multiblock_validation.electrolyzer.short_circuit=Cathodes and anodes must be installed in different diaphragm-separated regions of the electrolyzer for it to form
 
 nuclearcraft.multiblock_validation.fission_reactor.prohibit_cells=This is not a solid fuel reactor - there must be no cells for it to form
@@ -3404,6 +3405,7 @@ nuclearcraft.container.nitrogen_collector_dense=Dense Nitrogen Collector
 
 nuclearcraft.container.radiation_scrubber=Radiation Scrubber
 
+gui.nc.container.machine_controller.rate=Process Rate:
 gui.nc.container.machine_controller.power=Power Use:
 
 gui.nc.container.electrolyzer_controller.electrolyzer=Electrolyzer

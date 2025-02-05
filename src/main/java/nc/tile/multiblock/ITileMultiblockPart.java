@@ -162,5 +162,7 @@ public interface ITileMultiblockPart<MULTIBLOCK extends Multiblock<MULTIBLOCK, T
 	 */
 	void onMultiblockDataAssimilated();
 	
-	@Nullable IRadiationSource getMultiblockRadiationSource();
+	default @Nullable IRadiationSource getMultiblockRadiationSource() {
+		return null;
+	}
 }

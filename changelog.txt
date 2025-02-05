@@ -1,3 +1,13 @@
+v2o.8.1
+
+* Fixed crash with radiation enabled and QMD installed
+
++ Added recipe rate info to Multiblock Electrolyser GUI
+* Fixed Multiblock Electrolyser reservoir accepting invalid electrolyte fluids
+* Fixed process port multitool shift-click behaviour
+* Improved multiblock machine OC support
+* Improved multiblock machine assembly messages
+
 v2o.8.0
 
 + Added Multiblock Electrolyser - design custom layouts of cathodes, anodes and diaphragms!

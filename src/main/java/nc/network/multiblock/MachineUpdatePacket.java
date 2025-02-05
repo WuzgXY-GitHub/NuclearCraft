@@ -1,6 +1,7 @@
 package nc.network.multiblock;
 
 import io.netty.buffer.ByteBuf;
+import nc.recipe.RecipeUnitInfo;
 import nc.tile.internal.fluid.Tank;
 import nc.tile.internal.fluid.Tank.TankInfo;
 import net.minecraft.util.math.BlockPos;
@@ -17,12 +18,13 @@ public class MachineUpdatePacket extends MultiblockUpdatePacket {
 	public List<TankInfo> tankInfos;
 	public double baseSpeedMultiplier;
 	public double basePowerMultiplier;
+	public RecipeUnitInfo recipeUnitInfo;
 	
 	public MachineUpdatePacket() {
 		super();
 	}
 	
-	public MachineUpdatePacket(BlockPos pos, boolean isMachineOn, boolean isProcessing, double time, double baseProcessTime, double baseProcessPower, List<Tank> tanks, double baseSpeedMultiplier, double basePowerMultiplier) {
+	public MachineUpdatePacket(BlockPos pos, boolean isMachineOn, boolean isProcessing, double time, double baseProcessTime, double baseProcessPower, List<Tank> tanks, double baseSpeedMultiplier, double basePowerMultiplier, RecipeUnitInfo recipeUnitInfo) {
 		super(pos);
 		this.isMachineOn = isMachineOn;
 		this.isProcessing = isProcessing;
@@ -32,6 +34,7 @@ public class MachineUpdatePacket extends MultiblockUpdatePacket {
 		tankInfos = TankInfo.getInfoList(tanks);
 		this.baseSpeedMultiplier = baseSpeedMultiplier;
 		this.basePowerMultiplier = basePowerMultiplier;
+		this.recipeUnitInfo = recipeUnitInfo;
 	}
 	
 	@Override
@@ -45,6 +48,7 @@ public class MachineUpdatePacket extends MultiblockUpdatePacket {
 		tankInfos = readTankInfos(buf);
 		baseSpeedMultiplier = buf.readDouble();
 		basePowerMultiplier = buf.readDouble();
+		recipeUnitInfo = readRecipeUnitInfo(buf);
 	}
 	
 	@Override
@@ -58,5 +62,6 @@ public class MachineUpdatePacket extends MultiblockUpdatePacket {
 		writeTankInfos(buf, tankInfos);
 		buf.writeDouble(baseSpeedMultiplier);
 		buf.writeDouble(basePowerMultiplier);
+		writeRecipeUnitInfo(buf, recipeUnitInfo);
 	}
 }

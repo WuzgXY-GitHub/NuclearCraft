@@ -2,6 +2,7 @@ package nc.network;
 
 import io.netty.buffer.ByteBuf;
 import nc.init.NCPackets;
+import nc.recipe.RecipeUnitInfo;
 import nc.tile.internal.fluid.Tank.TankInfo;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.*;
@@ -125,4 +126,13 @@ public abstract class NCPacket implements IMessage {
 		}
 	}
 	
+	protected static RecipeUnitInfo readRecipeUnitInfo(ByteBuf buf) {
+		return new RecipeUnitInfo(readString(buf), buf.readInt(), buf.readInt());
+	}
+	
+	protected static void writeRecipeUnitInfo(ByteBuf buf, RecipeUnitInfo info) {
+		writeString(buf, info.unit);
+		buf.writeInt(info.startingPrefix);
+		buf.writeInt(info.rateMultiplier);
+	}
 }

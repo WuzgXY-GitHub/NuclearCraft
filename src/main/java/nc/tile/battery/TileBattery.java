@@ -203,11 +203,6 @@ public class TileBattery extends TileMultiblockPart<BatteryMultiblock, TileBatte
 		return energySidesGT;
 	}
 	
-	@Override
-	protected @Nullable IRadiationSource getMultiblockRadiationSourceInternal() {
-		return null;
-	}
-	
 	// IC2 Energy
 	
 	@Override

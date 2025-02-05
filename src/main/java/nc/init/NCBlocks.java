@@ -419,7 +419,7 @@ public class NCBlocks {
 		
 		if (register_passive[0]) {
 			ObjIntFunction<Block, ItemBlock> cobbleGeneratorItemBlockFunction = (x, y) -> {
-				String rateString = NCMath.sigFigs(processor_passive_rate[0] * y, 5) + " " + Lang.localize("nuclearcraft.cobblestone") + "/t";
+				String rateString = NCMath.sigFigs(processor_passive_rate[0] * y, 5) + " C/t";
 				return new NCItemBlock(x, cobble_gen_power > 0 ? InfoHelper.formattedInfo("tile.nuclearcraft.cobblestone_generator_req_power", rateString, UnitHelper.prefix(cobble_gen_power * y, 5, "RF/t")) : InfoHelper.formattedInfo("tile.nuclearcraft.cobblestone_generator_no_req_power", rateString));
 			};
 			cobblestone_generator = addWithName(Global.MOD_ID, new BlockSimpleTile<>("cobblestone_generator"), x -> cobbleGeneratorItemBlockFunction.apply(x, 1));

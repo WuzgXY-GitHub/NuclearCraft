@@ -551,8 +551,8 @@ public class NCConfig {
 		machine_diaphragm_contact_factor = sync(CATEGORY_FISSION, "machine_diaphragm_contact_factor", new double[] {1D, 1.5D, 2D}, 0D, 255D, ARRAY);
 		machine_sieve_tray_efficiency = sync(CATEGORY_FISSION, "machine_sieve_tray_efficiency", new double[] {0.8D, 0.9D, 1D}, 0D, 255D, ARRAY);
 		
-		machine_electrolyzer_time = sync(CATEGORY_MACHINE, "machine_electrolyzer_time", 400, 1, 128000);
-		machine_electrolyzer_power = sync(CATEGORY_MACHINE, "machine_electrolyzer_power", 200, 1, 128000);
+		machine_electrolyzer_time = sync(CATEGORY_MACHINE, "machine_electrolyzer_time", 40, 1, 128000);
+		machine_electrolyzer_power = sync(CATEGORY_MACHINE, "machine_electrolyzer_power", 100, 1, 128000);
 		machine_cathode_efficiency = sync(CATEGORY_MACHINE, "machine_cathode_efficiency", new String[] {"Iron@0.6", "Nickel@0.7", "Molybdenum@0.8", "Cobalt@0.9", "Platinum@1.0", "Palladium@1.0"}, LIST);
 		machine_anode_efficiency = sync(CATEGORY_MACHINE, "machine_anode_efficiency", new String[] {"CopperOxide@0.6", "TinOxide@0.6", "NickelOxide@0.7", "CobaltOxide@0.8", "RutheniumOxide@0.9", "IridiumOxide@1.0"}, LIST);
 		machine_electrolyzer_sound_volume = sync(CATEGORY_MACHINE, "machine_electrolyzer_sound_volume", 1D, 0D, 15D);
