@@ -1,6 +1,7 @@
 package nc.network;
 
 import io.netty.buffer.ByteBuf;
+import it.unimi.dsi.fastutil.ints.*;
 import nc.init.NCPackets;
 import nc.recipe.RecipeUnitInfo;
 import nc.tile.internal.fluid.Tank.TankInfo;
@@ -83,6 +84,22 @@ public abstract class NCPacket implements IMessage {
 		buf.writeInt(pos.getX());
 		buf.writeInt(pos.getY());
 		buf.writeInt(pos.getZ());
+	}
+	
+	protected static IntList readInts(ByteBuf buf) {
+		int count = buf.readInt();
+		IntList intList = new IntArrayList();
+		for (int i = 0; i < count; ++i) {
+			intList.add(buf.readInt());
+		}
+		return intList;
+	}
+	
+	protected static void writeInts(ByteBuf buf, IntList ints) {
+		buf.writeInt(ints.size());
+		for (int i : ints) {
+			buf.writeInt(i);
+		}
 	}
 	
 	protected static ItemStack readStack(ByteBuf buf) {

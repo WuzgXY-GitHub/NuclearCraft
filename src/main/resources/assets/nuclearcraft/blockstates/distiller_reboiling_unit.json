@@ -1,0 +1,15 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model":"cube_bottom_top",
+		"textures": {
+			"top": "nuclearcraft:blocks/machine/distiller/reboiling_unit_top",
+			"bottom": "nuclearcraft:blocks/machine/distiller/reboiling_unit_bottom",
+			"side": "nuclearcraft:blocks/machine/distiller/reboiling_unit_side"
+		}
+	},
+	"variants": {
+		"inventory": [{}],
+		"normal": [{}]
+	}
+}

@@ -1,9 +1,23 @@
+v2o.8.2
+
++ Added Multiblock Distiller - finally exploit the Girdler sulphide process!
++ Optimise your distillation towers with Reflux Units, Reboiling Units and Liquid Distributors!
+
+* Modified Multiblock Electrolyser and Distiller default process time and power configs
+
+* Values with units in GUIs no longer truncate decimal places
+
+* Fixed incorrect Emerald Heater Port texture
+
+- Removed unused Sieve Tray Assembly blocks
+
 v2o.8.1
 
 * Fixed crash with radiation enabled and QMD installed
 
 + Added recipe rate info to Multiblock Electrolyser GUI
 * Fixed Multiblock Electrolyser reservoir accepting invalid electrolyte fluids
+
 * Fixed process port multitool shift-click behaviour
 * Improved multiblock machine OC support
 * Improved multiblock machine assembly messages

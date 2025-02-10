@@ -57,6 +57,9 @@ public class MultiblockHandler {
 		Machine.PART_CLASSES.add(TileMachineRedstonePort.class);
 		Machine.PART_CLASSES.add(TileElectrolyzerCathodeTerminal.class);
 		Machine.PART_CLASSES.add(TileElectrolyzerAnodeTerminal.class);
+		Machine.PART_CLASSES.add(TileDistillerRefluxUnit.class);
+		Machine.PART_CLASSES.add(TileDistillerReboilingUnit.class);
+		Machine.PART_CLASSES.add(TileDistillerLiquidDistributor.class);
 		
 		RTGMultiblock.PART_CLASSES.add(TileRTG.class);
 		

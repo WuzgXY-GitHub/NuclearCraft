@@ -32,7 +32,7 @@ public class GuiElectrolyzerController extends GuiLogicMultiblockController<Mach
 	@Override
 	public void renderTooltips(int mouseX, int mouseY) {
 		if (NCUtil.isModifierKeyDown()) {
-			drawTooltip(clearAllInfo(), mouseX, mouseY, 153, 41, 18, 18);
+			drawTooltip(clearAllInfo(), mouseX, mouseY, 153, 53, 18, 18);
 		}
 	}
 	
@@ -66,7 +66,7 @@ public class GuiElectrolyzerController extends GuiLogicMultiblockController<Mach
 	@Override
 	public void initGui() {
 		super.initGui();
-		buttonList.add(new MultiblockButton.ClearAllMaterial(0, guiLeft + 153, guiTop + 41));
+		buttonList.add(new MultiblockButton.ClearAllMaterial(0, guiLeft + 153, guiTop + 53));
 	}
 	
 	@Override

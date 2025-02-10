@@ -1,6 +1,7 @@
 package nc.block;
 
 import nc.enumm.*;
+import nc.enumm.MetaEnums.MachineSieveAssemblyType;
 import nc.tab.NCTabs;
 import nc.tile.ITile;
 import nc.util.*;
@@ -193,12 +194,12 @@ public abstract class BlockMeta<T extends Enum<T> & IStringSerializable & IBlock
 		}
 	}
 	
-	public static class BlockMachineSieveTray extends Transparent<MetaEnums.MachineSieveTrayType> {
+	public static class BlockMachineSieveAssembly extends Transparent<MachineSieveAssemblyType> {
 		
-		public final static PropertyEnum<MetaEnums.MachineSieveTrayType> TYPE = PropertyEnum.create("type", MetaEnums.MachineSieveTrayType.class);
+		public final static PropertyEnum<MachineSieveAssemblyType> TYPE = PropertyEnum.create("type", MachineSieveAssemblyType.class);
 		
-		public BlockMachineSieveTray() {
-			super(MetaEnums.MachineSieveTrayType.class, TYPE, Material.IRON, true);
+		public BlockMachineSieveAssembly() {
+			super(MachineSieveAssemblyType.class, TYPE, Material.IRON, true);
 			setCreativeTab(NCTabs.multiblock);
 		}
 		

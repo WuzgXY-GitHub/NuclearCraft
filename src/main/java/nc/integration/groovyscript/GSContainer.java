@@ -41,7 +41,7 @@ public class GSContainer extends GroovyPropertyContainer {
 		return switch (name) {
 			case "decay_generator" -> new GSDecayGeneratorRecipeRegistry(name);
 			case "machine_diaphragm" -> new GSDiaphragmRecipeRegistry(name);
-			case "machine_sieve_tray" -> new GSSieveTrayRecipeRegistry(name);
+			case "machine_sieve_assembly" -> new GSSieveAssemblyRecipeRegistry(name);
 			case "multiblock_electrolyzer" -> new GSMultiblockElectrolyzerRecipeRegistry(name);
 			case "electrolyzer_cathode" -> new GSElectrolyzerCathodeRecipeRegistry(name);
 			case "electrolyzer_anode" -> new GSElectrolyzerAnodeRecipeRegistry(name);

@@ -148,12 +148,12 @@ info.nuclearcraft.diaphragm.fixd=Diaphragm
 info.nuclearcraft.diaphragm.efficiency.fixd=Efficiency Multiplier: %s
 info.nuclearcraft.diaphragm.contact.fixd=Contact Factor: %s
 
-tile.nuclearcraft.machine_sieve_tray.steel.name=Steel Sieve Tray Assembly
-tile.nuclearcraft.machine_sieve_tray.polytetrafluoroethene.name=PTFE Sieve Tray Assembly
-tile.nuclearcraft.machine_sieve_tray.hastelloy.name=Hastelloy Sieve Tray Assembly
+tile.nuclearcraft.machine_sieve_assembly.steel.name=Steel Sieve Assembly
+tile.nuclearcraft.machine_sieve_assembly.polytetrafluoroethene.name=PTFE Sieve Assembly
+tile.nuclearcraft.machine_sieve_assembly.hastelloy.name=Hastelloy Sieve Assembly
 
-info.nuclearcraft.sieve_tray.fixd=Sieve Tray Assembly
-info.nuclearcraft.sieve_tray.efficiency.fixd=Efficiency Multiplier: %s
+info.nuclearcraft.sieve_assembly.fixd=Sieve Assembly
+info.nuclearcraft.sieve_assembly.efficiency.fixd=Efficiency Multiplier: %s
 
 tile.nuclearcraft.electrolyzer_controller.name=Electrolyzer Controller
 tile.nuclearcraft.electrolyzer_cathode_terminal.name=Electrolyzer Cathode Terminal
@@ -166,7 +166,11 @@ info.nuclearcraft.electrode.fixd=Electrolyzer Electrode
 info.nuclearcraft.electrode.efficiency.cathode.fixd=Cathode Efficiency Multiplier: %s
 info.nuclearcraft.electrode.efficiency.anode.fixd=Anode Efficiency Multiplier: %s
 
-tile.nuclearcraft.distiller_controller.name=Distiller Controller (WIP)
+tile.nuclearcraft.distiller_controller.name=Distiller Controller
+tile.nuclearcraft.distiller_sieve_tray.name=Distiller Sieve Tray
+tile.nuclearcraft.distiller_reflux_unit.name=Distiller Reflux Unit
+tile.nuclearcraft.distiller_reboiling_unit.name=Distiller Reboiling Unit
+tile.nuclearcraft.distiller_liquid_distributor.name=Distiller Liquid Distributor
 
 tile.nuclearcraft.rtg_uranium.name=Uranium RTG
 tile.nuclearcraft.rtg_plutonium.name=Plutonium RTG
@@ -671,6 +675,9 @@ fluid.tetrafluoroethene=Tetrafluoroethylene
 
 tile.nuclearcraft.fluid_hydrogen_sulfide.name=Hydrogen Sulfide
 fluid.hydrogen_sulfide=Hydrogen Sulfide
+
+tile.nuclearcraft.fluid_depleted_hydrogen_sulfide.name=Depleted Hydrogen Sulfide
+fluid.depleted_hydrogen_sulfide=Depleted Hydrogen Sulfide
 
 tile.nuclearcraft.fluid_sulfuric_acid.name=Sulfuric Acid
 fluid.sulfuric_acid=Sulfuric Acid
@@ -2427,6 +2434,8 @@ jei.nuclearcraft.collector_production_rate=Production Rate:
 jei.nuclearcraft.electrolyte=Electrolyte:
 jei.nuclearcraft.electrolyte_efficiency=Efficiency Multiplier:
 
+jei.nuclearcraft.distiller_sieve_tray_count=Minimum Sieve Tray Count:
+
 jei.nuclearcraft.irradiator_flux_required=Total Flux Required:
 jei.nuclearcraft.irradiator_heat_per_flux=Heat Gen Per Flux:
 jei.nuclearcraft.irradiator_process_efficiency=Efficiency Bonus:
@@ -2650,8 +2659,8 @@ gui.nc.config.machine_diaphragm_efficiency=Diaphragm Efficiency Multipliers
 gui.nc.config.machine_diaphragm_efficiency.comment=Efficiency multipliers for diaphragms of this type. Order: sintered steel, PESU, zirfon.
 gui.nc.config.machine_diaphragm_contact_factor=Diaphragm Contact Factors
 gui.nc.config.machine_diaphragm_contact_factor.comment=Contact factors for diaphragms of this type. Order: sintered steel, PESU, zirfon.
-gui.nc.config.machine_sieve_tray_efficiency=Sieve Tray Efficiency Multipliers
-gui.nc.config.machine_sieve_tray_efficiency.comment=Efficiency multipliers for sieve trays of this type. Order: steel, PTFE, hastelloy.
+gui.nc.config.machine_sieve_assembly_efficiency=Sieve Assembly Efficiency Multipliers
+gui.nc.config.machine_sieve_assembly_efficiency.comment=Efficiency multipliers for sieve assemblies of this type. Order: steel, PTFE, hastelloy.
 
 gui.nc.config.machine_electrolyzer_time=Electrolyzer Process Time
 gui.nc.config.machine_electrolyzer_time.comment=Base ticks per electrolyzer process.
@@ -3288,6 +3297,7 @@ zerocore.api.nc.multiblock.validation.too_few_parts=The multiblock is too small
 zerocore.api.nc.multiblock.validation.machine_too_large=The multiblock is too large, it may be at most %1$d blocks along the %2$s-axis
 zerocore.api.nc.multiblock.validation.machine_too_small=The multiblock is too small, it must be at least %1$d blocks along the %2$s-axis
 zerocore.api.nc.multiblock.validation.invalid_axial_symmetry=Block at %1$d, %2$d, %3$d breaks the multiblock's internal %4$s-axis symmetry
+zerocore.api.nc.multiblock.validation.invalid_planar_symmetry=Block at %1$d, %2$d, %3$d breaks the multiblock's internal %4$s-plane symmetry
 zerocore.api.nc.multiblock.validation.invalid_part=Block at %1$d, %2$d, %3$d is incompatible with this multiblock
 zerocore.api.nc.multiblock.validation.invalid_part_disconnected=Block at %1$d, %2$d, %3$d is not connected to this multiblock
 zerocore.api.nc.multiblock.validation.invalid_part_for_frame=Block at %1$d, %2$d, %3$d is not valid for use in the multiblock's frame
@@ -3306,6 +3316,11 @@ nuclearcraft.multiblock_validation.electrolyzer.invalid_anode_terminal=Anode ter
 nuclearcraft.multiblock_validation.electrolyzer.invalid_cathode_recipe=Opposing cathode terminals must be connected by valid cathode blocks for the electrolyzer to form
 nuclearcraft.multiblock_validation.electrolyzer.invalid_anode_recipe=Opposing anode terminals must be connected by valid anode blocks for the electrolyzer to form
 nuclearcraft.multiblock_validation.electrolyzer.short_circuit=Cathodes and anodes must be installed in different diaphragm-separated regions of the electrolyzer for it to form
+
+nuclearcraft.multiblock_validation.distiller.invalid_sieve_recipe=Sieve trays must have valid sieve assembly blocks above them for the distiller to form
+nuclearcraft.multiblock_validation.distiller.invalid_reflux_unit=Reflux units must be installed in the top layer of the distiller for it to form
+nuclearcraft.multiblock_validation.distiller.invalid_reboiling_unit=Reboiling units must be installed in the bottom layer of the distiller for it to form
+nuclearcraft.multiblock_validation.distiller.invalid_liquid_distributor=Liquid Distributors must be installed in the top layer of the distiller for it to form
 
 nuclearcraft.multiblock_validation.fission_reactor.prohibit_cells=This is not a solid fuel reactor - there must be no cells for it to form
 nuclearcraft.multiblock_validation.fission_reactor.prohibit_sinks=This is not a solid fuel reactor - there must be no sinks for it to form
@@ -3412,7 +3427,10 @@ gui.nc.container.electrolyzer_controller.electrolyzer=Electrolyzer
 gui.nc.container.electrolyzer_controller.electrode_efficiency=Electrode Efficiency:
 gui.nc.container.electrolyzer_controller.electrolyte_efficiency=Electrolyte Efficiency:
 
-gui.nc.container.distiller_controller.distiller=Distiller (WIP)
+gui.nc.container.distiller_controller.distiller=Distiller
+gui.nc.container.distiller_controller.reflux_bonus=Reflux Bonus:
+gui.nc.container.distiller_controller.reboiling_bonus=Reboiling Bonus:
+gui.nc.container.distiller_controller.distribution_bonus=Distribution Bonus:
 
 gui.nc.container.no_cluster=No cluster!
 
@@ -3529,7 +3547,7 @@ gui.nc.container.shift_clear_multiblock=Shift click to clear out ALL components'
 
 nuclearcraft.collector.jei_name=Collector
 nuclearcraft.machine_diaphragm.jei_name=Diaphragm
-nuclearcraft.machine_sieve_tray.jei_name=Sieve Tray
+nuclearcraft.machine_sieve_assembly.jei_name=Sieve Assembly
 nuclearcraft.multiblock_electrolyzer.jei_name=Multiblock Electrolyzer
 nuclearcraft.electrolyzer_cathode.jei_name=Electrolyzer Cathode
 nuclearcraft.electrolyzer_anode.jei_name=Electrolyzer Anode
@@ -4081,3 +4099,4 @@ nc.sf.ordinal12=twelfth
 nc.sf.ordinal13=thirteenth
 nc.sf.ordinal14=fourteenth
 nc.sf.ordinal15=fifteenth
+nc.sf.ordinal16=sixteenth

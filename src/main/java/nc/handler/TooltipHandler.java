@@ -83,9 +83,9 @@ public class TooltipHandler {
 			InfoHelper.infoFull(tooltip, new TextFormatting[] {TextFormatting.UNDERLINE, TextFormatting.LIGHT_PURPLE, TextFormatting.RED}, NCInfo.machineDiaphragmFixedInfo(recipe), TextFormatting.AQUA, NCInfo.machineDiaphragmInfo());
 		}
 		
-		recipe = recipeFunction.apply(NCRecipes.machine_sieve_tray);
+		recipe = recipeFunction.apply(NCRecipes.machine_sieve_assembly);
 		if (recipe != null) {
-			InfoHelper.infoFull(tooltip, new TextFormatting[] {TextFormatting.UNDERLINE, TextFormatting.LIGHT_PURPLE}, NCInfo.machineSieveTrayFixedInfo(recipe), TextFormatting.AQUA, NCInfo.machineSieveTrayInfo());
+			InfoHelper.infoFull(tooltip, new TextFormatting[] {TextFormatting.UNDERLINE, TextFormatting.LIGHT_PURPLE}, NCInfo.machineSieveAssemblyFixedInfo(recipe), TextFormatting.AQUA, NCInfo.machineSieveAssemblyInfo());
 		}
 		
 		BasicRecipe cathodeRecipe = recipeFunction.apply(NCRecipes.electrolyzer_cathode), anodeRecipe = recipeFunction.apply(NCRecipes.electrolyzer_anode);

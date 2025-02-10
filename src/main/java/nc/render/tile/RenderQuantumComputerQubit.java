@@ -35,11 +35,11 @@ public class RenderQuantumComputerQubit extends TileEntitySpecialRenderer<TileQu
 		GlStateManager.pushMatrix();
 		GlStateManager.disableTexture2D();
 		
-		BlockPos pos = qubit.getPos();
-		GlStateManager.translate(posX - pos.getX(), posY - pos.getY(), posZ - pos.getZ());
+		BlockPos qubitPos = qubit.getPos();
+		GlStateManager.translate(posX - qubitPos.getX(), posY - qubitPos.getY(), posZ - qubitPos.getZ());
 		
 		GlStateManager.color(r, g, b);
-		NCRenderHelper.renderBlockFaces(pos, 8F, r, g, b, 1F);
+		NCRenderHelper.renderBlockFaces(qubitPos, 8F, r, g, b, 1F);
 		Tessellator.getInstance().draw();
 		
 		GlStateManager.enableTexture2D();

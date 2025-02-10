@@ -236,6 +236,38 @@ public abstract class CuboidalMultiblock<MULTIBLOCK extends CuboidalMultiblock<M
 		return true;
 	}
 	
+	public boolean hasPlanarSymmetry(EnumFacing.Axis axis) {
+		if (axis == null) {
+			return true;
+		}
+		
+		EnumFacing normal = PosHelper.getAxisDirectionDir(axis, EnumFacing.AxisDirection.NEGATIVE);
+		int interiorLength = getInteriorLength(normal);
+		
+		for (int i = 0; i < interiorLength; ++i) {
+			ItemStack stack = null;
+			for (BlockPos pos : getInteriorPlane(normal, i, 0, 0, 0, 0)) {
+				IBlockState state = WORLD.getBlockState(pos);
+				if (stack == null) {
+					stack = StackHelper.blockStateToStack(state);
+				}
+				else if ((!stack.isEmpty() || !state.getMaterial().equals(Material.AIR)) && !stack.isItemEqual(StackHelper.blockStateToStack(state))) {
+					if (getLastError() == null) {
+						String planeName = switch (axis) {
+							case X -> "YZ";
+							case Y -> "XZ";
+							case Z -> "XY";
+						};
+						setLastError("zerocore.api.nc.multiblock.validation.invalid_planar_symmetry", pos, pos.getX(), pos.getY(), pos.getZ(), planeName);
+					}
+					return false;
+				}
+			}
+		}
+		
+		return true;
+	}
+	
 	protected BlockPos getMinimumInteriorCoord() {
 		return new BlockPos(getMinInteriorX(), getMinInteriorY(), getMinInteriorZ());
 	}

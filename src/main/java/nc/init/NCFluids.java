@@ -89,7 +89,8 @@ public class NCFluids {
 		addFluidPair(FluidType.GAS, "sulfur_dioxide", 0xC3BC7A);
 		addFluidPair(FluidType.GAS, "sulfur_trioxide", 0xD3AE5D);
 		addFluidPair(FluidType.GAS, "tetrafluoroethene", 0x7EA542);
-		addFluidPair(FluidType.GAS, "hydrogen_sulfide", 0xC8AC9E);
+		addFluidPair(FluidType.GAS, "hydrogen_sulfide", 0x785830);
+		addFluidPair(FluidType.GAS, "depleted_hydrogen_sulfide", 0x59514E);
 		
 		addFluidPair(FluidType.ACID, "hydrofluoric_acid", 0x004C05);
 		addFluidPair(FluidType.ACID, "boric_acid", 0x696939);

@@ -12,22 +12,35 @@ import java.util.List;
 
 public class DistillerUpdatePacket extends MachineUpdatePacket {
 	
+	public double refluxUnitBonus;
+	public double reboilingUnitBonus;
+	public double liquidDistributorBonus;
+	
 	public DistillerUpdatePacket() {
 		super();
 	}
 	
-	public DistillerUpdatePacket(BlockPos pos, boolean isMachineOn, boolean isProcessing, double time, double baseProcessTime, double baseProcessPower, List<Tank> tanks, double baseSpeedMultiplier, double basePowerMultiplier, RecipeUnitInfo recipeUnitInfo) {
+	public DistillerUpdatePacket(BlockPos pos, boolean isMachineOn, boolean isProcessing, double time, double baseProcessTime, double baseProcessPower, List<Tank> tanks, double baseSpeedMultiplier, double basePowerMultiplier, RecipeUnitInfo recipeUnitInfo, double refluxUnitBonus, double reboilingUnitBonus, double liquidDistributorBonus) {
 		super(pos, isMachineOn, isProcessing, time, baseProcessTime, baseProcessPower, tanks, baseSpeedMultiplier, basePowerMultiplier, recipeUnitInfo);
+		this.refluxUnitBonus = refluxUnitBonus;
+		this.reboilingUnitBonus = reboilingUnitBonus;
+		this.liquidDistributorBonus = liquidDistributorBonus;
 	}
 	
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		super.fromBytes(buf);
+		refluxUnitBonus = buf.readDouble();
+		reboilingUnitBonus = buf.readDouble();
+		liquidDistributorBonus = buf.readDouble();
 	}
 	
 	@Override
 	public void toBytes(ByteBuf buf) {
 		super.toBytes(buf);
+		buf.writeDouble(refluxUnitBonus);
+		buf.writeDouble(reboilingUnitBonus);
+		buf.writeDouble(liquidDistributorBonus);
 	}
 	
 	public static class Handler extends MultiblockUpdatePacket.Handler<Machine, IMachinePart, MachineUpdatePacket, TileDistillerController, TileContainerInfo<TileDistillerController>, DistillerUpdatePacket> {

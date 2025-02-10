@@ -55,9 +55,9 @@ public class GSBasicRecipeRegistryImpl {
 	}
 	
 	@RegistryDescription
-	public static class GSSieveTrayRecipeRegistry extends GSBasicRecipeRegistry {
+	public static class GSSieveAssemblyRecipeRegistry extends GSBasicRecipeRegistry {
 		
-		public GSSieveTrayRecipeRegistry(String name) {
+		public GSSieveAssemblyRecipeRegistry(String name) {
 			super(name);
 		}
 		

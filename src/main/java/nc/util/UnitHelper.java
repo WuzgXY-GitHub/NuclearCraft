@@ -2,6 +2,9 @@ package nc.util;
 
 import net.minecraft.util.math.MathHelper;
 
+import java.math.*;
+import java.util.function.*;
+
 public class UnitHelper {
 	
 	public static final String[] SI_PREFIX = new String[] {" q", " r", " y", " z", " a", " f", " p", " n", " u", " m", " ", " k", " M", " G", " T", " P", " E", " Z", " Y", " R", " Q"};
@@ -104,6 +107,7 @@ public class UnitHelper {
 		
 		boolean descending = true;
 		int length, maxLengthFixed = Math.max(maxLength, 3);
+		DoubleFunction<String> sigFigs = x -> new BigDecimal(x).round(new MathContext(maxLengthFixed)).toPlainString();
 		while (prefixNumber < SI_PREFIX.length - 1) {
 			length = NCMath.numberLength((long) value);
 			if (descending) {
@@ -112,8 +116,8 @@ public class UnitHelper {
 					continue;
 				}
 				if ((long) value != 0L) {
-					slashMaxVal = !hasMax ? "" : SI_PREFIX[prefixNumber] + unit + " / " + (long) max;
-					return sign + (long) value + slashMaxVal + SI_PREFIX[prefixNumber] + unit;
+					slashMaxVal = !hasMax ? "" : SI_PREFIX[prefixNumber] + unit + " / " + sigFigs.apply(max);
+					return sign + sigFigs.apply(value) + slashMaxVal + SI_PREFIX[prefixNumber] + unit;
 				}
 				value = NCMath.magnitudeMult(value, 3);
 				max = NCMath.magnitudeMult(max, 3);
@@ -121,8 +125,8 @@ public class UnitHelper {
 			}
 			else {
 				if (length <= maxLengthFixed) {
-					slashMaxVal = !hasMax ? "" : SI_PREFIX[prefixNumber] + unit + " / " + (long) max;
-					return sign + (long) value + slashMaxVal + SI_PREFIX[prefixNumber] + unit;
+					slashMaxVal = !hasMax ? "" : SI_PREFIX[prefixNumber] + unit + " / " + sigFigs.apply(max);
+					return sign + sigFigs.apply(value) + slashMaxVal + SI_PREFIX[prefixNumber] + unit;
 				}
 				value = NCMath.magnitudeMult(value, -3);
 				max = NCMath.magnitudeMult(max, -3);
@@ -132,8 +136,8 @@ public class UnitHelper {
 				descending = false;
 			}
 		}
-		slashMaxVal = !hasMax ? "" : SI_PREFIX[SI_PREFIX.length - 1] + unit + " / " + (long) NCMath.magnitudeMult(max, -3);
-		return sign + (long) NCMath.magnitudeMult(value, -3) + slashMaxVal + SI_PREFIX[SI_PREFIX.length - 1] + unit;
+		slashMaxVal = !hasMax ? "" : SI_PREFIX[SI_PREFIX.length - 1] + unit + " / " + sigFigs.apply(NCMath.magnitudeMult(max, -3));
+		return sign + sigFigs.apply(NCMath.magnitudeMult(value, -3)) + slashMaxVal + SI_PREFIX[SI_PREFIX.length - 1] + unit;
 	}
 	
 	public static String prefix(double value, int maxLength, String unit, int startingPrefix) {

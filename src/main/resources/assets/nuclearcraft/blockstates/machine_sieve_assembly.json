@@ -7,17 +7,17 @@
 		"type": {
 			"steel": {
 				"textures": {
-					"all": "nuclearcraft:blocks/machine/sieve_tray/steel"
+					"all": "nuclearcraft:blocks/machine/sieve_assembly/steel"
 				}
 			},
 			"polytetrafluoroethene": {
 				"textures": {
-					"all": "nuclearcraft:blocks/machine/sieve_tray/polytetrafluoroethene"
+					"all": "nuclearcraft:blocks/machine/sieve_assembly/polytetrafluoroethene"
 				}
 			},
 			"hastelloy": {
 				"textures": {
-					"all": "nuclearcraft:blocks/machine/sieve_tray/hastelloy"
+					"all": "nuclearcraft:blocks/machine/sieve_assembly/hastelloy"
 				}
 			}
 		}

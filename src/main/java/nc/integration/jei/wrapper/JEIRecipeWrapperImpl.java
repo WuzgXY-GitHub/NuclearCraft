@@ -356,9 +356,9 @@ public class JEIRecipeWrapperImpl {
 		}
 	}
 	
-	public static class MachineSieveTrayRecipeWrapper extends JEISimpleRecipeWrapper<MachineSieveTrayRecipeWrapper> {
+	public static class MachineSieveAssemblyRecipeWrapper extends JEISimpleRecipeWrapper<MachineSieveAssemblyRecipeWrapper> {
 		
-		public MachineSieveTrayRecipeWrapper(IGuiHelper guiHelper, JEISimpleCategoryInfo<MachineSieveTrayRecipeWrapper> categoryInfo, BasicRecipe recipe) {
+		public MachineSieveAssemblyRecipeWrapper(IGuiHelper guiHelper, JEISimpleCategoryInfo<MachineSieveAssemblyRecipeWrapper> categoryInfo, BasicRecipe recipe) {
 			super(guiHelper, categoryInfo, recipe);
 		}
 		
@@ -385,7 +385,7 @@ public class JEIRecipeWrapperImpl {
 		
 		@Override
 		protected int getProgressArrowTime() {
-			return (int) (getBaseProcessTime() / 4D);
+			return (int) getBaseProcessTime();
 		}
 		
 		protected double getBaseProcessTime() {
@@ -492,6 +492,13 @@ public class JEIRecipeWrapperImpl {
 			return recipe.getBaseProcessPower(machine_distiller_power);
 		}
 		
+		protected long getDistillerSieveTrayCount() {
+			if (recipe == null) {
+				return 0L;
+			}
+			return recipe.getDistillerSieveTrayCount();
+		}
+		
 		protected double getBaseProcessRadiation() {
 			if (recipe == null) {
 				return 0D;
@@ -506,6 +513,7 @@ public class JEIRecipeWrapperImpl {
 			if (showTooltip(mouseX, mouseY)) {
 				tooltip.add(TextFormatting.GREEN + BASE_TIME + " " + TextFormatting.WHITE + UnitHelper.applyTimeUnitShort(getBaseProcessTime(), 3));
 				tooltip.add(TextFormatting.LIGHT_PURPLE + BASE_POWER + " " + TextFormatting.WHITE + UnitHelper.prefix(getBaseProcessPower(), 5, "RF/t"));
+				tooltip.add(TextFormatting.GRAY + SIEVE_TRAY_COUNT + " " + TextFormatting.WHITE + getDistillerSieveTrayCount());
 				double radiation = getBaseProcessRadiation();
 				if (radiation > 0D) {
 					tooltip.add(TextFormatting.GOLD + BASE_RADIATION + " " + RadiationHelper.radsColoredPrefix(radiation, true));
@@ -517,6 +525,7 @@ public class JEIRecipeWrapperImpl {
 		
 		public static final String BASE_TIME = Lang.localize("jei.nuclearcraft.base_process_time");
 		public static final String BASE_POWER = Lang.localize("jei.nuclearcraft.base_process_power");
+		public static final String SIEVE_TRAY_COUNT = Lang.localize("jei.nuclearcraft.distiller_sieve_tray_count");
 		public static final String BASE_RADIATION = Lang.localize("jei.nuclearcraft.base_process_radiation");
 	}
 	

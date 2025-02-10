@@ -2,6 +2,7 @@ package nc.init;
 
 import nc.*;
 import nc.block.*;
+import nc.block.BlockMeta.BlockMachineSieveAssembly;
 import nc.block.battery.*;
 import nc.block.fission.*;
 import nc.block.fission.manager.*;
@@ -85,13 +86,17 @@ public class NCBlocks {
 	public static Block machine_computer_port;
 	
 	public static Block machine_diaphragm;
-	public static Block machine_sieve_tray;
+	public static Block machine_sieve_assembly;
 	
 	public static Block electrolyzer_controller;
 	public static Block electrolyzer_cathode_terminal;
 	public static Block electrolyzer_anode_terminal;
 	
 	public static Block distiller_controller;
+	public static Block distiller_sieve_tray;
+	public static Block distiller_reflux_unit;
+	public static Block distiller_reboiling_unit;
+	public static Block distiller_liquid_distributor;
 	
 	public static Block rtg_uranium;
 	public static Block rtg_plutonium;
@@ -306,13 +311,17 @@ public class NCBlocks {
 		machine_computer_port = addWithName(Global.MOD_ID, "machine_computer_port", new BlockMachineComputerPort());
 		
 		machine_diaphragm = addWithNameMeta(Global.MOD_ID, "machine_diaphragm", new BlockMeta.BlockMachineDiaphragm());
-		machine_sieve_tray = addWithNameMeta(Global.MOD_ID, "machine_sieve_tray", new BlockMeta.BlockMachineSieveTray());
+		machine_sieve_assembly = addWithNameMeta(Global.MOD_ID, "machine_sieve_assembly", new BlockMachineSieveAssembly());
 		
 		electrolyzer_controller = addWithName(Global.MOD_ID, "electrolyzer_controller", new BlockElectrolyzerController());
 		electrolyzer_cathode_terminal = addWithName(Global.MOD_ID, "electrolyzer_cathode_terminal", new BlockElectrolyzerCathodeTerminal());
 		electrolyzer_anode_terminal = addWithName(Global.MOD_ID, "electrolyzer_anode_terminal", new BlockElectrolyzerAnodeTerminal());
 		
 		distiller_controller = addWithName(Global.MOD_ID, "distiller_controller", new BlockDistillerController());
+		distiller_sieve_tray = addWithName(Global.MOD_ID, "distiller_sieve_tray", new BlockDistillerSieveTray());
+		distiller_reflux_unit = addWithName(Global.MOD_ID, "distiller_reflux_unit", new BlockDistillerRefluxUnit());
+		distiller_reboiling_unit = addWithName(Global.MOD_ID, "distiller_reboiling_unit", new BlockDistillerReboilingUnit());
+		distiller_liquid_distributor = addWithName(Global.MOD_ID, "distiller_liquid_distributor", new BlockDistillerLiquidDistributor());
 		
 		IntFunction<String[]> rtgInfo = x -> InfoHelper.formattedInfo(infoLine(Global.MOD_ID, "rtg"), UnitHelper.prefix(rtg_power[x], 5, "RF/t"));
 		rtg_uranium = addWithName(Global.MOD_ID, "rtg_uranium", new BlockRTG(RTGType.URANIUM), rtgInfo.apply(0));

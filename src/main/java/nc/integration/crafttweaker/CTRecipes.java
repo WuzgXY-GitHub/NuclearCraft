@@ -663,13 +663,13 @@ public class CTRecipes {
 		}
 	}
 	
-	@ZenClass("mods.nuclearcraft.SieveTray")
+	@ZenClass("mods.nuclearcraft.SieveAssembly")
 	@ZenRegister
-	public static class SieveTrayMethods {
+	public static class SieveAssemblyMethods {
 		
 		@ZenMethod
 		public static BasicRecipeHandler getRecipeHandler() {
-			return NCRecipes.machine_sieve_tray;
+			return NCRecipes.machine_sieve_assembly;
 		}
 		
 		@ZenMethod
@@ -798,8 +798,8 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input1, IIngredient input2, IIngredient output1, IIngredient output2, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input1, input2, output1, output2, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient input1, IIngredient input2, IIngredient output1, IIngredient output2, IIngredient output3, IIngredient output4, IIngredient output5, IIngredient output6, IIngredient output7, IIngredient output8, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(input1, input2, output1, output2, output3, output4, output5, output6, output7, output8, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
@@ -808,8 +808,8 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output1, IIngredient output2) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output1, output2);
+		public static void removeRecipeWithOutput(IIngredient output1, IIngredient output2, IIngredient output3, IIngredient output4, IIngredient output5, IIngredient output6, IIngredient output7, IIngredient output8) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(output1, output2, output3, output4, output5, output6, output7, output8);
 		}
 		
 		@ZenMethod

@@ -96,6 +96,17 @@ public class TileMachineProcessPort extends TileMachinePart implements ITickable
 			return;
 		}
 		
+		if (tankIndex >= 0 && logic.tankCount() == 0) {
+			setting = 0;
+			slot = 0;
+			tankIndex = -1;
+		}
+		else if (slot >= 0 && logic.inventorySize() == 0) {
+			setting = 0;
+			slot = -1;
+			tankIndex = 0;
+		}
+		
 		if (slot < 0) {
 			backupStacks = NonNullList.withSize(0, ItemStack.EMPTY);
 			backupTanks = Collections.singletonList(new Tank(1, new ObjectOpenHashSet<>()));
@@ -109,6 +120,7 @@ public class TileMachineProcessPort extends TileMachinePart implements ITickable
 			backupFluidConnections = ITileFluid.fluidConnectionAll(Collections.emptyList());
 		}
 		
+		setProperty(BlockProperties.MACHINE_PORT_SORPTION, getMachinePortSorption());
 		markDirtyAndNotify(true);
 	}
 	
@@ -440,9 +452,7 @@ public class TileMachineProcessPort extends TileMachinePart implements ITickable
 	public boolean onUseMultitool(ItemStack multitool, EntityPlayerMP player, World worldIn, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (getMultiblock() != null) {
 			incrementItemFluidData(player.isSneaking());
-			setProperty(BlockProperties.MACHINE_PORT_SORPTION, getMachinePortSorption());
 			player.sendMessage(new TextComponentString(Lang.localize("nc.block.port_toggle") + " " + getMachinePortSettingString() + " " + TextFormatting.WHITE + Lang.localize("nc.block.port_toggle.mode")));
-			markDirtyAndNotify(true);
 			return true;
 		}
 		return super.onUseMultitool(multitool, player, worldIn, facing, hitX, hitY, hitZ);

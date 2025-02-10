@@ -71,6 +71,10 @@ public class NCTiles {
 		registerTile(Global.MOD_ID, "electrolyzer_anode_terminal", TileElectrolyzerAnodeTerminal.class);
 		
 		registerTile(Global.MOD_ID, "distiller_controller", TileDistillerController.class);
+		registerTile(Global.MOD_ID, "distiller_sieve_tray", TileDistillerSieveTray.class);
+		registerTile(Global.MOD_ID, "distiller_reflux_unit", TileDistillerRefluxUnit.class);
+		registerTile(Global.MOD_ID, "distiller_reboiling_unit", TileDistillerReboilingUnit.class);
+		registerTile(Global.MOD_ID, "distiller_liquid_distributor", TileDistillerLiquidDistributor.class);
 		
 		registerTile(Global.MOD_ID, "fission_casing", TileFissionCasing.class);
 		registerTile(Global.MOD_ID, "fission_glass", TileFissionGlass.class);

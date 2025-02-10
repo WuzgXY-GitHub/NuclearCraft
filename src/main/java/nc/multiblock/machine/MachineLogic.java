@@ -266,6 +266,7 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 		if (!getWorld().isRemote) {
 			setupMachine();
 			refreshAll();
+			setIsMachineOn(isProcessing);
 			
 			for (TileMachineProcessPort port : getParts(TileMachineProcessPort.class)) {
 				port.setItemFluidData();
@@ -298,10 +299,7 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 	}
 	
 	public void onMachineBroken() {
-		multiblock.isMachineOn = false;
-		if (multiblock.controller != null) {
-			multiblock.controller.setActivity(false);
-		}
+		setIsMachineOn(false);
 	}
 	
 	@Override
@@ -374,14 +372,14 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 			return false;
 		}
 		else {
-			setIsMachineOn();
+			setIsMachineOn(isProcessing);
 			return true;
 		}
 	}
 	
-	public void setIsMachineOn() {
+	public void setIsMachineOn(boolean isMachineOn) {
 		boolean oldIsMachineOn = multiblock.isMachineOn;
-		multiblock.isMachineOn = isProcessing;
+		multiblock.isMachineOn = isMachineOn;
 		if (multiblock.isMachineOn != oldIsMachineOn) {
 			if (multiblock.controller != null) {
 				multiblock.controller.setActivity(multiblock.isMachineOn);

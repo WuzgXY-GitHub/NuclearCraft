@@ -109,7 +109,7 @@ public class NCConfig {
 	public static int machine_max_size; // Default: 24
 	public static double[] machine_diaphragm_efficiency;
 	public static double[] machine_diaphragm_contact_factor;
-	public static double[] machine_sieve_tray_efficiency;
+	public static double[] machine_sieve_assembly_efficiency;
 	
 	public static int machine_electrolyzer_time;
 	public static int machine_electrolyzer_power;
@@ -549,17 +549,17 @@ public class NCConfig {
 		machine_max_size = sync(CATEGORY_MACHINE, "machine_max_size", 24, 3, 255);
 		machine_diaphragm_efficiency = sync(CATEGORY_FISSION, "machine_diaphragm_efficiency", new double[] {0.8D, 0.9D, 1D}, 0D, 255D, ARRAY);
 		machine_diaphragm_contact_factor = sync(CATEGORY_FISSION, "machine_diaphragm_contact_factor", new double[] {1D, 1.5D, 2D}, 0D, 255D, ARRAY);
-		machine_sieve_tray_efficiency = sync(CATEGORY_FISSION, "machine_sieve_tray_efficiency", new double[] {0.8D, 0.9D, 1D}, 0D, 255D, ARRAY);
+		machine_sieve_assembly_efficiency = sync(CATEGORY_FISSION, "machine_sieve_assembly_efficiency", new double[] {0.8D, 0.9D, 1D}, 0D, 255D, ARRAY);
 		
-		machine_electrolyzer_time = sync(CATEGORY_MACHINE, "machine_electrolyzer_time", 40, 1, 128000);
-		machine_electrolyzer_power = sync(CATEGORY_MACHINE, "machine_electrolyzer_power", 100, 1, 128000);
+		machine_electrolyzer_time = sync(CATEGORY_MACHINE, "machine_electrolyzer_time", 20, 1, 128000);
+		machine_electrolyzer_power = sync(CATEGORY_MACHINE, "machine_electrolyzer_power", 320, 1, 128000);
 		machine_cathode_efficiency = sync(CATEGORY_MACHINE, "machine_cathode_efficiency", new String[] {"Iron@0.6", "Nickel@0.7", "Molybdenum@0.8", "Cobalt@0.9", "Platinum@1.0", "Palladium@1.0"}, LIST);
 		machine_anode_efficiency = sync(CATEGORY_MACHINE, "machine_anode_efficiency", new String[] {"CopperOxide@0.6", "TinOxide@0.6", "NickelOxide@0.7", "CobaltOxide@0.8", "RutheniumOxide@0.9", "IridiumOxide@1.0"}, LIST);
 		machine_electrolyzer_sound_volume = sync(CATEGORY_MACHINE, "machine_electrolyzer_sound_volume", 1D, 0D, 15D);
 		machine_electrolyzer_particles = sync(CATEGORY_MACHINE, "machine_electrolyzer_particles", 0.025D, 0D, 1D);
 		
-		machine_distiller_time = sync(CATEGORY_MACHINE, "machine_distiller_time", 1600, 1, 128000);
-		machine_distiller_power = sync(CATEGORY_MACHINE, "machine_distiller_power", 20, 1, 128000);
+		machine_distiller_time = sync(CATEGORY_MACHINE, "machine_distiller_time", 3200, 1, 128000);
+		machine_distiller_power = sync(CATEGORY_MACHINE, "machine_distiller_power", 40, 1, 128000);
 		
 		fission_min_size = sync(CATEGORY_FISSION, "fission_min_size", 1, 1, 255);
 		fission_max_size = sync(CATEGORY_FISSION, "fission_max_size", 24, 3, 255);

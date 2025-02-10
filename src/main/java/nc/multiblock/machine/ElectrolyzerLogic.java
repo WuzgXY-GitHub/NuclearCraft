@@ -114,6 +114,9 @@ public class ElectrolyzerLogic extends MachineLogic {
 			return false;
 		}
 		
+		baseSpeedMultiplier = 0D;
+		basePowerMultiplier = 0D;
+		
 		Long2ObjectMap<TileElectrolyzerCathodeTerminal> cathodeMap = getPartMap(TileElectrolyzerCathodeTerminal.class);
 		Long2ObjectMap<TileElectrolyzerAnodeTerminal> anodeMap = getPartMap(TileElectrolyzerAnodeTerminal.class);
 		
@@ -251,8 +254,6 @@ public class ElectrolyzerLogic extends MachineLogic {
 			region.efficiencyMult = diaphragmEfficiencyMult;
 		}
 		
-		baseSpeedMultiplier = 0D;
-		
 		for (ElectrolyzerRegion region : regions) {
 			double cathodeRegionEfficiency = region.efficiencyMult;
 			for (Object2DoubleMap.Entry<Vec2i> cathode : region.cathodeMap.object2DoubleEntrySet()) {
@@ -271,8 +272,6 @@ public class ElectrolyzerLogic extends MachineLogic {
 		
 		int cathodeCount = cathodeMap.size(), anodeCount = anodeMap.size();
 		baseSpeedMultiplier *= (double) interiorY * (double) Math.min(cathodeCount, anodeCount) / (double) Math.max(cathodeCount, anodeCount);
-		
-		basePowerMultiplier = 0D;
 		
 		for (ObjectSet<Vec2i> electrodes : Arrays.asList(globalCathodes, globalAnodes)) {
 			for (Vec2i vec : electrodes) {
@@ -372,7 +371,7 @@ public class ElectrolyzerLogic extends MachineLogic {
 				return;
 			}
 			
-			float volume = (float) (machine_electrolyzer_sound_volume * Math.log1p(speedMultiplier / (4D * Math.sqrt(1D + multiblock.getInteriorLengthY()) * electrodeCount * electrodeCount)));
+			float volume = (float) (machine_electrolyzer_sound_volume * Math.log1p(Math.sqrt(speedMultiplier) / (4D * Math.sqrt(1D + multiblock.getInteriorLengthY()) * electrodeCount * electrodeCount)));
 			Consumer<BlockPos> addSound = x -> multiblock.soundMap.put(x, SoundHandler.startBlockSound(NCSounds.electrolyzer_run, x, volume, 1F));
 			
 			for (long posLong : cathodeMap.keySet()) {

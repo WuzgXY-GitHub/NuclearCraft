@@ -1,15 +1,29 @@
 package nc.multiblock.machine;
 
+import it.unimi.dsi.fastutil.ints.*;
 import nc.config.NCConfig;
 import nc.handler.SoundHandler;
 import nc.network.multiblock.*;
 import nc.recipe.*;
+import nc.recipe.ingredient.IFluidIngredient;
+import nc.tile.internal.fluid.Tank.TankInfo;
+import nc.tile.machine.*;
 import nc.tile.multiblock.TilePartAbstract.SyncReason;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing.Axis;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.fml.relauncher.*;
 
+import javax.annotation.Nullable;
+import java.util.*;
+
 public class DistillerLogic extends MachineLogic {
+	
+	public final IntList trayLevels = new IntArrayList();
+	
+	public double refluxUnitFraction, reboilingUnitFraction, liquidDistributorFraction;
+	public double refluxUnitBonus, reboilingUnitBonus, liquidDistributorBonus;
 	
 	public DistillerLogic(Machine machine) {
 		super(machine);
@@ -50,9 +64,93 @@ public class DistillerLogic extends MachineLogic {
 	
 	@Override
 	public boolean isMachineWhole() {
-		if (!super.isMachineWhole() || !multiblock.hasAxialSymmetry(Axis.Y)) {
+		if (!super.isMachineWhole() || !multiblock.hasPlanarSymmetry(Axis.Y)) {
 			return false;
 		}
+		
+		baseSpeedMultiplier = 0D;
+		basePowerMultiplier = 0D;
+		
+		trayLevels.clear();
+		
+		refluxUnitFraction = reboilingUnitFraction = liquidDistributorFraction = 0D;
+		
+		int area = multiblock.getInteriorLengthX() * multiblock.getInteriorLengthZ();
+		if (area <= 0) {
+			return true;
+		}
+		
+		int minY = multiblock.getMinY(), maxY = multiblock.getMaxY();
+		
+		Collection<TileDistillerRefluxUnit> refluxUnits = getParts(TileDistillerRefluxUnit.class);
+		for (TileDistillerRefluxUnit refluxUnit : refluxUnits) {
+			BlockPos pos = refluxUnit.getPos();
+			if (pos.getY() != maxY) {
+				if (multiblock.getLastError() == null) {
+					multiblock.setLastError("nuclearcraft.multiblock_validation.distiller.invalid_reflux_unit", pos);
+				}
+				return false;
+			}
+		}
+		
+		Collection<TileDistillerReboilingUnit> reboilingUnits = getParts(TileDistillerReboilingUnit.class);
+		for (TileDistillerReboilingUnit reboilingUnit : reboilingUnits) {
+			BlockPos pos = reboilingUnit.getPos();
+			if (pos.getY() != minY) {
+				if (multiblock.getLastError() == null) {
+					multiblock.setLastError("nuclearcraft.multiblock_validation.distiller.invalid_reboiling_unit", pos);
+				}
+				return false;
+			}
+		}
+		
+		Collection<TileDistillerLiquidDistributor> liquidDistributors = getParts(TileDistillerLiquidDistributor.class);
+		for (TileDistillerLiquidDistributor liquidDistributor : liquidDistributors) {
+			BlockPos pos = liquidDistributor.getPos();
+			if (pos.getY() != maxY) {
+				if (multiblock.getLastError() == null) {
+					multiblock.setLastError("nuclearcraft.multiblock_validation.distiller.invalid_liquid_distributor", pos);
+				}
+				return false;
+			}
+		}
+		
+		BlockPos corner = multiblock.getExtremeInteriorCoord(false, false, false);
+		IntSet traySieveCache = new IntOpenHashSet();
+		
+		double traySieveEfficiency = 0D, packedSieveEfficiency = 0D;
+		int traySieveCount = 0, packedSieveCount = 0;
+		
+		for (int i = 0, len = multiblock.getInteriorLengthY(); i < len; ++i) {
+			BlockPos pos = corner.up(i);
+			BasicRecipe blockRecipe;
+			if (getWorld().getTileEntity(pos) instanceof TileDistillerSieveTray) {
+				blockRecipe = RecipeHelper.blockRecipe(NCRecipes.machine_sieve_assembly, getWorld().getBlockState(pos.up()));
+				if (blockRecipe == null) {
+					if (multiblock.getLastError() == null) {
+						multiblock.setLastError("nuclearcraft.multiblock_validation.distiller.invalid_sieve_recipe", pos);
+					}
+					return false;
+				}
+				else {
+					trayLevels.add(i);
+					traySieveCache.add(i + 1);
+					traySieveEfficiency += blockRecipe.getMachineSieveAssemblyEfficiency();
+					++traySieveCount;
+				}
+			}
+			else if (!traySieveCache.contains(i) && (blockRecipe = RecipeHelper.blockRecipe(NCRecipes.machine_sieve_assembly, getWorld().getBlockState(pos))) != null) {
+				packedSieveEfficiency += blockRecipe.getMachineSieveAssemblyEfficiency();
+				++packedSieveCount;
+			}
+		}
+		
+		baseSpeedMultiplier = (double) area * (traySieveCount == 0 ? packedSieveEfficiency : (packedSieveCount == 0 ? traySieveEfficiency : (packedSieveCount * traySieveEfficiency + packedSieveEfficiency) / (1D + packedSieveCount)));
+		basePowerMultiplier = (double) area * (double) (traySieveCount + packedSieveCount);
+		
+		refluxUnitFraction = (double) refluxUnits.size() / (double) area;
+		reboilingUnitFraction = (double) reboilingUnits.size() / (double) area;
+		liquidDistributorFraction = (double) liquidDistributors.size() / (double) area;
 		
 		return true;
 	}
@@ -67,6 +165,60 @@ public class DistillerLogic extends MachineLogic {
 	}
 	
 	// Server
+	
+	@Override
+	protected void setRecipeStats(@Nullable BasicRecipe recipe) {
+		super.setRecipeStats(recipe);
+		
+		if (recipe == null) {
+			refluxUnitBonus = reboilingUnitBonus = liquidDistributorBonus = 0D;
+		}
+		else {
+			int liquidCount = 0, gasCount = 0;
+			
+			for (List<IFluidIngredient> fluidIngredientList : Arrays.asList(recipe.getFluidIngredients(), recipe.getFluidProducts())) {
+				for (IFluidIngredient fluidIngredient : fluidIngredientList) {
+					if (!fluidIngredient.isEmpty()) {
+						FluidStack stack = fluidIngredient.getStack();
+						Fluid fluid = stack.getFluid();
+						if (fluid != null) {
+							if (fluid.isGaseous(stack)) {
+								++gasCount;
+							}
+							else {
+								++liquidCount;
+							}
+						}
+					}
+				}
+			}
+			
+			int totalCount = liquidCount + gasCount;
+			refluxUnitBonus = totalCount == 0 ? 0D : refluxUnitFraction * (double) gasCount / (double) totalCount;
+			reboilingUnitBonus = totalCount == 0 ? 0D : reboilingUnitFraction * (double) liquidCount / (double) totalCount;
+			liquidDistributorBonus = liquidDistributorFraction / (1D + trayLevels.size());
+		}
+	}
+	
+	@Override
+	protected double getSpeedMultiplier() {
+		return baseSpeedMultiplier * (1D + refluxUnitBonus) * (1D + reboilingUnitBonus) * (1D + liquidDistributorBonus);
+	}
+	
+	@Override
+	protected double getPowerMultiplier() {
+		return basePowerMultiplier * (1D + refluxUnitBonus) * (1D + reboilingUnitBonus) * (1D + liquidDistributorBonus);
+	}
+	
+	@Override
+	protected boolean readyToProcess() {
+		if (!super.readyToProcess() || baseSpeedMultiplier <= 0D) {
+			return false;
+		}
+		
+		long sieveTrayCount = recipeInfo == null ? 0L : recipeInfo.recipe.getDistillerSieveTrayCount();
+		return sieveTrayCount <= trayLevels.size();
+	}
 	
 	// Client
 	
@@ -104,31 +256,57 @@ public class DistillerLogic extends MachineLogic {
 	@Override
 	public void writeToLogicTag(NBTTagCompound logicTag, SyncReason syncReason) {
 		super.writeToLogicTag(logicTag, syncReason);
+		int trayLevelCount = trayLevels.size();
+		logicTag.setInteger("trayLevelCount", trayLevelCount);
+		for (int i = 0; i < trayLevelCount; ++i) {
+			logicTag.setInteger("trayLevel" + i, trayLevels.getInt(i));
+		}
+		logicTag.setDouble("refluxUnitFraction", refluxUnitFraction);
+		logicTag.setDouble("reboilingUnitFraction", reboilingUnitFraction);
+		logicTag.setDouble("liquidDistributorFraction", liquidDistributorFraction);
+		logicTag.setDouble("refluxUnitBonus", refluxUnitBonus);
+		logicTag.setDouble("reboilingUnitBonus", reboilingUnitBonus);
+		logicTag.setDouble("liquidDistributorBonus", liquidDistributorBonus);
 	}
 	
 	@Override
 	public void readFromLogicTag(NBTTagCompound logicTag, SyncReason syncReason) {
 		super.readFromLogicTag(logicTag, syncReason);
+		if (logicTag.hasKey("trayLevelCount")) {
+			int trayLevelCount = logicTag.getInteger("trayLevelCount");
+			trayLevels.clear();
+			for (int i = 0; i < trayLevelCount; ++i) {
+				trayLevels.add(logicTag.getInteger("trayLevel" + i));
+			}
+		}
+		refluxUnitFraction = logicTag.getDouble("refluxUnitFraction");
+		reboilingUnitFraction = logicTag.getDouble("reboilingUnitFraction");
+		liquidDistributorFraction = logicTag.getDouble("liquidDistributorFraction");
+		refluxUnitBonus = logicTag.getDouble("refluxUnitBonus");
+		reboilingUnitBonus = logicTag.getDouble("reboilingUnitBonus");
+		liquidDistributorBonus = logicTag.getDouble("liquidDistributorBonus");
 	}
 	
 	// Packets
 	
 	@Override
 	public MachineUpdatePacket getMultiblockUpdatePacket() {
-		return new DistillerUpdatePacket(multiblock.controller.getTilePos(), multiblock.isMachineOn, isProcessing, time, baseProcessTime, baseProcessPower, tanks, baseSpeedMultiplier, basePowerMultiplier, recipeUnitInfo);
+		return new DistillerUpdatePacket(multiblock.controller.getTilePos(), multiblock.isMachineOn, isProcessing, time, baseProcessTime, baseProcessPower, tanks, baseSpeedMultiplier, basePowerMultiplier, recipeUnitInfo, refluxUnitBonus, reboilingUnitBonus, liquidDistributorBonus);
 	}
 	
 	@Override
 	public void onMultiblockUpdatePacket(MachineUpdatePacket message) {
 		super.onMultiblockUpdatePacket(message);
 		if (message instanceof DistillerUpdatePacket packet) {
-		
+			refluxUnitBonus = packet.refluxUnitBonus;
+			reboilingUnitBonus = packet.reboilingUnitBonus;
+			liquidDistributorBonus = packet.liquidDistributorBonus;
 		}
 	}
 	
 	@Override
 	public DistillerRenderPacket getRenderPacket() {
-		return new DistillerRenderPacket(multiblock.controller.getTilePos(), multiblock.isMachineOn, isProcessing);
+		return new DistillerRenderPacket(multiblock.controller.getTilePos(), multiblock.isMachineOn, isProcessing, getFluidInputs(false), trayLevels);
 	}
 	
 	@Override
@@ -140,6 +318,9 @@ public class DistillerLogic extends MachineLogic {
 			if (wasProcessing != isProcessing) {
 				multiblock.refreshSounds = true;
 			}
+			TankInfo.readInfoList(packet.tankInfos, getFluidInputs(false));
+			trayLevels.clear();
+			trayLevels.addAll(packet.trayLevels);
 		}
 	}
 }

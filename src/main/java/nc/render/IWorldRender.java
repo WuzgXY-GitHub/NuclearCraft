@@ -1,6 +1,8 @@
 package nc.render;
 
 import com.google.common.collect.ImmutableSet;
+import nc.tile.internal.fluid.Tank;
+import nc.util.ColorHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
@@ -11,7 +13,8 @@ import net.minecraft.util.*;
 import net.minecraft.util.EnumFacing.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.*;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.*;
 import org.lwjgl.opengl.GL11;
 
@@ -36,14 +39,73 @@ public interface IWorldRender {
 		return Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
 	}
 	
+	static void renderFluid(FluidStack stack, double capacity, double xSize, double ySize, double zSize, EnumFacing fillDir) {
+		if (stack == null || stack.amount <= 0) {
+			return;
+		}
+		
+		Fluid fluid = stack.getFluid();
+		if (fluid == null) {
+			return;
+		}
+		
+		int luminosity = 16 * fluid.getLuminosity();
+		float[] lastBrightness = null;
+		
+		if (!FMLClientHandler.instance().hasOptifine() && luminosity > 0) {
+			lastBrightness = new float[] {OpenGlHelper.lastBrightnessX, OpenGlHelper.lastBrightnessY};
+			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, Math.min(luminosity + lastBrightness[0], 240F), Math.min(luminosity + lastBrightness[1], 240F));
+		}
+		
+		boolean gaseous = fluid.isGaseous(stack);
+		int color = fluid.getColor(stack);
+		double fraction = (double) stack.amount / capacity;
+		
+		GlStateManager.color(ColorHelper.getRed(color) / 255F, ColorHelper.getGreen(color) / 255F, ColorHelper.getBlue(color) / 255F, (gaseous ? (float) fraction : 1F) * ColorHelper.getAlpha(color) / 255F);
+		
+		if (fluid.getStill(stack) != null) {
+			GlStateManager.pushMatrix();
+			BlockModelCuboid model = new BlockModelCuboid();
+			model.setTexture(IWorldRender.getStillTexture(fluid));
+			if (gaseous) {
+				model.setSize(xSize, ySize, zSize);
+			}
+			else {
+				Axis axis = fillDir.getAxis();
+				if (fillDir.getAxisDirection().equals(AxisDirection.NEGATIVE)) {
+					switch (axis) {
+						case X -> GlStateManager.translate((1D - fraction) * xSize, 0D, 0D);
+						case Y -> GlStateManager.translate(0D, (1D - fraction) * ySize, 0D);
+						case Z -> GlStateManager.translate(0D, 0D, (1D - fraction) * zSize);
+					}
+				}
+				model.setSize((axis.equals(Axis.X) ? fraction : 1D) * xSize, (axis.equals(Axis.Y) ? fraction : 1D) * ySize, (axis.equals(Axis.Z) ? fraction : 1D) * zSize);
+			}
+			RenderModelCuboid.render(model);
+			GlStateManager.popMatrix();
+		}
+		
+		if (lastBrightness != null) {
+			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lastBrightness[0], lastBrightness[1]);
+		}
+		
+		GlStateManager.color(1F, 1F, 1F, 1F);
+	}
+	
+	static void renderFluid(Tank tank, double xSize, double ySize, double zSize, EnumFacing fillDir) {
+		if (tank != null) {
+			renderFluid(tank.getFluid(), tank.getCapacity(), xSize, ySize, zSize, fillDir);
+		}
+	}
+	
 	/**
 	 * Thanks to Buildcraft and Mekanism for these methods!
 	 */
-	class RenderResizableCuboid {
+	class RenderModelCuboid {
 		
-		public static final Vec3d VEC_ONE = vec3(1D);
-		public static final Vec3d VEC_ZERO = vec3(0D);
-		public static final Vec3d VEC_HALF = vec3(0.5D);
+		public static final Vec3d VEC_ONE = all(1D);
+		public static final Vec3d VEC_ZERO = all(0D);
+		public static final Vec3d VEC_HALF = all(0.5D);
 		
 		private static final int U_MIN = 0;
 		private static final int U_MAX = 1;
@@ -53,12 +115,12 @@ public interface IWorldRender {
 		private static final Map<EnumFacing, Vec3d> AMBIENT_OCCLUSION_MAP = new EnumMap<>(EnumFacing.class);
 		
 		static {
-			AMBIENT_OCCLUSION_MAP.put(EnumFacing.UP, vec3(1D));
-			AMBIENT_OCCLUSION_MAP.put(EnumFacing.DOWN, vec3(0.5D));
-			AMBIENT_OCCLUSION_MAP.put(EnumFacing.NORTH, vec3(0.8D));
-			AMBIENT_OCCLUSION_MAP.put(EnumFacing.SOUTH, vec3(0.8D));
-			AMBIENT_OCCLUSION_MAP.put(EnumFacing.EAST, vec3(0.6D));
-			AMBIENT_OCCLUSION_MAP.put(EnumFacing.WEST, vec3(0.6D));
+			AMBIENT_OCCLUSION_MAP.put(EnumFacing.UP, all(1D));
+			AMBIENT_OCCLUSION_MAP.put(EnumFacing.DOWN, all(0.5D));
+			AMBIENT_OCCLUSION_MAP.put(EnumFacing.NORTH, all(0.8D));
+			AMBIENT_OCCLUSION_MAP.put(EnumFacing.SOUTH, all(0.8D));
+			AMBIENT_OCCLUSION_MAP.put(EnumFacing.EAST, all(0.6D));
+			AMBIENT_OCCLUSION_MAP.put(EnumFacing.WEST, all(0.6D));
 		}
 		
 		public static Vec3d withValue(Vec3d vector, Axis axis, double value) {
@@ -107,7 +169,7 @@ public interface IWorldRender {
 			builder.color((float) color.x, (float) color.y, (float) color.z, 1f);
 		}
 		
-		public static Vec3d vec3(double value) {
+		public static Vec3d all(double value) {
 			return new Vec3d(value, value, value);
 		}
 		
@@ -115,7 +177,7 @@ public interface IWorldRender {
 			return new Vec3d(vec.x * multiple, vec.y * multiple, vec.z * multiple);
 		}
 		
-		public static Vec3d convertMiddle(Vec3i vec3i) {
+		public static Vec3d convertToCenter(Vec3i vec3i) {
 			return convert(vec3i).add(VEC_HALF);
 		}
 		
@@ -134,18 +196,18 @@ public interface IWorldRender {
 			}
 		}
 		
-		public static void renderCubeFromCenter(BlockModel model) {
+		public static void renderFromCenter(BlockModelCuboid model) {
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(-0.5F * model.sizeX(), -0.5F * model.sizeY(), -0.5F * model.sizeZ());
-			renderCube(model, EnumShadeArgument.NONE, null, null, null);
+			render(model, EnumShadeArgument.NONE, null, null, null);
 			GlStateManager.popMatrix();
 		}
 		
-		public static void renderCube(BlockModel model) {
-			renderCube(model, EnumShadeArgument.NONE, null, null, null);
+		public static void render(BlockModelCuboid model) {
+			render(model, EnumShadeArgument.NONE, null, null, null);
 		}
 		
-		public static void renderCube(BlockModel model, EnumShadeArgument shadeTypes, IBlockLocation formula, IFacingLocation faceFormula, IBlockAccess world) {
+		public static void render(BlockModelCuboid model, EnumShadeArgument shadeTypes, IBlockLocation formula, IFacingLocation faceFormula, IBlockAccess world) {
 			if (faceFormula == null) {
 				faceFormula = DefaultFacingLocation.INSTANCE;
 			}
@@ -263,7 +325,7 @@ public interface IWorldRender {
 			skyLight[0] = combinedLight / 0x10000;
 			blockLight[0] = combinedLight % 0x10000;
 			colorMultiplier[0] = state.getAmbientOcclusionLightValue();
-			distances[0] = transVertex.distanceTo(convertMiddle(pos));
+			distances[0] = transVertex.distanceTo(convertToCenter(pos));
 			
 			int index = 0;
 			EnumFacing[] testArray = allAround ? EnumFacing.VALUES : getNeighbours(face);
@@ -278,7 +340,7 @@ public interface IWorldRender {
 				skyLight[index] = combinedLight / 0x10000;
 				blockLight[index] = combinedLight % 0x10000;
 				colorMultiplier[index] = state.getAmbientOcclusionLightValue();
-				distances[index] = 1 / (transVertex.distanceTo(convertMiddle(pos)) + 0.1);
+				distances[index] = 1 / (transVertex.distanceTo(convertToCenter(pos)) + 0.1);
 				totalDist += distances[index];
 			}
 			
@@ -309,7 +371,7 @@ public interface IWorldRender {
 			setWorldRendererRGB(builder, color);
 		}
 		
-		public static void renderCubeStatic(List<BakedQuad> quads, BlockModel model) {
+		public static void renderStatic(List<BakedQuad> quads, BlockModelCuboid model) {
 			TextureAtlasSprite[] sprites = model.textures;
 			
 			int[] flips = model.textureFlips;
@@ -646,7 +708,7 @@ public interface IWorldRender {
 		}
 	}
 	
-	class BlockModel {
+	class BlockModelCuboid {
 		
 		public double sizeX, sizeY, sizeZ;
 		

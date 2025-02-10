@@ -54,7 +54,7 @@ public class NCRecipes {
 			"electric_furnace",
 			"decay_generator",
 			"machine_diaphragm",
-			"machine_sieve_tray",
+			"machine_sieve_assembly",
 			"multiblock_electrolyzer",
 			"electrolyzer_cathode",
 			"electrolyzer_anode",
@@ -132,7 +132,7 @@ public class NCRecipes {
 		putHandler(new CollectorRecipes());
 		putHandler(new DecayGeneratorRecipes());
 		putHandler(new MachineDiaphragmRecipes());
-		putHandler(new MachineSieveTrayRecipes());
+		putHandler(new MachineSieveAssemblyRecipes());
 		putHandler(new MultiblockElectrolyzerRecipes());
 		putHandler(new ElectrolyzerCathodeRecipes());
 		putHandler(new ElectrolyzerAnodeRecipes());
@@ -187,7 +187,7 @@ public class NCRecipes {
 	public static CollectorRecipes collector;
 	public static DecayGeneratorRecipes decay_generator;
 	public static MachineDiaphragmRecipes machine_diaphragm;
-	public static MachineSieveTrayRecipes machine_sieve_tray;
+	public static MachineSieveAssemblyRecipes machine_sieve_assembly;
 	public static MultiblockElectrolyzerRecipes multiblock_electrolyzer;
 	public static ElectrolyzerCathodeRecipes electrolyzer_cathode;
 	public static ElectrolyzerAnodeRecipes electrolyzer_anode;
@@ -232,7 +232,7 @@ public class NCRecipes {
 		collector = getHandler("collector");
 		decay_generator = getHandler("decay_generator");
 		machine_diaphragm = getHandler("machine_diaphragm");
-		machine_sieve_tray = getHandler("machine_sieve_tray");
+		machine_sieve_assembly = getHandler("machine_sieve_assembly");
 		multiblock_electrolyzer = getHandler("multiblock_electrolyzer");
 		electrolyzer_cathode = getHandler("electrolyzer_cathode");
 		electrolyzer_anode = getHandler("electrolyzer_anode");

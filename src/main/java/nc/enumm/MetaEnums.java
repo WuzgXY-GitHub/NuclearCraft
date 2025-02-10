@@ -480,7 +480,7 @@ public class MetaEnums {
 		}
 	}
 	
-	public enum MachineSieveTrayType implements IStringSerializable, IBlockMetaEnum {
+	public enum MachineSieveAssemblyType implements IStringSerializable, IBlockMetaEnum {
 		
 		STEEL("steel", 0, 0, "pickaxe", 3, 15, 0),
 		POLYTETRAFLUOROETHENE("polytetrafluoroethene", 1, 0, "pickaxe", 3, 15, 0),
@@ -494,7 +494,7 @@ public class MetaEnums {
 		private final float resistance;
 		private final int lightValue;
 		
-		MachineSieveTrayType(String name, int id, int harvestLevel, String harvestTool, float hardness, float resistance, int lightValue) {
+		MachineSieveAssemblyType(String name, int id, int harvestLevel, String harvestTool, float hardness, float resistance, int lightValue) {
 			this.name = name;
 			this.id = id;
 			this.harvestLevel = harvestLevel;

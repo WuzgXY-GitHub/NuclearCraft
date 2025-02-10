@@ -4,13 +4,11 @@ import nc.multiblock.machine.*;
 import nc.render.IWorldRender;
 import nc.tile.internal.fluid.Tank;
 import nc.tile.machine.TileElectrolyzerController;
-import nc.util.ColorHelper;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.GlStateManager.*;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.*;
-import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
@@ -46,42 +44,12 @@ public class RenderElectrolyzerReservoir extends TileEntitySpecialRenderer<TileE
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
 		
-		BlockPos offset = machine.getMinimumCoord().subtract(controller.getPos());
-		GlStateManager.translate(posX + offset.getX() + IWorldRender.PIXEL, posY + offset.getY() + IWorldRender.PIXEL, posZ + offset.getZ() + IWorldRender.PIXEL);
+		BlockPos posOffset = machine.getExtremeInteriorCoord(false, false, false).subtract(controller.getPos());
+		GlStateManager.translate(posX + posOffset.getX() - PIXEL, posY + posOffset.getY() - PIXEL, posZ + posOffset.getZ() - PIXEL);
 		
+		int xSize = machine.getInteriorLengthX(), ySize = machine.getInteriorLengthY(), zSize = machine.getInteriorLengthZ();
 		for (Tank tank : logic.reservoirTanks) {
-			FluidStack stack = tank.getFluid();
-			if (stack != null) {
-				Fluid fluid = stack.getFluid();
-				if (fluid != null) {
-					int luminosity = 16 * fluid.getLuminosity();
-					float[] lastBrightness = null;
-					
-					if (!FMLClientHandler.instance().hasOptifine() && luminosity > 0) {
-						lastBrightness = new float[] {OpenGlHelper.lastBrightnessX, OpenGlHelper.lastBrightnessY};
-						OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, Math.min(luminosity + lastBrightness[0], 240F), Math.min(luminosity + lastBrightness[1], 240F));
-					}
-					
-					boolean gaseous = fluid.isGaseous(stack);
-					int color = fluid.getColor(stack);
-					double fraction = (double) stack.amount / (double) tank.getCapacity();
-					
-					GlStateManager.color(ColorHelper.getRed(color) / 255F, ColorHelper.getGreen(color) / 255F, ColorHelper.getBlue(color) / 255F, (gaseous ? (float) fraction : 1F) * ColorHelper.getAlpha(color) / 255F);
-					
-					if (fluid.getStill(stack) != null) {
-						BlockModel model = new BlockModel();
-						model.setTexture(IWorldRender.getStillTexture(fluid));
-						model.setSize(machine.getExteriorLengthX() - 2D * IWorldRender.PIXEL, (gaseous ? 1D : fraction) * machine.getExteriorLengthY() - 2D * IWorldRender.PIXEL, machine.getExteriorLengthZ() - 2D * IWorldRender.PIXEL);
-						IWorldRender.RenderResizableCuboid.renderCube(model);
-					}
-					
-					if (lastBrightness != null) {
-						OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lastBrightness[0], lastBrightness[1]);
-					}
-					
-					GlStateManager.color(1F, 1F, 1F, 1F);
-				}
-			}
+			IWorldRender.renderFluid(tank, xSize + 2D * PIXEL, ySize + 2D * PIXEL, zSize + 2D * PIXEL, EnumFacing.UP);
 		}
 		
 		GlStateManager.disableBlend();

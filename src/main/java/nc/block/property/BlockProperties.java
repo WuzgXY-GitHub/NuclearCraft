@@ -13,6 +13,7 @@ public class BlockProperties {
 	public static final PropertyEnum<EnumFacing.Axis> AXIS_ALL = PropertyEnum.create("axis", EnumFacing.Axis.class);
 	
 	public static final PropertyBool FRAME = PropertyBool.create("frame");
+	public static final PropertyBool INVISIBLE = PropertyBool.create("invisible");
 	
 	public static final PropertyEnum<MachinePortSorption> MACHINE_PORT_SORPTION = PropertyEnum.create("machine_port_sorption", MachinePortSorption.class);
 }

@@ -14,7 +14,7 @@ import static nc.config.NCConfig.*;
 
 public class NCInfo {
 	
-	// Machine Diaphragms
+	// Diaphragms
 	
 	public static String[] machineDiaphragmFixedInfo(BasicRecipe diaphragmInfo) {
 		return new String[] {Lang.localize("info." + Global.MOD_ID + ".diaphragm.fixd"), Lang.localize("info." + Global.MOD_ID + ".diaphragm.efficiency.fixd", NCMath.pcDecimalPlaces(diaphragmInfo.getMachineDiaphragmEfficiency(), 1)), Lang.localize("info." + Global.MOD_ID + ".diaphragm.contact.fixd", NCMath.pcDecimalPlaces(diaphragmInfo.getMachineDiaphragmContactFactor(), 1))};
@@ -24,14 +24,14 @@ public class NCInfo {
 		return InfoHelper.formattedInfo(Lang.localize("info." + Global.MOD_ID + ".diaphragm.desc"));
 	}
 	
-	// Machine Sieve Tray
+	// Sieve Assembly
 	
-	public static String[] machineSieveTrayFixedInfo(BasicRecipe sieveTrayInfo) {
-		return new String[] {Lang.localize("info." + Global.MOD_ID + ".sieve_tray.fixd"), Lang.localize("info." + Global.MOD_ID + ".sieve_tray.efficiency.fixd", NCMath.pcDecimalPlaces(sieveTrayInfo.getMachineSieveTrayEfficiency(), 1))};
+	public static String[] machineSieveAssemblyFixedInfo(BasicRecipe sieveAssemblyInfo) {
+		return new String[] {Lang.localize("info." + Global.MOD_ID + ".sieve_assembly.fixd"), Lang.localize("info." + Global.MOD_ID + ".sieve_assembly.efficiency.fixd", NCMath.pcDecimalPlaces(sieveAssemblyInfo.getMachineSieveAssemblyEfficiency(), 1))};
 	}
 	
-	public static String[] machineSieveTrayInfo() {
-		return InfoHelper.formattedInfo(Lang.localize("info." + Global.MOD_ID + ".sieve_tray.desc"));
+	public static String[] machineSieveAssemblyInfo() {
+		return InfoHelper.formattedInfo(Lang.localize("info." + Global.MOD_ID + ".sieve_assembly.desc"));
 	}
 	
 	// Electrolyzer Electrodes

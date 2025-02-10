@@ -386,6 +386,12 @@
 				"fluid": "hydrogen_sulfide"
 			}
 		},
+		"fluid_depleted_hydrogen_sulfide": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "depleted_hydrogen_sulfide"
+			}
+		},
 		"fluid_sulfuric_acid": {
 			"model": "forge:fluid",
 			"custom": {

@@ -8,6 +8,7 @@ import nc.tile.internal.fluid.Tank;
 import nc.util.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraftforge.fluids.*;
 import stanhebben.zenscript.annotations.ZenClass;
 
 import java.util.List;
@@ -143,9 +144,9 @@ public class BasicRecipe implements IRecipe {
 		return (double) extras.get(1);
 	}
 	
-	// Sieve Tray
+	// Sieve Assembly
 	
-	public double getMachineSieveTrayEfficiency() {
+	public double getMachineSieveAssemblyEfficiency() {
 		return (double) extras.get(0);
 	}
 	
@@ -161,6 +162,18 @@ public class BasicRecipe implements IRecipe {
 	
 	public double getElectrolyzerElectrodeEfficiency() {
 		return (double) extras.get(0);
+	}
+	
+	// Distiller
+	
+	public long getDistillerSieveTrayCount() {
+		long liquidProductCount = getFluidProducts().stream().filter(x -> {
+			FluidStack stack = x.getStack();
+			Fluid fluid = stack == null ? null : stack.getFluid();
+			return fluid != null && !fluid.isGaseous(stack);
+		}).count();
+		
+		return Math.max(0L, liquidProductCount - 1L);
 	}
 	
 	// Fission Moderator

@@ -144,15 +144,19 @@ public class CraftingRecipeHandler {
 		addShapedOreRecipe(new ItemStack(NCBlocks.machine_diaphragm, 4, 2), "ZQZ", "QZQ", "ZQZ", 'Z', "ingotZirfon", 'Q', "dustQuartz");
 		addShapedOreRecipe(new ItemStack(NCBlocks.machine_diaphragm, 4, 2), "ZQZ", "QZQ", "ZQZ", 'Z', "ingotZirfon", 'Q', "dustNetherQuartz");
 		
-		addShapedOreRecipe(new ItemStack(NCBlocks.machine_sieve_tray, 4, 0), "SSS", "OSO", "SSS", 'S', "ingotSteel", 'O', "dustObsidian");
-		addShapedOreRecipe(new ItemStack(NCBlocks.machine_sieve_tray, 4, 1), "PPP", "OPO", "PPP", 'P', "ingotPolytetrafluoroethene", 'O', "dustObsidian");
-		addShapedOreRecipe(new ItemStack(NCBlocks.machine_sieve_tray, 4, 2), "HHH", "OHO", "HHH", 'H', "ingotHastelloy", 'O', "dustObsidian");
+		addShapedOreRecipe(new ItemStack(NCBlocks.machine_sieve_assembly, 4, 0), "SSS", "OSO", "SSS", 'S', "ingotSteel", 'O', "dustObsidian");
+		addShapedOreRecipe(new ItemStack(NCBlocks.machine_sieve_assembly, 4, 1), "PPP", "OPO", "PPP", 'P', "ingotPolytetrafluoroethene", 'O', "dustObsidian");
+		addShapedOreRecipe(new ItemStack(NCBlocks.machine_sieve_assembly, 4, 2), "HHH", "OHO", "HHH", 'H', "ingotHastelloy", 'O', "dustObsidian");
 		
 		addShapedOreRecipe(NCBlocks.electrolyzer_controller, "BSB", "TCT", "BSB", 'B', "ingotBronze", 'S', "sinteredSteel", 'T', "ingotTough", 'C', "chassis");
 		addShapedOreRecipe(new ItemStack(NCBlocks.electrolyzer_cathode_terminal, 2), "BSB", "RCR", "BSB", 'B', "ingotBronze", 'S', "solenoidCopper", 'R', "dustRedstone", 'C', "chassis");
 		addShapedOreRecipe(new ItemStack(NCBlocks.electrolyzer_anode_terminal, 2), "BSB", "LCL", "BSB", 'B', "ingotBronze", 'S', "solenoidCopper", 'L', "gemLapis", 'C', "chassis");
 		
 		addShapedOreRecipe(NCBlocks.distiller_controller, "BFB", "HCH", "BFB", 'B', "ingotBronze", 'F', "ingotFerroboron", 'H', "ingotHardCarbon", 'C', "chassis");
+		addShapedOreRecipe(new ItemStack(NCBlocks.distiller_sieve_tray, 4), "BSB", "RCR", "BSB", 'B', "ingotBronze", 'S', "ingotSteel", 'R', "ingotBoron", 'C', "chassis");
+		addShapedOreRecipe(new ItemStack(NCBlocks.distiller_reflux_unit, 4), "BFB", "TCT", "BSB", 'B', "ingotBronze", 'F', "ingotFerroboron", 'T', "ingotTough", 'S', "sinteredSteel", 'C', "chassis");
+		addShapedOreRecipe(new ItemStack(NCBlocks.distiller_reboiling_unit, 4), "BSB", "PCP", "BLB", 'B', "ingotBronze", 'S', "sinteredSteel", 'P', "ingotCopper", 'L', "solenoidCopper", 'C', "chassis");
+		addShapedOreRecipe(new ItemStack(NCBlocks.distiller_liquid_distributor, 4), "BFB", "TCT", "BMB", 'B', "ingotBronze", 'F', "ingotFerroboron", 'T', "ingotTin", 'M', "motor", 'C', "chassis");
 		
 		addShapedOreRecipe(NCBlocks.rtg_uranium, "PGP", "GUG", "PGP", 'G', "ingotGraphite", 'P', "plateBasic", 'U', "blockUranium238");
 		addShapedOreRecipe(NCBlocks.rtg_plutonium, "PGP", "GUG", "PGP", 'G', "ingotGraphite", 'P', "plateAdvanced", 'U', "ingotPlutonium238All");

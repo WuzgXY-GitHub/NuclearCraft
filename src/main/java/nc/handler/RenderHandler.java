@@ -5,7 +5,7 @@ import nc.init.*;
 import nc.render.BlockHighlightHandler;
 import nc.render.entity.RenderFeralGhoul;
 import nc.render.tile.*;
-import nc.tile.machine.TileElectrolyzerController;
+import nc.tile.machine.*;
 import nc.tile.quantum.TileQuantumComputerQubit;
 import nc.tile.turbine.TileTurbineController;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -26,6 +26,7 @@ public class RenderHandler {
 		NCArmor.registerRenders();
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(TileElectrolyzerController.class, new RenderElectrolyzerReservoir());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileDistillerController.class, new RenderDistillerSieveTray());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineController.class, new RenderTurbineRotor());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileQuantumComputerQubit.class, new RenderQuantumComputerQubit());
 		

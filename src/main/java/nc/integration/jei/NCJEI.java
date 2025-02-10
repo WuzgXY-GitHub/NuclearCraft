@@ -44,6 +44,7 @@ public class NCJEI implements IModPlugin {
 		}
 		
 		if (!ModCheck.openComputersLoaded()) {
+			blacklist(jeiHelpers, NCBlocks.machine_computer_port);
 			blacklist(jeiHelpers, NCBlocks.fission_computer_port);
 			blacklist(jeiHelpers, NCBlocks.heat_exchanger_computer_port);
 			blacklist(jeiHelpers, NCBlocks.turbine_computer_port);
