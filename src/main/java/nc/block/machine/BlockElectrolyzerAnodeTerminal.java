@@ -41,7 +41,13 @@ public class BlockElectrolyzerAnodeTerminal extends BlockMachinePart implements 
 	
 	@Override
 	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-		return getDefaultState().withProperty(FACING_ALL, EnumFacing.getDirectionFromEntityLiving(pos, placer));
+		return getDefaultState().withProperty(FACING_ALL, placer.posY + placer.getEyeHeight() > pos.getY() + 0.5D ? EnumFacing.DOWN : EnumFacing.UP);
+	}
+	
+	@Override
+	public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
+		super.onBlockAdded(world, pos, state);
+		// BlockHelper.setDefaultFacing(world, pos, state, FACING_ALL);
 	}
 	
 	@Override

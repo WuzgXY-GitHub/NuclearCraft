@@ -1,3 +1,10 @@
+v2o.8.3
+
+* Fixed crash on servers with CraftTweaker installed
+
+* Improved various multiblock machine block textures
+* Electrolyser electrode terminals can no longer be placed facing horizontally
+
 v2o.8.2
 
 + Added Multiblock Distiller - finally exploit the Girdler sulphide process!
