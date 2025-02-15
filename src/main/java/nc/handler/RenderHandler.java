@@ -25,8 +25,9 @@ public class RenderHandler {
 		NCTools.registerRenders();
 		NCArmor.registerRenders();
 		
-		ClientRegistry.bindTileEntitySpecialRenderer(TileElectrolyzerController.class, new RenderElectrolyzerReservoir());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileDistillerController.class, new RenderDistillerSieveTray());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileElectrolyzerController.class, new RenderMultiblockElectrolyzer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileDistillerController.class, new RenderMultiblockDistiller());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileInfiltratorController.class, new RenderMultiblockInfiltrator());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineController.class, new RenderTurbineRotor());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileQuantumComputerQubit.class, new RenderQuantumComputerQubit());
 		

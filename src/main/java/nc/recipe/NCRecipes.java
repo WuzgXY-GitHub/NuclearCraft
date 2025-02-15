@@ -137,6 +137,8 @@ public class NCRecipes {
 		putHandler(new ElectrolyzerCathodeRecipes());
 		putHandler(new ElectrolyzerAnodeRecipes());
 		putHandler(new MultiblockDistillerRecipes());
+		putHandler(new MultiblockInfiltratorRecipes());
+		putHandler(new InfiltratorPressureFluidRecipes());
 		putHandler(new FissionModeratorRecipes());
 		putHandler(new FissionReflectorRecipes());
 		putHandler(new FissionIrradiatorRecipes());
@@ -192,6 +194,8 @@ public class NCRecipes {
 	public static ElectrolyzerCathodeRecipes electrolyzer_cathode;
 	public static ElectrolyzerAnodeRecipes electrolyzer_anode;
 	public static MultiblockDistillerRecipes multiblock_distiller;
+	public static MultiblockInfiltratorRecipes multiblock_infiltrator;
+	public static InfiltratorPressureFluidRecipes infiltrator_pressure_fluid;
 	public static FissionModeratorRecipes fission_moderator;
 	public static FissionReflectorRecipes fission_reflector;
 	public static FissionIrradiatorRecipes fission_irradiator;
@@ -237,6 +241,8 @@ public class NCRecipes {
 		electrolyzer_cathode = getHandler("electrolyzer_cathode");
 		electrolyzer_anode = getHandler("electrolyzer_anode");
 		multiblock_distiller = getHandler("multiblock_distiller");
+		multiblock_infiltrator = getHandler("multiblock_infiltrator");
+		infiltrator_pressure_fluid = getHandler("infiltrator_pressure_fluid");
 		fission_moderator = getHandler("fission_moderator");
 		fission_reflector = getHandler("fission_reflector");
 		fission_irradiator = getHandler("fission_irradiator");

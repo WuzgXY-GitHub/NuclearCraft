@@ -72,7 +72,7 @@ public class BatteryMultiblock extends Multiblock<BatteryMultiblock, TileBattery
 				battery.onMultiblockRefresh();
 			}
 			storage.setStorageCapacity(capacity);
-			storage.setMaxTransfer(NCMath.toInt(capacity));
+			storage.setMaxTransfer(capacity);
 			refreshEnergy = true;
 		}
 	}

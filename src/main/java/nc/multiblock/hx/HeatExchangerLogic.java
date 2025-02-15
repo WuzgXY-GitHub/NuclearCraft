@@ -62,9 +62,15 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
 		}
 		
 		if (!getWorld().isRemote) {
-			updateHeatExchangerStats();
-			setIsHeatExchangerOn();
+			setupExchanger();
+			refreshAll();
+			setIsExchangerOn();
 		}
+	}
+	
+	// TODO
+	protected void setupExchanger() {
+	
 	}
 	
 	@Override
@@ -78,11 +84,7 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
 	}
 	
 	public void onExchangerBroken() {
-		multiblock.isHeatExchangerOn = false;
-		if (multiblock.controller != null) {
-			multiblock.controller.setActivity(false);
-		}
-		multiblock.fractionOfTubesActive = multiblock.efficiency = multiblock.maxEfficiency = 0D;
+		setIsExchangerOn();
 	}
 	
 	@Override
@@ -115,19 +117,22 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
 	@Override
 	public boolean onUpdateServer() {
 		boolean flag = true;
-		updateHeatExchangerStats();
 		if (multiblock.controller != null) {
 			multiblock.sendMultiblockUpdatePacketToListeners();
 		}
 		return flag;
 	}
 	
-	public void setIsHeatExchangerOn() {
-		boolean oldIsHeatExchangerOn = multiblock.isHeatExchangerOn;
-		multiblock.isHeatExchangerOn = (isRedstonePowered() || multiblock.computerActivated) && multiblock.isAssembled();
-		if (multiblock.isHeatExchangerOn != oldIsHeatExchangerOn) {
+	public void setActivity(boolean isExchangerOn) {
+		multiblock.controller.setActivity(isExchangerOn);
+	}
+	
+	public void setIsExchangerOn() {
+		boolean oldIsExchangerOn = multiblock.isExchangerOn;
+		multiblock.isExchangerOn = (isRedstonePowered() || multiblock.computerActivated) && multiblock.isAssembled();
+		if (multiblock.isExchangerOn != oldIsExchangerOn) {
 			if (multiblock.controller != null) {
-				multiblock.controller.setActivity(multiblock.isHeatExchangerOn);
+				setActivity(multiblock.isExchangerOn);
 				multiblock.sendMultiblockUpdatePacketToAll();
 			}
 		}
@@ -137,35 +142,9 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
 		return Stream.concat(Stream.of(multiblock.controller), getParts(TileHeatExchangerRedstonePort.class).stream()).anyMatch(x -> x != null && x.checkIsRedstonePowered(getWorld(), x.getTilePos()));
 	}
 	
-	protected void updateHeatExchangerStats() {
-		int totalTubeCount = getPartCount(TileHeatExchangerTube.class) + getPartCount(TileCondenserTube.class);
-		if (totalTubeCount < 1) {
-			multiblock.fractionOfTubesActive = multiblock.efficiency = multiblock.maxEfficiency = 0D;
-			return;
-		}
-		int activeCount = 0, efficiencyCount = 0, maxEfficiencyCount = 0;
-		
-		/*for (TileHeatExchangerTube tube : tubes) {
-			int[] eff = tube.checkPosition();
-			if (eff[0] > 0) {
-				++activeCount;
-			}
-			efficiencyCount += eff[0];
-			maxEfficiencyCount += eff[1];
-		}
-		
-		for (TileCondenserTube condenserTube : condenserTubes) {
-			int eff = condenserTube.checkPosition();
-			if (eff > 0) {
-				++activeCount;
-			}
-			efficiencyCount += eff;
-			maxEfficiencyCount += eff;
-		}*/
-		
-		multiblock.fractionOfTubesActive = (double) activeCount / totalTubeCount;
-		multiblock.efficiency = activeCount == 0 ? 0D : (double) efficiencyCount / activeCount;
-		multiblock.maxEfficiency = (double) maxEfficiencyCount / totalTubeCount;
+	// TODO
+	public void refreshAll() {
+	
 	}
 	
 	// Client
@@ -189,15 +168,12 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
 	
 	@Override
 	public HeatExchangerUpdatePacket getMultiblockUpdatePacket() {
-		return new HeatExchangerUpdatePacket(multiblock.controller.getTilePos(), multiblock.isHeatExchangerOn, multiblock.fractionOfTubesActive, multiblock.efficiency, multiblock.maxEfficiency);
+		return new HeatExchangerUpdatePacket(multiblock.controller.getTilePos(), multiblock.isExchangerOn);
 	}
 	
 	@Override
 	public void onMultiblockUpdatePacket(HeatExchangerUpdatePacket message) {
-		multiblock.isHeatExchangerOn = message.isHeatExchangerOn;
-		multiblock.fractionOfTubesActive = message.fractionOfTubesActive;
-		multiblock.efficiency = message.efficiency;
-		multiblock.maxEfficiency = message.maxEfficiency;
+		multiblock.isExchangerOn = message.isExchangerOn;
 	}
 	
 	// Multiblock Validators

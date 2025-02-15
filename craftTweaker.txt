@@ -333,9 +333,9 @@ mods.nuclearcraft.MultiblockElectrolyzer.addRecipe(IIngredient itemInput1, IIngr
 mods.nuclearcraft.MultiblockElectrolyzer.removeRecipeWithInput(IIngredient itemInput1, IIngredient itemInput2, ILiquidStack fluidInput1, ILiquidStack fluidInput2);
 mods.nuclearcraft.MultiblockElectrolyzer.removeRecipeWithOutput(IIngredient itemOutput1, IIngredient itemOutput2, IIngredient itemOutput3, IIngredient itemOutput4, ILiquidStack fluidOutput1, ILiquidStack fluidOutput2, ILiquidStack fluidOutput3, ILiquidStack fluidOutput4);
 
-mods.nuclearcraft.MultiblockElectrolyzer.addElectrolyte(String electrolyteGroup, ILiquidStack fluidInput, double efficiency);
+mods.nuclearcraft.MultiblockElectrolyzer.addElectrolyte(String electrolyteGroup, ILiquidStack fluid, double efficiency);
 
-mods.nuclearcraft.MultiblockElectrolyzer.removeElectrolyte(String electrolyteGroup, ILiquidStack fluidInput);
+mods.nuclearcraft.MultiblockElectrolyzer.removeElectrolyte(String electrolyteGroup, ILiquidStack fluid);
 mods.nuclearcraft.MultiblockElectrolyzer.removeElectrolyteGroup(String electrolyteGroup);
 mods.nuclearcraft.MultiblockElectrolyzer.removeAllElectrolyteGroups();
 
@@ -367,6 +367,25 @@ mods.nuclearcraft.MultiblockDistiller.addRecipe(ILiquidStack fluidInput1, ILiqui
 
 mods.nuclearcraft.MultiblockDistiller.removeRecipeWithInput(ILiquidStack fluidInput1, ILiquidStack fluidInput2);
 mods.nuclearcraft.MultiblockDistiller.removeRecipeWithOutput(ILiquidStack fluidOutput1, ILiquidStack fluidOutput2, ILiquidStack fluidOutput3, ILiquidStack fluidOutput4, ILiquidStack fluidOutput5, ILiquidStack fluidOutput6, ILiquidStack fluidOutput7, ILiquidStack fluidOutput8);
+
+
+Multiblock Infiltrator:
+-----------------------
+
+mods.nuclearcraft.MultiblockInfiltrator.addRecipe(IIngredient itemInput1, IIngredient itemInput2, ILiquidStack fluidInput1, ILiquidStack fluidInput2, IIngredient itemOutput, double timeMultiplier, double powerMultiplier, double processRadiation, double heatingFactor);
+
+mods.nuclearcraft.MultiblockInfiltrator.removeRecipeWithInput(IIngredient itemInput1, IIngredient itemInput2, ILiquidStack fluidInput1, ILiquidStack fluidInput2);
+mods.nuclearcraft.MultiblockInfiltrator.removeRecipeWithOutput(IIngredient itemOutput);
+
+
+Infiltrator Pressure Fluid:
+---------------------------
+
+mods.nuclearcraft.InfiltratorPressureFluid.add(ILiquidStack fluid, double efficiency);
+
+mods.nuclearcraft.InfiltratorPressureFluid.remove(ILiquidStack fluid);
+
+mods.nuclearcraft.InfiltratorPressureFluid.removeAll();
 
 
 Fission Moderator:

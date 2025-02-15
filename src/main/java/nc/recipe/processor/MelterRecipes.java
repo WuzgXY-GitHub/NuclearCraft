@@ -39,6 +39,9 @@ public class MelterRecipes extends BasicProcessorRecipeHandler {
 		
 		addRecipe("sinteredSteel", fluidStack("steel", INGOT_VOLUME), 1D, 1D);
 		
+		addIngotMeltingRecipes("SiliconCarbide", "sic_vapor");
+		addRecipe("fiberSiliconCarbide", fluidStack("sic_vapor", INGOT_VOLUME), 1D, 1D);
+		
 		addIngotMeltingRecipes("Boron10", "boron_10");
 		addIngotMeltingRecipes("Boron11", "boron_11");
 		addIngotMeltingRecipes("Lithium6", "lithium_6");
@@ -48,6 +51,9 @@ public class MelterRecipes extends BasicProcessorRecipeHandler {
 		addIngotMeltingRecipes("ManganeseDioxide", "manganese_dioxide");
 		addIngotMeltingRecipes("alugentum");
 		addIngotMeltingRecipes("LeadPlatinum", "lead_platinum");
+		
+		addIngotMeltingRecipes("polydimethylsilylene");
+		addIngotMeltingRecipes("PolymethylsilyleneMethylene", "polymethylsilylene_methylene");
 		
 		addRecipe("blockQuartz", fluidStack("quartz", GEM_VOLUME * 4), 4D, 1D);
 		addRecipe("blockLapis", fluidStack("lapis", GEM_BLOCK_VOLUME), 9D, 1D);

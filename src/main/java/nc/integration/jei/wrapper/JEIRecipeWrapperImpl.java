@@ -7,6 +7,7 @@ import nc.network.tile.multiblock.*;
 import nc.network.tile.processor.*;
 import nc.radiation.RadiationHelper;
 import nc.recipe.*;
+import nc.recipe.ingredient.IFluidIngredient;
 import nc.recipe.multiblock.ElectrolyzerElectrolyteRecipeHandler;
 import nc.tile.fission.*;
 import nc.tile.processor.*;
@@ -467,6 +468,30 @@ public class JEIRecipeWrapperImpl {
 		public static final String BASE_RADIATION = Lang.localize("jei.nuclearcraft.base_process_radiation");
 	}
 	
+	public static class ElectrolyzerCathodeRecipeWrapper extends JEISimpleRecipeWrapper<ElectrolyzerCathodeRecipeWrapper> {
+		
+		public ElectrolyzerCathodeRecipeWrapper(IGuiHelper guiHelper, JEISimpleCategoryInfo<ElectrolyzerCathodeRecipeWrapper> categoryInfo, BasicRecipe recipe) {
+			super(guiHelper, categoryInfo, recipe);
+		}
+		
+		@Override
+		protected int getProgressArrowTime() {
+			return 1;
+		}
+	}
+	
+	public static class ElectrolyzerAnodeRecipeWrapper extends JEISimpleRecipeWrapper<ElectrolyzerAnodeRecipeWrapper> {
+		
+		public ElectrolyzerAnodeRecipeWrapper(IGuiHelper guiHelper, JEISimpleCategoryInfo<ElectrolyzerAnodeRecipeWrapper> categoryInfo, BasicRecipe recipe) {
+			super(guiHelper, categoryInfo, recipe);
+		}
+		
+		@Override
+		protected int getProgressArrowTime() {
+			return 1;
+		}
+	}
+	
 	public static class MultiblockDistillerRecipeWrapper extends JEISimpleRecipeWrapper<MultiblockDistillerRecipeWrapper> {
 		
 		public MultiblockDistillerRecipeWrapper(IGuiHelper guiHelper, JEISimpleCategoryInfo<MultiblockDistillerRecipeWrapper> categoryInfo, BasicRecipe recipe) {
@@ -529,21 +554,71 @@ public class JEIRecipeWrapperImpl {
 		public static final String BASE_RADIATION = Lang.localize("jei.nuclearcraft.base_process_radiation");
 	}
 	
-	public static class ElectrolyzerCathodeRecipeWrapper extends JEISimpleRecipeWrapper<ElectrolyzerCathodeRecipeWrapper> {
+	public static class MultiblockInfiltratorRecipeWrapper extends JEISimpleRecipeWrapper<MultiblockInfiltratorRecipeWrapper> {
 		
-		public ElectrolyzerCathodeRecipeWrapper(IGuiHelper guiHelper, JEISimpleCategoryInfo<ElectrolyzerCathodeRecipeWrapper> categoryInfo, BasicRecipe recipe) {
+		public MultiblockInfiltratorRecipeWrapper(IGuiHelper guiHelper, JEISimpleCategoryInfo<MultiblockInfiltratorRecipeWrapper> categoryInfo, BasicRecipe recipe) {
 			super(guiHelper, categoryInfo, recipe);
 		}
 		
 		@Override
 		protected int getProgressArrowTime() {
-			return 1;
+			return (int) (getBaseProcessTime() / 4D);
 		}
+		
+		protected double getBaseProcessTime() {
+			if (recipe == null) {
+				return machine_infiltrator_time;
+			}
+			return recipe.getBaseProcessTime(machine_infiltrator_time);
+		}
+		
+		protected double getBaseProcessPower() {
+			if (recipe == null) {
+				return machine_infiltrator_power;
+			}
+			return recipe.getBaseProcessPower(machine_infiltrator_power);
+		}
+		
+		protected double getInfiltratorHeatingFactor() {
+			if (recipe == null) {
+				return 0D;
+			}
+			return recipe.getInfiltratorHeatingFactor();
+		}
+		
+		protected double getBaseProcessRadiation() {
+			if (recipe == null) {
+				return 0D;
+			}
+			return recipe.getBaseProcessRadiation();
+		}
+		
+		@Override
+		public List<String> getTooltipStrings(int mouseX, int mouseY) {
+			List<String> tooltip = new ArrayList<>();
+			
+			if (showTooltip(mouseX, mouseY)) {
+				tooltip.add(TextFormatting.GREEN + BASE_TIME + " " + TextFormatting.WHITE + UnitHelper.applyTimeUnitShort(getBaseProcessTime(), 3));
+				tooltip.add(TextFormatting.LIGHT_PURPLE + BASE_POWER + " " + TextFormatting.WHITE + UnitHelper.prefix(getBaseProcessPower(), 5, "RF/t"));
+				tooltip.add(TextFormatting.RED + HEATING_FACTOR + " " + TextFormatting.WHITE + NCMath.pcDecimalPlaces(getInfiltratorHeatingFactor(), 1));
+				double radiation = getBaseProcessRadiation();
+				if (radiation > 0D) {
+					tooltip.add(TextFormatting.GOLD + BASE_RADIATION + " " + RadiationHelper.radsColoredPrefix(radiation, true));
+				}
+			}
+			
+			return tooltip;
+		}
+		
+		public static final String BASE_TIME = Lang.localize("jei.nuclearcraft.base_process_time");
+		public static final String BASE_POWER = Lang.localize("jei.nuclearcraft.base_process_power");
+		public static final String HEATING_FACTOR = Lang.localize("jei.nuclearcraft.infiltrator_heating_factor");
+		public static final String BASE_RADIATION = Lang.localize("jei.nuclearcraft.base_process_radiation");
 	}
 	
-	public static class ElectrolyzerAnodeRecipeWrapper extends JEISimpleRecipeWrapper<ElectrolyzerAnodeRecipeWrapper> {
+	public static class InfiltratorPressureFluidRecipeWrapper extends JEISimpleRecipeWrapper<InfiltratorPressureFluidRecipeWrapper> {
 		
-		public ElectrolyzerAnodeRecipeWrapper(IGuiHelper guiHelper, JEISimpleCategoryInfo<ElectrolyzerAnodeRecipeWrapper> categoryInfo, BasicRecipe recipe) {
+		public InfiltratorPressureFluidRecipeWrapper(IGuiHelper guiHelper, JEISimpleCategoryInfo<InfiltratorPressureFluidRecipeWrapper> categoryInfo, BasicRecipe recipe) {
 			super(guiHelper, categoryInfo, recipe);
 		}
 		
@@ -551,6 +626,20 @@ public class JEIRecipeWrapperImpl {
 		protected int getProgressArrowTime() {
 			return 1;
 		}
+		
+		protected double getInfiltratorPressureFluidEfficiency() {
+			if (recipe == null) {
+				return 1D;
+			}
+			return recipe.getInfiltratorPressureFluidEfficiency();
+		}
+		
+		@Override
+		public void addFluidIngredientTooltip(List<String> tooltip, IFluidIngredient ingredient) {
+			tooltip.add(TextFormatting.LIGHT_PURPLE + EFFICIENCY + " " + TextFormatting.WHITE + NCMath.pcDecimalPlaces(getInfiltratorPressureFluidEfficiency(), 1));
+		}
+		
+		private static final String EFFICIENCY = Lang.localize("jei.nuclearcraft.infiltrator_pressure_fluid_efficiency");
 	}
 	
 	public static class FissionModeratorRecipeWrapper extends JEISimpleRecipeWrapper<FissionModeratorRecipeWrapper> {

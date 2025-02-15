@@ -18,7 +18,6 @@ public class ChemicalReactorRecipes extends BasicProcessorRecipeHandler {
 			return;
 		}
 		
-		
 		addRecipe(fluidStack("boron", INGOT_VOLUME), fluidStack("hydrogen", BUCKET_VOLUME * 3 / 2), fluidStack("diborane", BUCKET_VOLUME / 2), emptyFluidStack(), 0.5D, 1D);
 		
 		addRecipe(fluidStack("diborane", BUCKET_VOLUME / 4), fluidStack("water", BUCKET_VOLUME * 3 / 2), fluidStack("boric_acid", BUCKET_VOLUME / 2), fluidStack("hydrogen", BUCKET_VOLUME * 3 / 2), 0.5D, 0.5D);
@@ -51,6 +50,9 @@ public class ChemicalReactorRecipes extends BasicProcessorRecipeHandler {
 		
 		addRecipe(fluidStack("ammonium_persulfate_solution", GEM_VOLUME / 2), fluidStack("water", BUCKET_VOLUME), fluidStack("ammonium_bisulfate_solution", GEM_VOLUME), fluidStack("hydrogen_peroxide", BUCKET_VOLUME), 0.5D, 1D);
 		
+		addRecipe(fluidStack("sodium", INGOT_VOLUME), fluidStack("sulfur", GEM_VOLUME / 2), fluidStack("sodium_sulfide", INGOT_VOLUME / 2), emptyFluidStack(), 1D, 1D);
+		addRecipe(fluidStack("potassium", INGOT_VOLUME), fluidStack("sulfur", GEM_VOLUME / 2), fluidStack("potassium_sulfide", INGOT_VOLUME / 2), emptyFluidStack(), 1D, 1D);
+		
 		addRecipe(fluidStack("oxygen_difluoride", BUCKET_VOLUME / 4), fluidStack("water", BUCKET_VOLUME / 4), fluidStack("oxygen", BUCKET_VOLUME / 4), fluidStack("hydrofluoric_acid", BUCKET_VOLUME / 2), 0.5D, 1D);
 		addRecipe(fluidStack("oxygen_difluoride", BUCKET_VOLUME / 4), fluidStack("sulfur_dioxide", BUCKET_VOLUME / 4), fluidStack("sulfur_trioxide", BUCKET_VOLUME / 4), fluidStack("fluorine", BUCKET_VOLUME / 4), 0.5D, 1D);
 		
@@ -70,8 +72,17 @@ public class ChemicalReactorRecipes extends BasicProcessorRecipeHandler {
 		
 		addRecipe(fluidStack("ethene", BUCKET_VOLUME / 2), fluidStack("oxygen", BUCKET_VOLUME / 2), fluidStack("ethyne", BUCKET_VOLUME / 2), fluidStack("water", BUCKET_VOLUME / 2), 1.5D, 2D);
 		addRecipe(fluidStack("ethene", BUCKET_VOLUME / 4), fluidStack("ethyne", BUCKET_VOLUME / 2), fluidStack("benzene", BUCKET_VOLUME / 4), fluidStack("hydrogen", BUCKET_VOLUME / 4), 1.5D, 2D);
+		
 		addRecipe(fluidStack("benzene", BUCKET_VOLUME / 2), fluidStack("oxygen_difluoride", BUCKET_VOLUME / 4), fluidStack("fluorobenzene", BUCKET_VOLUME / 2), fluidStack("water", BUCKET_VOLUME / 4), 0.5D, 0.5D);
 		addRecipe(fluidStack("fluorobenzene", BUCKET_VOLUME), fluidStack("sulfur_trioxide", BUCKET_VOLUME / 2), fluidStack("dfdps", GEM_VOLUME / 2), fluidStack("water", BUCKET_VOLUME / 2), 1D, 1D);
+		
+		addRecipe(fluidStack("benzene", BUCKET_VOLUME / 4), fluidStack("fluorine", BUCKET_VOLUME / 2), fluidStack("difluorobenzene", BUCKET_VOLUME / 4), fluidStack("hydrofluoric_acid", BUCKET_VOLUME / 2), 0.5D, 0.5D);
+		addRecipe(fluidStack("difluorobenzene", BUCKET_VOLUME / 4), fluidStack("sodium_sulfide", INGOT_VOLUME / 4), fluidStack("polyphenylene_sulfide", INGOT_VOLUME / 4), fluidStack("sodium_fluoride_solution", GEM_VOLUME / 2), 2D, 1D);
+		addRecipe(fluidStack("difluorobenzene", BUCKET_VOLUME / 4), fluidStack("potassium_sulfide", INGOT_VOLUME / 4), fluidStack("polyphenylene_sulfide", INGOT_VOLUME / 4), fluidStack("potassium_fluoride_solution", GEM_VOLUME / 2), 2D, 1D);
+		
+		addRecipe(fluidStack("fluoromethane", BUCKET_VOLUME / 2), fluidStack("silicon", INGOT_VOLUME / 4), fluidStack("dimethyldifluorosilane", BUCKET_VOLUME / 4), emptyFluidStack(), 0.5D, 1D);
+		addRecipe(fluidStack("dimethyldifluorosilane", BUCKET_VOLUME / 4), fluidStack("sodium", INGOT_VOLUME / 2), fluidStack("polydimethylsilylene", INGOT_VOLUME / 4), fluidStack("sodium_fluoride_solution", GEM_VOLUME / 2), 2D, 1D);
+		addRecipe(fluidStack("dimethyldifluorosilane", BUCKET_VOLUME / 4), fluidStack("potassium", INGOT_VOLUME / 2), fluidStack("polydimethylsilylene", INGOT_VOLUME / 4), fluidStack("potassium_fluoride_solution", GEM_VOLUME / 2), 2D, 1D);
 		
 		addRecipe(fluidStack("benzene", BUCKET_VOLUME / 2), fluidStack("oxygen", BUCKET_VOLUME / 4), fluidStack("phenol", BUCKET_VOLUME / 2), emptyFluidStack(), 1D, 1D);
 		addRecipe(fluidStack("phenol", BUCKET_VOLUME / 2), fluidStack("hydrogen_peroxide", BUCKET_VOLUME / 2), fluidStack("hydroquinone_solution", GEM_VOLUME / 2), emptyFluidStack(), 1D, 1D);

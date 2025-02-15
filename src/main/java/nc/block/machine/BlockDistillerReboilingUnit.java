@@ -1,17 +1,36 @@
 package nc.block.machine;
 
+import nc.block.tile.IActivatable;
 import nc.tile.machine.TileDistillerReboilingUnit;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.state.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockDistillerReboilingUnit extends BlockMachinePart {
+import static nc.block.property.BlockProperties.ACTIVE;
+
+public class BlockDistillerReboilingUnit extends BlockMachinePart implements IActivatable {
 	
 	public BlockDistillerReboilingUnit() {
 		super();
+		setDefaultState(blockState.getBaseState().withProperty(ACTIVE, Boolean.FALSE));
+	}
+	
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, ACTIVE);
+	}
+	
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(ACTIVE, meta > 0);
+	}
+	
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(ACTIVE) ? 1 : 0;
 	}
 	
 	@Override

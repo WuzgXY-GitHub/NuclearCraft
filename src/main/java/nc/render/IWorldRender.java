@@ -20,6 +20,7 @@ import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nonnull;
 import java.util.*;
+import java.util.function.*;
 
 @SideOnly(Side.CLIENT)
 public interface IWorldRender {
@@ -39,7 +40,7 @@ public interface IWorldRender {
 		return Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
 	}
 	
-	static void renderFluid(FluidStack stack, double capacity, double xSize, double ySize, double zSize, EnumFacing fillDir) {
+	static void renderFluid(FluidStack stack, double capacity, double xSize, double ySize, double zSize, EnumFacing fillDir, Predicate<FluidStack> isGaseous) {
 		if (stack == null || stack.amount <= 0) {
 			return;
 		}
@@ -57,7 +58,7 @@ public interface IWorldRender {
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, Math.min(luminosity + lastBrightness[0], 240F), Math.min(luminosity + lastBrightness[1], 240F));
 		}
 		
-		boolean gaseous = fluid.isGaseous(stack);
+		boolean gaseous = isGaseous.test(stack);
 		int color = fluid.getColor(stack);
 		double fraction = (double) stack.amount / capacity;
 		
@@ -92,10 +93,18 @@ public interface IWorldRender {
 		GlStateManager.color(1F, 1F, 1F, 1F);
 	}
 	
-	static void renderFluid(Tank tank, double xSize, double ySize, double zSize, EnumFacing fillDir) {
+	static void renderFluid(FluidStack stack, double capacity, double xSize, double ySize, double zSize, EnumFacing fillDir) {
+		renderFluid(stack, capacity, xSize, ySize, zSize, fillDir, x -> x.getFluid().isGaseous(x));
+	}
+	
+	static void renderFluid(Tank tank, double xSize, double ySize, double zSize, EnumFacing fillDir, Predicate<FluidStack> isGaseous) {
 		if (tank != null) {
-			renderFluid(tank.getFluid(), tank.getCapacity(), xSize, ySize, zSize, fillDir);
+			renderFluid(tank.getFluid(), tank.getCapacity(), xSize, ySize, zSize, fillDir, isGaseous);
 		}
+	}
+	
+	static void renderFluid(Tank tank, double xSize, double ySize, double zSize, EnumFacing fillDir) {
+		renderFluid(tank, xSize, ySize, zSize, fillDir, x -> x.getFluid().isGaseous(x));
 	}
 	
 	/**

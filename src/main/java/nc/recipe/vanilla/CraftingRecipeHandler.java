@@ -148,15 +148,19 @@ public class CraftingRecipeHandler {
 		addShapedOreRecipe(new ItemStack(NCBlocks.machine_sieve_assembly, 4, 1), "PPP", "OPO", "PPP", 'P', "ingotPolytetrafluoroethene", 'O', "dustObsidian");
 		addShapedOreRecipe(new ItemStack(NCBlocks.machine_sieve_assembly, 4, 2), "HHH", "OHO", "HHH", 'H', "ingotHastelloy", 'O', "dustObsidian");
 		
-		addShapedOreRecipe(NCBlocks.electrolyzer_controller, "BSB", "TCT", "BSB", 'B', "ingotBronze", 'S', "sinteredSteel", 'T', "ingotTough", 'C', "chassis");
+		addShapedOreRecipe(NCBlocks.electrolyzer_controller, "BSB", "HCH", "BSB", 'B', "ingotBronze", 'S', "sinteredSteel", 'H', "ingotHardCarbon", 'C', "chassis");
 		addShapedOreRecipe(new ItemStack(NCBlocks.electrolyzer_cathode_terminal, 2), "BSB", "RCR", "BSB", 'B', "ingotBronze", 'S', "solenoidCopper", 'R', "dustRedstone", 'C', "chassis");
 		addShapedOreRecipe(new ItemStack(NCBlocks.electrolyzer_anode_terminal, 2), "BSB", "LCL", "BSB", 'B', "ingotBronze", 'S', "solenoidCopper", 'L', "gemLapis", 'C', "chassis");
 		
-		addShapedOreRecipe(NCBlocks.distiller_controller, "BFB", "HCH", "BFB", 'B', "ingotBronze", 'F', "ingotFerroboron", 'H', "ingotHardCarbon", 'C', "chassis");
+		addShapedOreRecipe(NCBlocks.distiller_controller, "BFB", "TCT", "BFB", 'B', "ingotBronze", 'F', "ingotFerroboron", 'T', "ingotTough", 'C', "chassis");
 		addShapedOreRecipe(new ItemStack(NCBlocks.distiller_sieve_tray, 4), "BSB", "RCR", "BSB", 'B', "ingotBronze", 'S', "ingotSteel", 'R', "ingotBoron", 'C', "chassis");
 		addShapedOreRecipe(new ItemStack(NCBlocks.distiller_reflux_unit, 4), "BFB", "TCT", "BSB", 'B', "ingotBronze", 'F', "ingotFerroboron", 'T', "ingotTough", 'S', "sinteredSteel", 'C', "chassis");
 		addShapedOreRecipe(new ItemStack(NCBlocks.distiller_reboiling_unit, 4), "BSB", "PCP", "BLB", 'B', "ingotBronze", 'S', "sinteredSteel", 'P', "ingotCopper", 'L', "solenoidCopper", 'C', "chassis");
 		addShapedOreRecipe(new ItemStack(NCBlocks.distiller_liquid_distributor, 4), "BFB", "TCT", "BMB", 'B', "ingotBronze", 'F', "ingotFerroboron", 'T', "ingotTin", 'M', "motor", 'C', "chassis");
+		
+		addShapedOreRecipe(NCBlocks.infiltrator_controller, "BEB", "TCT", "BEB", 'B', "ingotBronze", 'E', "ingotExtreme", 'T', "ingotThermoconducting", 'C', "chassis");
+		addShapedOreRecipe(NCBlocks.infiltrator_pressure_chamber, "BAB", "ECE", "BAB", 'B', "ingotBronze", 'A', "actuator", 'E', "ingotExtreme", 'C', "chassis");
+		addShapedOreRecipe(NCBlocks.infiltrator_heating_unit, "BSB", "TCT", "BSB", 'B', "ingotBronze", 'S', "solenoidCopper", 'T', "ingotThermoconducting", 'C', "chassis");
 		
 		addShapedOreRecipe(NCBlocks.rtg_uranium, "PGP", "GUG", "PGP", 'G', "ingotGraphite", 'P', "plateBasic", 'U', "blockUranium238");
 		addShapedOreRecipe(NCBlocks.rtg_plutonium, "PGP", "GUG", "PGP", 'G', "ingotGraphite", 'P', "plateAdvanced", 'U', "ingotPlutonium238All");

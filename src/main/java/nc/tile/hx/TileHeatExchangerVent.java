@@ -24,8 +24,8 @@ public class TileHeatExchangerVent extends TileHeatExchangerPart implements ITic
 	
 	private @Nonnull FluidConnection[] fluidConnections = ITileFluid.fluidConnectionAll(TankSorption.BOTH);
 	
-	private @Nonnull final FluidTileWrapper[] fluidSides;
-	private @Nonnull final GasTileWrapper gasWrapper;
+	private final @Nonnull FluidTileWrapper[] fluidSides;
+	private final @Nonnull GasTileWrapper gasWrapper;
 	
 	public TileHeatExchangerVent() {
 		super(CuboidalPartPositionType.WALL);

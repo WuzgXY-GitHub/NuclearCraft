@@ -16,7 +16,6 @@ public class RockCrusherRecipes extends BasicProcessorRecipeHandler {
 			return;
 		}
 		
-		
 		if (rock_crusher_alternate) {
 			addRecipe(oreStackList(Lists.newArrayList("stoneGranite", "stoneGranitePolished"), 1), chanceOreStack("dustRhodochrosite", 2, 20), chanceOreStack("dustRhodochrosite", 2, 20), chanceOreStack("dustVilliaumite", 1, 35), 1D, 1D);
 			addRecipe(oreStackList(Lists.newArrayList("stoneDiorite", "stoneDioritePolished"), 1), chanceOreStack("dustZirconium", 2, 50), chanceOreStack("dustFluorite", 2, 45), chanceOreStack("dustCarobbiite", 1, 70), 1D, 1D);

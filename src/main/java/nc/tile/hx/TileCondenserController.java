@@ -46,7 +46,7 @@ public class TileCondenserController extends TileHeatExchangerPart implements IH
 		super.onBlockNeighborChanged(state, worldIn, posIn, fromPos);
 		HeatExchangerLogic logic = getLogic();
 		if (logic != null) {
-			logic.setIsHeatExchangerOn();
+			logic.setIsExchangerOn();
 		}
 	}
 	

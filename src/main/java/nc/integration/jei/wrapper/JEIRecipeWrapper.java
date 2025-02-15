@@ -5,10 +5,12 @@ import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import nc.recipe.*;
-import nc.util.Lazy;
+import nc.recipe.ingredient.*;
+import nc.util.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.List;
@@ -78,5 +80,25 @@ public abstract class JEIRecipeWrapper implements IRecipeWrapper {
 	
 	protected <T> T getEnumerationElement(List<T> list, long millisPerElement) {
 		return list.get((int) ((System.currentTimeMillis() / millisPerElement) % list.size()));
+	}
+	
+	public void addItemIngredientTooltip(List<String> tooltip, IItemIngredient ingredient) {
+	
+	}
+	
+	public void addFluidIngredientTooltip(List<String> tooltip, IFluidIngredient ingredient) {
+	
+	}
+	
+	public void addItemProductTooltip(List<String> tooltip, IItemIngredient product) {
+		if (product instanceof IChanceItemIngredient chanceProduct) {
+			tooltip.add(TextFormatting.WHITE + Lang.localize("jei.nuclearcraft.chance_output", chanceProduct.getMinStackSize(), chanceProduct.getMaxStackSize(0), NCMath.decimalPlaces(chanceProduct.getMeanStackSize(), 2)));
+		}
+	}
+	
+	public void addFluidProductTooltip(List<String> tooltip, IFluidIngredient product) {
+		if (product instanceof IChanceFluidIngredient chanceProduct) {
+			tooltip.add(TextFormatting.WHITE + Lang.localize("jei.nuclearcraft.chance_output", chanceProduct.getMinStackSize(), chanceProduct.getMaxStackSize(0), NCMath.decimalPlaces(chanceProduct.getMeanStackSize(), 2)));
+		}
 	}
 }

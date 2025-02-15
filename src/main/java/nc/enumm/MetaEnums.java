@@ -1346,7 +1346,9 @@ public class MetaEnums {
 		SINTERED_ZIRCONIA("sintered_zirconia", 17),
 		POLYETHERSULFONE("polyethersulfone", 18),
 		ZIRFON("zirfon", 19),
-		POLYTETRAFLUOROETHENE("polytetrafluoroethene", 20);
+		POLYTETRAFLUOROETHENE("polytetrafluoroethene", 20),
+		POLYDIMETHYLSILYLENE("polydimethylsilylene", 21),
+		POLYMETHYLSILYLENE_METHYLENE("polymethylsilylene_methylene", 22);
 		
 		private final String name;
 		private final int id;

@@ -24,7 +24,7 @@ import static nc.config.NCConfig.enable_gtce_eu;
 @Optional.Interface(iface = "ic2.api.energy.tile.IEnergySource", modid = "ic2")
 public abstract class TileTurbineDynamoPart extends TileTurbinePart implements ITickable, ITileEnergy, IEnergySource {
 	
-	protected final EnergyStorage backupStorage = new EnergyStorage(1);
+	protected final EnergyStorage backupStorage = new EnergyStorage(0L);
 	
 	protected final EnergyConnection[] energyConnections = ITileEnergy.energyConnectionAll(EnergyConnection.OUT);
 	

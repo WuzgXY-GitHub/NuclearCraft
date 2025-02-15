@@ -5,7 +5,6 @@ import nc.multiblock.Multiblock;
 import nc.tile.internal.energy.EnergyStorage;
 import nc.tile.multiblock.TilePartAbstract.SyncReason;
 import nc.tile.rtg.TileRTG;
-import nc.util.NCMath;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -73,7 +72,7 @@ public class RTGMultiblock extends Multiblock<RTGMultiblock, TileRTG> {
 			}
 			this.power = powerSum;
 			storage.setStorageCapacity(4 * powerSum);
-			storage.setMaxTransfer(NCMath.toInt(4 * powerSum));
+			storage.setMaxTransfer(4 * powerSum);
 			refreshEnergy = true;
 		}
 	}

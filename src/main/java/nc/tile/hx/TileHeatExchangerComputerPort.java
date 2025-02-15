@@ -35,8 +35,8 @@ public class TileHeatExchangerComputerPort extends TileHeatExchangerPart impleme
 	
 	@Callback(direct = true)
 	@Optional.Method(modid = "opencomputers")
-	public Object[] isHeatExchangerOn(Context context, Arguments args) {
-		return new Object[] {isMultiblockAssembled() && getMultiblock().isHeatExchangerOn};
+	public Object[] isExchangerOn(Context context, Arguments args) {
+		return new Object[] {isMultiblockAssembled() && getMultiblock().isExchangerOn};
 	}
 	
 	@Callback(direct = true)
@@ -55,18 +55,6 @@ public class TileHeatExchangerComputerPort extends TileHeatExchangerPart impleme
 	@Optional.Method(modid = "opencomputers")
 	public Object[] getLengthZ(Context context, Arguments args) {
 		return new Object[] {isMultiblockAssembled() ? getMultiblock().getInteriorLengthZ() : 0};
-	}
-	
-	@Callback(direct = true)
-	@Optional.Method(modid = "opencomputers")
-	public Object[] getFractionOfTubesActive(Context context, Arguments args) {
-		return new Object[] {isMultiblockAssembled() ? getMultiblock().fractionOfTubesActive : 0D};
-	}
-	
-	@Callback(direct = true)
-	@Optional.Method(modid = "opencomputers")
-	public Object[] getMeanEfficiency(Context context, Arguments args) {
-		return new Object[] {isMultiblockAssembled() ? getMultiblock().efficiency : 0D};
 	}
 	
 	protected <T extends IHeatExchangerPart> Object[] getPartCount(Class<T> type) {
@@ -90,7 +78,7 @@ public class TileHeatExchangerComputerPort extends TileHeatExchangerPart impleme
 	public Object[] activate(Context context, Arguments args) {
 		if (isMultiblockAssembled()) {
 			getMultiblock().computerActivated = true;
-			getLogic().setIsHeatExchangerOn();
+			getLogic().setIsExchangerOn();
 		}
 		return new Object[] {};
 	}
@@ -100,7 +88,7 @@ public class TileHeatExchangerComputerPort extends TileHeatExchangerPart impleme
 	public Object[] deactivate(Context context, Arguments args) {
 		if (isMultiblockAssembled()) {
 			getMultiblock().computerActivated = false;
-			getLogic().setIsHeatExchangerOn();
+			getLogic().setIsExchangerOn();
 		}
 		return new Object[] {};
 	}

@@ -1,7 +1,6 @@
 package nc.tile.fission;
 
 import com.google.common.collect.Lists;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import nc.ModCheck;
 import nc.multiblock.cuboidal.CuboidalPartPositionType;
 import nc.multiblock.fission.*;
@@ -9,7 +8,7 @@ import nc.tile.fluid.ITileFluid;
 import nc.tile.internal.fluid.*;
 import nc.tile.passive.ITilePassive;
 import nc.util.*;
-import net.minecraft.entity.player.*;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -27,12 +26,12 @@ import static nc.config.NCConfig.enable_mek_gas;
 
 public class TileFissionVent extends TileFissionPart implements ITickable, ITileFluid {
 	
-	private final @Nonnull List<Tank> backupTanks = Lists.newArrayList(new Tank(1, new ObjectOpenHashSet<>()), new Tank(1, new ObjectOpenHashSet<>()));
+	private final @Nonnull List<Tank> backupTanks = Collections.emptyList();
 	
 	private @Nonnull FluidConnection[] fluidConnections = ITileFluid.fluidConnectionAll(Lists.newArrayList(TankSorption.IN, TankSorption.NON));
 	
-	private @Nonnull final FluidTileWrapper[] fluidSides;
-	private @Nonnull final GasTileWrapper gasWrapper;
+	private final @Nonnull FluidTileWrapper[] fluidSides;
+	private final @Nonnull GasTileWrapper gasWrapper;
 	
 	public TileFissionVent() {
 		super(CuboidalPartPositionType.WALL);
@@ -54,10 +53,13 @@ public class TileFissionVent extends TileFissionPart implements ITickable, ITile
 	
 	@Override
 	public void update() {
-		if (!world.isRemote && !getTanks().get(1).isEmpty()) {
-			EnumFacing facing = getPartPosition().getFacing();
-			if (facing != null && getTankSorption(facing, 1).canDrain()) {
-				pushFluidToSide(facing);
+		if (!world.isRemote) {
+			List<Tank> tanks = getTanks();
+			if (tanks.size() >= 2 && !tanks.get(1).isEmpty()) {
+				EnumFacing facing = getPartPosition().getFacing();
+				if (facing != null && getTankSorption(facing, 1).canDrain()) {
+					pushFluidToSide(facing);
+				}
 			}
 		}
 	}
@@ -108,8 +110,11 @@ public class TileFissionVent extends TileFissionPart implements ITickable, ITile
 			return;
 		}
 		
-		Tank tank = getTanks().get(1);
-		tank.drain(adjStorage.fill(tank.drain(tank.getCapacity(), false), true), true);
+		List<Tank> tanks = getTanks();
+		if (tanks.size() >= 2) {
+			Tank tank = tanks.get(1);
+			tank.drain(adjStorage.fill(tank.drain(tank.getCapacity(), false), true), true);
+		}
 	}
 	
 	@Override

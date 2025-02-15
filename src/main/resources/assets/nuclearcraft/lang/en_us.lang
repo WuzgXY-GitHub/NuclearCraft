@@ -141,7 +141,7 @@ tile.nuclearcraft.machine_computer_port.name=Large Machine Computer Port
 tile.nuclearcraft.machine_computer_port.desc=Used to access the machine via OpenComputers.
 
 tile.nuclearcraft.machine_diaphragm.sintered_steel.name=Sintered Steel Diaphragm
-tile.nuclearcraft.machine_diaphragm.polyethersulfone.name=PESU Diaphragm
+tile.nuclearcraft.machine_diaphragm.polyethersulfone.name=Polyethersulfone Diaphragm
 tile.nuclearcraft.machine_diaphragm.zirfon.name=Zirfon Diaphragm
 
 info.nuclearcraft.diaphragm.fixd=Diaphragm
@@ -149,7 +149,7 @@ info.nuclearcraft.diaphragm.efficiency.fixd=Efficiency Multiplier: %s
 info.nuclearcraft.diaphragm.contact.fixd=Contact Factor: %s
 
 tile.nuclearcraft.machine_sieve_assembly.steel.name=Steel Sieve Assembly
-tile.nuclearcraft.machine_sieve_assembly.polytetrafluoroethene.name=PTFE Sieve Assembly
+tile.nuclearcraft.machine_sieve_assembly.polytetrafluoroethene.name=Polytetrafluoroethene Sieve Assembly
 tile.nuclearcraft.machine_sieve_assembly.hastelloy.name=Hastelloy Sieve Assembly
 
 info.nuclearcraft.sieve_assembly.fixd=Sieve Assembly
@@ -171,6 +171,10 @@ tile.nuclearcraft.distiller_sieve_tray.name=Distiller Sieve Tray
 tile.nuclearcraft.distiller_reflux_unit.name=Distiller Reflux Unit
 tile.nuclearcraft.distiller_reboiling_unit.name=Distiller Reboiling Unit
 tile.nuclearcraft.distiller_liquid_distributor.name=Distiller Liquid Distributor
+
+tile.nuclearcraft.infiltrator_controller.name=Infiltrator Controller
+tile.nuclearcraft.infiltrator_pressure_chamber.name=Infiltrator Pressure Chamber
+tile.nuclearcraft.infiltrator_heating_unit.name=Infiltrator Heating Unit
 
 tile.nuclearcraft.rtg_uranium.name=Uranium RTG
 tile.nuclearcraft.rtg_plutonium.name=Plutonium RTG
@@ -631,6 +635,12 @@ fluid.phenol=Phenol
 tile.nuclearcraft.fluid_fluorobenzene.name=Fluorobenzene
 fluid.fluorobenzene=Fluorobenzene
 
+tile.nuclearcraft.fluid_difluorobenzene.name=Difluorobenzene
+fluid.difluorobenzene=Difluorobenzene
+
+tile.nuclearcraft.fluid_dimethyldifluorosilane.name=Dimethyldifluorosilane
+fluid.dimethyldifluorosilane=Dimethyldifluorosilane
+
 tile.nuclearcraft.fluid_boric_acid.name=Boric Acid
 fluid.boric_acid=Boric Acid
 
@@ -746,6 +756,12 @@ fluid.sodium=Molten Sodium
 tile.nuclearcraft.fluid_potassium.name=Molten Potassium
 fluid.potassium=Molten Potassium
 
+tile.nuclearcraft.fluid_sodium_sulfide.name=Molten Sodium Sulfide
+fluid.sodium_sulfide=Molten Sodium Sulfide
+
+tile.nuclearcraft.fluid_potassium_sulfide.name=Molten Potassium Sulfide
+fluid.potassium_sulfide=Molten Potassium Sulfide
+
 tile.nuclearcraft.fluid_nak.name=Eutectic NaK Alloy
 fluid.nak=Eutectic NaK Alloy
 
@@ -801,14 +817,26 @@ fluid.naoh=Molten Sodium Hydroxide
 tile.nuclearcraft.fluid_koh.name=Molten Potassium Hydroxide
 fluid.koh=Molten Potassium Hydroxide
 
-tile.nuclearcraft.fluid_dfdps.name=Molten DFDPS
-fluid.dfdps=Molten DFDPS
+tile.nuclearcraft.fluid_dfdps.name=Molten Difluorodiphenyl Sulfone
+fluid.dfdps=Molten Difluorodiphenyl Sulfone
 
-tile.nuclearcraft.fluid_polyethersulfone.name=Molten PESU
-fluid.polyethersulfone=Molten PESU
+tile.nuclearcraft.fluid_polyphenylene_sulfide.name=Molten Polyphenylene Sulfide
+fluid.polyphenylene_sulfide=Molten Polyphenylene Sulfide
 
-tile.nuclearcraft.fluid_polytetrafluoroethene.name=Molten PTFE
-fluid.polytetrafluoroethene=Molten PTFE
+tile.nuclearcraft.fluid_polydimethylsilylene.name=Molten Polydimethylsilylene
+fluid.polydimethylsilylene=Molten Polydimethylsilylene
+
+tile.nuclearcraft.fluid_polymethylsilylene_methylene.name=Molten Polymethylsilylene-Methylene
+fluid.polymethylsilylene_methylene=Molten Polymethylsilylene-Methylene
+
+tile.nuclearcraft.fluid_polyethersulfone.name=Molten Polyethersulfone
+fluid.polyethersulfone=Molten Polyethersulfone
+
+tile.nuclearcraft.fluid_polytetrafluoroethene.name=Molten Polytetrafluoroethylene
+fluid.polytetrafluoroethene=Molten Polytetrafluoroethylene
+
+tile.nuclearcraft.fluid_silicon.name=Molten Silicon
+fluid.silicon=Molten Silicon
 
 tile.nuclearcraft.fluid_arsenic.name=Sublimated Arsenic
 fluid.arsenic=Sublimated Arsenic
@@ -816,8 +844,8 @@ fluid.arsenic=Sublimated Arsenic
 tile.nuclearcraft.fluid_bas.name=Molten Boron Arsenide
 fluid.bas=Molten Boron Arsenide
 
-tile.nuclearcraft.fluid_sic_vapor.name=Silicon Carbide Vapor
-fluid.sic_vapor=Silicon Carbide Vapor
+tile.nuclearcraft.fluid_sic_vapor.name=Sublimated Silicon Carbide
+fluid.sic_vapor=Sublimated Silicon Carbide
 
 tile.nuclearcraft.fluid_zirconium.name=Molten Zirconium
 fluid.zirconium=Molten Zirconium
@@ -1784,9 +1812,11 @@ item.nuclearcraft.part.empty_sink.name=Empty Heat Sink
 item.nuclearcraft.part.pyrolytic_carbon.name=Pyrolytic Carbon
 item.nuclearcraft.part.sintered_steel.name=Sintered Steel
 item.nuclearcraft.part.sintered_zirconia.name=Sintered Zirconia
-item.nuclearcraft.part.polyethersulfone.name=PESU
+item.nuclearcraft.part.polyethersulfone.name=Polyethersulfone
 item.nuclearcraft.part.zirfon.name=Zirfon
-item.nuclearcraft.part.polytetrafluoroethene.name=PTFE
+item.nuclearcraft.part.polytetrafluoroethene.name=Polytetrafluoroethene
+item.nuclearcraft.part.polydimethylsilylene.name=Polydimethylsilylene
+item.nuclearcraft.part.polymethylsilylene_methylene.name=Polymethylsilylene-Methylene
 
 item.nuclearcraft.upgrade.speed.name=Speed Upgrade
 item.nuclearcraft.upgrade.speed_desc=Increases the processing speed of machines at the cost of additional processing power. These upgrades can be stacked - the speed will %s each additional upgrade while the power use will %s.
@@ -2436,6 +2466,10 @@ jei.nuclearcraft.electrolyte_efficiency=Efficiency Multiplier:
 
 jei.nuclearcraft.distiller_sieve_tray_count=Minimum Sieve Tray Count:
 
+jei.nuclearcraft.infiltrator_heating_factor=Heating Factor:
+
+jei.nuclearcraft.infiltrator_pressure_fluid_efficiency=Efficiency Multiplier:
+
 jei.nuclearcraft.irradiator_flux_required=Total Flux Required:
 jei.nuclearcraft.irradiator_heat_per_flux=Heat Gen Per Flux:
 jei.nuclearcraft.irradiator_process_efficiency=Efficiency Bonus:
@@ -2656,11 +2690,11 @@ gui.nc.config.machine_min_size.comment=Minimum side length of large machines.
 gui.nc.config.machine_max_size=Maximum Structure Length
 gui.nc.config.machine_max_size.comment=Maximum side length of large machines.
 gui.nc.config.machine_diaphragm_efficiency=Diaphragm Efficiency Multipliers
-gui.nc.config.machine_diaphragm_efficiency.comment=Efficiency multipliers for diaphragms of this type. Order: sintered steel, PESU, zirfon.
+gui.nc.config.machine_diaphragm_efficiency.comment=Efficiency multipliers for diaphragms of this type. Order: sintered steel, polyethersulfone, zirfon.
 gui.nc.config.machine_diaphragm_contact_factor=Diaphragm Contact Factors
-gui.nc.config.machine_diaphragm_contact_factor.comment=Contact factors for diaphragms of this type. Order: sintered steel, PESU, zirfon.
+gui.nc.config.machine_diaphragm_contact_factor.comment=Contact factors for diaphragms of this type. Order: sintered steel, polyethersulfone, zirfon.
 gui.nc.config.machine_sieve_assembly_efficiency=Sieve Assembly Efficiency Multipliers
-gui.nc.config.machine_sieve_assembly_efficiency.comment=Efficiency multipliers for sieve assemblies of this type. Order: steel, PTFE, hastelloy.
+gui.nc.config.machine_sieve_assembly_efficiency.comment=Efficiency multipliers for sieve assemblies of this type. Order: steel, polytetrafluoroethene, hastelloy.
 
 gui.nc.config.machine_electrolyzer_time=Electrolyzer Process Time
 gui.nc.config.machine_electrolyzer_time.comment=Base ticks per electrolyzer process.
@@ -2679,6 +2713,13 @@ gui.nc.config.machine_distiller_time=Distiller Process Time
 gui.nc.config.machine_distiller_time.comment=Base ticks per distiller process.
 gui.nc.config.machine_distiller_power=Distiller Process Power Use
 gui.nc.config.machine_distiller_power.comment=Base RF/t use during distilling.
+
+gui.nc.config.machine_infiltrator_time=Infiltrator Process Time
+gui.nc.config.machine_infiltrator_time.comment=Base ticks per infiltrator process.
+gui.nc.config.machine_infiltrator_power=Infiltrator Process Power Use
+gui.nc.config.machine_infiltrator_power.comment=Base RF/t use during infiltrating.
+gui.nc.config.machine_infiltrator_pressure_fluid_efficiency=Infiltrator Fluid Efficiency Multipliers
+gui.nc.config.machine_infiltrator_pressure_fluid_efficiency.comment=List of infiltrator pressure fluids and their efficiencies. Format: 'fluidName@efficiency'.
 
 gui.nc.config.category.fission=Fission Configs
 gui.nc.config.category.fission.tooltip=Configure aspects of nuclear fission.
@@ -3432,6 +3473,10 @@ gui.nc.container.distiller_controller.reflux_bonus=Reflux Bonus:
 gui.nc.container.distiller_controller.reboiling_bonus=Reboiling Bonus:
 gui.nc.container.distiller_controller.distribution_bonus=Distribution Bonus:
 
+gui.nc.container.infiltrator_controller.infiltrator=Infiltrator
+gui.nc.container.infiltrator_controller.pressure_chamber_efficiency=Chamber Efficiency:
+gui.nc.container.infiltrator_controller.pressure_fluid_efficiency=Fluid Efficiency:
+
 gui.nc.container.no_cluster=No cluster!
 
 gui.nc.container.fission_controller.clusters=Number of Clusters:
@@ -3466,6 +3511,23 @@ gui.nc.container.salt_fission_heater.heat_stored=Cluster Heat Level:
 
 gui.nc.container.fission_heater_port.name=Fission Coolant Heater Port
 
+gui.nc.container.heat_exchanger_controller.heat_exchanger=Heat Exchanger (WIP)
+gui.nc.container.heat_exchanger_controller.tubes=Number of Tubes:
+gui.nc.container.heat_exchanger_controller.efficiency=Mean Efficiency:
+gui.nc.container.heat_exchanger_controller.efficiency_max=Max Mean Efficiency:
+gui.nc.container.heat_exchanger_controller.active_percent=Tubes Active:
+
+gui.nc.container.condenser_controller.condenser=Condenser (WIP)
+
+gui.nc.container.turbine_controller.turbine=Turbine
+gui.nc.container.turbine_controller.power=Power Output:
+gui.nc.container.turbine_controller.dynamo_efficiency=Dynamo Efficiency:
+gui.nc.container.turbine_controller.dynamo_coil_count=Coil Counts:
+gui.nc.container.turbine_controller.expansion_level=Expansion:
+gui.nc.container.turbine_controller.rotor_efficiency=Rotor Efficiency:
+gui.nc.container.turbine_controller.fluid_rate=Input:
+gui.nc.container.turbine_controller.power_bonus=Rate Power Bonus:
+
 gui.nc.container.fusion_core.reactor=Fusion Reactor
 gui.nc.container.fusion_core.ring_incomplete=Ring Incomplete
 gui.nc.container.fusion_core.ring_incomplete_at=Ring Incomplete
@@ -3484,21 +3546,6 @@ gui.nc.container.fusion_core.efficiency=Efficiency:
 gui.nc.container.fusion_core.fuels=Current Fuels:
 gui.nc.container.fusion_core.empty=Empty
 gui.nc.container.fusion_core.reactor_not_found=Unable to access the fusion reactor - the structure is incomplete
-
-gui.nc.container.heat_exchanger_controller.heat_exchanger=Heat Exchanger (WIP)
-gui.nc.container.heat_exchanger_controller.tubes=Number of Tubes:
-gui.nc.container.heat_exchanger_controller.efficiency=Mean Efficiency:
-gui.nc.container.heat_exchanger_controller.efficiency_max=Max Mean Efficiency:
-gui.nc.container.heat_exchanger_controller.active_percent=Tubes Active:
-
-gui.nc.container.turbine_controller.turbine=Turbine
-gui.nc.container.turbine_controller.power=Power Output:
-gui.nc.container.turbine_controller.dynamo_efficiency=Dynamo Efficiency:
-gui.nc.container.turbine_controller.dynamo_coil_count=Coil Counts:
-gui.nc.container.turbine_controller.expansion_level=Expansion:
-gui.nc.container.turbine_controller.rotor_efficiency=Rotor Efficiency:
-gui.nc.container.turbine_controller.fluid_rate=Input:
-gui.nc.container.turbine_controller.power_bonus=Rate Power Bonus:
 
 gui.nc.container.energy_stored=Energy Stored:
 gui.nc.container.process_power=Process Power:
@@ -3552,6 +3599,8 @@ nuclearcraft.multiblock_electrolyzer.jei_name=Multiblock Electrolyzer
 nuclearcraft.electrolyzer_cathode.jei_name=Electrolyzer Cathode
 nuclearcraft.electrolyzer_anode.jei_name=Electrolyzer Anode
 nuclearcraft.multiblock_distiller.jei_name=Multiblock Distiller
+nuclearcraft.multiblock_infiltrator.jei_name=Multiblock Infiltrator
+nuclearcraft.infiltrator_pressure_fluid.jei_name=Infiltrator Pressure Fluid
 nuclearcraft.fission_moderator.jei_name=Fission Moderator
 nuclearcraft.fission_reflector.jei_name=Fission Reflector
 nuclearcraft.fission_irradiator.jei_name=Fission Irradiator
@@ -3694,11 +3743,11 @@ advancement.nuclearcraft.solid_fission_controller.desc=Craft a Solid Fuel Fissio
 advancement.nuclearcraft.salt_fission_controller.name=Next Gen Nuclear [1/2]
 advancement.nuclearcraft.salt_fission_controller.desc=Craft a Molten Salt Fission Controller
 
-advancement.nuclearcraft.heat_exchanger_controller.name=Thermal Contact [1/2]
-advancement.nuclearcraft.heat_exchanger_controller.desc=Craft a Heat Exchanger Controller
-
 advancement.nuclearcraft.turbine_controller.name=Respecting Rankine [1/2]
 advancement.nuclearcraft.turbine_controller.desc=Craft a Turbine Controller
+
+advancement.nuclearcraft.heat_exchanger_controller.name=Thermal Contact [1/2]
+advancement.nuclearcraft.heat_exchanger_controller.desc=Craft a Heat Exchanger Controller
 
 advancement.nuclearcraft.condenser_controller.name=Completing the Circle [1/2]
 advancement.nuclearcraft.condenser_controller.desc=Craft a Condenser Controller
@@ -3709,6 +3758,9 @@ advancement.nuclearcraft.electrolyzer_assembled.desc=Build a Multiblock Electrol
 advancement.nuclearcraft.distiller_assembled.name=Gertcha Cowson
 advancement.nuclearcraft.distiller_assembled.desc=Build a Multiblock Distiller
 
+advancement.nuclearcraft.infiltrator_assembled.name=Hola Pablo
+advancement.nuclearcraft.infiltrator_assembled.desc=Build a Multiblock Infiltrator
+
 advancement.nuclearcraft.solid_fission_reactor_assembled.name=Splitting the Atom [2/2]
 advancement.nuclearcraft.solid_fission_reactor_assembled.desc=Build a Solid Fuel Fission Reactor
 
@@ -3718,11 +3770,11 @@ advancement.nuclearcraft.salt_fission_reactor_assembled.desc=Build a Molten Salt
 advancement.nuclearcraft.heat_exchanger_assembled.name=Thermal Contact [2/2]
 advancement.nuclearcraft.heat_exchanger_assembled.desc=Build a Heat Exchanger
 
-advancement.nuclearcraft.turbine_assembled.name=Respecting Rankine [2/2]
-advancement.nuclearcraft.turbine_assembled.desc=Build a Turbine
-
 advancement.nuclearcraft.condenser_assembled.name=Completing the Circle [2/2]
 advancement.nuclearcraft.condenser_assembled.desc=Build a Condenser
+
+advancement.nuclearcraft.turbine_assembled.name=Respecting Rankine [2/2]
+advancement.nuclearcraft.turbine_assembled.desc=Build a Turbine
 
 advancement.nuclearcraft.geiger_counter.name=Pripyat Preparations
 advancement.nuclearcraft.geiger_counter.desc=Craft a Geiger Counter
@@ -3752,8 +3804,10 @@ advancement.nuclearcraft.foursmore.name=Even S'more Where That Came From
 advancement.nuclearcraft.foursmore.desc=Make a FourS'more QuadS'mingot
 
 block.nc.electrolyzer_run=Electrolyzer Running
-block.nc.fusion_run=Fusion Reactor Running
+block.nc.distiller_run=Distiller Running
+block.nc.infiltrator_run=Infiltrator Running
 block.nc.turbine_run=Turbine Running
+block.nc.fusion_run=Fusion Reactor Running
 
 player.nc.geiger_tick=Geiger Tick
 player.nc.radaway=Use RadAway

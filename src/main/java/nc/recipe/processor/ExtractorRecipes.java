@@ -20,7 +20,6 @@ public class ExtractorRecipes extends BasicProcessorRecipeHandler {
 			return;
 		}
 		
-		
 		addRecipe(Lists.newArrayList("turfMoon", RegistryHelper.getBlock("advancedrocketry:moonturf"), RegistryHelper.getBlock("advancedrocketry:moonturf_dark")), Blocks.GRAVEL, fluidStack("helium_3", 250), 0.5D, 1.5D);
 		
 		addRecipe(NCItems.ground_cocoa_nibs, NCItems.cocoa_solids, fluidStack("cocoa_butter", INGOT_VOLUME), 0.5D, 0.5D);

@@ -18,7 +18,6 @@ public class CentrifugeRecipes extends BasicProcessorRecipeHandler {
 			return;
 		}
 		
-		
 		addRecipe(fluidStack("boron", NUGGET_VOLUME * 12), fluidStack("boron_11", INGOT_VOLUME), fluidStack("boron_10", NUGGET_VOLUME * 3), emptyFluidStack(), emptyFluidStack(), emptyFluidStack(), emptyFluidStack(), 4D / 3D, 1D);
 		addRecipe(fluidStack("lithium", NUGGET_VOLUME * 10), fluidStack("lithium_7", INGOT_VOLUME), fluidStack("lithium_6", NUGGET_VOLUME), emptyFluidStack(), emptyFluidStack(), emptyFluidStack(), emptyFluidStack(), 10D / 9D, 1D);
 		addRecipe(fluidStack("redstone_ethanol", BUCKET_VOLUME / 2), fluidStack("ethanol", BUCKET_VOLUME / 2), fluidStack("redstone", REDSTONE_DUST_VOLUME * 4), emptyFluidStack(), emptyFluidStack(), emptyFluidStack(), emptyFluidStack(), 1D, 0.5D);

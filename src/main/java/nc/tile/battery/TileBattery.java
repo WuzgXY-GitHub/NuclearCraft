@@ -80,7 +80,7 @@ public class TileBattery extends TileMultiblockPart<BatteryMultiblock, TileBatte
 		}
 	}
 	
-	protected final EnergyStorage backupStorage = new EnergyStorage(1);
+	protected final EnergyStorage backupStorage = new EnergyStorage(0L);
 	
 	protected @Nonnull
 	final EnergyConnection[] energyConnections;

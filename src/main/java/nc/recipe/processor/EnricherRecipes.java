@@ -20,7 +20,6 @@ public class EnricherRecipes extends BasicProcessorRecipeHandler {
 			return;
 		}
 		
-		
 		addRecipe("dustBoronNitride", fluidStack("water", BUCKET_VOLUME), fluidStack("boron_nitride_solution", GEM_VOLUME), 1D, 1D);
 		addRecipe("dustFluorite", fluidStack("water", BUCKET_VOLUME), fluidStack("fluorite_water", GEM_VOLUME), 1D, 1D);
 		addRecipe("dustCalciumSulfate", fluidStack("water", BUCKET_VOLUME), fluidStack("calcium_sulfate_solution", GEM_VOLUME), 1D, 1D);

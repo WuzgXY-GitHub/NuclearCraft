@@ -8,39 +8,27 @@ import net.minecraft.util.math.BlockPos;
 
 public class HeatExchangerUpdatePacket extends MultiblockUpdatePacket {
 	
-	public boolean isHeatExchangerOn;
-	public double fractionOfTubesActive;
-	public double efficiency;
-	public double maxEfficiency;
+	public boolean isExchangerOn;
 	
 	public HeatExchangerUpdatePacket() {
 		super();
 	}
 	
-	public HeatExchangerUpdatePacket(BlockPos pos, boolean isHeatExchangerOn, double fractionOfTubesActive, double efficiency, double maxEfficiency) {
+	public HeatExchangerUpdatePacket(BlockPos pos, boolean isExchangerOn) {
 		super(pos);
-		this.isHeatExchangerOn = isHeatExchangerOn;
-		this.fractionOfTubesActive = fractionOfTubesActive;
-		this.efficiency = efficiency;
-		this.maxEfficiency = maxEfficiency;
+		this.isExchangerOn = isExchangerOn;
 	}
 	
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		super.fromBytes(buf);
-		isHeatExchangerOn = buf.readBoolean();
-		fractionOfTubesActive = buf.readDouble();
-		efficiency = buf.readDouble();
-		maxEfficiency = buf.readDouble();
+		isExchangerOn = buf.readBoolean();
 	}
 	
 	@Override
 	public void toBytes(ByteBuf buf) {
 		super.toBytes(buf);
-		buf.writeBoolean(isHeatExchangerOn);
-		buf.writeDouble(fractionOfTubesActive);
-		buf.writeDouble(efficiency);
-		buf.writeDouble(maxEfficiency);
+		buf.writeBoolean(isExchangerOn);
 	}
 	
 	public static class Handler extends MultiblockUpdatePacket.Handler<HeatExchanger, IHeatExchangerPart, HeatExchangerUpdatePacket, TileHeatExchangerController, TileContainerInfo<TileHeatExchangerController>, HeatExchangerUpdatePacket> {

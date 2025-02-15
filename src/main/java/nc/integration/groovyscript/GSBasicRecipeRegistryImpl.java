@@ -85,13 +85,13 @@ public class GSBasicRecipeRegistryImpl {
 		}
 		
 		@MethodDescription(type = Type.ADDITION)
-		public static void addElectrolyte(String electrolyteGroup, Object fluidInput, double efficiency) {
-			NCRecipes.multiblock_electrolyzer.addElectrolyte(electrolyteGroup, GSHelper.buildAdditionFluidIngredient(fluidInput), efficiency);
+		public static void addElectrolyte(String electrolyteGroup, Object fluid, double efficiency) {
+			NCRecipes.multiblock_electrolyzer.addElectrolyte(electrolyteGroup, GSHelper.buildAdditionFluidIngredient(fluid), efficiency);
 		}
 		
 		@MethodDescription(type = Type.REMOVAL)
-		public static void removeElectrolyte(String electrolyteGroup, Object fluidInput) {
-			NCRecipes.multiblock_electrolyzer.removeElectrolyte(electrolyteGroup, GSHelper.buildAdditionFluidIngredient(fluidInput));
+		public static void removeElectrolyte(String electrolyteGroup, Object fluid) {
+			NCRecipes.multiblock_electrolyzer.removeElectrolyte(electrolyteGroup, GSHelper.buildAdditionFluidIngredient(fluid));
 		}
 		
 		@MethodDescription(type = Type.REMOVAL)
@@ -164,6 +164,41 @@ public class GSBasicRecipeRegistryImpl {
 		
 		public GSMultiblockDistillerRecipeBuilder builder() {
 			return new GSMultiblockDistillerRecipeBuilder(this);
+		}
+	}
+	
+	@RegistryDescription
+	public static class GSMultiblockInfiltratorRecipeRegistry extends GSBasicRecipeRegistry {
+		
+		public GSMultiblockInfiltratorRecipeRegistry(String name) {
+			super(name);
+		}
+		
+		public GSMultiblockInfiltratorRecipeBuilder builder() {
+			return new GSMultiblockInfiltratorRecipeBuilder(this);
+		}
+	}
+	
+	@RegistryDescription
+	public static class GSInfiltratorPressureFluidRecipeRegistry extends GSBasicRecipeRegistry {
+		
+		public GSInfiltratorPressureFluidRecipeRegistry(String name) {
+			super(name);
+		}
+		
+		@MethodDescription(type = Type.ADDITION)
+		public void add(Object fluid, double efficiency) {
+			addRecipeInternal(fluid, efficiency);
+		}
+		
+		@MethodDescription(type = Type.REMOVAL)
+		public void remove(Object fluid) {
+			removeRecipeWithInputInternal(fluid);
+		}
+		
+		@MethodDescription(type = Type.REMOVAL)
+		public void removeAll() {
+			removeAllRecipesInternal();
 		}
 	}
 	

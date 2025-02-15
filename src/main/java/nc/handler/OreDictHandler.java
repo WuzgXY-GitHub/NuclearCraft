@@ -190,6 +190,8 @@ public class OreDictHandler {
 		OreDictionary.registerOre("ingotPolyethersulfone", new ItemStack(NCItems.part, 1, 18));
 		OreDictionary.registerOre("ingotZirfon", new ItemStack(NCItems.part, 1, 19));
 		OreDictionary.registerOre("ingotPolytetrafluoroethene", new ItemStack(NCItems.part, 1, 20));
+		OreDictionary.registerOre("ingotPolydimethylsilylene", new ItemStack(NCItems.part, 1, 21));
+		OreDictionary.registerOre("ingotPolymethylsilyleneMethylene", new ItemStack(NCItems.part, 1, 22));
 		
 		OreDictionary.registerOre("dustBismuth", new ItemStack(NCItems.fission_dust, 1, 0));
 		OreDictionary.registerOre("dustRadium", new ItemStack(NCItems.fission_dust, 1, 1));

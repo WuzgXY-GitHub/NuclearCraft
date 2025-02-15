@@ -239,6 +239,7 @@ public abstract class MultiblockLogic<MULTIBLOCK extends Multiblock<MULTIBLOCK, 
 		Machine.LOGIC_MAP.put("", MachineLogic::new);
 		Machine.LOGIC_MAP.put("electrolyzer", ElectrolyzerLogic::new);
 		Machine.LOGIC_MAP.put("distiller", DistillerLogic::new);
+		Machine.LOGIC_MAP.put("infiltrator", InfiltratorLogic::new);
 		
 		FissionReactor.LOGIC_MAP.put("", FissionReactorLogic::new);
 		// FissionReactor.LOGIC_MAP.put("pebble_bed", PebbleBedFissionLogic::new);

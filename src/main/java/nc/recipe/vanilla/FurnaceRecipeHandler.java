@@ -48,6 +48,9 @@ public class FurnaceRecipeHandler {
 		// Ammonium Sulfate Decomposition
 		GameRegistry.addSmelting(new ItemStack(NCItems.compound, 1, 12), OreDictHelper.getPrioritisedCraftingStack(new ItemStack(NCItems.compound, 1, 13), "dustAmmoniumBisulfate"), 0F);
 		
+		// Polydimethylsilylene Pyrolysis
+		GameRegistry.addSmelting(new ItemStack(NCItems.part, 1, 21), OreDictHelper.getPrioritisedCraftingStack(new ItemStack(NCItems.part, 1, 22), "ingotPolymethylsilyleneMethylene"), 0F);
+		
 		// Cocoa Beans
 		GameRegistry.addSmelting(new ItemStack(Items.DYE, 1, 3), new ItemStack(NCItems.roasted_cocoa_beans, 1), 0F);
 		

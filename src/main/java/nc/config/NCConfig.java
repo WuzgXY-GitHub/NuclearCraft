@@ -121,6 +121,10 @@ public class NCConfig {
 	public static int machine_distiller_time;
 	public static int machine_distiller_power;
 	
+	public static int machine_infiltrator_time;
+	public static int machine_infiltrator_power;
+	public static String[] machine_infiltrator_pressure_fluid_efficiency;
+	
 	public static int fission_min_size; // Default: 1
 	public static int fission_max_size; // Default: 24
 	public static double fission_fuel_time_multiplier; // Default: 1
@@ -560,6 +564,10 @@ public class NCConfig {
 		
 		machine_distiller_time = sync(CATEGORY_MACHINE, "machine_distiller_time", 3200, 1, 128000);
 		machine_distiller_power = sync(CATEGORY_MACHINE, "machine_distiller_power", 40, 1, 128000);
+		
+		machine_infiltrator_time = sync(CATEGORY_MACHINE, "machine_infiltrator_time", 1600, 1, 128000);
+		machine_infiltrator_power = sync(CATEGORY_MACHINE, "machine_infiltrator_power", 320, 1, 128000);
+		machine_infiltrator_pressure_fluid_efficiency = sync(CATEGORY_MACHINE, "machine_infiltrator_pressure_fluid_efficiency", new String[] {"nitrogen@0.8", "argon@0.9", "neon@0.9", "helium@1.0"}, LIST);
 		
 		fission_min_size = sync(CATEGORY_FISSION, "fission_min_size", 1, 1, 255);
 		fission_max_size = sync(CATEGORY_FISSION, "fission_max_size", 24, 3, 255);

@@ -1,7 +1,5 @@
 package nc.tile.machine;
 
-import com.google.common.collect.Lists;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import nc.ModCheck;
 import nc.multiblock.cuboidal.CuboidalPartPositionType;
 import nc.multiblock.machine.*;
@@ -20,19 +18,19 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.*;
 
 import javax.annotation.*;
-import java.util.List;
+import java.util.*;
 
 import static nc.block.property.BlockProperties.FACING_ALL;
 import static nc.config.NCConfig.enable_mek_gas;
 
 public class TileMachineReservoirPort extends TileMachinePart implements ITickable, ITileFluid {
 	
-	private final @Nonnull List<Tank> backupTanks = Lists.newArrayList(new Tank(1, new ObjectOpenHashSet<>()));
+	private final @Nonnull List<Tank> backupTanks = Collections.emptyList();
 	
-	private @Nonnull FluidConnection[] fluidConnections = ITileFluid.fluidConnectionAll(Lists.newArrayList(TankSorption.IN));
+	private @Nonnull FluidConnection[] fluidConnections = ITileFluid.fluidConnectionAll(TankSorption.IN);
 	
-	private @Nonnull final FluidTileWrapper[] fluidSides;
-	private @Nonnull final GasTileWrapper gasWrapper;
+	private final @Nonnull FluidTileWrapper[] fluidSides;
+	private final @Nonnull GasTileWrapper gasWrapper;
 	
 	public TileMachineReservoirPort() {
 		super(CuboidalPartPositionType.WALL);
@@ -54,10 +52,13 @@ public class TileMachineReservoirPort extends TileMachinePart implements ITickab
 	
 	@Override
 	public void update() {
-		if (!world.isRemote && !getTanks().get(0).isEmpty()) {
-			EnumFacing facing = getPartPosition().getFacing();
-			if (facing != null && getTankSorption(facing, 0).canDrain()) {
-				pushFluidToSide(facing);
+		if (!world.isRemote) {
+			List<Tank> tanks = getTanks();
+			if (!tanks.isEmpty() && !tanks.get(0).isEmpty()) {
+				EnumFacing facing = getPartPosition().getFacing();
+				if (facing != null && getTankSorption(facing, 0).canDrain()) {
+					pushFluidToSide(facing);
+				}
 			}
 		}
 	}
@@ -108,8 +109,11 @@ public class TileMachineReservoirPort extends TileMachinePart implements ITickab
 			return;
 		}
 		
-		Tank tank = getTanks().get(0);
-		tank.drain(adjStorage.fill(tank.drain(tank.getCapacity(), false), true), true);
+		List<Tank> tanks = getTanks();
+		if (!tanks.isEmpty()) {
+			Tank tank = tanks.get(0);
+			tank.drain(adjStorage.fill(tank.drain(tank.getCapacity(), false), true), true);
+		}
 	}
 	
 	@Override

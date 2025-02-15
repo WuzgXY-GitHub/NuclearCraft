@@ -25,7 +25,7 @@ public class TileHeatExchangerRedstonePort extends TileHeatExchangerPart {
 		
 		HeatExchangerLogic logic = getLogic();
 		if (logic != null) {
-			logic.setIsHeatExchangerOn();
+			logic.setIsExchangerOn();
 		}
 	}
 }

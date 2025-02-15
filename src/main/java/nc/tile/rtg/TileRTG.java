@@ -50,7 +50,7 @@ public class TileRTG extends TileMultiblockPart<RTGMultiblock, TileRTG> implemen
 		}
 	}
 	
-	private final EnergyStorage backupStorage = new EnergyStorage(1);
+	private final EnergyStorage backupStorage = new EnergyStorage(0L);
 	
 	private @Nonnull
 	final EnergyConnection[] energyConnections;

@@ -484,6 +484,9 @@ public class Turbine extends CuboidalMultiblock<Turbine, ITurbinePart> implement
 	@Override
 	public void clearAllMaterial() {
 		logic.clearAllMaterial();
+		for (Tank tank : tanks) {
+			tank.setFluidStored(null);
+		}
 		super.clearAllMaterial();
 	}
 }

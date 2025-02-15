@@ -1,0 +1,19 @@
+{
+	"display": {
+		"icon": {
+			"item": "nuclearcraft:infiltrator_controller"
+		},
+		"title": {
+			"translate": "advancement.nuclearcraft.infiltrator_assembled.name"
+		},
+		"description": {
+			"translate": "advancement.nuclearcraft.infiltrator_assembled.desc"
+		}
+	},
+	"parent": "nuclearcraft:processors/assembler",
+	"criteria": {
+		"infiltrator_assembled": {
+			"trigger": "nuclearcraft:infiltrator_assembled"
+		}
+	}
+}

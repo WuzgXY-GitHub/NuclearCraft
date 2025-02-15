@@ -146,7 +146,7 @@ public class DistillerLogic extends MachineLogic {
 		}
 		
 		baseSpeedMultiplier = (double) area * (traySieveCount == 0 ? packedSieveEfficiency : (packedSieveCount == 0 ? traySieveEfficiency : (packedSieveCount * traySieveEfficiency + packedSieveEfficiency) / (1D + packedSieveCount)));
-		basePowerMultiplier = (double) area * (double) (traySieveCount + packedSieveCount);
+		basePowerMultiplier = (double) area * (double) (traySieveCount + packedSieveCount + reboilingUnits.size());
 		
 		refluxUnitFraction = (double) refluxUnits.size() / (double) area;
 		reboilingUnitFraction = (double) reboilingUnits.size() / (double) area;
@@ -165,6 +165,14 @@ public class DistillerLogic extends MachineLogic {
 	}
 	
 	// Server
+	
+	@Override
+	public void setActivity(boolean isMachineOn) {
+		super.setActivity(isMachineOn);
+		for (TileDistillerReboilingUnit reboilingUnit : getParts(TileDistillerReboilingUnit.class)) {
+			reboilingUnit.setActivity(isMachineOn);
+		}
+	}
 	
 	@Override
 	protected void setRecipeStats(@Nullable BasicRecipe recipe) {
@@ -206,13 +214,8 @@ public class DistillerLogic extends MachineLogic {
 	}
 	
 	@Override
-	protected double getPowerMultiplier() {
-		return basePowerMultiplier * (1D + refluxUnitBonus) * (1D + reboilingUnitBonus) * (1D + liquidDistributorBonus);
-	}
-	
-	@Override
 	protected boolean readyToProcess() {
-		if (!super.readyToProcess() || baseSpeedMultiplier <= 0D) {
+		if (!super.readyToProcess()) {
 			return false;
 		}
 		

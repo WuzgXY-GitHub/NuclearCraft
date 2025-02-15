@@ -284,6 +284,18 @@
 				"fluid": "fluorobenzene"
 			}
 		},
+		"fluid_difluorobenzene": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "difluorobenzene"
+			}
+		},
+		"fluid_dimethyldifluorosilane": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "dimethyldifluorosilane"
+			}
+		},
 		"fluid_boric_acid": {
 			"model": "forge:fluid",
 			"custom": {
@@ -354,6 +366,12 @@
 			"model": "forge:fluid",
 			"custom": {
 				"fluid": "sulfur"
+			}
+		},
+		"fluid_silicon": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "silicon"
 			}
 		},
 		"fluid_arsenic": {
@@ -524,6 +542,18 @@
 				"fluid": "potassium"
 			}
 		},
+		"fluid_sodium_sulfide": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "sodium_sulfide"
+			}
+		},
+		"fluid_potassium_sulfide": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "potassium_sulfide"
+			}
+		},
 		"fluid_nak": {
 			"model": "forge:fluid",
 			"custom": {
@@ -636,6 +666,24 @@
 			"model": "forge:fluid",
 			"custom": {
 				"fluid": "dfdps"
+			}
+		},
+		"fluid_polyphenylene_sulfide": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "polyphenylene_sulfide"
+			}
+		},
+		"fluid_polydimethylsilylene": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "polydimethylsilylene"
+			}
+		},
+		"fluid_polymethylsilylene_methylene": {
+			"model": "forge:fluid",
+			"custom": {
+				"fluid": "polymethylsilylene_methylene"
 			}
 		},
 		"fluid_polyethersulfone": {

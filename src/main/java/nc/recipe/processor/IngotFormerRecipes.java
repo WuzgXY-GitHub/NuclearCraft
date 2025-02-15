@@ -37,6 +37,10 @@ public class IngotFormerRecipes extends BasicProcessorRecipeHandler {
 		
 		addRecipe(fluidStack("bas", GEM_VOLUME), "gemBoronArsenide", 2D, 2D);
 		
+		addIngotFormingRecipe("sic_vapor", "SiliconCarbide");
+		
+		addIngotFormingRecipe("polymethylsilylene_methylene", "PolymethylsilyleneMethylene");
+		
 		addRecipe(fluidStack("redstone", REDSTONE_DUST_VOLUME), "ingotRedstone", 0.25D, 1D);
 		addRecipe(fluidStack("glowstone", GLOWSTONE_DUST_VOLUME), "ingotGlowstone", 0.25D, 1D);
 		addRecipe(fluidStack("coal", COAL_DUST_VOLUME), "ingotGraphite", 0.5D, 1D);

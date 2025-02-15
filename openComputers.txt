@@ -101,16 +101,11 @@ void clearAllMaterial()
 >---------------------------------------------<
 
 boolean isComplete()
-boolean isHeatExchangerOn()
+boolean isExchangerOn()
 
 int getLengthX()
 int getLengthY()
 int getLengthZ()
-
-double getFractionOfTubesActive()
-double getMeanEfficiency()
-int getNumberOfExchangerTubes()
-int getNumberOfCondenserTubes()
 
 void activate()
 void deactivate()

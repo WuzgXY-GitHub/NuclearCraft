@@ -76,6 +76,10 @@ public class NCTiles {
 		registerTile(Global.MOD_ID, "distiller_reboiling_unit", TileDistillerReboilingUnit.class);
 		registerTile(Global.MOD_ID, "distiller_liquid_distributor", TileDistillerLiquidDistributor.class);
 		
+		registerTile(Global.MOD_ID, "infiltrator_controller", TileInfiltratorController.class);
+		registerTile(Global.MOD_ID, "infiltrator_pressure_chamber", TileInfiltratorPressureChamber.class);
+		registerTile(Global.MOD_ID, "infiltrator_heating_unit", TileInfiltratorHeatingUnit.class);
+		
 		registerTile(Global.MOD_ID, "fission_casing", TileFissionCasing.class);
 		registerTile(Global.MOD_ID, "fission_glass", TileFissionGlass.class);
 		registerTile(Global.MOD_ID, "fission_conductor", TileFissionConductor.class);

@@ -18,7 +18,6 @@ public class SaltMixerRecipes extends BasicProcessorRecipeHandler {
 			return;
 		}
 		
-		
 		addRecipe(fluidStack("lif", INGOT_VOLUME), fluidStack("bef2", INGOT_VOLUME / 2), fluidStack("flibe", INGOT_VOLUME / 2), 0.5D, 1D);
 		addRecipe(fluidStack("sodium", INGOT_VOLUME / 2), fluidStack("potassium", INGOT_VOLUME * 2), fluidStack("nak", INGOT_VOLUME), 1D, 1D);
 		

@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
-public class RenderElectrolyzerReservoir extends TileEntitySpecialRenderer<TileElectrolyzerController> implements IWorldRender {
+public class RenderMultiblockElectrolyzer extends TileEntitySpecialRenderer<TileElectrolyzerController> implements IWorldRender {
 	
 	@Override
 	public boolean isGlobalRenderer(TileElectrolyzerController controller) {

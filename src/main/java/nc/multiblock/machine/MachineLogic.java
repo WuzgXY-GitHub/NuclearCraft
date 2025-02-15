@@ -72,7 +72,9 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 	
 	public MachineLogic(MachineLogic oldLogic) {
 		super(oldLogic);
-		if (getID().equals(oldLogic.getID())) {
+		
+		String id = getID();
+		if (id.isEmpty() || id.equals(oldLogic.getID())) {
 			energyStorage = oldLogic.energyStorage;
 			
 			reservoirTanks = oldLogic.reservoirTanks;
@@ -276,7 +278,9 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 	
 	protected void setupMachine() {
 		int volume = multiblock.getInteriorVolume();
-		energyStorage.setStorageCapacity(volume * energyDensity());
+		long energyCapacity = volume * energyDensity();
+		energyStorage.setStorageCapacity(energyCapacity);
+		energyStorage.setMaxTransfer(energyCapacity);
 		
 		int tankCapacity = volume * tankDensity();
 		Consumer<Tank> setupTank = x -> {
@@ -377,12 +381,16 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 		}
 	}
 	
+	public void setActivity(boolean isMachineOn) {
+		multiblock.controller.setActivity(isMachineOn);
+	}
+	
 	public void setIsMachineOn(boolean isMachineOn) {
 		boolean oldIsMachineOn = multiblock.isMachineOn;
 		multiblock.isMachineOn = isMachineOn;
 		if (multiblock.isMachineOn != oldIsMachineOn) {
 			if (multiblock.controller != null) {
-				multiblock.controller.setActivity(multiblock.isMachineOn);
+				setActivity(multiblock.isMachineOn);
 				multiblock.sendMultiblockUpdatePacketToAll();
 			}
 		}

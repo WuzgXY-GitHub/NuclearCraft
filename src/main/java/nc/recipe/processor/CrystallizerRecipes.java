@@ -3,7 +3,7 @@ package nc.recipe.processor;
 import nc.radiation.RadSources;
 
 import static nc.config.NCConfig.*;
-import static nc.util.FluidStackHelper.GEM_VOLUME;
+import static nc.util.FluidStackHelper.*;
 
 public class CrystallizerRecipes extends BasicProcessorRecipeHandler {
 	
@@ -16,7 +16,6 @@ public class CrystallizerRecipes extends BasicProcessorRecipeHandler {
 		if (!default_processor_recipes_global || !default_processor_recipes[14]) {
 			return;
 		}
-		
 		
 		addRecipe(fluidStack("boron_nitride_solution", GEM_VOLUME), "dustBoronNitride", 1D, 1D);
 		addRecipe(fluidStack("fluorite_water", GEM_VOLUME), "dustFluorite", 1D, 1D);
@@ -33,5 +32,7 @@ public class CrystallizerRecipes extends BasicProcessorRecipeHandler {
 		addRecipe(fluidStack("hydroquinone_solution", GEM_VOLUME), "dustHydroquinone", 1D, 1D);
 		addRecipe(fluidStack("sodium_hydroquinone_solution", GEM_VOLUME), "dustSodiumHydroquinone", 1D, 1D);
 		addRecipe(fluidStack("potassium_hydroquinone_solution", GEM_VOLUME), "dustPotassiumHydroquinone", 1D, 1D);
+		
+		addRecipe(fluidStack("sic_vapor", INGOT_VOLUME), "fiberSiliconCarbide", 2D, 2D);
 	}
 }

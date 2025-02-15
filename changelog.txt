@@ -1,3 +1,15 @@
+v2o.8.4
+
++ Added Multiblock Infiltrator - finally craft SiC-SiC CMC!
++ Some recipes will benefit from heating the Pressure Chambers more than others!
+
++ Added CraftTweaker and GroovyScript support for new recipe types
+
+* Fixed machine process ports incorrectly accepting items when multiblock is incomplete
+* Fixed machine power ports not having correct transfer rates
+
+* A few other minor changes
+
 v2o.8.3
 
 * Fixed crash on servers with CraftTweaker installed
@@ -9,6 +21,8 @@ v2o.8.2
 
 + Added Multiblock Distiller - finally exploit the Girdler sulphide process!
 + Optimise your distillation towers with Reflux Units, Reboiling Units and Liquid Distributors!
+
++ Added CraftTweaker and GroovyScript support for new recipe types
 
 * Modified Multiblock Electrolyser and Distiller default process time and power configs
 

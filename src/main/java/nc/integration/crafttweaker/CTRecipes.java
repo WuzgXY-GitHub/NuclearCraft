@@ -2,7 +2,6 @@ package nc.integration.crafttweaker;
 
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
-import crafttweaker.api.liquid.ILiquidStack;
 import nc.recipe.*;
 import stanhebben.zenscript.annotations.*;
 
@@ -18,18 +17,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input, output, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient itemInput, IIngredient itemOutput, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(itemInput, itemOutput, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient itemInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(itemInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient itemOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(itemOutput);
 		}
 		
 		@ZenMethod
@@ -48,18 +47,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output1, IIngredient output2, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input, output1, output2, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient itemInput, IIngredient itemOutput1, IIngredient itemOutput2, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(itemInput, itemOutput1, itemOutput2, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient itemInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(itemInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output1, IIngredient output2) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output1, output2);
+		public static void removeRecipeWithOutput(IIngredient itemOutput1, IIngredient itemOutput2) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(itemOutput1, itemOutput2);
 		}
 		
 		@ZenMethod
@@ -78,18 +77,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input, output, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient itemInput, IIngredient itemOutput, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(itemInput, itemOutput, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient itemInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(itemInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient itemOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(itemOutput);
 		}
 		
 		@ZenMethod
@@ -108,18 +107,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output1, IIngredient output2, IIngredient output3, IIngredient output4, IIngredient output5, IIngredient output6, IIngredient output7, IIngredient output8, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input, output1, output2, output3, output4, output5, output6, output7, output8, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient itemInput, IIngredient itemOutput1, IIngredient itemOutput2, IIngredient itemOutput3, IIngredient itemOutput4, IIngredient itemOutput5, IIngredient itemOutput6, IIngredient itemOutput7, IIngredient itemOutput8, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(itemInput, itemOutput1, itemOutput2, itemOutput3, itemOutput4, itemOutput5, itemOutput6, itemOutput7, itemOutput8, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient itemInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(itemInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output1, IIngredient output2, IIngredient output3, IIngredient output4, IIngredient output5, IIngredient output6, IIngredient output7, IIngredient output8) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output1, output2, output3, output4, output5, output6, output7, output8);
+		public static void removeRecipeWithOutput(IIngredient itemOutput1, IIngredient itemOutput2, IIngredient itemOutput3, IIngredient itemOutput4, IIngredient itemOutput5, IIngredient itemOutput6, IIngredient itemOutput7, IIngredient itemOutput8) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(itemOutput1, itemOutput2, itemOutput3, itemOutput4, itemOutput5, itemOutput6, itemOutput7, itemOutput8);
 		}
 		
 		@ZenMethod
@@ -138,18 +137,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input1, IIngredient input2, IIngredient output, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input1, input2, output, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient itemInput1, IIngredient itemInput2, IIngredient itemOutput, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(itemInput1, itemInput2, itemOutput, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input1, IIngredient input2) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input1, input2);
+		public static void removeRecipeWithInput(IIngredient itemInput1, IIngredient itemInput2) {
+			getRecipeHandler().ctRemoveRecipeWithInput(itemInput1, itemInput2);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient itemOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(itemOutput);
 		}
 		
 		@ZenMethod
@@ -168,18 +167,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input1, IIngredient input2, IIngredient output, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input1, input2, output, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient itemInput, IIngredient fluidInput, IIngredient itemOutput, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(itemInput, fluidInput, itemOutput, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input1, IIngredient input2) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input1, input2);
+		public static void removeRecipeWithInput(IIngredient itemInput, IIngredient fluidInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(itemInput, fluidInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient itemOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(itemOutput);
 		}
 		
 		@ZenMethod
@@ -198,18 +197,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input, output, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient itemInput, IIngredient fluidOutput, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(itemInput, fluidOutput, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient itemInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(itemInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient fluidOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(fluidOutput);
 		}
 		
 		@ZenMethod
@@ -228,18 +227,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input, output, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient fluidInput, IIngredient fluidOutput, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(fluidInput, fluidOutput, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient fluidInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(fluidInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient fluidOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(fluidOutput);
 		}
 		
 		@ZenMethod
@@ -258,18 +257,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output1, IIngredient output2, IIngredient output3, IIngredient output4, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input, output1, output2, output3, output4, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient fluidInput, IIngredient fluidOutput1, IIngredient fluidOutput2, IIngredient fluidOutput3, IIngredient fluidOutput4, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(fluidInput, fluidOutput1, fluidOutput2, fluidOutput3, fluidOutput4, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient fluidInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(fluidInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output1, IIngredient output2, IIngredient output3, IIngredient output4) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output1, output2, output3, output4);
+		public static void removeRecipeWithOutput(IIngredient fluidOutput1, IIngredient fluidOutput2, IIngredient fluidOutput3, IIngredient fluidOutput4) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(fluidOutput1, fluidOutput2, fluidOutput3, fluidOutput4);
 		}
 		
 		@ZenMethod
@@ -288,18 +287,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input1, IIngredient input2, IIngredient input3, IIngredient input4, IIngredient output, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input1, input2, input3, input4, output, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient itemInput1, IIngredient itemInput2, IIngredient itemInput3, IIngredient itemInput4, IIngredient itemOutput, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(itemInput1, itemInput2, itemInput3, itemInput4, itemOutput, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input1, IIngredient input2, IIngredient input3, IIngredient input4) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input1, input2, input3, input4);
+		public static void removeRecipeWithInput(IIngredient itemInput1, IIngredient itemInput2, IIngredient itemInput3, IIngredient itemInput4) {
+			getRecipeHandler().ctRemoveRecipeWithInput(itemInput1, itemInput2, itemInput3, itemInput4);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient itemOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(itemOutput);
 		}
 		
 		@ZenMethod
@@ -318,18 +317,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input, output, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient fluidInput, IIngredient itemOutput, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(fluidInput, itemOutput, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient fluidInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(fluidInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient itemOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(itemOutput);
 		}
 		
 		@ZenMethod
@@ -348,18 +347,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input, output, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient itemInput, IIngredient itemOutput, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(itemInput, itemOutput, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient itemInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(itemInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient itemOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(itemOutput);
 		}
 		
 		@ZenMethod
@@ -378,18 +377,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input1, IIngredient input2, IIngredient output1, IIngredient output2, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input1, input2, output1, output2, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient fluidInput1, IIngredient fluidInput2, IIngredient fluidOutput1, IIngredient fluidOutput2, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(fluidInput1, fluidInput2, fluidOutput1, fluidOutput2, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input1, IIngredient input2) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input1, input2);
+		public static void removeRecipeWithInput(IIngredient fluidInput1, IIngredient fluidInput2) {
+			getRecipeHandler().ctRemoveRecipeWithInput(fluidInput1, fluidInput2);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output1, IIngredient output2) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output1, output2);
+		public static void removeRecipeWithOutput(IIngredient fluidOutput1, IIngredient fluidOutput2) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(fluidOutput1, fluidOutput2);
 		}
 		
 		@ZenMethod
@@ -408,18 +407,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input1, IIngredient input2, IIngredient output, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input1, input2, output, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient fluidInput1, IIngredient fluidInput2, IIngredient fluidOutput, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(fluidInput1, fluidInput2, fluidOutput, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input1, IIngredient input2) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input1, input2);
+		public static void removeRecipeWithInput(IIngredient fluidInput1, IIngredient fluidInput2) {
+			getRecipeHandler().ctRemoveRecipeWithInput(fluidInput1, fluidInput2);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient fluidOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(fluidOutput);
 		}
 		
 		@ZenMethod
@@ -438,18 +437,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input, output, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient fluidInput, IIngredient itemOutput, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(fluidInput, itemOutput, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient fluidInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(fluidInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient itemOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(itemOutput);
 		}
 		
 		@ZenMethod
@@ -468,18 +467,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input1, IIngredient input2, IIngredient output, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input1, input2, output, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient itemInput, IIngredient fluidInput, IIngredient fluidOutput, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(itemInput, fluidInput, fluidOutput, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input1, IIngredient input2) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input1, input2);
+		public static void removeRecipeWithInput(IIngredient itemInput, IIngredient fluidInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(itemInput, fluidInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient fluidOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(fluidOutput);
 		}
 		
 		@ZenMethod
@@ -498,18 +497,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output1, IIngredient output2, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input, output1, output2, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient itemInput, IIngredient itemOutput, IIngredient fluidOutput, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(itemInput, itemOutput, fluidOutput, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient itemInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(itemInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output1, IIngredient output2) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output1, output2);
+		public static void removeRecipeWithOutput(IIngredient itemOutput, IIngredient fluidOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(itemOutput, fluidOutput);
 		}
 		
 		@ZenMethod
@@ -528,18 +527,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output1, IIngredient output2, IIngredient output3, IIngredient output4, IIngredient output5, IIngredient output6, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input, output1, output2, output3, output4, output5, output6, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient fluidInput, IIngredient fluidOutput1, IIngredient fluidOutput2, IIngredient fluidOutput3, IIngredient fluidOutput4, IIngredient fluidOutput5, IIngredient fluidOutput6, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(fluidInput, fluidOutput1, fluidOutput2, fluidOutput3, fluidOutput4, fluidOutput5, fluidOutput6, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient fluidInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(fluidInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output1, IIngredient output2, IIngredient output3, IIngredient output4, IIngredient output5, IIngredient output6) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output1, output2, output3, output4, output5, output6);
+		public static void removeRecipeWithOutput(IIngredient fluidOutput1, IIngredient fluidOutput2, IIngredient fluidOutput3, IIngredient fluidOutput4, IIngredient fluidOutput5, IIngredient fluidOutput6) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(fluidOutput1, fluidOutput2, fluidOutput3, fluidOutput4, fluidOutput5, fluidOutput6);
 		}
 		
 		@ZenMethod
@@ -558,18 +557,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output1, IIngredient output2, IIngredient output3, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input, output1, output2, output3, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient itemInput, IIngredient itemOutput1, IIngredient itemOutput2, IIngredient itemOutput3, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(itemInput, itemOutput1, itemOutput2, itemOutput3, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient itemInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(itemInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output1, IIngredient output2, IIngredient output3) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output1, output2, output3);
+		public static void removeRecipeWithOutput(IIngredient itemOutput1, IIngredient itemOutput2, IIngredient itemOutput3) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(itemOutput1, itemOutput2, itemOutput3);
 		}
 		
 		@ZenMethod
@@ -588,18 +587,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input, output, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient itemInput, IIngredient itemOutput, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(itemInput, itemOutput, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient itemInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(itemInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient itemOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(itemOutput);
 		}
 		
 		@ZenMethod
@@ -618,18 +617,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output, double meanLifetime, double power, double radiation) {
-			getRecipeHandler().ctAddRecipe(input, output, meanLifetime, power, radiation);
+		public static void addRecipe(IIngredient blockInput, IIngredient blockOutput, double meanLifetime, double power, double radiation) {
+			getRecipeHandler().ctAddRecipe(blockInput, blockOutput, meanLifetime, power, radiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient blockInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(blockInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient blockOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(blockOutput);
 		}
 		
 		@ZenMethod
@@ -648,13 +647,13 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void add(IIngredient input, double efficiency, double contactFactor) {
-			getRecipeHandler().ctAddRecipe(input, efficiency, contactFactor);
+		public static void add(IIngredient block, double efficiency, double contactFactor) {
+			getRecipeHandler().ctAddRecipe(block, efficiency, contactFactor);
 		}
 		
 		@ZenMethod
-		public static void remove(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void remove(IIngredient block) {
+			getRecipeHandler().ctRemoveRecipeWithInput(block);
 		}
 		
 		@ZenMethod
@@ -673,13 +672,13 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void add(IIngredient input, double efficiency) {
-			getRecipeHandler().ctAddRecipe(input, efficiency);
+		public static void add(IIngredient block, double efficiency) {
+			getRecipeHandler().ctAddRecipe(block, efficiency);
 		}
 		
 		@ZenMethod
-		public static void remove(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void remove(IIngredient block) {
+			getRecipeHandler().ctRemoveRecipeWithInput(block);
 		}
 		
 		@ZenMethod
@@ -698,18 +697,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output1, IIngredient output2, IIngredient output3, IIngredient output4, double timeMultiplier, double powerMultiplier, double processRadiation, String electrolyteGroup) {
-			getRecipeHandler().ctAddRecipe(input, output1, output2, output3, output4, timeMultiplier, powerMultiplier, processRadiation, electrolyteGroup);
+		public static void addRecipe(IIngredient itemInput1, IIngredient itemInput2, IIngredient fluidInput1, IIngredient fluidInput2, IIngredient itemOutput1, IIngredient itemOutput2, IIngredient itemOutput3, IIngredient itemOutput4, IIngredient fluidOutput1, IIngredient fluidOutput2, IIngredient fluidOutput3, IIngredient fluidOutput4, double timeMultiplier, double powerMultiplier, double processRadiation, String electrolyteGroup) {
+			getRecipeHandler().ctAddRecipe(itemInput1, itemInput2, fluidInput1, fluidInput2, itemOutput1, itemOutput2, itemOutput3, itemOutput4, fluidOutput1, fluidOutput2, fluidOutput3, fluidOutput4, timeMultiplier, powerMultiplier, processRadiation, electrolyteGroup);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient itemInput1, IIngredient itemInput2, IIngredient fluidInput1, IIngredient fluidInput2) {
+			getRecipeHandler().ctRemoveRecipeWithInput(itemInput1, itemInput2, fluidInput1, fluidInput2);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output1, IIngredient output2, IIngredient output3, IIngredient output4) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output1, output2, output3, output4);
+		public static void removeRecipeWithOutput(IIngredient itemOutput1, IIngredient itemOutput2, IIngredient itemOutput3, IIngredient itemOutput4, IIngredient fluidOutput1, IIngredient fluidOutput2, IIngredient fluidOutput3, IIngredient fluidOutput4) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(itemOutput1, itemOutput2, itemOutput3, itemOutput4, fluidOutput1, fluidOutput2, fluidOutput3, fluidOutput4);
 		}
 		
 		@ZenMethod
@@ -718,13 +717,13 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addElectrolyte(String electrolyteGroup, ILiquidStack fluidInput, double efficiency) {
-			NCRecipes.multiblock_electrolyzer.addElectrolyte(electrolyteGroup, CTHelper.buildAdditionFluidIngredient(fluidInput), efficiency);
+		public static void addElectrolyte(String electrolyteGroup, IIngredient fluid, double efficiency) {
+			NCRecipes.multiblock_electrolyzer.addElectrolyte(electrolyteGroup, CTHelper.buildAdditionFluidIngredient(fluid), efficiency);
 		}
 		
 		@ZenMethod
-		public static void removeElectrolyte(String electrolyteGroup, ILiquidStack fluidInput) {
-			NCRecipes.multiblock_electrolyzer.removeElectrolyte(electrolyteGroup, CTHelper.buildAdditionFluidIngredient(fluidInput));
+		public static void removeElectrolyte(String electrolyteGroup, IIngredient fluid) {
+			NCRecipes.multiblock_electrolyzer.removeElectrolyte(electrolyteGroup, CTHelper.buildAdditionFluidIngredient(fluid));
 		}
 		
 		@ZenMethod
@@ -748,13 +747,13 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void add(IIngredient input, double efficiency) {
-			getRecipeHandler().ctAddRecipe(input, efficiency);
+		public static void add(IIngredient block, double efficiency) {
+			getRecipeHandler().ctAddRecipe(block, efficiency);
 		}
 		
 		@ZenMethod
-		public static void remove(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void remove(IIngredient block) {
+			getRecipeHandler().ctRemoveRecipeWithInput(block);
 		}
 		
 		@ZenMethod
@@ -773,13 +772,13 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void add(IIngredient input, double efficiency) {
-			getRecipeHandler().ctAddRecipe(input, efficiency);
+		public static void add(IIngredient block, double efficiency) {
+			getRecipeHandler().ctAddRecipe(block, efficiency);
 		}
 		
 		@ZenMethod
-		public static void remove(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void remove(IIngredient block) {
+			getRecipeHandler().ctRemoveRecipeWithInput(block);
 		}
 		
 		@ZenMethod
@@ -798,22 +797,77 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input1, IIngredient input2, IIngredient output1, IIngredient output2, IIngredient output3, IIngredient output4, IIngredient output5, IIngredient output6, IIngredient output7, IIngredient output8, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
-			getRecipeHandler().ctAddRecipe(input1, input2, output1, output2, output3, output4, output5, output6, output7, output8, timeMultiplier, powerMultiplier, processRadiation);
+		public static void addRecipe(IIngredient fluidInput1, IIngredient fluidInput2, IIngredient fluidOutput1, IIngredient fluidOutput2, IIngredient fluidOutput3, IIngredient fluidOutput4, IIngredient fluidOutput5, IIngredient fluidOutput6, IIngredient fluidOutput7, IIngredient fluidOutput8, @Optional(valueDouble = 1D) double timeMultiplier, @Optional(valueDouble = 1D) double powerMultiplier, @Optional double processRadiation) {
+			getRecipeHandler().ctAddRecipe(fluidInput1, fluidInput2, fluidOutput1, fluidOutput2, fluidOutput3, fluidOutput4, fluidOutput5, fluidOutput6, fluidOutput7, fluidOutput8, timeMultiplier, powerMultiplier, processRadiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input1, IIngredient input2) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input1, input2);
+		public static void removeRecipeWithInput(IIngredient fluidInput1, IIngredient fluidInput2) {
+			getRecipeHandler().ctRemoveRecipeWithInput(fluidInput1, fluidInput2);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output1, IIngredient output2, IIngredient output3, IIngredient output4, IIngredient output5, IIngredient output6, IIngredient output7, IIngredient output8) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output1, output2, output3, output4, output5, output6, output7, output8);
+		public static void removeRecipeWithOutput(IIngredient fluidOutput1, IIngredient fluidOutput2, IIngredient fluidOutput3, IIngredient fluidOutput4, IIngredient fluidOutput5, IIngredient fluidOutput6, IIngredient fluidOutput7, IIngredient fluidOutput8) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(fluidOutput1, fluidOutput2, fluidOutput3, fluidOutput4, fluidOutput5, fluidOutput6, fluidOutput7, fluidOutput8);
 		}
 		
 		@ZenMethod
 		public static void removeAllRecipes() {
+			getRecipeHandler().ctRemoveAllRecipes();
+		}
+	}
+	
+	@ZenClass("mods.nuclearcraft.MultiblockInfiltrator")
+	@ZenRegister
+	public static class MultiblockInfiltratorMethods {
+		
+		@ZenMethod
+		public static BasicRecipeHandler getRecipeHandler() {
+			return NCRecipes.multiblock_infiltrator;
+		}
+		
+		@ZenMethod
+		public static void addRecipe(IIngredient itemInput1, IIngredient itemInput2, IIngredient fluidInput1, IIngredient fluidInput2, IIngredient itemOutput, double timeMultiplier, double powerMultiplier, double processRadiation, double heatingFactor) {
+			getRecipeHandler().ctAddRecipe(itemInput1, itemInput2, fluidInput1, fluidInput2, itemOutput, timeMultiplier, powerMultiplier, processRadiation, heatingFactor);
+		}
+		
+		@ZenMethod
+		public static void removeRecipeWithInput(IIngredient itemInput1, IIngredient itemInput2, IIngredient fluidInput1, IIngredient fluidInput2) {
+			getRecipeHandler().ctRemoveRecipeWithInput(itemInput1, itemInput2, fluidInput1, fluidInput2);
+		}
+		
+		@ZenMethod
+		public static void removeRecipeWithOutput(IIngredient itemOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(itemOutput);
+		}
+		
+		@ZenMethod
+		public static void removeAllRecipes() {
+			getRecipeHandler().ctRemoveAllRecipes();
+		}
+	}
+	
+	@ZenClass("mods.nuclearcraft.InfiltratorPressureFluid")
+	@ZenRegister
+	public static class InfiltratorPressureFluidMethods {
+		
+		@ZenMethod
+		public static BasicRecipeHandler getRecipeHandler() {
+			return NCRecipes.infiltrator_pressure_fluid;
+		}
+		
+		@ZenMethod
+		public static void add(IIngredient fluid, double efficiency) {
+			getRecipeHandler().ctAddRecipe(fluid, efficiency);
+		}
+		
+		@ZenMethod
+		public static void remove(IIngredient fluid) {
+			getRecipeHandler().ctRemoveRecipeWithInput(fluid);
+		}
+		
+		@ZenMethod
+		public static void removeAll() {
 			getRecipeHandler().ctRemoveAllRecipes();
 		}
 	}
@@ -828,13 +882,13 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void add(IIngredient input, int fluxFactor, double efficiency) {
-			getRecipeHandler().ctAddRecipe(input, fluxFactor, efficiency);
+		public static void add(IIngredient block, int fluxFactor, double efficiency) {
+			getRecipeHandler().ctAddRecipe(block, fluxFactor, efficiency);
 		}
 		
 		@ZenMethod
-		public static void remove(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void remove(IIngredient block) {
+			getRecipeHandler().ctRemoveRecipeWithInput(block);
 		}
 		
 		@ZenMethod
@@ -853,13 +907,13 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void add(IIngredient input, double efficiency, double reflectivity) {
-			getRecipeHandler().ctAddRecipe(input, efficiency, reflectivity);
+		public static void add(IIngredient block, double efficiency, double reflectivity) {
+			getRecipeHandler().ctAddRecipe(block, efficiency, reflectivity);
 		}
 		
 		@ZenMethod
-		public static void remove(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void remove(IIngredient block) {
+			getRecipeHandler().ctRemoveRecipeWithInput(block);
 		}
 		
 		@ZenMethod
@@ -878,18 +932,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output, long fluxRequired, double heatPerFlux, double efficiency, @Optional(valueLong = 0) long minFluxPerTick, @Optional(valueLong = -1) long maxFluxPerTick, @Optional double radiation) {
-			getRecipeHandler().ctAddRecipe(input, output, fluxRequired, heatPerFlux, efficiency, minFluxPerTick, maxFluxPerTick, radiation);
+		public static void addRecipe(IIngredient itemInput, IIngredient itemOutput, long fluxRequired, double heatPerFlux, double efficiency, @Optional(valueLong = 0) long minFluxPerTick, @Optional(valueLong = -1) long maxFluxPerTick, @Optional double radiation) {
+			getRecipeHandler().ctAddRecipe(itemInput, itemOutput, fluxRequired, heatPerFlux, efficiency, minFluxPerTick, maxFluxPerTick, radiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient itemInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(itemInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient itemOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(itemOutput);
 		}
 		
 		@ZenMethod
@@ -908,18 +962,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
-			getRecipeHandler().ctAddRecipe(input, output, time, heat, efficiency, criticality, decayFactor, selfPriming, radiation);
+		public static void addRecipe(IIngredient itemInput, IIngredient itemOutput, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
+			getRecipeHandler().ctAddRecipe(itemInput, itemOutput, time, heat, efficiency, criticality, decayFactor, selfPriming, radiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient itemInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(itemInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient itemOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(itemOutput);
 		}
 		
 		@ZenMethod
@@ -938,18 +992,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
-			getRecipeHandler().ctAddRecipe(input, output, time, heat, efficiency, criticality, decayFactor, selfPriming, radiation);
+		public static void addRecipe(IIngredient itemInput, IIngredient itemOutput, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
+			getRecipeHandler().ctAddRecipe(itemInput, itemOutput, time, heat, efficiency, criticality, decayFactor, selfPriming, radiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient itemInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(itemInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient itemOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(itemOutput);
 		}
 		
 		@ZenMethod
@@ -968,18 +1022,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output, int heatPerInputMB) {
-			getRecipeHandler().ctAddRecipe(input, output, heatPerInputMB);
+		public static void addRecipe(IIngredient fluidInput, IIngredient fluidOutput, int heatPerInputMB) {
+			getRecipeHandler().ctAddRecipe(fluidInput, fluidOutput, heatPerInputMB);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient fluidInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(fluidInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient fluidOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(fluidOutput);
 		}
 		
 		@ZenMethod
@@ -998,18 +1052,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output, double time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
-			getRecipeHandler().ctAddRecipe(input, output, time, heat, efficiency, criticality, decayFactor, selfPriming, radiation);
+		public static void addRecipe(IIngredient fluidInput, IIngredient fluidOutput, double time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
+			getRecipeHandler().ctAddRecipe(fluidInput, fluidOutput, time, heat, efficiency, criticality, decayFactor, selfPriming, radiation);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient fluidInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(fluidInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient fluidOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(fluidOutput);
 		}
 		
 		@ZenMethod
@@ -1028,18 +1082,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output, int coolingPerInputMB) {
-			getRecipeHandler().ctAddRecipe(input, output, coolingPerInputMB);
+		public static void addRecipe(IIngredient fluidInput, IIngredient fluidOutput, int coolingPerInputMB) {
+			getRecipeHandler().ctAddRecipe(fluidInput, fluidOutput, coolingPerInputMB);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient fluidInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(fluidInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient fluidOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(fluidOutput);
 		}
 		
 		@ZenMethod
@@ -1059,18 +1113,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output, int heatRequired, int temperatureIn, int temperatureOut) {
-			getRecipeHandler().ctAddRecipe(input, output, heatRequired, temperatureIn, temperatureOut);
+		public static void addRecipe(IIngredient fluidInput, IIngredient fluidOutput, int heatRequired, int temperatureIn, int temperatureOut) {
+			getRecipeHandler().ctAddRecipe(fluidInput, fluidOutput, heatRequired, temperatureIn, temperatureOut);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient fluidInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(fluidInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient fluidOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(fluidOutput);
 		}
 		
 		@ZenMethod
@@ -1090,18 +1144,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output, int coolingRequired, int condensingTemperature) {
-			getRecipeHandler().ctAddRecipe(input, output, coolingRequired, condensingTemperature);
+		public static void addRecipe(IIngredient fluidInput, IIngredient fluidOutput, int coolingRequired, int condensingTemperature) {
+			getRecipeHandler().ctAddRecipe(fluidInput, fluidOutput, coolingRequired, condensingTemperature);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient fluidInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(fluidInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient fluidOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(fluidOutput);
 		}
 		
 		@ZenMethod
@@ -1120,18 +1174,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output, double powerPerMB, double expansionLevel, double spinUpMultiplier, @Optional(value = "cloud") String particleEffect, @Optional(valueDouble = 1D / 23.2D) double particleSpeedMultiplier) {
-			getRecipeHandler().ctAddRecipe(input, output, powerPerMB, expansionLevel, spinUpMultiplier, particleEffect, particleSpeedMultiplier);
+		public static void addRecipe(IIngredient fluidInput, IIngredient fluidOutput, double powerPerMB, double expansionLevel, double spinUpMultiplier, @Optional(value = "cloud") String particleEffect, @Optional(valueDouble = 1D / 23.2D) double particleSpeedMultiplier) {
+			getRecipeHandler().ctAddRecipe(fluidInput, fluidOutput, powerPerMB, expansionLevel, spinUpMultiplier, particleEffect, particleSpeedMultiplier);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient fluidInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(fluidInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient fluidOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(fluidOutput);
 		}
 		
 		@ZenMethod
@@ -1150,18 +1204,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input1, IIngredient input2, IIngredient output1, IIngredient output2, long processTime, long processPower, double processEfficiency) {
-			getRecipeHandler().ctAddRecipe(input1, input2, output1, output2, processTime, processPower, processEfficiency);
+		public static void addRecipe(IIngredient itemInput, IIngredient fluidInput, IIngredient itemOutput, IIngredient fluidOutput, long processTime, long processPower, double processEfficiency) {
+			getRecipeHandler().ctAddRecipe(itemInput, fluidInput, itemOutput, fluidOutput, processTime, processPower, processEfficiency);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input1, IIngredient input2) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input1, input2);
+		public static void removeRecipeWithInput(IIngredient itemInput, IIngredient fluidInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(itemInput, fluidInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output1, IIngredient output2) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output1, output2);
+		public static void removeRecipeWithOutput(IIngredient itemOutput, IIngredient fluidOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(itemOutput, fluidOutput);
 		}
 		
 		@ZenMethod
@@ -1180,18 +1234,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output, double radiationThreshold) {
-			getRecipeHandler().ctAddRecipe(input, output, radiationThreshold);
+		public static void addRecipe(IIngredient blockInput, IIngredient blockOutput, double radiationThreshold) {
+			getRecipeHandler().ctAddRecipe(blockInput, blockOutput, radiationThreshold);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient blockInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(blockInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient blockOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(blockOutput);
 		}
 		
 		@ZenMethod
@@ -1210,18 +1264,18 @@ public class CTRecipes {
 		}
 		
 		@ZenMethod
-		public static void addRecipe(IIngredient input, IIngredient output, double radiationThreshold) {
-			getRecipeHandler().ctAddRecipe(input, output, radiationThreshold);
+		public static void addRecipe(IIngredient blockInput, IIngredient blockOutput, double radiationThreshold) {
+			getRecipeHandler().ctAddRecipe(blockInput, blockOutput, radiationThreshold);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithInput(IIngredient input) {
-			getRecipeHandler().ctRemoveRecipeWithInput(input);
+		public static void removeRecipeWithInput(IIngredient blockInput) {
+			getRecipeHandler().ctRemoveRecipeWithInput(blockInput);
 		}
 		
 		@ZenMethod
-		public static void removeRecipeWithOutput(IIngredient output) {
-			getRecipeHandler().ctRemoveRecipeWithOutput(output);
+		public static void removeRecipeWithOutput(IIngredient blockOutput) {
+			getRecipeHandler().ctRemoveRecipeWithOutput(blockOutput);
 		}
 		
 		@ZenMethod

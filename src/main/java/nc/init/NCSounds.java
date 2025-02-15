@@ -10,8 +10,8 @@ public class NCSounds {
 	public static final ObjectSet<String> TRACKABLE_SOUNDS = new ObjectOpenHashSet<>();
 	
 	public static SoundEvent electrolyzer_run;
-	public static SoundEvent fusion_run;
 	public static SoundEvent turbine_run;
+	public static SoundEvent fusion_run;
 	
 	public static SoundEvent geiger_tick;
 	public static SoundEvent radaway;
@@ -33,8 +33,8 @@ public class NCSounds {
 	
 	public static void init() {
 		electrolyzer_run = register(Global.MOD_ID, "block.nc.electrolyzer_run", true);
-		fusion_run = register(Global.MOD_ID, "block.nc.fusion_run", true);
 		turbine_run = register(Global.MOD_ID, "block.nc.turbine_run", true);
+		fusion_run = register(Global.MOD_ID, "block.nc.fusion_run", true);
 		
 		geiger_tick = register(Global.MOD_ID, "player.nc.geiger_tick", false);
 		radaway = register(Global.MOD_ID, "player.nc.radaway", false);

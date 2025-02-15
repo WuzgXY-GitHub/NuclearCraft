@@ -3,13 +3,20 @@
 	"defaults": {
 		"model":"cube_bottom_top",
 		"textures": {
-			"top": "nuclearcraft:blocks/machine/distiller/reboiling_unit_top",
+			"top": "nuclearcraft:blocks/machine/distiller/reboiling_unit_top_off",
 			"bottom": "nuclearcraft:blocks/machine/distiller/reboiling_unit_bottom",
 			"side": "nuclearcraft:blocks/machine/distiller/reboiling_unit_side"
 		}
 	},
 	"variants": {
 		"inventory": [{}],
-		"normal": [{}]
+		"active": {
+			"false": {},
+			"true": {
+				"textures": {
+					"top": "nuclearcraft:blocks/machine/distiller/reboiling_unit_top_on"
+				}
+			}
+		}
 	}
 }

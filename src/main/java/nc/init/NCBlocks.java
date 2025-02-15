@@ -98,6 +98,10 @@ public class NCBlocks {
 	public static Block distiller_reboiling_unit;
 	public static Block distiller_liquid_distributor;
 	
+	public static Block infiltrator_controller;
+	public static Block infiltrator_pressure_chamber;
+	public static Block infiltrator_heating_unit;
+	
 	public static Block rtg_uranium;
 	public static Block rtg_plutonium;
 	public static Block rtg_americium;
@@ -322,6 +326,10 @@ public class NCBlocks {
 		distiller_reflux_unit = addWithName(Global.MOD_ID, "distiller_reflux_unit", new BlockDistillerRefluxUnit());
 		distiller_reboiling_unit = addWithName(Global.MOD_ID, "distiller_reboiling_unit", new BlockDistillerReboilingUnit());
 		distiller_liquid_distributor = addWithName(Global.MOD_ID, "distiller_liquid_distributor", new BlockDistillerLiquidDistributor());
+		
+		infiltrator_controller = addWithName(Global.MOD_ID, "infiltrator_controller", new BlockInfiltratorController());
+		infiltrator_pressure_chamber = addWithName(Global.MOD_ID, "infiltrator_pressure_chamber", new BlockInfiltratorPressureChamber());
+		infiltrator_heating_unit = addWithName(Global.MOD_ID, "infiltrator_heating_unit", new BlockInfiltratorHeatingUnit());
 		
 		IntFunction<String[]> rtgInfo = x -> InfoHelper.formattedInfo(infoLine(Global.MOD_ID, "rtg"), UnitHelper.prefix(rtg_power[x], 5, "RF/t"));
 		rtg_uranium = addWithName(Global.MOD_ID, "rtg_uranium", new BlockRTG(RTGType.URANIUM), rtgInfo.apply(0));

@@ -27,8 +27,7 @@ public class HeatExchanger extends CuboidalMultiblock<HeatExchanger, IHeatExchan
 	
 	protected IHeatExchangerController<?> controller;
 	
-	public boolean isHeatExchangerOn, computerActivated;
-	public double fractionOfTubesActive, efficiency, maxEfficiency;
+	public boolean isExchangerOn, computerActivated;
 	
 	protected final Set<EntityPlayer> updatePacketListeners = new ObjectOpenHashSet<>();
 	
@@ -166,22 +165,16 @@ public class HeatExchanger extends CuboidalMultiblock<HeatExchanger, IHeatExchan
 	
 	@Override
 	public void syncDataTo(NBTTagCompound data, SyncReason syncReason) {
-		data.setBoolean("isHeatExchangerOn", isHeatExchangerOn);
+		data.setBoolean("isExchangerOn", isExchangerOn);
 		data.setBoolean("computerActivated", computerActivated);
-		data.setDouble("fractionOfTubesActive", fractionOfTubesActive);
-		data.setDouble("efficiency", efficiency);
-		data.setDouble("maxEfficiency", maxEfficiency);
 		
 		writeLogicNBT(data, syncReason);
 	}
 	
 	@Override
 	public void syncDataFrom(NBTTagCompound data, SyncReason syncReason) {
-		isHeatExchangerOn = data.getBoolean("isHeatExchangerOn");
+		isExchangerOn = data.getBoolean("isExchangerOn");
 		computerActivated = data.getBoolean("computerActivated");
-		fractionOfTubesActive = data.getDouble("fractionOfTubesActive");
-		efficiency = data.getDouble("efficiency");
-		maxEfficiency = data.getDouble("maxEfficiency");
 		
 		readLogicNBT(data, syncReason);
 	}

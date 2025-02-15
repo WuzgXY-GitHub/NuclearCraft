@@ -60,6 +60,8 @@ public class MultiblockHandler {
 		Machine.PART_CLASSES.add(TileDistillerRefluxUnit.class);
 		Machine.PART_CLASSES.add(TileDistillerReboilingUnit.class);
 		Machine.PART_CLASSES.add(TileDistillerLiquidDistributor.class);
+		Machine.PART_CLASSES.add(TileInfiltratorPressureChamber.class);
+		Machine.PART_CLASSES.add(TileInfiltratorHeatingUnit.class);
 		
 		RTGMultiblock.PART_CLASSES.add(TileRTG.class);
 		

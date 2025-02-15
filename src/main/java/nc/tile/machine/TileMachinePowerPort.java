@@ -26,7 +26,7 @@ import static nc.config.NCConfig.enable_gtce_eu;
 @Optional.InterfaceList({@Optional.Interface(iface = "ic2.api.energy.tile.IEnergySink", modid = "ic2"), @Optional.Interface(iface = "ic2.api.energy.tile.IEnergySource", modid = "ic2")})
 public class TileMachinePowerPort extends TileMachinePart implements ITickable, ITileEnergy, IEnergySink, IEnergySource {
 	
-	protected final EnergyStorage backupStorage = new EnergyStorage(1);
+	protected final EnergyStorage backupStorage = new EnergyStorage(0L);
 	
 	protected final EnergyConnection[] energyConnections = ITileEnergy.energyConnectionAll(EnergyConnection.IN);
 	

@@ -65,7 +65,7 @@ public class CTProcessorContainerInfoBuilder {
 		
 		@SuppressWarnings({"rawtypes", "unchecked"})
 		protected CTEnergyProcessorContainerInfoBuilder(String name, Class<? extends ContainerBasicEnergyProcessor<TileBasicEnergyProcessorDyn>> containerClass, Class guiClass) {
-			super(Global.MOD_ID, name, TileBasicEnergyProcessorDyn.class, TileBasicEnergyProcessorDyn::new, containerClass, new ConstructorWrapper<>(containerClass, EntityPlayer.class, TileBasicEnergyProcessorDyn.class)::newInstance, proxy.clientGet(() -> guiClass), ctGetGuiBasicEnergyProcessorFunction(guiClass));
+			super(Global.MOD_ID, name, TileBasicEnergyProcessorDyn.class, TileBasicEnergyProcessorDyn::new, containerClass, new ConstructorWrapper<>(containerClass, EntityPlayer.class, TileBasicEnergyProcessorDyn.class)::newInstance, guiClass, ctGetGuiBasicEnergyProcessorFunction(guiClass));
 		}
 		
 		@ZenMethod("buildAndRegister")
@@ -287,7 +287,7 @@ public class CTProcessorContainerInfoBuilder {
 		
 		@SuppressWarnings({"rawtypes", "unchecked"})
 		protected CTUpgradableEnergyProcessorContainerInfoBuilder(String name, Class<? extends ContainerBasicUpgradableEnergyProcessor<TileBasicUpgradableEnergyProcessorDyn>> containerClass, Class guiClass) {
-			super(Global.MOD_ID, name, TileBasicUpgradableEnergyProcessorDyn.class, TileBasicUpgradableEnergyProcessorDyn::new, containerClass, new ConstructorWrapper<>(containerClass, EntityPlayer.class, TileBasicUpgradableEnergyProcessorDyn.class)::newInstance, proxy.clientGet(() -> guiClass), ctGetGuiBasicUpgradableEnergyProcessorFunction(guiClass));
+			super(Global.MOD_ID, name, TileBasicUpgradableEnergyProcessorDyn.class, TileBasicUpgradableEnergyProcessorDyn::new, containerClass, new ConstructorWrapper<>(containerClass, EntityPlayer.class, TileBasicUpgradableEnergyProcessorDyn.class)::newInstance, guiClass, ctGetGuiBasicUpgradableEnergyProcessorFunction(guiClass));
 		}
 		
 		@ZenMethod("buildAndRegister")

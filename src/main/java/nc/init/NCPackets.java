@@ -57,6 +57,8 @@ public class NCPackets {
 		wrapper.registerMessage(ElectrolyzerRenderPacket.Handler.class, ElectrolyzerRenderPacket.class, nextID(), Side.CLIENT);
 		wrapper.registerMessage(DistillerUpdatePacket.Handler.class, DistillerUpdatePacket.class, nextID(), Side.CLIENT);
 		wrapper.registerMessage(DistillerRenderPacket.Handler.class, DistillerRenderPacket.class, nextID(), Side.CLIENT);
+		wrapper.registerMessage(InfiltratorUpdatePacket.Handler.class, InfiltratorUpdatePacket.class, nextID(), Side.CLIENT);
+		wrapper.registerMessage(InfiltratorRenderPacket.Handler.class, InfiltratorRenderPacket.class, nextID(), Side.CLIENT);
 		
 		wrapper.registerMessage(ItemPortUpdatePacket.Handler.class, ItemPortUpdatePacket.class, nextID(), Side.CLIENT);
 		wrapper.registerMessage(FluidPortUpdatePacket.Handler.class, FluidPortUpdatePacket.class, nextID(), Side.CLIENT);

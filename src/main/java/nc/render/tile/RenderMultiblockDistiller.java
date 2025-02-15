@@ -21,7 +21,7 @@ import net.minecraftforge.fml.relauncher.*;
 import java.util.*;
 
 @SideOnly(Side.CLIENT)
-public class RenderDistillerSieveTray extends TileEntitySpecialRenderer<TileDistillerController> implements IWorldRender {
+public class RenderMultiblockDistiller extends TileEntitySpecialRenderer<TileDistillerController> implements IWorldRender {
 	
 	private final float[] brightnessArray = new float[] {1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F};
 	private int brightnessIndex = 0;

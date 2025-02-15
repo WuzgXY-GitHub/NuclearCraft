@@ -69,6 +69,8 @@ public class NCFluids {
 		addFluidPair(FluidType.FLAMMABLE, "benzene", 0x999999);
 		addFluidPair(FluidType.FLAMMABLE, "phenol", 0xF2F2F2);
 		addFluidPair(FluidType.FLAMMABLE, "fluorobenzene", 0xBAB58B);
+		addFluidPair(FluidType.FLAMMABLE, "difluorobenzene", 0x8CB57B);
+		addFluidPair(FluidType.FLAMMABLE, "dimethyldifluorosilane", 0xAEAF80);
 		
 		addFluidPair(FluidType.LIQUID, "radaway");
 		addFluidPair(FluidType.LIQUID, "radaway_slow");
@@ -135,6 +137,9 @@ public class NCFluids {
 		addFluidPair(FluidType.MOLTEN, "koh", 0xB8C6B0);
 		
 		addFluidPair(FluidType.MOLTEN, "dfdps", 0xB4B3A7);
+		addFluidPair(FluidType.MOLTEN, "polyphenylene_sulfide", 0x3F3D3E);
+		addFluidPair(FluidType.MOLTEN, "polydimethylsilylene", 0x774F60);
+		addFluidPair(FluidType.MOLTEN, "polymethylsilylene_methylene", 0x5A5246);
 		addFluidPair(FluidType.MOLTEN, "polyethersulfone", 0xC9B8A6);
 		addFluidPair(FluidType.MOLTEN, "polytetrafluoroethene", 0x7F9F4D);
 		
@@ -152,14 +157,17 @@ public class NCFluids {
 		addFluidPair(FluidType.MOLTEN, "sodium", 0xC1898C);
 		addFluidPair(FluidType.MOLTEN, "potassium", 0xB8C503);
 		
+		addFluidPair(FluidType.MOLTEN, "sodium_sulfide", 0x9A8B0B);
+		addFluidPair(FluidType.MOLTEN, "potassium_sulfide", 0x917C34);
+		
 		addFluidPair(FluidType.COOLANT, "nak", 0xFFE5BC);
 		addFluidPair(FluidType.HOT_COOLANT, "nak_hot", 0xFFD5AC);
 		addFluidPair(FluidType.LIQUID, "emergency_coolant", true, 0x6DD0E7, 2000, 100, 2000, 3);
 		addFluidPair(FluidType.LIQUID, "emergency_coolant_heated", true, 0xCDBEE7, 2000, 300, 1500, 9);
 		
+		addFluidPair(FluidType.MOLTEN, "silicon", 0x676767);
 		addFluidPair(FluidType.HOT_GAS, "arsenic", 0x818475);
 		addFluidPair(FluidType.MOLTEN, "bas", 0x9B9B89);
-		
 		addFluidPair(FluidType.HOT_GAS, "sic_vapor", 0x78746A);
 		
 		addFluidPair(FluidType.MOLTEN, "alugentum", 0xB5C9CB);

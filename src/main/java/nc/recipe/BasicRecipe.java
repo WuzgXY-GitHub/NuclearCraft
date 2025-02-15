@@ -176,6 +176,16 @@ public class BasicRecipe implements IRecipe {
 		return Math.max(0L, liquidProductCount - 1L);
 	}
 	
+	// Infiltrator
+	
+	public double getInfiltratorHeatingFactor() {
+		return (double) extras.get(3);
+	}
+	
+	public double getInfiltratorPressureFluidEfficiency() {
+		return (double) extras.get(0);
+	}
+	
 	// Fission Moderator
 	
 	public int getFissionModeratorFluxFactor() {

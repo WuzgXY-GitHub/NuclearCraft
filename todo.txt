@@ -53,9 +53,6 @@ Change Fusion Reactor to produce steam instead of energy: Water -> High Pressure
 New reactivity curve: R = z*(T/(1.5*h))^(-1.5)*exp(-1.5*h/T), z ≡ sqrt(8/27)*exp(1.5) ≈ 2.43952253514146, T = temperature (kK), h = optimal temperature (kK)
 Superconducting e-magnets can be used instead for an efficiency bonus?
 ___________________________________________________________________________________________________________________________
-
-SiC–SiC ceramic matrix composite for top-tier turbine blades, made by melt infiltration (MI) of silicon, following chemical vapor infiltration (CVI) of carbon into SiC fibre, formed from SiC gas phase via laser-driven chemical vapor deposition (LCVD)
-___________________________________________________________________________________________________________________________
 ---------------------------------------------------------------------------------------------------------------------------
 
 1.21+: Potential block state getter optimisation - https://github.com/RogueLogix/BiggerSeries/blob/master/Phosphophyllite/src/main/java/net/roguelogix/phosphophyllite/util/Util.java#L51-L83 (chunkCachedBlockStateIteration)

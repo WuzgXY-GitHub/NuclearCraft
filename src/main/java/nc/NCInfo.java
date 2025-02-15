@@ -16,8 +16,8 @@ public class NCInfo {
 	
 	// Diaphragms
 	
-	public static String[] machineDiaphragmFixedInfo(BasicRecipe diaphragmInfo) {
-		return new String[] {Lang.localize("info." + Global.MOD_ID + ".diaphragm.fixd"), Lang.localize("info." + Global.MOD_ID + ".diaphragm.efficiency.fixd", NCMath.pcDecimalPlaces(diaphragmInfo.getMachineDiaphragmEfficiency(), 1)), Lang.localize("info." + Global.MOD_ID + ".diaphragm.contact.fixd", NCMath.pcDecimalPlaces(diaphragmInfo.getMachineDiaphragmContactFactor(), 1))};
+	public static String[] machineDiaphragmFixedInfo(BasicRecipe recipe) {
+		return new String[] {Lang.localize("info." + Global.MOD_ID + ".diaphragm.fixd"), Lang.localize("info." + Global.MOD_ID + ".diaphragm.efficiency.fixd", NCMath.pcDecimalPlaces(recipe.getMachineDiaphragmEfficiency(), 1)), Lang.localize("info." + Global.MOD_ID + ".diaphragm.contact.fixd", NCMath.pcDecimalPlaces(recipe.getMachineDiaphragmContactFactor(), 1))};
 	}
 	
 	public static String[] machineDiaphragmInfo() {
@@ -26,8 +26,8 @@ public class NCInfo {
 	
 	// Sieve Assembly
 	
-	public static String[] machineSieveAssemblyFixedInfo(BasicRecipe sieveAssemblyInfo) {
-		return new String[] {Lang.localize("info." + Global.MOD_ID + ".sieve_assembly.fixd"), Lang.localize("info." + Global.MOD_ID + ".sieve_assembly.efficiency.fixd", NCMath.pcDecimalPlaces(sieveAssemblyInfo.getMachineSieveAssemblyEfficiency(), 1))};
+	public static String[] machineSieveAssemblyFixedInfo(BasicRecipe recipe) {
+		return new String[] {Lang.localize("info." + Global.MOD_ID + ".sieve_assembly.fixd"), Lang.localize("info." + Global.MOD_ID + ".sieve_assembly.efficiency.fixd", NCMath.pcDecimalPlaces(recipe.getMachineSieveAssemblyEfficiency(), 1))};
 	}
 	
 	public static String[] machineSieveAssemblyInfo() {
@@ -36,14 +36,14 @@ public class NCInfo {
 	
 	// Electrolyzer Electrodes
 	
-	public static String[] electrodeFixedInfo(BasicRecipe cathodeInfo, BasicRecipe anodeInfo) {
-		boolean anyElectrode = cathodeInfo != null && anodeInfo != null;
-		List<String> list = Lists.newArrayList(Lang.localize("info." + Global.MOD_ID + ".electrode." + (anyElectrode ? "fixd" : cathodeInfo != null ? "cathode.fixd" : "anode.fixd")));
-		if (cathodeInfo != null) {
-			list.add(Lang.localize("info." + Global.MOD_ID + ".electrode.efficiency." + (anyElectrode ? "cathode.fixd" : "fixd"), NCMath.pcDecimalPlaces(cathodeInfo.getElectrolyzerElectrodeEfficiency(), 1)));
+	public static String[] electrodeFixedInfo(BasicRecipe cathodeRecipe, BasicRecipe anodeRecipe) {
+		boolean anyElectrode = cathodeRecipe != null && anodeRecipe != null;
+		List<String> list = Lists.newArrayList(Lang.localize("info." + Global.MOD_ID + ".electrode." + (anyElectrode ? "fixd" : cathodeRecipe != null ? "cathode.fixd" : "anode.fixd")));
+		if (cathodeRecipe != null) {
+			list.add(Lang.localize("info." + Global.MOD_ID + ".electrode.efficiency." + (anyElectrode ? "cathode.fixd" : "fixd"), NCMath.pcDecimalPlaces(cathodeRecipe.getElectrolyzerElectrodeEfficiency(), 1)));
 		}
-		if (anodeInfo != null) {
-			list.add(Lang.localize("info." + Global.MOD_ID + ".electrode.efficiency." + (anyElectrode ? "anode.fixd" : "fixd"), NCMath.pcDecimalPlaces(anodeInfo.getElectrolyzerElectrodeEfficiency(), 1)));
+		if (anodeRecipe != null) {
+			list.add(Lang.localize("info." + Global.MOD_ID + ".electrode.efficiency." + (anyElectrode ? "anode.fixd" : "fixd"), NCMath.pcDecimalPlaces(anodeRecipe.getElectrolyzerElectrodeEfficiency(), 1)));
 		}
 		return list.toArray(new String[0]);
 	}
@@ -52,14 +52,24 @@ public class NCInfo {
 		return InfoHelper.formattedInfo(Lang.localize("info." + Global.MOD_ID + ".electrode.desc"));
 	}
 	
+	// Infiltrator Pressure Fluids
+	
+	public static String[] infiltratorPressureFluidFixedInfo(BasicRecipe recipe) {
+		return new String[] {Lang.localize("info." + Global.MOD_ID + ".infiltrator_pressure_fluid.fixd"), Lang.localize("info." + Global.MOD_ID + ".infiltrator_pressure_fluid.efficiency.fixd", NCMath.pcDecimalPlaces(recipe.getInfiltratorPressureFluidEfficiency(), 1))};
+	}
+	
+	public static String[] infiltratorPressureFluidInfo() {
+		return InfoHelper.formattedInfo(Lang.localize("info." + Global.MOD_ID + ".infiltrator_pressure_fluid.desc"));
+	}
+	
 	// Fission Fuel
 	
-	public static String[] fissionFuelInfo(BasicRecipe fuelInfo) {
-		List<String> list = Lists.newArrayList(Lang.localize("info." + Global.MOD_ID + ".fission_fuel.desc"), Lang.localize("info." + Global.MOD_ID + ".fission_fuel.base_time.desc", UnitHelper.applyTimeUnit(fuelInfo.getFissionFuelTime(), 3)), Lang.localize("info." + Global.MOD_ID + ".fission_fuel.base_heat.desc", UnitHelper.prefix(fuelInfo.getFissionFuelHeat(), 5, "H/t")), Lang.localize("info." + Global.MOD_ID + ".fission_fuel.base_efficiency.desc", NCMath.pcDecimalPlaces(fuelInfo.getFissionFuelEfficiency(), 1)), Lang.localize("info." + Global.MOD_ID + ".fission_fuel.criticality.desc", fuelInfo.getFissionFuelCriticality() + " N/t"));
+	public static String[] fissionFuelInfo(BasicRecipe recipe) {
+		List<String> list = Lists.newArrayList(Lang.localize("info." + Global.MOD_ID + ".fission_fuel.desc"), Lang.localize("info." + Global.MOD_ID + ".fission_fuel.base_time.desc", UnitHelper.applyTimeUnit(recipe.getFissionFuelTime(), 3)), Lang.localize("info." + Global.MOD_ID + ".fission_fuel.base_heat.desc", UnitHelper.prefix(recipe.getFissionFuelHeat(), 5, "H/t")), Lang.localize("info." + Global.MOD_ID + ".fission_fuel.base_efficiency.desc", NCMath.pcDecimalPlaces(recipe.getFissionFuelEfficiency(), 1)), Lang.localize("info." + Global.MOD_ID + ".fission_fuel.criticality.desc", recipe.getFissionFuelCriticality() + " N/t"));
 		if (fission_decay_mechanics) {
-			list.add(Lang.localize("info." + Global.MOD_ID + ".fission_fuel.decay_factor.desc", NCMath.pcDecimalPlaces(fuelInfo.getFissionFuelDecayFactor(), 1)));
+			list.add(Lang.localize("info." + Global.MOD_ID + ".fission_fuel.decay_factor.desc", NCMath.pcDecimalPlaces(recipe.getFissionFuelDecayFactor(), 1)));
 		}
-		if (fuelInfo.getFissionFuelSelfPriming()) {
+		if (recipe.getFissionFuelSelfPriming()) {
 			list.add(Lang.localize("info." + Global.MOD_ID + ".fission_fuel.self_priming.desc"));
 		}
 		return list.toArray(new String[0]);

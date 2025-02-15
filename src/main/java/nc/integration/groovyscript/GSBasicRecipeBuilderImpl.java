@@ -82,6 +82,29 @@ public class GSBasicRecipeBuilderImpl {
 		}
 	}
 	
+	public static class GSMultiblockInfiltratorRecipeBuilder extends GSBasicRecipeBuilder<GSMultiblockInfiltratorRecipeBuilder> {
+		
+		public GSMultiblockInfiltratorRecipeBuilder(GSBasicRecipeRegistry registry) {
+			super(registry);
+		}
+		
+		public GSMultiblockInfiltratorRecipeBuilder timeMultiplier(double timeMultiplier) {
+			return setExtra(0, timeMultiplier);
+		}
+		
+		public GSMultiblockInfiltratorRecipeBuilder powerMultiplier(double powerMultiplier) {
+			return setExtra(1, powerMultiplier);
+		}
+		
+		public GSMultiblockInfiltratorRecipeBuilder processRadiation(double processRadiation) {
+			return setExtra(2, processRadiation);
+		}
+		
+		public GSMultiblockInfiltratorRecipeBuilder heatingFactor(double heatingFactor) {
+			return setExtra(3, heatingFactor);
+		}
+	}
+	
 	public static class GSFissionIrradiatorRecipeBuilder extends GSBasicRecipeBuilder<GSFissionIrradiatorRecipeBuilder> {
 		
 		public GSFissionIrradiatorRecipeBuilder(GSBasicRecipeRegistry registry) {

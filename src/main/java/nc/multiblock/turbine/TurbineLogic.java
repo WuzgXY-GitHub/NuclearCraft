@@ -1194,9 +1194,5 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic, ITurbin
 	// Clear Material
 	
 	@Override
-	public void clearAllMaterial() {
-		for (Tank tank : multiblock.tanks) {
-			tank.setFluidStored(null);
-		}
-	}
+	public void clearAllMaterial() {}
 }

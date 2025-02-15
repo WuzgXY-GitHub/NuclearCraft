@@ -9,10 +9,9 @@ import nc.integration.jei.category.info.JEICategoryInfo;
 import nc.integration.jei.wrapper.JEIRecipeWrapper;
 import nc.recipe.*;
 import nc.recipe.ingredient.*;
-import nc.util.*;
+import nc.util.Lang;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
 
 import java.util.List;
 
@@ -56,6 +55,22 @@ public abstract class JEIRecipeCategory<WRAPPER extends JEIRecipeWrapper, CATEGO
 	
 	}
 	
+	protected void addItemIngredientTooltip(WRAPPER recipeWrapper, List<String> tooltip, IItemIngredient ingredient) {
+		recipeWrapper.addItemIngredientTooltip(tooltip, ingredient);
+	}
+	
+	protected void addFluidIngredientTooltip(WRAPPER recipeWrapper, List<String> tooltip, IFluidIngredient ingredient) {
+		recipeWrapper.addFluidIngredientTooltip(tooltip, ingredient);
+	}
+	
+	protected void addItemProductTooltip(WRAPPER recipeWrapper, List<String> tooltip, IItemIngredient product) {
+		recipeWrapper.addItemProductTooltip(tooltip, product);
+	}
+	
+	protected void addFluidProductTooltip(WRAPPER recipeWrapper, List<String> tooltip, IFluidIngredient product) {
+		recipeWrapper.addFluidProductTooltip(tooltip, product);
+	}
+	
 	@Override
 	public void setRecipe(IRecipeLayout recipeLayout, WRAPPER recipeWrapper, IIngredients ingredients) {
 		IGuiItemStackGroup items = recipeLayout.getItemStacks();
@@ -64,26 +79,24 @@ public abstract class JEIRecipeCategory<WRAPPER extends JEIRecipeWrapper, CATEGO
 		BasicRecipeHandler recipeHandler = recipeWrapper.recipeHandler;
 		BasicRecipe recipe = recipeWrapper.recipe;
 		
-		List<IItemIngredient> itemProducts = recipe.getItemProducts();
-		List<IFluidIngredient> fluidProducts = recipe.getFluidProducts();
+		List<IItemIngredient> itemIngredients = recipe.getItemIngredients(), itemProducts = recipe.getItemProducts();
+		List<IFluidIngredient> fluidIngredients = recipe.getFluidIngredients(), fluidProducts = recipe.getFluidProducts();
 		
-		items.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
-			int outputIndex = slotIndex - recipeHandler.itemInputSize;
-			if (outputIndex >= 0 && outputIndex <= recipeHandler.itemOutputSize) {
-				IItemIngredient product = itemProducts.get(outputIndex);
-				if (product instanceof IChanceItemIngredient chanceProduct) {
-					tooltip.add(TextFormatting.WHITE + Lang.localize("jei.nuclearcraft.chance_output", chanceProduct.getMinStackSize(), chanceProduct.getMaxStackSize(0), NCMath.decimalPlaces(chanceProduct.getMeanStackSize(), 2)));
-				}
+		items.addTooltipCallback((slotIndex, input, stack, tooltip) -> {
+			if (slotIndex < recipeHandler.itemInputSize) {
+				addItemIngredientTooltip(recipeWrapper, tooltip, itemIngredients.get(slotIndex));
+			}
+			else if (slotIndex < recipeHandler.itemInputSize + recipeHandler.itemOutputSize) {
+				addItemProductTooltip(recipeWrapper, tooltip, itemProducts.get(slotIndex - recipeHandler.itemInputSize));
 			}
 		});
 		
-		fluids.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
-			int outputIndex = slotIndex - recipeHandler.fluidInputSize;
-			if (outputIndex >= 0 && outputIndex <= recipeHandler.fluidOutputSize) {
-				IFluidIngredient product = fluidProducts.get(outputIndex);
-				if (product instanceof IChanceFluidIngredient chanceProduct) {
-					tooltip.add(TextFormatting.WHITE + Lang.localize("jei.nuclearcraft.chance_output", chanceProduct.getMinStackSize(), chanceProduct.getMaxStackSize(0), NCMath.decimalPlaces(chanceProduct.getMeanStackSize(), 2)));
-				}
+		fluids.addTooltipCallback((tankIndex, input, stack, tooltip) -> {
+			if (tankIndex < recipeHandler.fluidInputSize) {
+				addFluidIngredientTooltip(recipeWrapper, tooltip, fluidIngredients.get(tankIndex));
+			}
+			else if (tankIndex < recipeHandler.fluidInputSize + recipeHandler.fluidOutputSize) {
+				addFluidProductTooltip(recipeWrapper, tooltip, fluidProducts.get(tankIndex - recipeHandler.fluidInputSize));
 			}
 		});
 		

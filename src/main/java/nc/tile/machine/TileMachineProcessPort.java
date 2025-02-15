@@ -1,6 +1,5 @@
 package nc.tile.machine;
 
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import nc.*;
 import nc.block.property.*;
 import nc.config.NCConfig;
@@ -32,14 +31,14 @@ public class TileMachineProcessPort extends TileMachinePart implements ITickable
 	
 	private final @Nonnull String inventoryName;
 	
-	private @Nonnull NonNullList<ItemStack> backupStacks = NonNullList.withSize(0, ItemStack.EMPTY);
-	private @Nonnull List<Tank> backupTanks = Collections.emptyList();
+	private final @Nonnull NonNullList<ItemStack> backupStacks = NonNullList.withSize(0, ItemStack.EMPTY);
+	private final @Nonnull List<Tank> backupTanks = Collections.emptyList();
 	
-	private @Nonnull InventoryConnection[] backupInventoryConnections = ITileInventory.inventoryConnectionAll(Collections.emptyList());
-	private @Nonnull FluidConnection[] backupFluidConnections = ITileFluid.fluidConnectionAll(Collections.emptyList());
+	private final @Nonnull InventoryConnection[] backupInventoryConnections = ITileInventory.inventoryConnectionAll(Collections.emptyList());
+	private final @Nonnull FluidConnection[] backupFluidConnections = ITileFluid.fluidConnectionAll(Collections.emptyList());
 	
-	private @Nonnull final FluidTileWrapper[] fluidSides;
-	private @Nonnull final GasTileWrapper gasWrapper;
+	private final @Nonnull FluidTileWrapper[] fluidSides;
+	private final @Nonnull GasTileWrapper gasWrapper;
 	
 	private int setting = 0, slot = 0, tankIndex = -1;
 	
@@ -77,12 +76,14 @@ public class TileMachineProcessPort extends TileMachinePart implements ITickable
 			EnumFacing facing = getPartPosition().getFacing();
 			if (facing != null) {
 				if (slot >= 0 && slot < logic.inventorySize()) {
-					if (!getStackInSlot(0).isEmpty() && getItemSorption(facing, 0).canExtract()) {
+					NonNullList<ItemStack> stacks = getInventoryStacks();
+					if (!stacks.isEmpty() && !stacks.get(0).isEmpty() && getItemSorption(facing, 0).canExtract()) {
 						pushStacksToSide(facing);
 					}
 				}
 				else if (tankIndex >= 0 && tankIndex < logic.tankCount()) {
-					if (!getTanks().get(0).isEmpty() && getTankSorption(facing, 0).canDrain()) {
+					List<Tank> tanks = getTanks();
+					if (!tanks.isEmpty() && !tanks.get(0).isEmpty() && getTankSorption(facing, 0).canDrain()) {
 						pushFluidToSide(facing);
 					}
 				}
@@ -105,19 +106,6 @@ public class TileMachineProcessPort extends TileMachinePart implements ITickable
 			setting = 0;
 			slot = -1;
 			tankIndex = 0;
-		}
-		
-		if (slot < 0) {
-			backupStacks = NonNullList.withSize(0, ItemStack.EMPTY);
-			backupTanks = Collections.singletonList(new Tank(1, new ObjectOpenHashSet<>()));
-			backupInventoryConnections = ITileInventory.inventoryConnectionAll(Collections.emptyList());
-			backupFluidConnections = ITileFluid.fluidConnectionAll(Collections.singletonList(tankIndex < logic.fluidInputSize ? TankSorption.IN : TankSorption.OUT));
-		}
-		else {
-			backupStacks = NonNullList.withSize(1, ItemStack.EMPTY);
-			backupTanks = Collections.emptyList();
-			backupInventoryConnections = ITileInventory.inventoryConnectionAll(Collections.singletonList(slot < logic.itemInputSize ? ItemSorption.IN : ItemSorption.OUT));
-			backupFluidConnections = ITileFluid.fluidConnectionAll(Collections.emptyList());
 		}
 		
 		setProperty(BlockProperties.MACHINE_PORT_SORPTION, getMachinePortSorption());
@@ -348,7 +336,6 @@ public class TileMachineProcessPort extends TileMachinePart implements ITickable
 	@Override
 	public void clearAllSlots() {
 		ITileInventory.super.clearAllSlots();
-		Collections.fill(backupStacks, ItemStack.EMPTY);
 		
 		MachineLogic logic = getLogic();
 		if (logic != null) {
@@ -436,9 +423,6 @@ public class TileMachineProcessPort extends TileMachinePart implements ITickable
 	@Override
 	public void clearAllTanks() {
 		ITileFluid.super.clearAllTanks();
-		for (Tank tank : backupTanks) {
-			tank.setFluidStored(null);
-		}
 		
 		MachineLogic logic = getLogic();
 		if (logic != null) {

@@ -118,6 +118,18 @@
 				"textures": {
 					"layer0": "nuclearcraft:items/part/polytetrafluoroethene"
 				}
+			},
+			"polydimethylsilylene": {
+				"transform": "forge:default-item",
+				"textures": {
+					"layer0": "nuclearcraft:items/part/polydimethylsilylene"
+				}
+			},
+			"polymethylsilylene_methylene": {
+				"transform": "forge:default-item",
+				"textures": {
+					"layer0": "nuclearcraft:items/part/polymethylsilylene_methylene"
+				}
 			}
 		}
 	}

@@ -8,7 +8,6 @@ import nc.multiblock.fission.FissionPlacement;
 import nc.multiblock.turbine.TurbinePlacement;
 import nc.radiation.*;
 import nc.recipe.*;
-import nc.tile.internal.fluid.Tank;
 import nc.util.*;
 import net.minecraft.client.util.RecipeItemHelper;
 import net.minecraft.item.*;
@@ -69,26 +68,24 @@ public class TooltipHandler {
 	
 	@SideOnly(Side.CLIENT)
 	private static void addRecipeTooltip(List<String> tooltip, ItemStack stack) {
-		List<ItemStack> itemInputs = Lists.newArrayList(stack);
-		List<Tank> fluidInputs = new ArrayList<>();
 		BasicRecipe recipe;
 		
-		Function<BasicRecipeHandler, BasicRecipe> recipeFunction = x -> {
-			RecipeInfo<BasicRecipe> recipeInfo = x.getRecipeInfoFromInputs(itemInputs, fluidInputs);
+		Function<BasicRecipeHandler, BasicRecipe> itemRecipe = x -> {
+			RecipeInfo<BasicRecipe> recipeInfo = x.getRecipeInfoFromInputs(Collections.singletonList(stack), Collections.emptyList());
 			return recipeInfo == null ? null : recipeInfo.recipe;
 		};
 		
-		recipe = recipeFunction.apply(NCRecipes.machine_diaphragm);
+		recipe = itemRecipe.apply(NCRecipes.machine_diaphragm);
 		if (recipe != null) {
 			InfoHelper.infoFull(tooltip, new TextFormatting[] {TextFormatting.UNDERLINE, TextFormatting.LIGHT_PURPLE, TextFormatting.RED}, NCInfo.machineDiaphragmFixedInfo(recipe), TextFormatting.AQUA, NCInfo.machineDiaphragmInfo());
 		}
 		
-		recipe = recipeFunction.apply(NCRecipes.machine_sieve_assembly);
+		recipe = itemRecipe.apply(NCRecipes.machine_sieve_assembly);
 		if (recipe != null) {
 			InfoHelper.infoFull(tooltip, new TextFormatting[] {TextFormatting.UNDERLINE, TextFormatting.LIGHT_PURPLE}, NCInfo.machineSieveAssemblyFixedInfo(recipe), TextFormatting.AQUA, NCInfo.machineSieveAssemblyInfo());
 		}
 		
-		BasicRecipe cathodeRecipe = recipeFunction.apply(NCRecipes.electrolyzer_cathode), anodeRecipe = recipeFunction.apply(NCRecipes.electrolyzer_anode);
+		BasicRecipe cathodeRecipe = itemRecipe.apply(NCRecipes.electrolyzer_cathode), anodeRecipe = itemRecipe.apply(NCRecipes.electrolyzer_anode);
 		if (cathodeRecipe != null || anodeRecipe != null) {
 			List<TextFormatting> fixedColors = Lists.newArrayList(TextFormatting.UNDERLINE);
 			if (cathodeRecipe != null) {
@@ -100,24 +97,24 @@ public class TooltipHandler {
 			InfoHelper.infoFull(tooltip, fixedColors.toArray(new TextFormatting[0]), NCInfo.electrodeFixedInfo(cathodeRecipe, anodeRecipe), TextFormatting.AQUA, NCInfo.electrodeInfo());
 		}
 		
-		recipe = recipeFunction.apply(NCRecipes.pebble_fission);
-		if (recipe != null) {
-			InfoHelper.infoFull(tooltip, new TextFormatting[] {TextFormatting.UNDERLINE, TextFormatting.GREEN, TextFormatting.YELLOW, TextFormatting.LIGHT_PURPLE, TextFormatting.RED, TextFormatting.GRAY, TextFormatting.DARK_AQUA}, NCInfo.fissionFuelInfo(recipe));
-		}
-		
-		recipe = recipeFunction.apply(NCRecipes.solid_fission);
-		if (recipe != null) {
-			InfoHelper.infoFull(tooltip, new TextFormatting[] {TextFormatting.UNDERLINE, TextFormatting.GREEN, TextFormatting.YELLOW, TextFormatting.LIGHT_PURPLE, TextFormatting.RED, TextFormatting.GRAY, TextFormatting.DARK_AQUA}, NCInfo.fissionFuelInfo(recipe));
-		}
-		
-		recipe = recipeFunction.apply(NCRecipes.fission_moderator);
+		recipe = itemRecipe.apply(NCRecipes.fission_moderator);
 		if (recipe != null) {
 			InfoHelper.infoFull(tooltip, new TextFormatting[] {TextFormatting.UNDERLINE, TextFormatting.GREEN, TextFormatting.LIGHT_PURPLE}, NCInfo.fissionModeratorFixedInfo(recipe), TextFormatting.AQUA, NCInfo.fissionModeratorInfo());
 		}
 		
-		recipe = recipeFunction.apply(NCRecipes.fission_reflector);
+		recipe = itemRecipe.apply(NCRecipes.fission_reflector);
 		if (recipe != null) {
 			InfoHelper.infoFull(tooltip, new TextFormatting[] {TextFormatting.UNDERLINE, TextFormatting.WHITE, TextFormatting.LIGHT_PURPLE}, NCInfo.fissionReflectorFixedInfo(recipe), TextFormatting.AQUA, NCInfo.fissionReflectorInfo());
+		}
+		
+		recipe = itemRecipe.apply(NCRecipes.pebble_fission);
+		if (recipe != null) {
+			InfoHelper.infoFull(tooltip, new TextFormatting[] {TextFormatting.UNDERLINE, TextFormatting.GREEN, TextFormatting.YELLOW, TextFormatting.LIGHT_PURPLE, TextFormatting.RED, TextFormatting.GRAY, TextFormatting.DARK_AQUA}, NCInfo.fissionFuelInfo(recipe));
+		}
+		
+		recipe = itemRecipe.apply(NCRecipes.solid_fission);
+		if (recipe != null) {
+			InfoHelper.infoFull(tooltip, new TextFormatting[] {TextFormatting.UNDERLINE, TextFormatting.GREEN, TextFormatting.YELLOW, TextFormatting.LIGHT_PURPLE, TextFormatting.RED, TextFormatting.GRAY, TextFormatting.DARK_AQUA}, NCInfo.fissionFuelInfo(recipe));
 		}
 	}
 	
