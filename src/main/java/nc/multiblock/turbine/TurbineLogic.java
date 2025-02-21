@@ -833,7 +833,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic, ITurbin
 		}
 		
 		int recipeInputRateDiff = multiblock.recipeInputRate;
-		multiblock.recipeInputRate = Math.min(multiblock.tanks.get(0).getFluidAmount(), (int) (turbine_tension_throughput_factor * getMaxRecipeRateMultiplier()));
+		multiblock.recipeInputRate = Math.min(multiblock.tanks.get(0).getFluidAmount(), NCMath.toInt(turbine_tension_throughput_factor * getMaxRecipeRateMultiplier()));
 		recipeInputRateDiff = Math.abs(recipeInputRateDiff - multiblock.recipeInputRate);
 		
 		double roundingFactor = Math.max(0D, 1.5D * Math.log1p(multiblock.recipeInputRate / (1D + recipeInputRateDiff)));
@@ -998,7 +998,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic, ITurbin
 			final int[] _x, _y, _z;
 			
 			if (lengthX > 8) {
-				final int powX = (int) Math.pow(lengthX, 0.4D);
+				final int powX = NCMath.toInt(Math.pow(lengthX, 0.4D));
 				_x = new int[] {minPos.getX() + powX, maxPos.getX() - powX};
 			}
 			else {
@@ -1006,7 +1006,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic, ITurbin
 			}
 			
 			if (lengthY > 8) {
-				final int powY = (int) Math.pow(lengthY, 0.4D);
+				final int powY = NCMath.toInt(Math.pow(lengthY, 0.4D));
 				_y = new int[] {minPos.getY() + powY, maxPos.getY() - powY};
 			}
 			else {
@@ -1014,7 +1014,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic, ITurbin
 			}
 			
 			if (lengthZ > 8) {
-				final int powZ = (int) Math.pow(lengthZ, 0.4D);
+				final int powZ = NCMath.toInt(Math.pow(lengthZ, 0.4D));
 				_z = new int[] {minPos.getZ() + powZ, maxPos.getZ() - powZ};
 			}
 			else {

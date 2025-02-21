@@ -31,17 +31,12 @@ public class ElectrolyzerLogic extends MachineLogic {
 	protected ElectrolyzerElectrolyteRecipeHandler electrolyteRecipeHandler = null;
 	public double electrolyteEfficiency = 0D;
 	
-	protected double prevSpeedMultiplier = 0D;
-	
 	public ElectrolyzerLogic(Machine machine) {
 		super(machine);
 	}
 	
 	public ElectrolyzerLogic(MachineLogic oldLogic) {
 		super(oldLogic);
-		if (oldLogic instanceof ElectrolyzerLogic oldElectrolyzerLogic) {
-			prevSpeedMultiplier = oldElectrolyzerLogic.prevSpeedMultiplier;
-		}
 	}
 	
 	@Override

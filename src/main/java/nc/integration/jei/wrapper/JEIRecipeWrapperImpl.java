@@ -386,7 +386,7 @@ public class JEIRecipeWrapperImpl {
 		
 		@Override
 		protected int getProgressArrowTime() {
-			return (int) getBaseProcessTime();
+			return NCMath.toInt(getBaseProcessTime());
 		}
 		
 		protected double getBaseProcessTime() {
@@ -500,7 +500,7 @@ public class JEIRecipeWrapperImpl {
 		
 		@Override
 		protected int getProgressArrowTime() {
-			return (int) (getBaseProcessTime() / 4D);
+			return NCMath.toInt(getBaseProcessTime() / 4D);
 		}
 		
 		protected double getBaseProcessTime() {
@@ -562,7 +562,7 @@ public class JEIRecipeWrapperImpl {
 		
 		@Override
 		protected int getProgressArrowTime() {
-			return (int) (getBaseProcessTime() / 4D);
+			return NCMath.toInt(getBaseProcessTime() / 4D);
 		}
 		
 		protected double getBaseProcessTime() {
@@ -1165,7 +1165,7 @@ public class JEIRecipeWrapperImpl {
 			if (recipe == null) {
 				return 16000;
 			}
-			return (int) recipe.getHeatExchangerProcessTime();
+			return NCMath.toInt(recipe.getHeatExchangerProcessTime());
 		}
 		
 		@Override

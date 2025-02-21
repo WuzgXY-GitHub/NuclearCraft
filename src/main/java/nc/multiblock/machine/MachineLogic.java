@@ -58,12 +58,15 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 	
 	public double time, resetTime;
 	public boolean isProcessing, canProcessInputs, hasConsumed;
+	public int productionCount;
 	
 	public double baseSpeedMultiplier, basePowerMultiplier;
 	
 	public RecipeInfo<BasicRecipe> recipeInfo = null;
 	
 	public RecipeUnitInfo recipeUnitInfo = RecipeUnitInfo.DEFAULT;
+	
+	protected double prevSpeedMultiplier = 0D;
 	
 	public MachineLogic(Machine machine) {
 		super(machine);
@@ -109,6 +112,7 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 			}
 			canProcessInputs = oldLogic.canProcessInputs;
 			hasConsumed = oldLogic.hasConsumed;
+			productionCount = oldLogic.productionCount;
 			
 			baseSpeedMultiplier = oldLogic.baseSpeedMultiplier;
 			basePowerMultiplier = oldLogic.basePowerMultiplier;
@@ -116,6 +120,8 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 			recipeInfo = oldLogic.recipeInfo;
 			
 			recipeUnitInfo = oldLogic.recipeUnitInfo;
+			
+			prevSpeedMultiplier = oldLogic.prevSpeedMultiplier;
 		}
 		else {
 			constructorInit();
@@ -406,7 +412,17 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 	
 	protected boolean setRecipeStats() {
 		setRecipeStats(recipeInfo == null ? null : recipeInfo.recipe);
-		recipeUnitInfo = recipeInfo == null ? RecipeUnitInfo.DEFAULT : recipeInfo.getRecipeUnitInfo();
+		if (recipeInfo == null) {
+			if (productionCount > 0) {
+				recipeUnitInfo = recipeUnitInfo.withRateMultiplier(recipeUnitInfo.rateMultiplier * productionCount / (1D + productionCount));
+			}
+			else {
+				recipeUnitInfo = RecipeUnitInfo.DEFAULT;
+			}
+		}
+		else {
+			recipeUnitInfo = recipeInfo.getRecipeUnitInfo(1D);
+		}
 		return recipeInfo != null;
 	}
 	
@@ -553,9 +569,11 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 		while (time >= baseProcessTime) {
 			finishProcess();
 		}
+		productionCount = 0;
 	}
 	
 	protected void finishProcess() {
+		++productionCount;
 		double oldProcessTime = baseProcessTime;
 		produceProducts();
 		refreshRecipe();
@@ -860,6 +878,7 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 		logicTag.setBoolean("isProcessing", isProcessing);
 		logicTag.setBoolean("canProcessInputs", canProcessInputs);
 		logicTag.setBoolean("hasConsumed", hasConsumed);
+		logicTag.setInteger("productionCount", productionCount);
 		
 		logicTag.setDouble("baseSpeedMultiplier", baseSpeedMultiplier);
 		logicTag.setDouble("basePowerMultiplier", basePowerMultiplier);
@@ -882,6 +901,7 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 		isProcessing = logicTag.getBoolean("isProcessing");
 		canProcessInputs = logicTag.getBoolean("canProcessInputs");
 		hasConsumed = logicTag.getBoolean("hasConsumed");
+		productionCount = logicTag.getInteger("productionCount");
 		
 		baseSpeedMultiplier = logicTag.getDouble("baseSpeedMultiplier");
 		basePowerMultiplier = logicTag.getDouble("basePowerMultiplier");
