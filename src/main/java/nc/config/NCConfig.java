@@ -116,7 +116,6 @@ public class NCConfig {
 	public static String[] machine_cathode_efficiency;
 	public static String[] machine_anode_efficiency;
 	public static double machine_electrolyzer_sound_volume;
-	public static double machine_electrolyzer_particles;
 	
 	public static int machine_distiller_time;
 	public static int machine_distiller_power;
@@ -562,7 +561,6 @@ public class NCConfig {
 		machine_cathode_efficiency = sync(CATEGORY_MACHINE, "machine_cathode_efficiency", new String[] {"Iron@0.6", "Nickel@0.7", "Molybdenum@0.8", "Cobalt@0.9", "Platinum@1.0", "Palladium@1.0"}, LIST);
 		machine_anode_efficiency = sync(CATEGORY_MACHINE, "machine_anode_efficiency", new String[] {"CopperOxide@0.6", "TinOxide@0.6", "NickelOxide@0.7", "CobaltOxide@0.8", "RutheniumOxide@0.9", "IridiumOxide@1.0"}, LIST);
 		machine_electrolyzer_sound_volume = sync(CATEGORY_MACHINE, "machine_electrolyzer_sound_volume", 1D, 0D, 15D);
-		machine_electrolyzer_particles = sync(CATEGORY_MACHINE, "machine_electrolyzer_particles", 0.025D, 0D, 1D);
 		
 		machine_distiller_time = sync(CATEGORY_MACHINE, "machine_distiller_time", 3200, 1, 128000);
 		machine_distiller_power = sync(CATEGORY_MACHINE, "machine_distiller_power", 40, 1, 128000);

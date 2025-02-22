@@ -35,7 +35,7 @@ public class JEIRecipeWrapperImpl {
 		}
 	}
 	
-	public static class JEIBasicUpgradableProcessorRecipeWrapper<TILE extends TileEntity & IUpgradableBasicProcessor<TILE, PACKET>, PACKET extends ProcessorUpdatePacket, WRAPPER extends JEIBasicUpgradableProcessorRecipeWrapper<TILE, PACKET, WRAPPER>> extends JEIProcessorRecipeWrapper<TILE, PACKET, ProcessorContainerInfoImpl.BasicUpgradableProcessorContainerInfo<TILE, PACKET>, WRAPPER> {
+	public static class JEIBasicUpgradableProcessorRecipeWrapper<TILE extends TileEntity & IBasicUpgradableProcessor<TILE, PACKET>, PACKET extends ProcessorUpdatePacket, WRAPPER extends JEIBasicUpgradableProcessorRecipeWrapper<TILE, PACKET, WRAPPER>> extends JEIProcessorRecipeWrapper<TILE, PACKET, ProcessorContainerInfoImpl.BasicUpgradableProcessorContainerInfo<TILE, PACKET>, WRAPPER> {
 		
 		public JEIBasicUpgradableProcessorRecipeWrapper(String name, IGuiHelper guiHelper, BasicRecipe recipe) {
 			super(name, guiHelper, recipe);

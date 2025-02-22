@@ -1,3 +1,7 @@
+v2o.8.6
+
+* Fixed Turbine crash on servers
+
 v2o.8.5
 
 + Added Distiller and Infiltrator sound effects

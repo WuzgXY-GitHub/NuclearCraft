@@ -13,18 +13,16 @@ import nc.tile.machine.*;
 import nc.tile.multiblock.TilePartAbstract.SyncReason;
 import nc.util.*;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing.Axis;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.*;
 
 import javax.annotation.Nullable;
 import java.util.*;
-import java.util.function.*;
+import java.util.function.Consumer;
 
-import static nc.config.NCConfig.*;
+import static nc.config.NCConfig.machine_electrolyzer_sound_volume;
 
 public class ElectrolyzerLogic extends MachineLogic {
 	
@@ -401,7 +399,7 @@ public class ElectrolyzerLogic extends MachineLogic {
 	
 	@SideOnly(Side.CLIENT)
 	protected void updateParticles() {
-		if (isProcessing && multiblock.isAssembled() && !Minecraft.getMinecraft().isGamePaused()) {
+		/*if (isProcessing && multiblock.isAssembled() && !Minecraft.getMinecraft().isGamePaused()) {
 			int minY = multiblock.getMinY(), interiorY = multiblock.getInteriorLengthY();
 			for (TileElectrolyzerCathodeTerminal cathode : getParts(TileElectrolyzerCathodeTerminal.class)) {
 				BlockPos pos = cathode.getPos();
@@ -415,12 +413,12 @@ public class ElectrolyzerLogic extends MachineLogic {
 					spawnElectrodeParticles(pos.up(), interiorY);
 				}
 			}
-		}
+		}*/
 	}
 	
 	@SideOnly(Side.CLIENT)
 	protected void spawnElectrodeParticles(BlockPos pos, int height) {
-		double centerX = pos.getX() + 0.5D, minCenterY = pos.getY() + 0.5D, centerZ = pos.getZ() + 0.5D;
+		/*double centerX = pos.getX() + 0.5D, minCenterY = pos.getY() + 0.5D, centerZ = pos.getZ() + 0.5D;
 		for (int i = 0; i < height; ++i) {
 			if (rand.nextDouble() < machine_electrolyzer_particles) {
 				double x = centerX + (rand.nextBoolean() ? 1D : -1D) * (0.5D + 0.125 * rand.nextDouble());
@@ -428,7 +426,7 @@ public class ElectrolyzerLogic extends MachineLogic {
 				double z = centerZ + (rand.nextBoolean() ? 1D : -1D) * (0.5D + 0.125 * rand.nextDouble());
 				getWorld().spawnParticle(EnumParticleTypes.WATER_BUBBLE, false, x, y, z, 0D, 0D, 0D);
 			}
-		}
+		}*/
 	}
 	
 	// NBT

@@ -414,7 +414,7 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 		setRecipeStats(recipeInfo == null ? null : recipeInfo.recipe);
 		if (recipeInfo == null) {
 			if (productionCount > 0) {
-				recipeUnitInfo = recipeUnitInfo.withRateMultiplier(recipeUnitInfo.rateMultiplier * productionCount / (1D + productionCount));
+				recipeUnitInfo = recipeUnitInfo.withRateMultiplier(recipeUnitInfo.rateMultiplier / (1D + 1D / productionCount));
 			}
 			else {
 				recipeUnitInfo = RecipeUnitInfo.DEFAULT;

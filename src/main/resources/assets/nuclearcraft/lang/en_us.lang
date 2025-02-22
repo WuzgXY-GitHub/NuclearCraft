@@ -2706,8 +2706,6 @@ gui.nc.config.machine_anode_efficiency=Anode Efficiency Multipliers
 gui.nc.config.machine_anode_efficiency.comment=List of anode materials and their efficiencies. Format: 'materialSuffix@efficiency'.
 gui.nc.config.machine_electrolyzer_sound_volume=Electrolyzer Sound Volume
 gui.nc.config.machine_electrolyzer_sound_volume.comment=Modifier for the volume of electrolyzer sound effects.
-gui.nc.config.machine_electrolyzer_particles=Electrolyzer Particle Rate
-gui.nc.config.machine_electrolyzer_particles.comment=Multiplier for the rate of bubble particles spawned in the electrolyzer.
 
 gui.nc.config.machine_distiller_time=Distiller Process Time
 gui.nc.config.machine_distiller_time.comment=Base ticks per distiller process.

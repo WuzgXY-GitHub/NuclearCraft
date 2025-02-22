@@ -67,7 +67,7 @@ public class Turbine extends CuboidalMultiblock<Turbine, ITurbinePart> implement
 	public final DoubleList expansionLevels = new DoubleArrayList(), rawBladeEfficiencies = new DoubleArrayList();
 	
 	@SideOnly(Side.CLIENT)
-	public final Object2ObjectMap<BlockPos, ISound> soundMap = new Object2ObjectOpenHashMap<>();
+	protected Object2ObjectMap<BlockPos, ISound> soundMap;
 	public boolean refreshSounds = true;
 	
 	public String particleEffect = "cloud";
@@ -316,6 +316,10 @@ public class Turbine extends CuboidalMultiblock<Turbine, ITurbinePart> implement
 	
 	@Override
 	protected void updateClient() {
+		if (soundMap == null) {
+			soundMap = new Object2ObjectOpenHashMap<>();
+		}
+		
 		logic.onUpdateClient();
 	}
 	
