@@ -2,10 +2,11 @@ package nc.multiblock.machine;
 
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.ints.IntList;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import it.unimi.dsi.fastutil.objects.*;
 import nc.ModCheck;
 import nc.capability.radiation.source.*;
 import nc.config.NCConfig;
+import nc.handler.SoundHandler;
 import nc.multiblock.*;
 import nc.network.multiblock.*;
 import nc.recipe.*;
@@ -19,11 +20,13 @@ import nc.tile.inventory.ITileInventory;
 import nc.tile.machine.*;
 import nc.tile.multiblock.TilePartAbstract.SyncReason;
 import nc.util.*;
+import net.minecraft.client.audio.ISound;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.*;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.relauncher.*;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.*;
@@ -860,6 +863,19 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic, IMachin
 	
 	@Override
 	public void onUpdateClient() {}
+	
+	protected Object2ObjectMap<BlockPos, ISound> getSoundMap() {
+		if (multiblock.soundMap == null) {
+			multiblock.soundMap = new Object2ObjectOpenHashMap<>();
+		}
+		return multiblock.soundMap;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	protected void clearSounds() {
+		getSoundMap().forEach((k, v) -> SoundHandler.stopBlockSound(k));
+		getSoundMap().clear();
+	}
 	
 	// NBT
 	

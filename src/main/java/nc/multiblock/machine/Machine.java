@@ -164,10 +164,6 @@ public class Machine extends CuboidalMultiblock<Machine, IMachinePart> implement
 	
 	@Override
 	protected void updateClient() {
-		if (soundMap == null) {
-			soundMap = new Object2ObjectOpenHashMap<>();
-		}
-		
 		logic.onUpdateClient();
 	}
 	

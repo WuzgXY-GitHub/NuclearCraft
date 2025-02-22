@@ -177,7 +177,7 @@ public class InfiltratorLogic extends MachineLogic {
 		if (isProcessing && multiblock.isAssembled()) {
 			double speedMultiplier = getSpeedMultiplier();
 			double ratio = (NCMath.EPSILON + Math.abs(speedMultiplier)) / (NCMath.EPSILON + Math.abs(prevSpeedMultiplier));
-			multiblock.refreshSounds |= ratio < 0.8D || ratio > 1.25D || multiblock.soundMap.isEmpty();
+			multiblock.refreshSounds |= ratio < 0.8D || ratio > 1.25D || getSoundMap().isEmpty();
 			
 			if (!multiblock.refreshSounds) {
 				return;
@@ -191,7 +191,7 @@ public class InfiltratorLogic extends MachineLogic {
 			}
 			
 			float volume = (float) (machine_infiltrator_sound_volume * Math.log1p(Math.cbrt(speedMultiplier)) / 128D);
-			Consumer<BlockPos> addSound = x -> multiblock.soundMap.put(x, SoundHandler.startBlockSound(NCSounds.infiltrator_run, x, volume, 1F));
+			Consumer<BlockPos> addSound = x -> getSoundMap().put(x, SoundHandler.startBlockSound(NCSounds.infiltrator_run, x, volume, 1F));
 			
 			for (int i = 0; i < 8; ++i) {
 				addSound.accept(multiblock.getExtremeInteriorCoord(NCMath.getBit(i, 0) == 1, NCMath.getBit(i, 1) == 1, NCMath.getBit(i, 2) == 1));
@@ -203,12 +203,6 @@ public class InfiltratorLogic extends MachineLogic {
 			multiblock.refreshSounds = true;
 			clearSounds();
 		}
-	}
-	
-	@SideOnly(Side.CLIENT)
-	protected void clearSounds() {
-		multiblock.soundMap.forEach((k, v) -> SoundHandler.stopBlockSound(k));
-		multiblock.soundMap.clear();
 	}
 	
 	// NBT

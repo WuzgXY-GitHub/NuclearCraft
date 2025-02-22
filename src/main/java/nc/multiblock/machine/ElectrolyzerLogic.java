@@ -357,7 +357,7 @@ public class ElectrolyzerLogic extends MachineLogic {
 		if (isProcessing && multiblock.isAssembled()) {
 			double speedMultiplier = getSpeedMultiplier();
 			double ratio = (NCMath.EPSILON + Math.abs(speedMultiplier)) / (NCMath.EPSILON + Math.abs(prevSpeedMultiplier));
-			multiblock.refreshSounds |= ratio < 0.8D || ratio > 1.25D || multiblock.soundMap.isEmpty();
+			multiblock.refreshSounds |= ratio < 0.8D || ratio > 1.25D || getSoundMap().isEmpty();
 			
 			if (!multiblock.refreshSounds) {
 				return;
@@ -374,7 +374,7 @@ public class ElectrolyzerLogic extends MachineLogic {
 			}
 			
 			float volume = (float) (machine_electrolyzer_sound_volume * Math.log1p(Math.sqrt(speedMultiplier) / (4D * Math.sqrt(1D + multiblock.getInteriorLengthY()) * electrodeCount * electrodeCount)));
-			Consumer<BlockPos> addSound = x -> multiblock.soundMap.put(x, SoundHandler.startBlockSound(NCSounds.electrolyzer_run, x, volume, 1F));
+			Consumer<BlockPos> addSound = x -> getSoundMap().put(x, SoundHandler.startBlockSound(NCSounds.electrolyzer_run, x, volume, 1F));
 			
 			for (long posLong : cathodeMap.keySet()) {
 				addSound.accept(BlockPos.fromLong(posLong));
@@ -389,12 +389,6 @@ public class ElectrolyzerLogic extends MachineLogic {
 			multiblock.refreshSounds = true;
 			clearSounds();
 		}
-	}
-	
-	@SideOnly(Side.CLIENT)
-	protected void clearSounds() {
-		multiblock.soundMap.forEach((k, v) -> SoundHandler.stopBlockSound(k));
-		multiblock.soundMap.clear();
 	}
 	
 	@SideOnly(Side.CLIENT)

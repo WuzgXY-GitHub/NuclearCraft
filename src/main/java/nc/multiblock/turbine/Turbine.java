@@ -316,10 +316,6 @@ public class Turbine extends CuboidalMultiblock<Turbine, ITurbinePart> implement
 	
 	@Override
 	protected void updateClient() {
-		if (soundMap == null) {
-			soundMap = new Object2ObjectOpenHashMap<>();
-		}
-		
 		logic.onUpdateClient();
 	}
 	
